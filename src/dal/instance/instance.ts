@@ -1,5 +1,6 @@
 import axios from 'axios';
 
 export const instance = axios.create({
-    baseURL: 'http://YURY:2195662Aa@10.200.115.165:4055/',
+    baseURL: 'https://YURY:2195662Aa@134.17.25.94:55052/',
+    withCredentials: true,
 });
