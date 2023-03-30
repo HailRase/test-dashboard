@@ -1,4 +1,5 @@
-const XMLParser = require('react-xml-parser');
+// @ts-ignore
+import XMLParser from "react-xml-parser";
 import React, {ChangeEvent, useState} from 'react';
 import s from './Home.module.scss'
 import {useDispatch} from "react-redux";
