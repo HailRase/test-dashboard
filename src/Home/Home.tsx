@@ -1,15 +1,16 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from './Home.module.scss'
-import {oktellAPI} from "../dal/oktell/oktell";
+import {useDispatch} from "react-redux";
+import {fetchData} from "../bll/data-reducer";
 
 const Home = () => {
 
-
+    const dispatch = useDispatch<any>()
     const [param, setParam] = useState<string>("")
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setParam(e.currentTarget.value)
     }
-    const requestHandler = () => oktellAPI.getData(param)
+    const requestHandler = () => dispatch(fetchData(param))
 
     return (
         <div className={s.homeWrapper}>
