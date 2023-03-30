@@ -3,7 +3,7 @@ import XMLParser from "react-xml-parser";
 import React, {ChangeEvent, useState} from 'react';
 import s from './Home.module.scss'
 import {useDispatch} from "react-redux";
-import {oktellAPI} from "../dal/oktell/oktell";
+import {fetchData} from "../bll/data-reducer";
 
 const Home = () => {
 
@@ -12,10 +12,8 @@ const Home = () => {
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setParam(e.currentTarget.value)
     }
-    const requestHandler = async () => {
-        const xmlData = await oktellAPI.getData(param)
-        const data = new XMLParser().parseFromString(xmlData)
-        console.log(data)
+    const requestHandler =  (param1: string) => {
+        dispatch(fetchData(param1))
     }
 
     return (
@@ -28,7 +26,7 @@ const Home = () => {
                        placeholder=''
                        required
                 />
-                <div className={s.requestButton} onClick={requestHandler}>
+                <div className={s.requestButton} onClick={() => requestHandler(param)}>
                     <span>Send</span>
                 </div>
             </div>
