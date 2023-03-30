@@ -1,5 +1,5 @@
 import {oktellAPI} from "../dal/oktell/oktell";
-//const XMLParser = require('react-xml-parser');
+const XMLParser = require('react-xml-parser');
 
 const SET_DATA = "SET_DATA";
 
@@ -23,7 +23,7 @@ export const fetchData = async (param1: string)  => {
     try {
         const xmlData = await oktellAPI.getData(param1)
        // const data = new XMLParser().parseFromString(xmlData)
-        console.log(xmlData)
+        console.log(new XMLParser().parseFromString(xmlData.data))
         //dispatch(setData(data))
 
     } catch (e: any) {
