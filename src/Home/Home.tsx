@@ -1,7 +1,8 @@
+const XMLParser = require('react-xml-parser');
 import React, {ChangeEvent, useState} from 'react';
 import s from './Home.module.scss'
 import {useDispatch} from "react-redux";
-import {fetchData} from "../bll/data-reducer";
+import {oktellAPI} from "../dal/oktell/oktell";
 
 const Home = () => {
 
@@ -10,7 +11,11 @@ const Home = () => {
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setParam(e.currentTarget.value)
     }
-    const requestHandler = () => dispatch(fetchData(param))
+    const requestHandler = async () => {
+        const xmlData = await oktellAPI.getData(param)
+        const data = new XMLParser().parseFromString(xmlData)
+        console.log(data)
+    }
 
     return (
         <div className={s.homeWrapper}>
