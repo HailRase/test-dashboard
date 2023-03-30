@@ -12,7 +12,7 @@ const Home = () => {
     const [param, setParam] = useState<string>("")
 
     useEffect(() => {
-        setDataVisible(true)
+        data && setDataVisible(true)
     }, [data])
 
 
