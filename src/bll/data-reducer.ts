@@ -1,31 +1,50 @@
 import {oktellAPI} from "../dal/oktell/oktell";
-const XMLParser = require('react-xml-parser');
+import {StoreType} from "./store";
+import {ThunkAction} from "redux-thunk";
 
 const SET_DATA = "SET_DATA";
 
-type ActionMoviesType = ReturnType<typeof setData>
+type DataThunkAction = ThunkAction<void,
+    StoreType,
+    void,
+    ActionDataType>;
 
 
-export const dataReducer = () => {
-    return {
+type ActionDataType = ReturnType<typeof setData>
 
+
+type InitialStateType = {
+    data: string
+}
+
+const initialState:InitialStateType = {
+    data: ''
+}
+
+export const dataReducer = (state:InitialStateType = initialState, action:ActionDataType ) => {
+    switch (action.type){
+        case "SET_DATA":{
+            return {
+                data: action.data
+            }
+        }
+        default: {
+            return state
+        }
     }
 }
 
-export const setData = (data: string) => {
+export const setData = (data: string)  => {
     return {
         type: SET_DATA,
         data
     } as const;
 };
 
-export const fetchData = async (param1: string)  => {
+export const fetchData =  (param1: string):DataThunkAction => async(dispatch)  => {
     try {
-        const xmlData = await oktellAPI.getData(param1)
-       // const data = new XMLParser().parseFromString(xmlData)
-        console.log(new XMLParser().parseFromString(xmlData.data))
-        //dispatch(setData(data))
-
+        const data = await oktellAPI.getData(param1)
+        dispatch(setData(data.data))
     } catch (e: any) {
     }
 }

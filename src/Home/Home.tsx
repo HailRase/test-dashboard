@@ -1,14 +1,21 @@
-// @ts-ignore
-import XMLParser from "react-xml-parser";
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './Home.module.scss'
 import {useDispatch} from "react-redux";
 import {fetchData} from "../bll/data-reducer";
+import {useAppSelector} from "../bll/store";
 
 const Home = () => {
 
     const dispatch = useDispatch<any>()
+    const data = useAppSelector<string>(state => state.data?.data)
+    const [dataVisible, setDataVisible] = useState<boolean>(false)
     const [param, setParam] = useState<string>("")
+
+    useEffect(() => {
+        setDataVisible(true)
+    }, [data])
+
+
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setParam(e.currentTarget.value)
     }
@@ -30,6 +37,10 @@ const Home = () => {
                     <span>Send</span>
                 </div>
             </div>
+            {dataVisible && <div className={s.popup}>
+                    <h2>{data}</h2>
+                <button onClick={() => setDataVisible (false)}>close</button>
+            </div>}
         </div>
     );
 };
