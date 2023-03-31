@@ -13,7 +13,7 @@ const MonitoringCc = () => {
                     <DiagramCallRating/>
                     <OperatorRating/>
                 </div>
-                <div>
+                <div className={s.histogram}>
                     <Histogram/>
                 </div>
             </div>
