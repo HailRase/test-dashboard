@@ -1,0 +1,40 @@
+.tableContainer {
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+
+  .tableHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    background-color: rgb(62, 135, 202);
+    & > div{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      height: 100%;
+      top: 50%;
+      padding: 0 5px;
+      text-align: center;
+      color: white;
+      font-size: 14px;
+    }
+  }
+  .tableContents{
+    height: 200px;
+    overflow-y: scroll;
+    .tableContent{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      min-height: 25px;
+      font-size: 12px;
+      border-bottom: 1px solid #c4c4c4;
+      border-left: 1px solid #e8e6e6;
+    }
+  }
+}

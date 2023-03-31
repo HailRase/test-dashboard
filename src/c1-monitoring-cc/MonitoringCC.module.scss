@@ -1,0 +1,30 @@
+.monitoringCCWrapper {
+  width: 100%;
+
+  .monitoringCCContainer {
+    width: 100%;
+
+    .monitoringCCHeader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 40px;
+      border-radius: 5px;
+      background-color: rgb(44, 111, 177);
+
+      & > span {
+        display: block;
+        color: white;
+        font-size: 16px;
+      }
+    }
+    .callAndOperatorRating{
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 100%;
+      margin-top: 5px;
+    }
+  }
+}
