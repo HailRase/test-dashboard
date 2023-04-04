@@ -35,6 +35,12 @@
       font-size: 12px;
       border-bottom: 1px solid #c4c4c4;
       border-left: 1px solid #e8e6e6;
+      .likeLogo * {
+        fill: #0c7a0c;
+      }
+      .dislikeLogo * {
+        fill: red;
+      }
     }
   }
 }

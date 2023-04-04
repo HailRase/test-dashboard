@@ -105,4 +105,13 @@ export const OperatorsRatingData: OperatorsRatingDataType[] = [{
         serviceLevel: "94%",
         avgServiceTime: "0:01:17",
         workload: "67%"
+    },
+    {
+        id: 12,
+        operatorName: "Хомич Анастасия Олеговна",
+        accept: 334,
+        skip: 13,
+        serviceLevel: "94%",
+        avgServiceTime: "0:01:17",
+        workload: "67%"
     }]
