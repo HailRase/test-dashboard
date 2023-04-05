@@ -1,4 +1,4 @@
-import {oktellAPI} from "../dal/oktell/oktell";
+import {oktellAPI} from "../m3-dal/oktell/oktell";
 import {StoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
 

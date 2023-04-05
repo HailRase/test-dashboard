@@ -1,0 +1,309 @@
+.callReportTableContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 88vh;
+  margin-top: 5px;
+  margin-left: 2px;
+
+
+  .callReportTableHeaderContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 1.5fr;
+    gap: 1px 1px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "date contactNumbers basicInformation time contactTD"
+    "dateItem contactNumbersItems basicInformationItems timeItems contactTDItems";
+  }
+
+  .date {
+    grid-area: date;
+    background-color: #3e87ca;
+    text-align: center;
+    padding: 15px;
+    color: white;
+  }
+
+  .contactNumbers {
+    grid-area: contactNumbers;
+    background-color: #3e87ca;
+    text-align: center;
+    padding: 15px;
+    color: white;
+  }
+
+  .basicInformation {
+    grid-area: basicInformation;
+    background-color: #3e87ca;
+    text-align: center;
+    padding: 15px;
+    color: white;
+  }
+
+  .time {
+    grid-area: time;
+    background-color: #3e87ca;
+    text-align: center;
+    padding: 15px;
+    color: white;
+  }
+
+  .contactTD {
+    grid-area: contactTD;
+    background-color: #3e87ca;
+    text-align: center;
+    padding: 15px;
+    color: white;
+  }
+
+  .dateItem {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0 1px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "start end";
+    grid-area: dateItem;
+  }
+
+  .start {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: start;
+    background-color: #3e87ca;
+    text-align: center;
+    padding: 15px;
+    color: white;
+  }
+
+  .end {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: end;
+    background-color: #3e87ca;
+    text-align: center;
+    padding: 15px;
+    color: white;
+  }
+
+  .contactNumbersItems {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0 1px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "iniciator resipient";
+    grid-area: contactNumbersItems;
+  }
+
+  .iniciator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: iniciator;
+    background-color: #3e87ca;
+    text-align: center;
+    padding: 15px;
+    color: white;
+  }
+
+  .resipient {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: resipient;
+    background-color: #3e87ca;
+    text-align: center;
+    padding: 15px;
+    color: white;
+  }
+
+  .basicInformationItems {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0 1px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "direction status type queue";
+    grid-area: basicInformationItems;
+  }
+
+  .direction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: direction;
+    background-color: #3e87ca;
+    text-align: center;
+    padding: 15px;
+    color: white;
+  }
+
+  .status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: status;
+    background-color: #3e87ca;
+    text-align: center;
+    padding: 15px;
+    color: white;
+  }
+
+  .type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: type;
+    background-color: #3e87ca;
+    text-align: center;
+    padding: 15px;
+    color: white;
+  }
+
+  .queue {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: queue;
+    background-color: #3e87ca;
+    text-align: center;
+    padding: 15px;
+    color: white;
+  }
+
+  .timeItems {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0 1px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "totalTime tolkTime timeConnection holdTime queueTime";
+    grid-area: timeItems;
+  }
+
+  .totalTime {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: totalTime;
+    background-color: #3e87ca;
+    padding: 15px;
+    color: white;
+    text-align: center;
+  }
+
+  .talkTime {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: tolkTime;
+    background-color: #3e87ca;
+    padding: 15px;
+    color: white;
+    text-align: center;
+  }
+
+  .timeConnection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: timeConnection;
+    background-color: #3e87ca;
+    padding: 15px;
+    color: white;
+    text-align: center;
+  }
+
+  .holdTime {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: holdTime;
+    background-color: #3e87ca;
+    padding: 15px;
+    color: white;
+    text-align: center;
+  }
+
+  .queueTime {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: queueTime;
+    background-color: #3e87ca;
+    padding: 15px;
+    color: white;
+    text-align: center;
+  }
+
+  .contactTDItems {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0 1px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "initiatorContact recipientContact operator";
+    grid-area: contactTDItems;
+  }
+
+  .initiatorContact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: initiatorContact;
+    background-color: #3e87ca;
+    padding: 15px;
+    color: white;
+    text-align: center;
+  }
+
+  .recipientContact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: recipientContact;
+    background-color: #3e87ca;
+    padding: 15px;
+    color: white;
+    text-align: center;
+  }
+
+  .operator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: operator;
+    background-color: #3e87ca;
+    padding: 15px;
+    color: white;
+  }
+
+  .callReportTableContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: scroll;
+
+    .callReportItem {
+      display: flex;
+      border-bottom: 1px solid #9b9999;
+      padding: 2px;
+      & > div {
+        margin-right: 10px;
+      }
+    }
+  }
+
+}

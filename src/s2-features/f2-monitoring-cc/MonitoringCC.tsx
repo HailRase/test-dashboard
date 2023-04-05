@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './MonitoringCC.module.scss'
-import DiagramCallRating from "../common/diagram-call-rating/DiagramCallRating";
-import OperatorRating from "../common/operator-raiting/OperatorRating";
-import Histogram from "../common/histogram/Histogram";
+import DiagramCallRating from "../f2-monitoring-cc/diagram-call-rating/DiagramCallRating";
+import OperatorRating from "../f2-monitoring-cc/operator-raiting/OperatorRating";
+import Histogram from "../f2-monitoring-cc/histogram/Histogram";
 
 const MonitoringCc = () => {
     return (

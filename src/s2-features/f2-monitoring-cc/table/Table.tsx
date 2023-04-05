@@ -1,8 +1,8 @@
 import React from 'react';
 import s from "./Table.module.scss"
-import {OperatorsRatingData} from "../../data/data";
-import {ReactComponent as Dislike } from '../../assets/dislike.svg';
-import {ReactComponent as Like} from '../../assets/like.svg';
+import {OperatorsRatingData} from "../../../data/data";
+import {ReactComponent as Dislike } from '../../../assets/dislike.svg';
+import {ReactComponent as Like} from '../../../assets/like.svg';
 
 export const Table = () => {
 
