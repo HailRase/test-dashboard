@@ -1,46 +1,30 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React from 'react';
 import s from './Home.module.scss'
-import {useDispatch} from "react-redux";
-import {fetchData} from "../bll/data-reducer";
-import {useAppSelector} from "../bll/store";
+import {ReactComponent as Logo} from '../assets/Logo.svg'
+import {ReactComponent as Monitoring} from '../assets/monitoring-icon.svg'
+import {PATH} from "../s1-main/m2-routes/routes";
+import {Navigate, useNavigate} from 'react-router-dom';
+
+
 
 const Home = () => {
-
-    const dispatch = useDispatch<any>()
-    const data = useAppSelector<string>(state => state.data?.data)
-    const [dataVisible, setDataVisible] = useState<boolean>(false)
-    const [param, setParam] = useState<string>("")
-
-    useEffect(() => {
-        data && setDataVisible(true)
-    }, [data])
-
-
-    const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setParam(e.currentTarget.value)
-    }
-    const requestHandler =  (param1: string) => {
-        dispatch(fetchData(param1))
+    const navigate = useNavigate()
+   const toMonitoringHandler = () => {
+        navigate(PATH.MONITORING)
     }
 
     return (
         <div className={s.homeWrapper}>
             <div className={s.homeContainer}>
-                <h3 style={{color: "white"}}>Введите текст:</h3>
-                <input type="text"
-                       className={s.emailInput}
-                       onChange={onChangeEmailHandler}
-                       placeholder=''
-                       required
-                />
-                <div className={s.requestButton} onClick={() => requestHandler(param)}>
-                    <span>Send</span>
+                <div className={s.homeHeader}>
+                    <Logo className={s.logo} height={60} width={110}/>
+                </div>
+                <div className={s.homeContent}>
+                    <div className={s.monitoringContainer} onClick={toMonitoringHandler}>
+                        <Monitoring className={s.monitoring} width={60} height={60}/>
+                    </div>
                 </div>
             </div>
-            {dataVisible && <div className={s.popup}>
-                    <h2>{data}</h2>
-                <button onClick={() => setDataVisible (false)}>close</button>
-            </div>}
         </div>
     );
 };

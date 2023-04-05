@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react';
-import {PieChart, Pie, Sector, Cell, ResponsiveContainer, LabelList, Tooltip, Legend} from 'recharts';
-import {getPercentValue} from "recharts/types/util/DataUtils";
+import {Pie, PieChart, Sector} from 'recharts';
 
 const data01 = [
     {name: 'Пропущено', value: 11, fill: '#e70707'},
@@ -65,6 +64,17 @@ const renderActiveShape = (props: any) => {
 
 
 export default class PieDoughnut extends PureComponent {
+    static demoUrl = 'https://codesandbox.io/s/pie-chart-of-two-levels-gor24';
+
+    state = {
+        activeIndex: 0,
+    };
+
+    onPieEnter = (_: any, index: any) => {
+        this.setState({
+            activeIndex: index,
+        });
+    };
 
     render() {
         return (
@@ -77,8 +87,10 @@ export default class PieDoughnut extends PureComponent {
                           bottom: 0,
                           right: 0
                       }}>
-                <Tooltip active/>
                 <Pie data={data01}
+                     /*activeShape={renderActiveShape}
+                     activeIndex={this.state.activeIndex}
+                     onMouseEnter={this.onPieEnter}*/
                      dataKey="value"
                      cx="50%"
                      cy="50%"
@@ -87,6 +99,9 @@ export default class PieDoughnut extends PureComponent {
                      label={renderActiveShape}
                 />
                 <Pie data={data02}
+                     /*activeShape={renderActiveShape}
+                     activeIndex={this.state.activeIndex}
+                     onMouseEnter={this.onPieEnter}*/
                      dataKey={"value"}
                      cx="50%"
                      cy="50%"

@@ -1,7 +1,7 @@
 {
   "name": "greeting",
   "version": "0.1.0",
-  "homepage": "https://hailrase.github.io/greeting-oktell",
+  "homepage": "https://hailrase.github.io/",
   "private": true,
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
@@ -23,6 +23,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
+    "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "react-xml-parser": "^1.1.8",
     "recharts": "^2.5.0",
