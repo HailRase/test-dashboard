@@ -1,8 +1,10 @@
 .monitoringCCWrapper {
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
 
   .monitoringCCContainer {
     width: 100%;
+    height: 100%;
 
     .monitoringCCHeader {
       display: flex;
@@ -23,6 +25,7 @@
       display: flex;
       justify-content: flex-start;
       align-items: flex-start;
+      height: 44vh;
       width: 100%;
       margin-top: 5px;
     }
