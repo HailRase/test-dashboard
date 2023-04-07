@@ -5,6 +5,7 @@ import {Route, Routes} from 'react-router-dom';
 import {PATH} from "../../common/routes/routes";
 import Home from "../../s2-features/f1-home/Home";
 import CallReport from "../../s2-features/f3-call-report/CallReport";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
