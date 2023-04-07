@@ -1,13 +1,39 @@
 import React, {useEffect} from 'react'
-import {TableInstance, usePagination, UsePaginationInstanceProps, useTable} from "react-table";
+import {
+    TableInstance,
+    useBlockLayout,
+    usePagination,
+    UsePaginationInstanceProps,
+    useResizeColumns,
+    UseResizeColumnsColumnOptions,
+    UseResizeColumnsColumnProps,
+    UseResizeColumnsOptions,
+    UseResizeColumnsState,
+    useTable,
+    UseTableHeaderGroupProps
+} from "react-table";
 import {callReportData, CallReportDataType} from "../../../data/callReportData";
 import s from './CallReportTable.module.scss'
-import {textCuter} from "../../../common/utils/textCuter";
 
-type TableProps = TableInstance<CallReportDataType> & UsePaginationInstanceProps<{}>
+type TableProps = TableInstance<CallReportDataType>
+    & UsePaginationInstanceProps<{}>
+    & UseResizeColumnsColumnProps<{}>
+    & UseResizeColumnsColumnOptions<{}>
+    & UseResizeColumnsOptions<{}>
+    & UseResizeColumnsState<{}>
+& UseTableHeaderGroupProps<{}>
 
 
 const CallReportTable = () => {
+
+    const defaultColumn = React.useMemo(
+        () => ({
+            minWidth: 20,
+            width: 120,
+            maxWidth: 300,
+        }),
+        []
+    )
 
     const data: CallReportDataType[] = React.useMemo(
         () => callReportData,
@@ -21,8 +47,6 @@ const CallReportTable = () => {
                 columns: [
                     {
                         Header: 'Начало',
-                        maxWidth: 50,
-                        width: 50,
                         accessor: 'dateStart'
                     },
                     {
@@ -130,67 +154,51 @@ const CallReportTable = () => {
         {
             columns,
             data,
+            defaultColumn,
             initialState: {pageIndex: 0, pageSize: 20} as any,
-        }, usePagination) as TableProps
+        }, usePagination, useBlockLayout, useResizeColumns) as TableProps
 
     useEffect(() => {
         setPageSize(30)
     }, [])
-    console.log(textCuter("kajsdhfkjahsdfkjhasdf asdf kasdhf khsadfh kasdhfkjhaskdjhf"))
     const fillCell = (value: string) => {
         switch (value) {
             case 'Отвечен':
-                return {
-                    color: "#12d912",
-                    textAlign: "center",
-                }
+                return s.green
             case 'Не отвечен':
-                return {
-                    color: "red",
-                    textAlign: "center",
-                }
+                return s.red
             case 'Входящий':
-                return {
-                    color: "#12d912",
-                    textAlign: "center",
-                }
+                return s.green
             case 'Исходящий':
-                return {
-                    color: "red",
-                    textAlign: "center",
-                }
+                return s.red
             default:
-                return {
-                    color: "black",
-                    textAlign: "center",
-                }
+                return s.black
         }
 
     }
 
     const {pageIndex, pageSize = 20} = state as any
+
     return (
         <div className={s.callReportTableWrapper}>
             <div className={s.callReportTableContainer}
-                 style={{color: "#368536", maxHeight: "90vh", overflow: "scroll"}}>
+                 style={{color: "#368536", maxHeight: "90vh"}}>
                 <table {...getTableProps()} className={s.tableContainer}>
                     <thead>
                     {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
+                        <tr {...headerGroup.getHeaderGroupProps()} className={s.columnTr}>
                             {headerGroup.headers.map(column => (
-                                <th
+                                <th className={s.columnTh}
                                     {...column.getHeaderProps()}
-                                    style={{
-                                        background: '#3e87ca',
-                                        color: 'white',
-                                        padding: "5px 35px",
-                                        fontWeight: "400",
-                                        borderBottom: "1px solid white",
-                                        borderRight: "1px solid white",
-                                        minWidth: "100px"
-                                    }}
                                 >
                                     {column.render('Header')}
+                                    <div
+
+                                        {...column.getResizerProps()}
+                                        className={`${s.resizer} ${
+                                            column.isResizing ? s.isResizing : ''
+                                        }`}
+                                    />
                                 </th>
                             ))}
                         </tr>
@@ -200,14 +208,13 @@ const CallReportTable = () => {
                     {page.map((row: any) => {
                         prepareRow(row)
                         return (
-                            <tr className={s.rowContainer} {...row.getRowProps()} style={{maxHeight: "15px"}}>
+                            <tr className={s.rowContainer} {...row.getRowProps()}>
                                 {row.cells.map((cell: any) => {
                                     return (
-                                        <td className={s.cellContainer} style={fillCell(cell.value)}
+                                        <td className={`${s.cellContainer} ${fillCell(cell.value)}`}
                                             {...cell.getCellProps()}
                                         >
                                             {cell.render('Cell')}
-
                                         </td>
                                     )
                                 })}

@@ -7,9 +7,62 @@
     margin-top: 5px;
 
     .tableContainer {
-      max-height: 80vh;
+      min-height: -webkit-fill-available;
       overflow: scroll;
       border-collapse: collapse;
+      display: inline-block;
+      border-spacing: 0;
+
+
+      .columnTr, rowContainer {
+        :last-child {
+          .cellContainer{
+            border-bottom: 0;
+          }
+        }
+      }
+
+      .columnTh {
+        display: flex;
+        align-items: center;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+
+
+      .columnTr, .columnTh {
+        position: relative;
+        background: #3e87ca;
+        margin: 0;
+        font-weight: 400;
+        border-bottom: 1px solid white;
+        border-right: 1px solid white;
+        color: white;
+
+
+        :last-child {
+          border-right: 0;
+        }
+
+        .resizer {
+          display: inline-block;
+          background: white;
+          width: 1px;
+          height: 100%;
+          position: absolute;
+          right: 0;
+          top: 0;
+          transform: translateX(50%);
+          z-index: 1;
+          touch-action: none;
+
+          &.isResizing {
+            background: red;
+          }
+        }
+      }
+
 
       .rowsContainer {
         max-height: 20px;
@@ -18,12 +71,32 @@
         text-overflow: ellipsis;
 
         .rowContainer {
+
           border-bottom: 1px solid gray;
 
           .cellContainer {
-            text-align: center;
-            width: 50px;
-            min-width: 50px;
+            position: relative;
+            text-overflow: ellipsis;
+
+            /* Required for text-overflow to do anything */
+            white-space: nowrap;
+            overflow: hidden;
+
+            :last-child {
+              border-right: 0;
+            }
+            display: flex;
+            align-items: center;
+
+          }
+          .red {
+            color: crimson;
+          }
+          .green {
+            color: #0c7a0c;
+          }
+          .black {
+            color: black;
           }
         }
       }
