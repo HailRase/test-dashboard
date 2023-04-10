@@ -1,0 +1,30 @@
+.tabsContainer > .nav > .nav-tabs > .nav-item > .nav-link {
+  color: white;
+}
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background: green;
+  }
+.tab-container {
+  & > ul > li > button {
+
+  }
+}
+.sendButton{
+  right: 20px;
+  color: white;
+  width: 90%;
+  padding: 10px;
+  background: linear-gradient(0deg, rgb(39, 90, 140) 0%, rgb(43, 102, 160) 83%, rgb(44, 110, 171) 94%, rgb(40, 109, 174) 100%);
+  margin-top: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+  border: none;
+
+  &:hover {
+    opacity: .8;
+  }
+
+  &:active {
+    opacity: 1;
+  }
+}
