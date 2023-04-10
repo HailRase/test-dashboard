@@ -1,5 +1,5 @@
 type OperatorsRatingDataType = {
-    id: number
+    ratingRecordId: number
     operatorName: string
     accept: number
     skip: number
@@ -8,8 +8,8 @@ type OperatorsRatingDataType = {
     workload: string
 }
 
-export const OperatorsRatingData: OperatorsRatingDataType[] = [{
-    id: 1,
+export const operatorsRatingData: OperatorsRatingDataType[] = [{
+    ratingRecordId: 1,
     operatorName: "Кучко Татьяна Владимировна",
     accept: 132,
     skip: 20,
@@ -17,7 +17,7 @@ export const OperatorsRatingData: OperatorsRatingDataType[] = [{
     avgServiceTime: "0:01:14",
     workload: "46%"
 }, {
-    id: 2,
+    ratingRecordId: 2,
     operatorName: "Грищенко Светлана Александровна",
     accept: 350,
     skip: 45,
@@ -26,7 +26,7 @@ export const OperatorsRatingData: OperatorsRatingDataType[] = [{
     workload: "57%"
 },
     {
-        id: 3,
+        ratingRecordId: 3,
         operatorName: "Володько Инна Станиславовна",
         accept: 235,
         skip: 10,
@@ -35,7 +35,7 @@ export const OperatorsRatingData: OperatorsRatingDataType[] = [{
         workload: "60%"
     },
     {
-        id: 4,
+        ratingRecordId: 4,
         operatorName: "Антонов Андрей Николаевич",
         accept: 287,
         skip: 28,
@@ -44,7 +44,7 @@ export const OperatorsRatingData: OperatorsRatingDataType[] = [{
         workload: "49%"
     },
     {
-        id: 5,
+        ratingRecordId: 5,
         operatorName: "Сеймон Артут Артёмович",
         accept: 302,
         skip: 8,
@@ -53,7 +53,7 @@ export const OperatorsRatingData: OperatorsRatingDataType[] = [{
         workload: "72%"
     },
     {
-        id: 6,
+        ratingRecordId: 6,
         operatorName: "Марцинкевич Влададислава Аслександровна",
         accept: 401,
         skip: 11,
@@ -62,7 +62,7 @@ export const OperatorsRatingData: OperatorsRatingDataType[] = [{
         workload: "82%"
     },
     {
-        id: 7,
+        ratingRecordId: 7,
         operatorName: "Садоха Яна Олеговна",
         accept: 181,
         skip: 6,
@@ -71,7 +71,7 @@ export const OperatorsRatingData: OperatorsRatingDataType[] = [{
         workload: "70%"
     },
     {
-        id: 8,
+        ratingRecordId: 8,
         operatorName: "Казунка Татьяна Витальевна",
         accept: 231,
         skip: 51,
@@ -80,7 +80,7 @@ export const OperatorsRatingData: OperatorsRatingDataType[] = [{
         workload: "94%"
     },
     {
-        id: 9,
+        ratingRecordId: 9,
         operatorName: "Браусов Денис Игоревич",
         accept: 335,
         skip: 22,
@@ -89,7 +89,7 @@ export const OperatorsRatingData: OperatorsRatingDataType[] = [{
         workload: "84%"
     },
     {
-        id: 10,
+        ratingRecordId: 10,
         operatorName: "Головень Егор Владимирович",
         accept: 289,
         skip: 20,
@@ -98,7 +98,7 @@ export const OperatorsRatingData: OperatorsRatingDataType[] = [{
         workload: "89%"
     },
     {
-        id: 11,
+        ratingRecordId: 11,
         operatorName: "Хомич Анастасия Олеговна",
         accept: 334,
         skip: 13,
@@ -107,7 +107,7 @@ export const OperatorsRatingData: OperatorsRatingDataType[] = [{
         workload: "67%"
     },
     {
-        id: 12,
+        ratingRecordId: 12,
         operatorName: "Хомич Анастасия Олеговна",
         accept: 334,
         skip: 13,

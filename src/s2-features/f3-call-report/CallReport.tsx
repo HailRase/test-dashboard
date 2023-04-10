@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import s from './CallReport.module.scss'
-import CallReportTable from "./CallReportTable/CallReportTable";
+import Table from "../../common/Table/Table";
 import {ReactComponent as Home} from "../../assets/home-icon.svg";
 import {useNavigate} from "react-router-dom";
 import {Sidebar} from "../../common/Sidebar/Sidebar";
@@ -9,16 +9,116 @@ import {ReactComponent as ArrowLeft} from "../../assets/arrow-left.svg";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Form from 'react-bootstrap/Form';
+import {callReportData} from "../../data/callReportData";
+import {PATH} from "../../common/routes/routes";
 
+
+
+
+const columns = [
+    {
+        Header: 'Даты',
+        columns: [
+            {
+                Header: 'Начало',
+                accessor: 'dateStart'
+            },
+            {
+                Header: 'Завершение',
+                accessor: 'dateEnd',
+            },
+        ]
+    },
+    {
+        Header: 'Контактные номера',
+        columns: [
+            {
+                Header: 'Инициатор',
+                accessor: 'initiator',
+            },
+            {
+                Header: 'Получатель',
+                accessor: 'recipient',
+            },
+        ]
+    },
+    {
+        Header: 'Основная информация',
+        columns: [
+            {
+                Header: 'Направление',
+                accessor: 'direction',
+            },
+            {
+                Header: 'Статус',
+                accessor: 'status',
+            },
+            {
+                Header: 'Тип',
+                accessor: 'type',
+            },
+            {
+                Header: 'Очередь',
+                accessor: 'queue',
+            }
+        ]
+    },
+    {
+        Header: 'Время',
+        columns: [
+            {
+                Header: 'Общее время',
+                accessor: 'totalTime',
+            },
+            {
+                Header: 'Время разговора',
+                accessor: 'talkTime',
+            },
+            {
+                Header: 'Время соединения',
+                accessor: 'connectionTime',
+            },
+            {
+                Header: 'Время на удержании',
+                accessor: 'holdTime',
+            },
+            {
+                Header: 'Время в очереди',
+                accessor: 'queueTime',
+            },
+        ]
+    },
+    {
+        Header: 'Контакты в',
+        columns: [
+            {
+                Header: 'Контакт инициатора',
+                accessor: 'initiatorContact',
+            },
+            {
+                Header: 'контакт получателя',
+                accessor: 'recipientContact',
+            },
+            {
+                Header: 'Оператор',
+                accessor: 'operator',
+            }
+        ]
+    },
+]
+const defaultColumn = {
+    minWidth: 20,
+    width: 120,
+    maxWidth: 300,
+}
 
 const CallReport = () => {
 
     const [isActive, setIsActive] = useState<boolean>(false)
-
     const navigate = useNavigate()
 
     const onHomeHandler = () => {
-        navigate('/')
+        navigate(`${PATH.HOME}`)
     }
     const onOpenSidebar = () => {
         setIsActive(true)
@@ -66,7 +166,7 @@ const CallReport = () => {
                     <OptionIcon onClick={onOpenSidebar} className={s.optionIcon}/>
                     <span>Статистика по звонкам</span>
                 </div>
-                <CallReportTable/>
+                <Table data={callReportData} columns={columns} defaultColumn={defaultColumn} pagination={true}/>
             </div>
         </div>
     );

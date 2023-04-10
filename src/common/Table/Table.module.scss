@@ -8,7 +8,7 @@
 
     .tableContainer {
       min-height: -webkit-fill-available;
-      overflow: scroll;
+      overflow-y: scroll;
       border-collapse: collapse;
       display: inline-block;
       border-spacing: 0;
@@ -16,22 +16,26 @@
 
       .columnTr, .rowContainer {
         :last-child {
-          .cellContainer{
+          .cellContainer {
             border-bottom: 0;
           }
         }
       }
 
       .columnTh {
-        display: flex;
+        display: flex !important;
+        justify-content: center;
         align-items: center;
         padding-top: 5px;
         padding-bottom: 5px;
+        & > #text {
+          margin: 0;
+        }
       }
 
 
-
       .columnTr, .columnTh {
+        display: flex;
         position: relative;
         background: #3e87ca;
         margin: 0;
@@ -78,10 +82,11 @@
           .cellContainer {
             position: relative;
             text-overflow: ellipsis;
-
+            padding: 2px 5px;
             /* Required for text-overflow to do anything */
             white-space: nowrap;
             overflow: hidden;
+
             &:active {
               background-color: #c2dbf6;
             }
@@ -89,16 +94,20 @@
             :last-child {
               border-right: 0;
             }
+
             display: flex;
             align-items: center;
 
           }
+
           .red {
             color: crimson;
           }
+
           .green {
-            color: #0c7a0c;
+            color: #1fa41f;
           }
+
           .black {
             color: black;
           }
@@ -120,4 +129,22 @@
     }
   }
 
+  .likeIcon * {
+    fill: #0c7a0c;
+  }
+
+  .likeIcon {
+    width: 20px;
+    height: 20px;
+    margin-right: 3px;
+  }
+
+  .infoIcon * {
+    fill: #f89902;
+  }
+  .infoIcon {
+    width: 20px;
+    height: 20px;
+    margin-right: 3px;
+  }
 }

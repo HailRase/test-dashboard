@@ -6,6 +6,7 @@ import Histogram from "../f2-monitoring-cc/histogram/Histogram";
 import {ReactComponent as Home} from "../../assets/home-icon.svg";
 import {useNavigate} from "react-router-dom";
 import {Sidebar} from "../../common/Sidebar/Sidebar";
+import {PATH} from "../../common/routes/routes";
 
 
 
@@ -17,7 +18,7 @@ const MonitoringCc = () => {
     const navigate = useNavigate()
 
     const onHomeHandler = () => {
-        navigate('/')
+        navigate(`${PATH.HOME}`)
     }
 
     return (

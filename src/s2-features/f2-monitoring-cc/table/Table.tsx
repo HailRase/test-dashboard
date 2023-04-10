@@ -1,6 +1,6 @@
 import React from 'react';
 import s from "./Table.module.scss"
-import {OperatorsRatingData} from "../../../data/data";
+import {operatorsRatingData} from "../../../data/operatorsData";
 import {ReactComponent as Dislike } from '../../../assets/dislike.svg';
 import {ReactComponent as Like} from '../../../assets/like.svg';
 
@@ -18,8 +18,8 @@ export const Table = () => {
                 <div style={{width: "16.17%"}}>Загруженность</div>
             </div>
             <div className={s.tableContents}>
-                {OperatorsRatingData.sort((a, b) => b.accept - a.accept)
-                    .map((op, index) => <div key={op.id + op.accept} className={s.tableContent}>
+                {operatorsRatingData.sort((a, b) => b.accept - a.accept)
+                    .map((op, index) => <div key={op.ratingRecordId + op.accept} className={s.tableContent}>
                         <div style={{display: "flex", justifyContent: "center",alignItems: 'center',width: "7.82%", borderRight: "1px solid white"}}>
                             {index <=9
                                 ? <Like className={s.likeLogo} style={{height: "20px", marginRight: "5px"}}/>

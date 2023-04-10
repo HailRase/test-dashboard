@@ -1,137 +1,22 @@
 import React, {useEffect} from 'react'
-import {
-    TableInstance,
-    useBlockLayout,
-    usePagination,
-    UsePaginationInstanceProps,
-    useResizeColumns,
-    UseResizeColumnsColumnOptions,
-    UseResizeColumnsColumnProps,
-    UseResizeColumnsOptions,
-    UseResizeColumnsState,
-    useTable,
-    UseTableHeaderGroupProps
-} from "react-table";
-import {callReportData, CallReportDataType} from "../../../data/callReportData";
-import s from './CallReportTable.module.scss'
-
-type TableProps = TableInstance<CallReportDataType>
-    & UsePaginationInstanceProps<{}>
-    & UseResizeColumnsColumnProps<{}>
-    & UseResizeColumnsColumnOptions<{}>
-    & UseResizeColumnsOptions<{}>
-    & UseResizeColumnsState<{}>
-& UseTableHeaderGroupProps<{}>
+import {useBlockLayout, usePagination, useResizeColumns, useTable} from "react-table";
+import s from './Table.module.scss'
+import data from "bootstrap/js/src/dom/data";
+import {ReactComponent as InfoIcon} from "../../assets/info-icon.svg";
+import {ReactComponent as Like} from "../../assets/like.svg";
 
 
-const CallReportTable = () => {
-
-    const defaultColumn = React.useMemo(
-        () => ({
-            minWidth: 20,
-            width: 120,
-            maxWidth: 300,
-        }),
+const Table = ({...props}) => {
+    const defaultColumnTable = React.useMemo(
+        () => (props.defaultColumn),
         []
     )
-
-    const data: CallReportDataType[] = React.useMemo(
-        () => callReportData,
+    const tableData = React.useMemo(
+        () => props.data,
         []
     )
-
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: 'Даты',
-                columns: [
-                    {
-                        Header: 'Начало',
-                        accessor: 'dateStart'
-                    },
-                    {
-                        Header: 'Завершение',
-                        accessor: 'dateEnd',
-                    },
-                ]
-            },
-            {
-                Header: 'Контактные номера',
-                columns: [
-                    {
-                        Header: 'Инициатор',
-                        accessor: 'initiator',
-                    },
-                    {
-                        Header: 'Получатель',
-                        accessor: 'recipient',
-                    },
-                ]
-            },
-            {
-                Header: 'Основная информация',
-                columns: [
-                    {
-                        Header: 'Направление',
-                        accessor: 'direction',
-                    },
-                    {
-                        Header: 'Статус',
-                        accessor: 'status',
-                    },
-                    {
-                        Header: 'Тип',
-                        accessor: 'type',
-                    },
-                    {
-                        Header: 'Очередь',
-                        accessor: 'queue',
-                    }
-                ]
-            },
-            {
-                Header: 'Время',
-                columns: [
-                    {
-                        Header: 'Общее время',
-                        accessor: 'totalTime',
-                    },
-                    {
-                        Header: 'Время разговора',
-                        accessor: 'talkTime',
-                    },
-                    {
-                        Header: 'Время соединения',
-                        accessor: 'connectionTime',
-                    },
-                    {
-                        Header: 'Время на удержании',
-                        accessor: 'holdTime',
-                    },
-                    {
-                        Header: 'Время в очереди',
-                        accessor: 'queueTime',
-                    },
-                ]
-            },
-            {
-                Header: 'Контакты в',
-                columns: [
-                    {
-                        Header: 'Контакт инициатора',
-                        accessor: 'initiatorContact',
-                    },
-                    {
-                        Header: 'контакт получателя',
-                        accessor: 'recipientContact',
-                    },
-                    {
-                        Header: 'Оператор',
-                        accessor: 'operator',
-                    }
-                ]
-            },
-        ],
+    const tableColumns = React.useMemo(
+        () => props.columns,
         []
     )
 
@@ -152,20 +37,27 @@ const CallReportTable = () => {
         state,
     } = useTable(
         {
-            columns,
-            data,
-            defaultColumn,
-            initialState: {pageIndex: 0, pageSize: 20} as any,
-        }, usePagination, useBlockLayout, useResizeColumns) as TableProps
+            columns: tableColumns,
+            data: tableData,
+            defaultColumn: defaultColumnTable,
+            initialState: {pageIndex: 0, pageSize: 20},
+        }, usePagination, useBlockLayout, useResizeColumns)
 
     useEffect(() => {
         setPageSize(30)
     }, [])
-    const fillCell = (value: string) => {
+    const fillCellCall = (value) => {
         switch (value) {
             case 'Отвечен':
                 return s.green
+            case 'Готов':
+                return s.green
+            case 'Входящий дозвон':
+                return s.green
             case 'Не отвечен':
+            case 'Говорит':
+                return s.green
+            case 'Занят':
                 return s.red
             case 'Входящий':
                 return s.green
@@ -174,16 +66,15 @@ const CallReportTable = () => {
             default:
                 return s.black
         }
-
     }
 
-    const {pageIndex, pageSize = 20} = state as any
+    const {pageIndex, pageSize = 20} = state
 
     return (
         <div className={s.callReportTableWrapper}>
             <div className={s.callReportTableContainer}
-                 style={{color: "#368536", maxHeight: "90vh"}}>
-                <table {...getTableProps()} className={s.tableContainer}>
+                 style={{color: "#368536", height: props.height}}>
+                <table {...getTableProps()} className={s.tableContainer} style={{width: props.width}}>
                     <thead>
                     {headerGroups.map(headerGroup => (
                         <tr {...headerGroup.getHeaderGroupProps()} className={s.columnTr}>
@@ -191,9 +82,8 @@ const CallReportTable = () => {
                                 <th className={s.columnTh}
                                     {...column.getHeaderProps()}
                                 >
-                                    {column.render('Header')}
+                                 <span>{column.render('Header')}</span>
                                     <div
-
                                         {...column.getResizerProps()}
                                         className={`${s.resizer} ${
                                             column.isResizing ? s.isResizing : ''
@@ -205,15 +95,17 @@ const CallReportTable = () => {
                     ))}
                     </thead>
                     <tbody {...getTableBodyProps()} className={s.rowsContainer}>
-                    {page.map((row: any) => {
+                    {page.map(row => {
                         prepareRow(row)
                         return (
                             <tr className={s.rowContainer} {...row.getRowProps()}>
-                                {row.cells.map((cell: any) => {
+                                {row.cells.map(cell => {
                                     return (
-                                        <td className={`${s.cellContainer} ${fillCell(cell.value)}`}
-                                            {...cell.getCellProps()}
-                                        >
+                                        <td className={`${s.cellContainer} ${fillCellCall(cell.value)}`}
+                                            {...cell.getCellProps()}>
+                                            {({...cell.getCellProps()}.key).indexOf("ratingRecordId") > 0
+                                                ? cell.value <= 10 ? <Like className={s.likeIcon}/> : <InfoIcon className={s.infoIcon}/>
+                                                : ""}
                                             {cell.render('Cell')}
                                         </td>
                                     )
@@ -224,7 +116,7 @@ const CallReportTable = () => {
                     </tbody>
                 </table>
             </div>
-            <div className={s.pagination}>
+            {props.pagination && <div className={s.pagination}>
                 <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px"}}
                         onClick={() => gotoPage(0)}
                         disabled={!canPreviousPage}>
@@ -261,13 +153,13 @@ const CallReportTable = () => {
                         disabled={!canNextPage}>
                     {'>>'}
                 </button>
-            </div>
+            </div>}
         </div>
     )
 }
 
 
-export default CallReportTable;
+export default Table;
 
 
 /*<div className={s.callReportTableContainer}>

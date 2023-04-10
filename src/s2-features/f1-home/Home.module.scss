@@ -64,6 +64,17 @@
           .monitoring * {
             fill: white;
           }
+          .call * {
+            fill: white;
+          }
+          .call {
+            position: absolute;
+            margin-left: 55px;
+            margin-bottom: 55px;
+            padding: 3px;
+            background-color: #357fbe;
+            border-radius: 15px;
+          }
         }
         .itemName {
           display: block;
