@@ -1,44 +1,48 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Tab from "react-bootstrap/Tab";
-
 import Form from "react-bootstrap/Form";
 import {dateNow} from "../../data/dateNow";
 import {timeNow} from "../../data/timeNow";
 import Tabs from "react-bootstrap/Tabs";
-import './CustomTabs.scss'
+import './CustomTabs.css'
 
-const CustomTabs = () => {
+const CustomTabs = ({...props}) => {
+    const [key, setKey] = useState('period');
+    const onSelectSetKey = (key: string | null) => {
+        if (key !== null)
+        setKey(key)
+    }
     return (
-        <div className={"tab-container"}>
-        <Tabs className={"tabsContainer"} style={{paddingTop: "10px", paddingRight: "10px", paddingLeft: "10px",}}>
 
-                <Tab className={"tab"}
-                     eventKey="period"
-                     title="Период"
-                     color="#000"
-                     style={{display: "flex", flexDirection: "column", alignItems: "flex-end", color: "black"}}>
-                    <Form.Group style={{display: "flex", marginTop: "10px", marginRight: "10px", width: "250px"}}>
-                        <span style={{display: "flex", color: "white", marginRight: "10px"}}>С:</span>
-                        <div style={{width: "100%"}}>
-                            <Form.Control type="date" defaultValue={dateNow}/>
-                            <Form.Control type="time" defaultValue={"00:00"}/>
-                        </div>
-                    </Form.Group>
-                    <Form.Group style={{display: "flex", marginTop: "10px", marginRight: "10px", width: "260px"}}>
-                        <span style={{display: "flex", color: "white", marginRight: "10px"}}>По:</span>
-                        <div style={{width: "100%"}}>
-                            <Form.Control type="date" defaultValue={dateNow}/>
-                            <Form.Control type="time" defaultValue={timeNow}/>
-                        </div>
-                    </Form.Group>
-                    <button className={"sendButton"}>Обновить</button>
-                </Tab>
+        <Tabs className={"tabsContainer"}
+              activeKey={key}
+              onSelect={(k) => onSelectSetKey(k)}
+              style={{paddingTop: "10px", paddingRight: "10px", paddingLeft: "10px",}}>
 
-            <Tab eventKey="param" title="Параметры">
-
+            <Tab tabClassName={"tab"}
+                 className={"tab"}
+                 eventKey="period"
+                 title="Период"
+                 color="#000"
+                 style={{padding: "10px"}}
+                 >
+                <Form.Group style={{ padding: "5px",marginLeft: "20px"}}>
+                    <Form.Label style={{color: "white"}}>С:</Form.Label>
+                        <Form.Control type="date" defaultValue={dateNow} style={{width: "250px"}}/>
+                        <Form.Control type="time" defaultValue={"00:00"} style={{width: "250px"}}/>
+                </Form.Group>
+                <Form.Group style={{ padding: "5px",marginLeft: "20px"}}>
+                    <Form.Label style={{color: "white"}}>По:</Form.Label>
+                        <Form.Control type="date" defaultValue={dateNow} style={{width: "250px"}}/>
+                        <Form.Control  type="time" defaultValue={timeNow} style={{width: "250px"}}/>
+                </Form.Group>
+                <button className={"sendButton"}>Обновить</button>
             </Tab>
+            {props.param && <Tab eventKey="param" title="Параметры" style={{padding: "10px"}}>
+
+                {props.children}
+            </Tab>}
         </Tabs>
-        </div>
     );
 };
 

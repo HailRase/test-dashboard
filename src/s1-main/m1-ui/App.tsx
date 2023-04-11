@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import MonitoringCc from "../../s2-features/f2-monitoring-cc/MonitoringCC";
 import {Route, Routes} from 'react-router-dom';
 import {PATH} from "../../common/routes/routes";

@@ -1,0 +1,23 @@
+.optionIcon {
+  order: 2;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  align-self: center;
+  margin-left: 10px;
+  padding: 4px;
+  transition: .3s all;
+  border-radius: 15px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.09);
+  }
+
+  &:active {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+}
+
+.optionIcon * {
+  fill: white;
+}

@@ -78,6 +78,9 @@
         .rowContainer {
 
           border-bottom: 1px solid gray;
+          &:hover {
+            background-color: #d3e5f8;
+          }
 
           .cellContainer {
             position: relative;

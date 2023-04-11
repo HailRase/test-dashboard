@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import s from './CallReport.module.scss'
 import Table from "../../common/Table/Table";
-import {ReactComponent as Home} from "../../assets/home-icon.svg";
 import {useNavigate} from "react-router-dom";
 import {Sidebar} from "../../common/Sidebar/Sidebar";
-import {ReactComponent as OptionIcon} from "../../assets/option-icon.svg";
-import {ReactComponent as ArrowLeft} from "../../assets/arrow-left.svg";
 import {callReportData} from "../../data/callReportData";
 import {PATH} from "../../common/routes/routes";
 import CustomTabs from "../../common/CustomTabs/CustomTabs";
+import ArrowLeftIcon from "../../common/ArrowLeftIcon/ArrowLeftIcon";
+import OptionIcon from "../../common/OptionIcon/OptionIcon";
+import HomeIcon from "../../common/HomeIcon/HomeIcon";
+import {Form} from "react-bootstrap";
 
 
 const columns = [
@@ -128,16 +129,61 @@ const CallReport = () => {
             <Sidebar isActive={isActive}>
                 <div className={s.optionContainer}>
                     <div className={s.optionHeader}>
-                        <ArrowLeft className={s.arrowLeft} onClick={onCloseSidebar}/>
+                        <ArrowLeftIcon onClick={onCloseSidebar}/>
                         <span>Параметры отбора</span>
                     </div>
-                    <CustomTabs/>
+                    <CustomTabs param={true}>
+                        <Form.Group>
+                            <Form.Label>Номер: </Form.Label>
+                            <Form.Control type="text" placeholder="Введите номер"/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Оператор: </Form.Label>
+                            <Form.Control type="text" placeholder="Введите оператора"/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Контакт: </Form.Label>
+                            <Form.Control type="text" placeholder="Введите контакт"/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Очередь: </Form.Label>
+                            <Form.Control type="text" placeholder="Введите очередь"/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Время: </Form.Label>
+                            <Form.Control type="time" placeholder="Введите время"/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Тип: </Form.Label>
+                            <Form.Select>
+                                <option>Выберите тип</option>
+                                <option value="1">Обычный</option>
+                                <option value="2">Липкость</option>
+                            </Form.Select>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Направление: </Form.Label>
+                            <Form.Select>
+                                <option>Выберите направление</option>
+                                <option value="1">Входящий</option>
+                                <option value="2">Исходящий</option>
+                            </Form.Select>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Статус: </Form.Label>
+                            <Form.Select>
+                                <option>Выберите статус</option>
+                                <option value="1">Отвечен</option>
+                                <option value="2">Нет отвечен</option>
+                            </Form.Select>
+                        </Form.Group>
+                    </CustomTabs>
                 </div>
             </Sidebar>
             <div className={s.callReportContainer}>
                 <div className={s.callReportHeader}>
-                    <Home className={s.homeLogo} onClick={onHomeHandler}/>
-                    <OptionIcon onClick={onOpenSidebar} className={s.optionIcon}/>
+                    <HomeIcon onClick={onHomeHandler}/>
+                    <OptionIcon onClick={onOpenSidebar}/>
                     <span>Статистика по звонкам</span>
                 </div>
                 <Table data={callReportData} columns={columns} defaultColumn={defaultColumn} pagination={true}/>

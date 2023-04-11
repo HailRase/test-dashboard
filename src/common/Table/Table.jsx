@@ -55,6 +55,7 @@ const Table = ({...props}) => {
             case 'Входящий дозвон':
                 return s.green
             case 'Не отвечен':
+                return s.red
             case 'Говорит':
                 return s.green
             case 'Занят':

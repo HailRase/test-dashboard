@@ -1,16 +1,14 @@
 import React, {useState} from 'react';
 import s from "./OperatorReport.module.scss";
 import {Sidebar} from "../../common/Sidebar/Sidebar";
-import {ReactComponent as ArrowLeft} from "../../assets/arrow-left.svg";
-import Tabs from "react-bootstrap/Tabs";
-import Tab from "react-bootstrap/Tab";
-import Form from "react-bootstrap/Form";
-import {ReactComponent as Home} from "../../assets/home-icon.svg";
-import {ReactComponent as OptionIcon} from "../../assets/option-icon.svg";
 import Table from "../../common/Table/Table";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../common/routes/routes";
 import {operatorReportData} from "../../data/operatorReportData";
+import CustomTabs from "../../common/CustomTabs/CustomTabs";
+import ArrowLeftIcon from "../../common/ArrowLeftIcon/ArrowLeftIcon";
+import OptionIcon from "../../common/OptionIcon/OptionIcon";
+import HomeIcon from "../../common/HomeIcon/HomeIcon";
 
 
 const columns = [
@@ -71,43 +69,18 @@ const OperatorReport = () => {
             <Sidebar isActive={isActive}>
                 <div className={s.optionContainer}>
                     <div className={s.optionHeader}>
-                        <ArrowLeft className={s.arrowLeft} onClick={onCloseSidebar}/>
+                        <ArrowLeftIcon onClick={onCloseSidebar}/>
                         <span>Параметры отбора</span>
                     </div>
                     <div className={s.optionContent}>
-                        <Tabs>
-                            <Tab className={s.tab}
-                                 eventKey="period"
-                                 title="Период"
-                                 color="black"
-                                 style={{
-                                     display: "flex",
-                                     flexDirection: "column",
-                                     alignItems: "flex-end",
-                                     color: "black"
-                                 }}>
-                                <Form.Group style={{marginTop: "10px", marginRight: "10px", width: "70%"}}>
-                                    <Form.Label style={{color: "white"}}>С:</Form.Label>
-                                    <Form.Control type="date"/>
-                                    <Form.Control type="time"/>
-                                </Form.Group>
-                                <Form.Group style={{marginTop: "10px", marginRight: "10px", width: "70%"}}>
-                                    <Form.Label style={{color: "white"}}>По:</Form.Label>
-                                    <Form.Control type="date"/>
-                                    <Form.Control type="time"/>
-                                </Form.Group>
-                            </Tab>
-                            <Tab eventKey="param" title="Параметры">
-
-                            </Tab>
-                        </Tabs>
+                        <CustomTabs/>
                     </div>
                 </div>
             </Sidebar>
             <div className={s.operatorReportContainer}>
                 <div className={s.operatorReportHeader}>
-                    <Home className={s.homeLogo} onClick={onHomeHandler}/>
-                    <OptionIcon onClick={onOpenSidebar} className={s.optionIcon}/>
+                    <HomeIcon onClick={onHomeHandler}/>
+                    <OptionIcon onClick={onOpenSidebar}/>
                     <span>Статистика по операторам</span>
                 </div>
                 <Table data={operatorReportData} columns={columns} pagination={true} width={"100vw"}/>
