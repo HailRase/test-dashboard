@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from './CallReport.module.scss'
 import Table from "../../common/Table/Table";
 import {useNavigate} from "react-router-dom";
@@ -9,7 +9,8 @@ import CustomTabs from "../../common/CustomTabs/CustomTabs";
 import ArrowLeftIcon from "../../common/ArrowLeftIcon/ArrowLeftIcon";
 import OptionIcon from "../../common/OptionIcon/OptionIcon";
 import HomeIcon from "../../common/HomeIcon/HomeIcon";
-import {Form} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
+import TabButton from "../../common/TabButton/TabButton";
 
 
 const columns = [
@@ -86,7 +87,7 @@ const columns = [
         ]
     },
     {
-        Header: 'Контакты в',
+        Header: 'Контакты в CallWay',
         columns: [
             {
                 Header: 'Контакт инициатора',
@@ -102,6 +103,19 @@ const columns = [
             }
         ]
     },
+    {
+        Header: 'Распределение одного звонка',
+        columns: [
+            {
+                Header: 'Был на очередях',
+                accessor: 'wasOnQueue',
+            },
+            {
+                Header: 'Был на операторах',
+                accessor: 'wasOnOperators',
+            }
+        ]
+    },
 ]
 const defaultColumn = {
     minWidth: 20,
@@ -111,8 +125,34 @@ const defaultColumn = {
 
 const CallReport = () => {
 
+
+    const [state, seState] = useState(callReportData)
+    const [selectedType, setSelectedType] = useState<string>()
+    const [selectedDirection, setSelectedDirection] = useState<string>()
+    const [selectedStatus, setSelectedStatus] = useState<string>()
     const [isActive, setIsActive] = useState<boolean>(false)
     const navigate = useNavigate()
+
+
+    const onChangeSelectType = (value: ChangeEvent<HTMLSelectElement>) => {
+        if (value) {
+            setSelectedType(value.currentTarget.value)
+        }
+    }
+    const onChangeSelectDirection = (value: ChangeEvent<HTMLSelectElement>) => {
+        if (value) {
+            setSelectedDirection(value.currentTarget.value)
+        }
+    }
+    const onChangeSelectStatus = (value: ChangeEvent<HTMLSelectElement>) => {
+        if (value) {
+            setSelectedStatus(value.currentTarget.value)
+        }
+    }
+
+    const onFilteredButton = () => {
+        seState(callReportData.filter(record => record.status === selectedStatus || record.direction === selectedDirection || record.type === selectedType))
+    }
 
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)
@@ -133,51 +173,56 @@ const CallReport = () => {
                         <span>Параметры отбора</span>
                     </div>
                     <CustomTabs param={true}>
-                        <Form.Group>
-                            <Form.Label>Номер: </Form.Label>
+                        <Form.Group style={{marginBottom: "10px"}}>
                             <Form.Control type="text" placeholder="Введите номер"/>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Оператор: </Form.Label>
+                        <Form.Group style={{marginBottom: "10px"}}>
                             <Form.Control type="text" placeholder="Введите оператора"/>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Контакт: </Form.Label>
+                        <Form.Group style={{marginBottom: "10px"}}>
                             <Form.Control type="text" placeholder="Введите контакт"/>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Очередь: </Form.Label>
-                            <Form.Control type="text" placeholder="Введите очередь"/>
+                        <Form.Group style={{display:"flex", justifyContent:"space-between",marginBottom: "10px"}}>
+                            <Form.Label style={{color: "white"}} column={true}>Очередь: </Form.Label>
+                            <Form.Select style={{width:"250px"}}></Form.Select>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Время: </Form.Label>
-                            <Form.Control type="time" placeholder="Введите время"/>
+                        <Form.Group style={{display:"flex", justifyContent:"space-between"}}>
+                            <Form.Label style={{width: "20px",color: "white"}}>Время:      &gt;</Form.Label>
+                            <Form.Control style={{width:"250px", height: "40px"}} type="text" placeholder="0"/>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Тип: </Form.Label>
-                            <Form.Select>
-                                <option>Выберите тип</option>
+                        <Form.Group style={{display:"flex", justifyContent:"space-between", marginBottom: "10px"}}>
+                            <Form.Label style={{color: "white"}}>Тип: </Form.Label>
+                            <Form.Select
+                                style={{width:"250px"}}
+                                onChange={(value: ChangeEvent<HTMLSelectElement>) => onChangeSelectType(value)}>
+                                <option>&lt;Все&gt;</option>
                                 <option value="1">Обычный</option>
                                 <option value="2">Липкость</option>
                             </Form.Select>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Направление: </Form.Label>
-                            <Form.Select>
-                                <option>Выберите направление</option>
-                                <option value="1">Входящий</option>
-                                <option value="2">Исходящий</option>
+                        <Form.Group  style={{display:"flex", justifyContent:"space-between"}}>
+                            <Form.Label style={{width: "20px", color: "white"}}>Напра вление: </Form.Label>
+                            <Form.Select
+                                style={{width:"250px", height: "40px"}}
+                                onChange={(value: ChangeEvent<HTMLSelectElement>) => onChangeSelectDirection(value)}>
+                                <option>&lt;Все&gt;</option>
+                                <option value="Входящий">Входящий</option>
+                                <option value="Исходящий">Исходящий</option>
+                            </Form.Select>
+                        </Form.Group >
+                        <Form.Group style={{display:"flex", justifyContent:"space-between", marginBottom: "10px"}}>
+                            <Form.Label style={{color: "white"}}>Статус: </Form.Label>
+                            <Form.Select
+                                style={{width:"250px"}}
+                                onChange={(value: ChangeEvent<HTMLSelectElement>) => onChangeSelectStatus(value)}>
+                                <option>&lt;Все&gt;</option>
+                                <option value="Отвечен">Отвечен</option>
+                                <option value="Не отвечен">Не отвечен</option>
                             </Form.Select>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Статус: </Form.Label>
-                            <Form.Select>
-                                <option>Выберите статус</option>
-                                <option value="1">Отвечен</option>
-                                <option value="2">Нет отвечен</option>
-                            </Form.Select>
-                        </Form.Group>
+                        <TabButton name={"Обновить"}/>
                     </CustomTabs>
+
                 </div>
             </Sidebar>
             <div className={s.callReportContainer}>
@@ -186,7 +231,7 @@ const CallReport = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Статистика по звонкам</span>
                 </div>
-                <Table data={callReportData} columns={columns} defaultColumn={defaultColumn} pagination={true}/>
+                <Table data={state} columns={columns} defaultColumn={defaultColumn} pagination={true}/>
             </div>
         </div>
     );

@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import Tab from "react-bootstrap/Tab";
 import Form from "react-bootstrap/Form";
 import {dateNow} from "../../data/dateNow";
-import {timeNow} from "../../data/timeNow";
 import Tabs from "react-bootstrap/Tabs";
 import './CustomTabs.css'
+import TabButton from "../TabButton/TabButton";
 
 const CustomTabs = ({...props}) => {
     const [key, setKey] = useState('period');
@@ -12,6 +12,12 @@ const CustomTabs = ({...props}) => {
         if (key !== null)
         setKey(key)
     }
+
+
+    /*(filed: string, value:sring) => {
+
+        [].filter(el => el[filed] === value)
+    }*/
     return (
 
         <Tabs className={"tabsContainer"}
@@ -34,9 +40,9 @@ const CustomTabs = ({...props}) => {
                 <Form.Group style={{ padding: "5px",marginLeft: "20px"}}>
                     <Form.Label style={{color: "white"}}>По:</Form.Label>
                         <Form.Control type="date" defaultValue={dateNow} style={{width: "250px"}}/>
-                        <Form.Control  type="time" defaultValue={timeNow} style={{width: "250px"}}/>
+                        <Form.Control  type="time" defaultValue={"23:59"} style={{width: "250px"}}/>
                 </Form.Group>
-                <button className={"sendButton"}>Обновить</button>
+                <TabButton name={'Обновить'}/>
             </Tab>
             {props.param && <Tab eventKey="param" title="Параметры" style={{padding: "10px"}}>
 

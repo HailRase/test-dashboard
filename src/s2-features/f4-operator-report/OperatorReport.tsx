@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from "./OperatorReport.module.scss";
 import {Sidebar} from "../../common/Sidebar/Sidebar";
 import Table from "../../common/Table/Table";
@@ -9,6 +9,8 @@ import CustomTabs from "../../common/CustomTabs/CustomTabs";
 import ArrowLeftIcon from "../../common/ArrowLeftIcon/ArrowLeftIcon";
 import OptionIcon from "../../common/OptionIcon/OptionIcon";
 import HomeIcon from "../../common/HomeIcon/HomeIcon";
+import {Form} from "react-bootstrap";
+import TabButton from "../../common/TabButton/TabButton";
 
 
 const columns = [
@@ -73,7 +75,34 @@ const OperatorReport = () => {
                         <span>Параметры отбора</span>
                     </div>
                     <div className={s.optionContent}>
-                        <CustomTabs/>
+                        <CustomTabs param={true}>
+                            <Form.Group style={{display:"flex", justifyContent:"space-between", marginBottom: "10px"}}>
+                                <Form.Label style={{color: "white"}}>Статус: </Form.Label>
+                                <Form.Select
+                                    style={{width:"250px"}}>
+                                    <option>&lt;Все&gt;</option>
+                                    <option value="Готов">Готов</option>
+                                    <option value="Говорит">Говорит</option>
+                                    <option value="Входящий дозвон">Входящий дозвон</option>
+                                    <option value="Не готов">Не готов</option>
+                                    <option value="Занят">Занят</option>
+                                </Form.Select>
+                            </Form.Group>
+                            <Form.Group style={{display:"flex", justifyContent:"space-between"}}>
+                                <Form.Label style={{width: "20px",color: "white"}}>Длитель ность:      &gt;=</Form.Label>
+                                <Form.Control style={{width:"250px", height: "40px"}} type="text" placeholder="0"/>
+                            </Form.Group>
+                            <Form.Group style={{marginBottom: "10px"}}>
+                                <Form.Control type="text" placeholder="Введите оператора"/>
+                            </Form.Group>
+                            <Form.Group style={{marginBottom: "10px"}}>
+                                <Form.Control type="text" placeholder="Введите причину"/>
+                            </Form.Group>
+                            <Form.Group style={{marginBottom: "10px"}}>
+                                <Form.Control type="text" placeholder="Введите комментарий"/>
+                            </Form.Group>
+                            <TabButton name={"Обновить"}/>
+                        </CustomTabs>
                     </div>
                 </div>
             </Sidebar>

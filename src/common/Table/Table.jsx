@@ -13,7 +13,7 @@ const Table = ({...props}) => {
     )
     const tableData = React.useMemo(
         () => props.data,
-        []
+        [props.data]
     )
     const tableColumns = React.useMemo(
         () => props.columns,
