@@ -4,7 +4,6 @@ import {Pie, PieChart, Sector} from 'recharts';
 const data01 = [
     {name: 'Пропущено', value: 11, fill: '#e70707'},
     {name: 'Принято', value: 1513, fill: '#4bb253'},
-
 ];
 const data02 = [
     {name: 'A1', value: 329, fill: '#fd3101'},
@@ -64,16 +63,6 @@ const renderActiveShape = (props: any) => {
 
 export default class PieDoughnut extends PureComponent {
     static demoUrl = 'https://codesandbox.io/s/pie-chart-of-two-levels-gor24';
-
-    state = {
-        activeIndex: 0,
-    };
-
-    onPieEnter = (_: any, index: any) => {
-        this.setState({
-            activeIndex: index,
-        });
-    };
 
     render() {
         return (

@@ -101,7 +101,7 @@ const OperatorReport = () => {
                             <Form.Group style={{marginBottom: "10px"}}>
                                 <Form.Control type="text" placeholder="Введите комментарий"/>
                             </Form.Group>
-                            <TabButton name={"Обновить"}/>
+                            <TabButton name={"Обновить"} onClick={() => {}}/>
                         </CustomTabs>
                     </div>
                 </div>

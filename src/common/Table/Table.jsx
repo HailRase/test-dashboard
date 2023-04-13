@@ -4,6 +4,7 @@ import s from './Table.module.scss'
 import data from "bootstrap/js/src/dom/data";
 import {ReactComponent as InfoIcon} from "../../assets/info-icon.svg";
 import {ReactComponent as Like} from "../../assets/like.svg";
+import {truncateString} from "../utils/truncateString";
 
 
 const Table = ({...props}) => {
@@ -17,7 +18,7 @@ const Table = ({...props}) => {
     )
     const tableColumns = React.useMemo(
         () => props.columns,
-        []
+        [props.columns]
     )
 
     const {
@@ -68,95 +69,119 @@ const Table = ({...props}) => {
                 return s.black
         }
     }
+    const fillCellQueue = (objKey, value) => {
+        const newObjKey = truncateString(objKey)
+        if (value === 0) {
+            switch (newObjKey) {
+                case 'totalCall':
+                case 'totalSkipped':
+                case 'skippedLess5s':
+                case 'skippedLess20s':
+                case 'skippedLess30s':
+                case 'skippedLess1m':
+                case 'skippedLess2m':
+                case'skippedMore2m':
+                case 'totalAccept':
+                case 'acceptLess5s':
+                case 'acceptLess10s':
+                case 'skippedLess10s':
+                    return s.grayColor
+                default:
+                    return s.black
+            }
+        }
+    }
 
-    const {pageIndex, pageSize = 20} = state
 
-    return (
-        <div className={s.callReportTableWrapper}>
-            <div className={s.callReportTableContainer}
-                 style={{color: "#368536", height: props.height}}>
-                <table {...getTableProps()} className={s.tableContainer} style={{width: props.width}}>
-                    <thead>
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()} className={s.columnTr}>
-                            {headerGroup.headers.map(column => (
-                                <th className={s.columnTh}
-                                    {...column.getHeaderProps()}
-                                >
-                                 <span>{column.render('Header')}</span>
-                                    <div
-                                        {...column.getResizerProps()}
-                                        className={`${s.resizer} ${
-                                            column.isResizing ? s.isResizing : ''
-                                        }`}
-                                    />
-                                </th>
-                            ))}
+const {pageIndex, pageSize = 20} = state
+
+return (
+    <div className={s.callReportTableWrapper}>
+        <div className={s.callReportTableContainer}
+             style={{color: "#368536", height: props.height}}>
+            <table {...getTableProps()} className={s.tableContainer} style={{width: props.width}}>
+                <thead>
+                {headerGroups.map(headerGroup => (
+                    <tr {...headerGroup.getHeaderGroupProps()} className={s.columnTr}>
+                        {headerGroup.headers.map(column => (
+                            <th className={s.columnTh}
+                                {...column.getHeaderProps()}
+                            >
+                                <span>{column.render('Header')}</span>
+                                <div
+                                    {...column.getResizerProps()}
+                                    className={`${s.resizer} ${
+                                        column.isResizing ? s.isResizing : ''
+                                    }`}
+                                />
+                            </th>
+                        ))}
+                    </tr>
+                ))}
+                </thead>
+                <tbody {...getTableBodyProps()} className={s.rowsContainer}>
+                {page.map(row => {
+                    prepareRow(row)
+                    return (
+                        <tr className={s.rowContainer} {...row.getRowProps()}>
+                            {row.cells.map(cell => {
+                                return (
+                                    <td className={`${s.cellContainer} ${fillCellCall(cell.value)} ${fillCellQueue({...cell.getCellProps()}.key, cell.value)}`}
+                                        {...cell.getCellProps()}>
+                                        {({...cell.getCellProps()}.key).indexOf("ratingRecordId") > 0
+                                            ? cell.value <= 10 ? <Like className={s.likeIcon}/> :
+                                                <InfoIcon className={s.infoIcon}/>
+                                            : ""}
+                                        {cell.render('Cell')}
+                                    </td>
+                                )
+                            })}
                         </tr>
-                    ))}
-                    </thead>
-                    <tbody {...getTableBodyProps()} className={s.rowsContainer}>
-                    {page.map(row => {
-                        prepareRow(row)
-                        return (
-                            <tr className={s.rowContainer} {...row.getRowProps()}>
-                                {row.cells.map(cell => {
-                                    return (
-                                        <td className={`${s.cellContainer} ${fillCellCall(cell.value)}`}
-                                            {...cell.getCellProps()}>
-                                            {({...cell.getCellProps()}.key).indexOf("ratingRecordId") > 0
-                                                ? cell.value <= 10 ? <Like className={s.likeIcon}/> : <InfoIcon className={s.infoIcon}/>
-                                                : ""}
-                                            {cell.render('Cell')}
-                                        </td>
-                                    )
-                                })}
-                            </tr>
-                        )
-                    })}
-                    </tbody>
-                </table>
-            </div>
-            {props.pagination && <div className={s.pagination}>
-                <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px"}}
-                        onClick={() => gotoPage(0)}
-                        disabled={!canPreviousPage}>
-                    {'<<'}
-                </button>
-                {' '}
-                <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px"}}
-                        onClick={() => previousPage()}
-                        disabled={!canPreviousPage}>
-                    {'<'}
-                </button>
-                {' '}
-                <span style={{color: "black"}}>| Страница:{' '}</span>
-                <input
-                    type="number"
-                    defaultValue={pageIndex + 1}
-                    onChange={e => {
-                        const page = e.target.value ? Number(e.target.value) - 1 : 0
-                        gotoPage(page)
-                    }}
-                    value={pageIndex + 1}
-                    style={{width: '100px', marginRight: "10px", marginLeft: "5px", padding: "2px 3px"}}
-                />
-                <span style={{marginRight: "10px"}}>из</span>
-                {pageOptions.length + ' | '}
-                <button style={{background: "none", border: "none", fontSize: "18px", marginLeft: "10px"}}
-                        onClick={() => nextPage()}
-                        disabled={!canNextPage}>
-                    {'>'}
-                </button>
-                {' '}
-                <button style={{background: "none", border: "none", fontSize: "18px", marginLeft: "10px"}}
-                        onClick={() => gotoPage(pageCount - 1)}
-                        disabled={!canNextPage}>
-                    {'>>'}
-                </button>
-            </div>}
+                    )
+                })}
+                </tbody>
+            </table>
         </div>
-    )
+        {props.pagination && <div className={s.pagination}>
+            <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px"}}
+                    onClick={() => gotoPage(0)}
+                    disabled={!canPreviousPage}>
+                {'<<'}
+            </button>
+            {' '}
+            <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px"}}
+                    onClick={() => previousPage()}
+                    disabled={!canPreviousPage}>
+                {'<'}
+            </button>
+            {' '}
+            <span style={{color: "black"}}>| Страница:{' '}</span>
+            <input
+                type="number"
+                defaultValue={pageIndex + 1}
+                onChange={e => {
+                    const page = e.target.value ? Number(e.target.value) - 1 : 0
+                    gotoPage(page)
+                }}
+                value={pageIndex + 1}
+                style={{width: '100px', marginRight: "10px", marginLeft: "5px", padding: "2px 3px"}}
+            />
+            <span style={{marginRight: "10px"}}>из</span>
+            {pageOptions.length + ' | '}
+            <button style={{background: "none", border: "none", fontSize: "18px", marginLeft: "10px"}}
+                    onClick={() => nextPage()}
+                    disabled={!canNextPage}>
+                {'>'}
+            </button>
+            {' '}
+            <button style={{background: "none", border: "none", fontSize: "18px", marginLeft: "10px"}}
+                    onClick={() => gotoPage(pageCount - 1)}
+                    disabled={!canNextPage}>
+                {'>>'}
+            </button>
+        </div>}
+    </div>
+)
 }
 
 

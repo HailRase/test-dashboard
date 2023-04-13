@@ -42,7 +42,7 @@ const CustomTabs = ({...props}) => {
                         <Form.Control type="date" defaultValue={dateNow} style={{width: "250px"}}/>
                         <Form.Control  type="time" defaultValue={"23:59"} style={{width: "250px"}}/>
                 </Form.Group>
-                <TabButton name={'Обновить'}/>
+                <TabButton name={'Обновить'} onClick={() => {}}/>
             </Tab>
             {props.param && <Tab eventKey="param" title="Параметры" style={{padding: "10px"}}>
 

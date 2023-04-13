@@ -264,13 +264,17 @@ const Histogram = () => {
                     <YAxis yAxisId="1"
                            domain={[0, 450]}
                            label={{value: 'Кол-во звонков', angle: -90, position: 'insideLeft'}}
+                           tickCount={10}
                     />
                     <YAxis
                         yAxisId="2"
                         orientation="right"
                         type="number"
+                        tickCount={10}
+                        tickSize={10}
+                        ticks={[-2.5, 0 , 2.5, 5, 7.5, 10, 12.5, 15, 17.5, 20]}
                         allowDataOverflow
-                        domain={[-5, 40]}
+                        domain={[-2.5, 20]}
                         axisLine={false}
                         tickLine={false}
                         minTickGap={1}
@@ -285,7 +289,7 @@ const Histogram = () => {
                         orientation="right"
                         type="number"
                         allowDataOverflow
-                        domain={[-2.5, 25]}
+                        domain={[-5, 40]}
                         axisLine={false}
                         tickLine={false}
                         minTickGap={1}

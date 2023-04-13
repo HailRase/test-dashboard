@@ -127,32 +127,64 @@ const CallReport = () => {
 
 
     const [state, seState] = useState(callReportData)
-    const [selectedType, setSelectedType] = useState<string>()
-    const [selectedDirection, setSelectedDirection] = useState<string>()
-    const [selectedStatus, setSelectedStatus] = useState<string>()
+    const [statusFilter, setStatusFilter] = useState('');
+    const [directionFilter, setDirectionFilter] = useState('');
+    const [typeFilter, setTypeFilter] = useState('');
+    const [queueFilter, setQueueFilter] = useState('');
+    const [initiatorFilter, setInitiatorFilter] = useState('');
+    const [operatorFilter, setOperatorFilter] = useState('');
+    const [contactFilter, setContactFilter] = useState('');
     const [isActive, setIsActive] = useState<boolean>(false)
     const navigate = useNavigate()
 
 
     const onChangeSelectType = (value: ChangeEvent<HTMLSelectElement>) => {
         if (value) {
-            setSelectedType(value.currentTarget.value)
+            setTypeFilter(value.target.value)
         }
     }
     const onChangeSelectDirection = (value: ChangeEvent<HTMLSelectElement>) => {
         if (value) {
-            setSelectedDirection(value.currentTarget.value)
+            setDirectionFilter(value.target.value)
         }
     }
     const onChangeSelectStatus = (value: ChangeEvent<HTMLSelectElement>) => {
         if (value) {
-            setSelectedStatus(value.currentTarget.value)
+            setStatusFilter(value.target.value)
+        }
+    }
+    const onChangeSelectQueue = (value: ChangeEvent<HTMLSelectElement>) => {
+        if (value) {
+            setQueueFilter(value.target.value)
+        }
+    }
+    const onChangeInputContact = (value: ChangeEvent<HTMLInputElement>) => {
+        if (value) {
+            setContactFilter(value.target.value)
+        }
+    }
+    const onChangeInputOperator = (value: ChangeEvent<HTMLInputElement>) => {
+        if (value) {
+            setOperatorFilter(value.target.value)
+        }
+    }
+    const onChangeInputInitiator = (value: ChangeEvent<HTMLInputElement>) => {
+        if (value) {
+            setInitiatorFilter(value.target.value)
         }
     }
 
-    const onFilteredButton = () => {
-        seState(callReportData.filter(record => record.status === selectedStatus || record.direction === selectedDirection || record.type === selectedType))
-    }
+
+    const filteredData = state.filter((item) =>
+        item.status.includes(statusFilter) &&
+        item.direction.includes(directionFilter) &&
+        item.type.includes(typeFilter) &&
+        item.queue.includes(queueFilter) &&
+        item.initiator.toString().includes(initiatorFilter) &&
+        item.operator.includes(operatorFilter) &&
+        (item.initiatorContact.includes(contactFilter) || item.recipientContact.includes(contactFilter))
+    );
+
 
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)
@@ -164,6 +196,18 @@ const CallReport = () => {
         setIsActive(false)
     }
 
+
+
+    /*const filterData = () => {
+        const filtered = callReportData.filter((item) => {
+            if (selectedStatus && item.status !== selectedStatus) return false;
+            if (selectedDirection && item.direction !== selectedDirection) return false;
+            if (selectedType && item.type !== selectedType) return false;
+            return true;
+        });
+        seState(filtered);
+    };*/
+
     return (
         <div className={s.callReportWrapper}>
             <Sidebar isActive={isActive}>
@@ -174,17 +218,27 @@ const CallReport = () => {
                     </div>
                     <CustomTabs param={true}>
                         <Form.Group style={{marginBottom: "10px"}}>
-                            <Form.Control type="text" placeholder="Введите номер"/>
+                            <Form.Control onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputInitiator(value)}
+                                          type="text"
+                                          placeholder="Введите номер"/>
                         </Form.Group>
                         <Form.Group style={{marginBottom: "10px"}}>
-                            <Form.Control type="text" placeholder="Введите оператора"/>
+                            <Form.Control onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputOperator(value)}
+                                          type="text"
+                                          placeholder="Введите оператора"/>
                         </Form.Group>
                         <Form.Group style={{marginBottom: "10px"}}>
-                            <Form.Control type="text" placeholder="Введите контакт"/>
+                            <Form.Control onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputContact(value)}
+                                          type="text"
+                                          placeholder="Введите контакт"/>
                         </Form.Group>
                         <Form.Group style={{display:"flex", justifyContent:"space-between",marginBottom: "10px"}}>
                             <Form.Label style={{color: "white"}} column={true}>Очередь: </Form.Label>
-                            <Form.Select style={{width:"250px"}}></Form.Select>
+                            <Form.Select onChange={(value) =>onChangeSelectQueue(value)} style={{width:"250px"}}>
+                                <option value=''>&lt;Все&gt;</option>
+                                <option value="105 GSM">105 GSM</option>
+                                <option value="105 Beltelecom">105 Beltelecom</option>
+                            </Form.Select>
                         </Form.Group>
                         <Form.Group style={{display:"flex", justifyContent:"space-between"}}>
                             <Form.Label style={{width: "20px",color: "white"}}>Время:      &gt;</Form.Label>
@@ -194,18 +248,18 @@ const CallReport = () => {
                             <Form.Label style={{color: "white"}}>Тип: </Form.Label>
                             <Form.Select
                                 style={{width:"250px"}}
-                                onChange={(value: ChangeEvent<HTMLSelectElement>) => onChangeSelectType(value)}>
-                                <option>&lt;Все&gt;</option>
-                                <option value="1">Обычный</option>
-                                <option value="2">Липкость</option>
+                                onChange={(value) => onChangeSelectType(value)}>
+                                <option value=''>&lt;Все&gt;</option>
+                                <option value="Обычный">Обычный</option>
+                                <option value="Липкость">Липкость</option>
                             </Form.Select>
                         </Form.Group>
                         <Form.Group  style={{display:"flex", justifyContent:"space-between"}}>
                             <Form.Label style={{width: "20px", color: "white"}}>Напра вление: </Form.Label>
                             <Form.Select
                                 style={{width:"250px", height: "40px"}}
-                                onChange={(value: ChangeEvent<HTMLSelectElement>) => onChangeSelectDirection(value)}>
-                                <option>&lt;Все&gt;</option>
+                                onChange={(value) => onChangeSelectDirection(value)}>
+                                <option value=''>&lt;Все&gt;</option>
                                 <option value="Входящий">Входящий</option>
                                 <option value="Исходящий">Исходящий</option>
                             </Form.Select>
@@ -214,13 +268,13 @@ const CallReport = () => {
                             <Form.Label style={{color: "white"}}>Статус: </Form.Label>
                             <Form.Select
                                 style={{width:"250px"}}
-                                onChange={(value: ChangeEvent<HTMLSelectElement>) => onChangeSelectStatus(value)}>
-                                <option>&lt;Все&gt;</option>
+                                onChange={(value) => onChangeSelectStatus(value)}>
+                                <option value=''>&lt;Все&gt;</option>
                                 <option value="Отвечен">Отвечен</option>
                                 <option value="Не отвечен">Не отвечен</option>
                             </Form.Select>
                         </Form.Group>
-                        <TabButton name={"Обновить"}/>
+                        <TabButton name={"Обновить"} onClick={()=>{}}/>
                     </CustomTabs>
 
                 </div>
@@ -231,7 +285,7 @@ const CallReport = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Статистика по звонкам</span>
                 </div>
-                <Table data={state} columns={columns} defaultColumn={defaultColumn} pagination={true}/>
+                <Table data={filteredData} columns={columns} defaultColumn={defaultColumn} pagination={true}/>
             </div>
         </div>
     );

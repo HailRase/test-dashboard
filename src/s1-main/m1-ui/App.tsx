@@ -7,6 +7,7 @@ import Home from "../../s2-features/f1-home/Home";
 import CallReport from "../../s2-features/f3-call-report/CallReport";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import OperatorReport from "../../s2-features/f4-operator-report/OperatorReport";
+import QueueReport from "../../s2-features/f5-queue-report/QueueReport";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
                 <Route path={PATH.MONITORING} element={<MonitoringCc/>}/>
                 <Route path={PATH.CALL_REPORT} element={<CallReport/>}/>
                 <Route path={PATH.OPERATOR_REPORT} element={<OperatorReport/>}/>
+                <Route path={PATH.QUEUE_REPORT} element={<QueueReport/>}/>
             </Routes>
         </div>
     );
