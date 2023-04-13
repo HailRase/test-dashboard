@@ -9,7 +9,7 @@ import CustomTabs from "../../common/CustomTabs/CustomTabs";
 import ArrowLeftIcon from "../../common/ArrowLeftIcon/ArrowLeftIcon";
 import OptionIcon from "../../common/OptionIcon/OptionIcon";
 import HomeIcon from "../../common/HomeIcon/HomeIcon";
-import {Button, Form} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 import TabButton from "../../common/TabButton/TabButton";
 
 
