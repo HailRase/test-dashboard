@@ -61,8 +61,8 @@ export const callReportData:CallReportDataType[] = [{
     wasOnOperators: 0
 },{
     id: 3,
-    dateStart: "04.03.23 14:48:03",
-    dateEnd: "04.03.23 14:50:01",
+    dateStart: "04.03.23 15:48:03",
+    dateEnd: "04.03.23 15:50:01",
     initiator: 80333445999,
     recipient: 105,
     direction: "Исходящий",
@@ -81,8 +81,8 @@ export const callReportData:CallReportDataType[] = [{
     wasOnOperators: 0
 },{
     id: 4,
-    dateStart: "04.03.23 14:48:03",
-    dateEnd: "04.03.23 14:50:01",
+    dateStart: "05.03.23 14:48:03",
+    dateEnd: "05.03.23 14:50:01",
     initiator: 80293745561,
     recipient: 105,
     direction: "Входящий",
@@ -101,8 +101,8 @@ export const callReportData:CallReportDataType[] = [{
     wasOnOperators: 0
 },{
     id: 5,
-    dateStart: "04.03.23 14:48:03",
-    dateEnd: "04.03.23 14:50:01",
+    dateStart: "06.03.23 01:48:03",
+    dateEnd: "06.03.23 01:50:01",
     initiator: 80293745561,
     recipient: 105,
     direction: "Входящий",
@@ -121,8 +121,8 @@ export const callReportData:CallReportDataType[] = [{
     wasOnOperators: 0
 },{
     id: 6,
-    dateStart: "04.03.23 14:48:03",
-    dateEnd: "04.03.23 14:50:01",
+    dateStart: "07.03.23 14:48:03",
+    dateEnd: "07.03.23 14:50:01",
     initiator: 80293745561,
     recipient: 105,
     direction: "Входящий",
@@ -141,8 +141,8 @@ export const callReportData:CallReportDataType[] = [{
     wasOnOperators: 0
 },{
     id: 7,
-    dateStart: "04.03.23 14:48:03",
-    dateEnd: "04.03.23 14:50:01",
+    dateStart: "04.03.23 21:48:03",
+    dateEnd: "04.03.23 21:50:01",
     initiator: 80293745562,
     recipient: 106,
     direction: "Исходящий",
@@ -181,8 +181,8 @@ export const callReportData:CallReportDataType[] = [{
     wasOnOperators: 0
 },{
     id: 9,
-    dateStart: "04.03.23 14:48:03",
-    dateEnd: "04.03.23 14:50:01",
+    dateStart: "04.03.23 03:48:03",
+    dateEnd: "04.03.23 03:50:01",
     initiator: 80293745562,
     recipient: 105,
     direction: "Исходящий",
@@ -201,8 +201,8 @@ export const callReportData:CallReportDataType[] = [{
     wasOnOperators: 0
 },{
     id: 10,
-    dateStart: "04.03.23 14:48:03",
-    dateEnd: "04.03.23 14:50:01",
+    dateStart: "04.03.23 08:48:03",
+    dateEnd: "04.03.23 08:50:01",
     initiator: 80293745562,
     recipient: 105,
     direction: "Входящий",

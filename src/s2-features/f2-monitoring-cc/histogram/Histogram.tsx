@@ -1,18 +1,6 @@
-import React, {PureComponent, useState} from 'react';
-import {
-    ComposedChart,
-    Line,
-    Area,
-    Bar,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    Legend,
-    ResponsiveContainer, Label, LineChart, LabelList, Dot,
-} from 'recharts';
+import React, {useState} from 'react';
+import {Bar, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis,} from 'recharts';
 import './Histogram.scss'
-
 
 
 const data = [

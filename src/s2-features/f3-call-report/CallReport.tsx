@@ -127,6 +127,7 @@ const CallReport = () => {
 
 
     const [state, seState] = useState(callReportData)
+
     const [statusFilter, setStatusFilter] = useState('');
     const [directionFilter, setDirectionFilter] = useState('');
     const [typeFilter, setTypeFilter] = useState('');
@@ -134,7 +135,13 @@ const CallReport = () => {
     const [initiatorFilter, setInitiatorFilter] = useState('');
     const [operatorFilter, setOperatorFilter] = useState('');
     const [contactFilter, setContactFilter] = useState('');
-    const [isActive, setIsActive] = useState<boolean>(false)
+
+    const [fromDate, setFromDate] = useState('')
+    const [fromTime, setFromTime] = useState('')
+    const [toDate, setToDate] = useState('')
+    const [toTime, setToTime] = useState('')
+
+    const [isActiveSideBar, setIsActiveSideBar] = useState<boolean>(false)
     const navigate = useNavigate()
 
 
@@ -174,6 +181,22 @@ const CallReport = () => {
         }
     }
 
+    const onChangeFromDate = (date: ChangeEvent<HTMLInputElement>) => {
+        setFromDate(date.target.value)
+        console.log(date.target.value)
+    }
+    const onChangeFromTime = (time: ChangeEvent<HTMLInputElement>) => {
+        setFromTime(time.target.value)
+        console.log(time.target.value)
+    }
+    const onChangeToDate = (date: ChangeEvent<HTMLInputElement>) => {
+        setToDate(date.target.value)
+        console.log(date.target.value)
+    }
+    const onChangeToTime = (time: ChangeEvent<HTMLInputElement>) => {
+        setToTime(time.target.value)
+        console.log(time.target.value)
+    }
 
     const filteredData = state.filter((item) =>
         item.status.includes(statusFilter) &&
@@ -190,91 +213,99 @@ const CallReport = () => {
         navigate(`${PATH.HOME}`)
     }
     const onOpenSidebar = () => {
-        setIsActive(true)
+        setIsActiveSideBar(true)
     }
     const onCloseSidebar = () => {
-        setIsActive(false)
+        setIsActiveSideBar(false)
     }
-
-
-
-    /*const filterData = () => {
-        const filtered = callReportData.filter((item) => {
-            if (selectedStatus && item.status !== selectedStatus) return false;
-            if (selectedDirection && item.direction !== selectedDirection) return false;
-            if (selectedType && item.type !== selectedType) return false;
-            return true;
-        });
-        seState(filtered);
-    };*/
 
     return (
         <div className={s.callReportWrapper}>
-            <Sidebar isActive={isActive}>
+            <Sidebar isActive={isActiveSideBar}>
                 <div className={s.optionContainer}>
                     <div className={s.optionHeader}>
                         <ArrowLeftIcon onClick={onCloseSidebar}/>
                         <span>Параметры отбора</span>
                     </div>
-                    <CustomTabs param={true}>
+                    <CustomTabs param={true}
+                                fromDate={fromDate}
+                                fromTime={fromTime}
+                                toDate={toDate}
+                                toTime={toTime}
+                                onFromDateChange={onChangeFromDate}
+                                onFromTimeChange={onChangeFromTime}
+                                onToDateChange={onChangeToDate}
+                                onToTimeChange={onChangeToTime}
+                    >
                         <Form.Group style={{marginBottom: "10px"}}>
-                            <Form.Control onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputInitiator(value)}
-                                          type="text"
-                                          placeholder="Введите номер"/>
+                            <Form.Control
+                                onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputInitiator(value)}
+                                value={initiatorFilter}
+                                type="text"
+                                placeholder="Введите номер"/>
                         </Form.Group>
                         <Form.Group style={{marginBottom: "10px"}}>
-                            <Form.Control onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputOperator(value)}
-                                          type="text"
-                                          placeholder="Введите оператора"/>
+                            <Form.Control
+                                onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputOperator(value)}
+                                value={operatorFilter}
+                                type="text"
+                                placeholder="Введите оператора"/>
                         </Form.Group>
                         <Form.Group style={{marginBottom: "10px"}}>
-                            <Form.Control onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputContact(value)}
-                                          type="text"
-                                          placeholder="Введите контакт"/>
+                            <Form.Control
+                                onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputContact(value)}
+                                value={contactFilter}
+                                type="text"
+                                placeholder="Введите контакт"/>
                         </Form.Group>
-                        <Form.Group style={{display:"flex", justifyContent:"space-between",marginBottom: "10px"}}>
+                        <Form.Group style={{display: "flex", justifyContent: "space-between", marginBottom: "10px"}}>
                             <Form.Label style={{color: "white"}} column={true}>Очередь: </Form.Label>
-                            <Form.Select onChange={(value) =>onChangeSelectQueue(value)} style={{width:"250px"}}>
+                            <Form.Select value={queueFilter} onChange={(value) => onChangeSelectQueue(value)}
+                                         style={{width: "250px"}}>
                                 <option value=''>&lt;Все&gt;</option>
                                 <option value="105 GSM">105 GSM</option>
                                 <option value="105 Beltelecom">105 Beltelecom</option>
                             </Form.Select>
                         </Form.Group>
-                        <Form.Group style={{display:"flex", justifyContent:"space-between"}}>
-                            <Form.Label style={{width: "20px",color: "white"}}>Время:      &gt;</Form.Label>
-                            <Form.Control style={{width:"250px", height: "40px"}} type="text" placeholder="0"/>
+                        <Form.Group style={{display: "flex", justifyContent: "space-between"}}>
+                            <Form.Label style={{width: "20px", color: "white"}}>Время:      &gt;</Form.Label>
+                            <Form.Control style={{width: "250px", height: "40px"}} type="text" placeholder="0"/>
                         </Form.Group>
-                        <Form.Group style={{display:"flex", justifyContent:"space-between", marginBottom: "10px"}}>
+                        <Form.Group style={{display: "flex", justifyContent: "space-between", marginBottom: "10px"}}>
                             <Form.Label style={{color: "white"}}>Тип: </Form.Label>
                             <Form.Select
-                                style={{width:"250px"}}
+                                style={{width: "250px"}}
+                                value={typeFilter}
                                 onChange={(value) => onChangeSelectType(value)}>
                                 <option value=''>&lt;Все&gt;</option>
                                 <option value="Обычный">Обычный</option>
                                 <option value="Липкость">Липкость</option>
                             </Form.Select>
                         </Form.Group>
-                        <Form.Group  style={{display:"flex", justifyContent:"space-between"}}>
+                        <Form.Group style={{display: "flex", justifyContent: "space-between"}}>
                             <Form.Label style={{width: "20px", color: "white"}}>Напра вление: </Form.Label>
                             <Form.Select
-                                style={{width:"250px", height: "40px"}}
+                                value={directionFilter}
+                                style={{width: "250px", height: "40px"}}
                                 onChange={(value) => onChangeSelectDirection(value)}>
                                 <option value=''>&lt;Все&gt;</option>
                                 <option value="Входящий">Входящий</option>
                                 <option value="Исходящий">Исходящий</option>
                             </Form.Select>
-                        </Form.Group >
-                        <Form.Group style={{display:"flex", justifyContent:"space-between", marginBottom: "10px"}}>
+                        </Form.Group>
+                        <Form.Group style={{display: "flex", justifyContent: "space-between", marginBottom: "10px"}}>
                             <Form.Label style={{color: "white"}}>Статус: </Form.Label>
                             <Form.Select
-                                style={{width:"250px"}}
+                                value={statusFilter}
+                                style={{width: "250px"}}
                                 onChange={(value) => onChangeSelectStatus(value)}>
                                 <option value=''>&lt;Все&gt;</option>
                                 <option value="Отвечен">Отвечен</option>
                                 <option value="Не отвечен">Не отвечен</option>
                             </Form.Select>
                         </Form.Group>
-                        <TabButton name={"Обновить"} onClick={()=>{}}/>
+                        <TabButton name={"Обновить"} onClick={() => {
+                        }}/>
                     </CustomTabs>
 
                 </div>

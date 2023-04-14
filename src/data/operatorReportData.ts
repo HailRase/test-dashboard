@@ -14,7 +14,7 @@ export const operatorReportData: OperatorReportDataType[] = [
         operator: "Маханькова Мария Викторовна",
         status: "Готов",
         duration: "0:00:02",
-        reason: "",
+        reason: "Перерыв",
         comment: ""
     },
     {
@@ -23,7 +23,7 @@ export const operatorReportData: OperatorReportDataType[] = [
         operator: "Маханькова Мария Викторовна",
         status: "Готов",
         duration: "0:00:02",
-        reason: "",
+        reason: "Перерыв",
         comment: ""
     },
     {
@@ -32,7 +32,7 @@ export const operatorReportData: OperatorReportDataType[] = [
         operator: "Маханькова Мария Викторовна",
         status: "Занят",
         duration: "0:00:02",
-        reason: "",
+        reason: "Проблема со связью",
         comment: ""
     },
     {

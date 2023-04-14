@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import Tab from "react-bootstrap/Tab";
 import Form from "react-bootstrap/Form";
 import {dateNow} from "../../data/dateNow";
@@ -6,18 +6,40 @@ import Tabs from "react-bootstrap/Tabs";
 import './CustomTabs.css'
 import TabButton from "../TabButton/TabButton";
 
-const CustomTabs = ({...props}) => {
+
+interface CustomTabsPropsType {
+    fromDate?: string
+    fromTime?: string
+    toDate?: string
+    toTime?: string
+    onFromDateChange?: (date:  ChangeEvent<HTMLInputElement>) => void;
+    onToDateChange?: (time: ChangeEvent<HTMLInputElement>) => void;
+    onFromTimeChange?: (date: ChangeEvent<HTMLInputElement>) => void;
+    onToTimeChange?: (time: ChangeEvent<HTMLInputElement>) => void;
+    param?: boolean
+    children?: React.ReactNode
+}
+
+
+const CustomTabs = ({
+                        fromDate,
+                        fromTime,
+                        toDate,
+                        toTime,
+                        onFromDateChange,
+                        onFromTimeChange,
+                        onToDateChange,
+                        onToTimeChange,
+                        param,
+                        children
+                    }: CustomTabsPropsType) => {
     const [key, setKey] = useState('period');
     const onSelectSetKey = (key: string | null) => {
         if (key !== null)
-        setKey(key)
+            setKey(key)
     }
 
 
-    /*(filed: string, value:sring) => {
-
-        [].filter(el => el[filed] === value)
-    }*/
     return (
 
         <Tabs className={"tabsContainer"}
@@ -31,22 +53,22 @@ const CustomTabs = ({...props}) => {
                  title="Период"
                  color="#000"
                  style={{padding: "10px"}}
-                 >
-                <Form.Group style={{ padding: "5px",marginLeft: "20px"}}>
+            >
+                <Form.Group style={{padding: "5px", marginLeft: "20px"}}>
                     <Form.Label style={{color: "white"}}>С:</Form.Label>
-                        <Form.Control type="date" defaultValue={dateNow} style={{width: "250px"}}/>
-                        <Form.Control type="time" defaultValue={"00:00"} style={{width: "250px"}}/>
+                    <Form.Control value={fromDate} onChange={onFromDateChange} type="date" defaultValue={dateNow} style={{width: "250px"}}/>
+                    <Form.Control value={fromTime} onChange={onFromTimeChange} type="time" defaultValue={"00:00"} style={{width: "250px"}}/>
                 </Form.Group>
-                <Form.Group style={{ padding: "5px",marginLeft: "20px"}}>
+                <Form.Group style={{padding: "5px", marginLeft: "20px"}}>
                     <Form.Label style={{color: "white"}}>По:</Form.Label>
-                        <Form.Control type="date" defaultValue={dateNow} style={{width: "250px"}}/>
-                        <Form.Control  type="time" defaultValue={"23:59"} style={{width: "250px"}}/>
+                    <Form.Control  value={toDate} onChange={onToDateChange} type="date" defaultValue={dateNow} style={{width: "250px"}}/>
+                    <Form.Control value={toTime} onChange={onToTimeChange} type="time" defaultValue={"23:59"} style={{width: "250px"}}/>
                 </Form.Group>
-                <TabButton name={'Обновить'} onClick={() => {}}/>
+                <TabButton name={'Обновить'} onClick={() => {
+                }}/>
             </Tab>
-            {props.param && <Tab eventKey="param" title="Параметры" style={{padding: "10px"}}>
-
-                {props.children}
+            {param && <Tab eventKey="param" title="Параметры" style={{padding: "10px"}}>
+                {children}
             </Tab>}
         </Tabs>
     );

@@ -53,22 +53,52 @@ const defaultColumn = {
 
 const OperatorReport = () => {
 
-    const [isActive, setIsActive] = useState<boolean>(false)
+
+    const [state, setState] = useState(operatorReportData)
+
+    const [statusFilter, setStatusFilter] = useState('');
+    const [durationFilter, setDurationFilter] = useState('');
+    const [operatorFilter, setOperatorFilter] = useState('');
+    const [reasonFilter, setReasonFilter] = useState('');
+    const [commentFilter, setCommentFilter] = useState('');
+
+    const [isActiveSideBar, setIsActiveSideBar] = useState<boolean>(false)
     const navigate = useNavigate()
+
+
+    const onChangeSelectStatus = (value: ChangeEvent<HTMLSelectElement>) => {
+            setStatusFilter(value.target.value)
+    }
+    const onChangeInputOperator = (value: ChangeEvent<HTMLInputElement>) => {
+            setOperatorFilter(value.target.value)
+    }
+    const onChangeInputReason = (value: ChangeEvent<HTMLInputElement>) => {
+            setReasonFilter(value.target.value)
+    }
+    const onChangeInputComment = (value: ChangeEvent<HTMLInputElement>) => {
+            setCommentFilter(value.target.value)
+    }
 
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)
     }
     const onOpenSidebar = () => {
-        setIsActive(true)
+        setIsActiveSideBar(true)
     }
     const onCloseSidebar = () => {
-        setIsActive(false)
+        setIsActiveSideBar(false)
     }
+
+    const filteredData = state.filter((item) =>
+        item.status.includes(statusFilter) &&
+        item.operator.includes(operatorFilter) &&
+        item.reason.includes(reasonFilter) &&
+        item.comment.includes(commentFilter)
+    );
 
     return (
         <div className={s.operatorReportWrapper}>
-            <Sidebar isActive={isActive}>
+            <Sidebar isActive={isActiveSideBar}>
                 <div className={s.optionContainer}>
                     <div className={s.optionHeader}>
                         <ArrowLeftIcon onClick={onCloseSidebar}/>
@@ -76,11 +106,14 @@ const OperatorReport = () => {
                     </div>
                     <div className={s.optionContent}>
                         <CustomTabs param={true}>
-                            <Form.Group style={{display:"flex", justifyContent:"space-between", marginBottom: "10px"}}>
+                            <Form.Group
+                                style={{display: "flex", justifyContent: "space-between", marginBottom: "10px"}}>
                                 <Form.Label style={{color: "white"}}>Статус: </Form.Label>
                                 <Form.Select
-                                    style={{width:"250px"}}>
-                                    <option>&lt;Все&gt;</option>
+                                    value={statusFilter}
+                                    onChange={onChangeSelectStatus}
+                                    style={{width: "250px"}}>
+                                    <option value="">&lt;Все&gt;</option>
                                     <option value="Готов">Готов</option>
                                     <option value="Говорит">Говорит</option>
                                     <option value="Входящий дозвон">Входящий дозвон</option>
@@ -88,20 +121,31 @@ const OperatorReport = () => {
                                     <option value="Занят">Занят</option>
                                 </Form.Select>
                             </Form.Group>
-                            <Form.Group style={{display:"flex", justifyContent:"space-between"}}>
-                                <Form.Label style={{width: "20px",color: "white"}}>Длитель ность:      &gt;=</Form.Label>
-                                <Form.Control style={{width:"250px", height: "40px"}} type="text" placeholder="0"/>
+                            <Form.Group style={{display: "flex", justifyContent: "space-between"}}>
+                                <Form.Label style={{width: "20px", color: "white"}}>Длитель
+                                    ность:      &gt;=</Form.Label>
+                                <Form.Control style={{width: "250px", height: "40px"}} type="text" placeholder="0"/>
                             </Form.Group>
                             <Form.Group style={{marginBottom: "10px"}}>
-                                <Form.Control type="text" placeholder="Введите оператора"/>
+                                <Form.Control value={operatorFilter}
+                                              onChange={onChangeInputOperator}
+                                              type="text"
+                                              placeholder="Введите оператора"/>
                             </Form.Group>
                             <Form.Group style={{marginBottom: "10px"}}>
-                                <Form.Control type="text" placeholder="Введите причину"/>
+                                <Form.Control value={reasonFilter}
+                                              onChange={onChangeInputReason}
+                                              type="text"
+                                              placeholder="Введите причину"/>
                             </Form.Group>
                             <Form.Group style={{marginBottom: "10px"}}>
-                                <Form.Control type="text" placeholder="Введите комментарий"/>
+                                <Form.Control value={commentFilter}
+                                              onChange={onChangeInputComment}
+                                              type="text"
+                                              placeholder="Введите комментарий"/>
                             </Form.Group>
-                            <TabButton name={"Обновить"} onClick={() => {}}/>
+                            <TabButton name={"Обновить"} onClick={() => {
+                            }}/>
                         </CustomTabs>
                     </div>
                 </div>
@@ -112,7 +156,7 @@ const OperatorReport = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Статистика по операторам</span>
                 </div>
-                <Table data={operatorReportData} columns={columns} pagination={true} width={"100vw"}/>
+                <Table data={filteredData} columns={columns} pagination={true} width={"100vw"}/>
             </div>
         </div>
     );
