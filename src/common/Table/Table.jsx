@@ -5,6 +5,7 @@ import data from "bootstrap/js/src/dom/data";
 import {ReactComponent as InfoIcon} from "../../assets/info-icon.svg";
 import {ReactComponent as Like} from "../../assets/like.svg";
 import {truncateString} from "../utils/truncateString";
+import ExcelExporter from "../../ExcelExporter/ExcelExporter";
 
 
 const Table = ({...props}) => {
@@ -143,42 +144,45 @@ return (
             </table>
         </div>
         {props.pagination && <div className={s.pagination}>
-            <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px"}}
-                    onClick={() => gotoPage(0)}
-                    disabled={!canPreviousPage}>
-                {'<<'}
-            </button>
-            {' '}
-            <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px"}}
-                    onClick={() => previousPage()}
-                    disabled={!canPreviousPage}>
-                {'<'}
-            </button>
-            {' '}
-            <span style={{color: "black"}}>| Страница:{' '}</span>
-            <input
-                type="number"
-                defaultValue={pageIndex + 1}
-                onChange={e => {
-                    const page = e.target.value ? Number(e.target.value) - 1 : 0
-                    gotoPage(page)
-                }}
-                value={pageIndex + 1}
-                style={{width: '100px', marginRight: "10px", marginLeft: "5px", padding: "2px 3px"}}
-            />
-            <span style={{marginRight: "10px"}}>из</span>
-            {pageOptions.length + ' | '}
-            <button style={{background: "none", border: "none", fontSize: "18px", marginLeft: "10px"}}
-                    onClick={() => nextPage()}
-                    disabled={!canNextPage}>
-                {'>'}
-            </button>
-            {' '}
-            <button style={{background: "none", border: "none", fontSize: "18px", marginLeft: "10px"}}
-                    onClick={() => gotoPage(pageCount - 1)}
-                    disabled={!canNextPage}>
-                {'>>'}
-            </button>
+            <div>
+                <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px"}}
+                        onClick={() => gotoPage(0)}
+                        disabled={!canPreviousPage}>
+                    {'<<'}
+                </button>
+                {' '}
+                <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px"}}
+                        onClick={() => previousPage()}
+                        disabled={!canPreviousPage}>
+                    {'<'}
+                </button>
+                {' '}
+                <span style={{color: "black"}}>| Страница:{' '}</span>
+                <input
+                    type="number"
+                    defaultValue={pageIndex + 1}
+                    onChange={e => {
+                        const page = e.target.value ? Number(e.target.value) - 1 : 0
+                        gotoPage(page)
+                    }}
+                    value={pageIndex + 1}
+                    style={{width: '100px', marginRight: "10px", marginLeft: "5px", padding: "2px 3px"}}
+                />
+                <span style={{marginRight: "10px"}}>из</span>
+                {pageOptions.length + ' | '}
+                <button style={{background: "none", border: "none", fontSize: "18px", marginLeft: "10px"}}
+                        onClick={() => nextPage()}
+                        disabled={!canNextPage}>
+                    {'>'}
+                </button>
+                {' '}
+                <button style={{background: "none", border: "none", fontSize: "18px", marginLeft: "10px"}}
+                        onClick={() => gotoPage(pageCount - 1)}
+                        disabled={!canNextPage}>
+                    {'>>'}
+                </button>
+            </div>
+            <ExcelExporter excelData={props.data} style={{marginRight: "50px"}}/>
         </div>}
     </div>
 )

@@ -2,8 +2,8 @@ import React, {PureComponent} from 'react';
 import {Pie, PieChart} from 'recharts';
 
 const data01 = [
-    {name: 'Пропущено', value: 11, fill: '#4bb253'},
-    {name: 'Принято', value: 1513, fill: '#e70707'},
+    {name: 'Пропущено', value: 11, fill: '#e70707'},
+    {name: 'Принято', value: 1513, fill: '#4bb253'},
 ];
 const data02 = [
     {name: 'НОД-5', value: 14, fill: '#ef958a'},

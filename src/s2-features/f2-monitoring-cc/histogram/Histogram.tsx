@@ -224,17 +224,49 @@ const data = [
     }
 ];
 
+/*name: '00:00',
+    notAccept: 3,
+    accept: 30,
+    avgCall: 1.3,
+    maxSimultaneousCall: 8,
+    opInSys: 4,
+    opActivity: 1*/
+
 const Histogram = () => {
 
-        const [opLineVisible, setOpLineVisible] = useState<boolean>(false)
+        const [notAcceptVisible, setNotAcceptVisible] = useState<boolean>(true)
+        const [acceptVisible, setAcceptVisible] = useState<boolean>(true)
+        const [avgCallVisible, setAvgCallVisible] = useState<boolean>(true)
+        const [maxSimultaneousCallVisible, setMaxSimultaneousCallVisible] = useState<boolean>(true)
+        const [opInSysVisible, setOpInSysVisible] = useState<boolean>(true)
+        const [opActivity, setOpActivity] = useState<boolean>(false)
 
-        const onOpActivityLegendHandle = (e: any) => {
+        const onVisibleLegendHandle = (e: any) => {
             if(e.dataKey === "opActivity"){
-                setOpLineVisible(false)
+                setOpActivity(false)
             }else if(e.dataKey === "_opActivity"){
-                setOpLineVisible(true)
+                setOpActivity(true)
+            }else if(e.dataKey === "notAccept"){
+                setNotAcceptVisible(false)
+            }else if(e.dataKey === "_notAccept"){
+                setNotAcceptVisible(true)
+            }else if(e.dataKey === "accept"){
+                setAcceptVisible(false)
+            }else if(e.dataKey === "_accept"){
+                setAcceptVisible(true)
+            }else if(e.dataKey === "avgCall"){
+                setAvgCallVisible(false)
+            }else if(e.dataKey === "_avgCall"){
+                setAvgCallVisible(true)
+            }else if(e.dataKey === "maxSimultaneousCall"){
+                setMaxSimultaneousCallVisible(false)
+            }else if(e.dataKey === "_maxSimultaneousCall"){
+                setMaxSimultaneousCallVisible(true)
+            }else if(e.dataKey === "opInSys"){
+                setOpInSysVisible(false)
+            }else if(e.dataKey === "_opInSys"){
+                setOpInSysVisible(true)
             }
-            console.log(e)
         }
         return (
             <ResponsiveContainer width="100%" height="100%">
@@ -288,35 +320,35 @@ const Histogram = () => {
                         }}
                     />
                     <Tooltip/>
-                    <Legend onClick={(e:any)=> onOpActivityLegendHandle(e)}/>
-                    <Bar dataKey="notAccept"
+                    <Legend onClick={(e:any)=> onVisibleLegendHandle(e)}/>
+                    <Bar dataKey={notAcceptVisible ? "notAccept" : "_notAccept"}
                          barSize={20}
-                         fill="#cb4559"
+                         fill={notAcceptVisible ? "#cb4559" : "#504e4e"}
                          name="Не принято"
                          yAxisId="1"
                          label={{position: 'top'}}
                     />
 
-                    <Bar dataKey="accept"
+                    <Bar dataKey={acceptVisible ? "accept" : "_accept"}
                          label={{position: 'top'}}
                          barSize={20}
-                         fill="#4c9e48"
+                         fill={acceptVisible ? "#4c9e48" : "#504e4e"}
                          name="Принято"
                          yAxisId="1"
                     />
                     <Line type="monotone"
-                          dataKey="avgCall"
-                          stroke="#381274"
-                          fill="#381274"
+                          dataKey={avgCallVisible ? "avgCall" : "_avgCall"}
+                          stroke={avgCallVisible ? "#381274" : "#504e4e"}
+                          fill={avgCallVisible ? "#381274" : "#504e4e"}
                           strokeWidth={2}
                           name="Среднее время разговора"
                           yAxisId="2"
                           label={{position: 'top'}}
                     />
                     <Line type="monotone"
-                          dataKey="maxSimultaneousCall"
-                          stroke="#f0f119"
-                          fill="#f0f119"
+                          dataKey={maxSimultaneousCallVisible ? "maxSimultaneousCall" : "_maxSimultaneousCall"}
+                          stroke={maxSimultaneousCallVisible ? "#f0f119" : "#504e4e"}
+                          fill={maxSimultaneousCallVisible ? "#f0f119" : "#504e4e"}
                           strokeWidth={2}
                           name="Максимальное количество одновременных звонков"
                           yAxisId="2"
@@ -324,19 +356,19 @@ const Histogram = () => {
                           display={""}
                     />
                      <Line type="monotone"
-                           dataKey="opInSys"
-                           stroke="#289a9c"
-                           fill="#289a9c"
+                           dataKey={opInSysVisible ? "opInSys" : "_opInSys"}
+                           stroke={opInSysVisible ? "#289a9c" : "#504e4e"}
+                           fill={opInSysVisible ? "#289a9c" : "#504e4e"}
                            strokeWidth={2}
                            name="Операторов в системе"
                            yAxisId="2"
                            label={{position: 'top'}}
                     />
                     <Line type="monotone"
-                          dataKey={opLineVisible ? "opActivity" : "_opActivity"}
-                          stroke={ opLineVisible ? "#e78e5d" :  "#504e4e"}
-                          fill={ opLineVisible ? "#e78e5d" :  "#504e4e"}
-                          style={ opLineVisible ?{color: "#e78e5d"} : {color: "#504e4e"}}
+                          dataKey={opActivity ? "opActivity" : "_opActivity"}
+                          stroke={ opActivity ? "#e78e5d" :  "#504e4e"}
+                          fill={ opActivity ? "#e78e5d" :  "#504e4e"}
+                          style={ opActivity ?{color: "#e78e5d"} : {color: "#504e4e"}}
                           strokeWidth={2}
                           name="Активность операторов"
                           yAxisId="3"
