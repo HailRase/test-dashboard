@@ -1,7 +1,6 @@
 import React from 'react';
 import {Pie, PieChart} from "recharts";
 import {queueReportData} from "../../../data/queueReportData";
-import {totalCallReducer} from "../../../common/utils/totalCallReducer";
 
 const QueueReportPie = () => {
 

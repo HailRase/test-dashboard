@@ -4,12 +4,12 @@ import {Sidebar} from "../../common/Sidebar/Sidebar";
 import ArrowLeftIcon from "../../common/ArrowLeftIcon/ArrowLeftIcon";
 import HomeIcon from "../../common/HomeIcon/HomeIcon";
 import OptionIcon from "../../common/OptionIcon/OptionIcon";
-import DiagramCallRating from "../f2-monitoring-cc/diagram-call-rating/DiagramCallRating";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../common/routes/routes";
 import Table from "../../common/Table/Table";
 import {queueReportData} from "../../data/queueReportData";
 import QueueReportPie from "./QueueReportPie/QueueReportPie";
+import QueueReportHistogram from "./QueueReportHistogram/QueueReportHistogram";
 
 const columns = [
     {
@@ -153,6 +153,7 @@ const QueueReport = () => {
                 </div>
                 <div className={s.callAndOperatorRating}>
                     <QueueReportPie/>
+                    <QueueReportHistogram/>
                 </div>
                 <div className={s.histogram}>
                     <Table data={queueReportData} columns={columns} pagination={true} width={"99vw"}/>

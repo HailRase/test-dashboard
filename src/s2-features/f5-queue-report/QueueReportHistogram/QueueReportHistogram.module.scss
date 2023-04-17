@@ -1,0 +1,14 @@
+.legend-item {
+  &.line {
+    path {
+      stroke: red;
+      stroke-width: 2;
+    }
+  }
+
+  &.bar {
+    path {
+      fill: blue;
+    }
+  }
+}

@@ -1,44 +1,36 @@
-import React, {useState} from 'react';
-import {Bar, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import React from 'react';
+import {Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ComposedChart, ResponsiveContainer} from 'recharts';
+import styles from './QueueReportHistogram.module.scss'
+
+const data = [
+    {name: 'Кол-во звонков', date:"04.03", serviceLevel: 88,skipped: 37, accept: 1491},
+];
 
 const QueueReportHistogram = () => {
-    const [opLineVisible, setOpLineVisible] = useState<boolean>(false)
-
-    const onOpActivityLegendHandle = (e: any) => {
-        if(e.dataKey === "opActivity"){
-            setOpLineVisible(false)
-        }else if(e.dataKey === "_opActivity"){
-            setOpLineVisible(true)
-        }
-        console.log(e)
-    }
     return (
-        <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart
-                /*data={data}*/
-                margin={{
-                    top: 10,
-                    right: 0,
-                    left: 10,
-                    bottom: 0,
-                }}
-            >
-                <CartesianGrid stroke="#a6a2a2" vertical={false}/>
-                <XAxis dataKey="name"/>
+        <ResponsiveContainer >
+            <ComposedChart data={data} margin={{
+
+            }}>
+                <XAxis dataKey={"date"}
+                       tickLine={false}
+                       style={{fontSize: "12px", fontWeight:600, textAnchor:"start"}}
+                       angle={90} />
                 <YAxis yAxisId="1"
-                       domain={[0, 450]}
+                       domain={[0, 1750]}
                        label={{value: 'Кол-во звонков', angle: -90, position: 'insideLeft'}}
-                       tickCount={10}
+                       tickCount={9}
+                       axisLine={false}
+                       tickLine={false}
                 />
                 <YAxis
                     yAxisId="2"
                     orientation="right"
                     type="number"
-                    tickCount={10}
-                    tickSize={10}
-                    ticks={[-2.5, 0 , 2.5, 5, 7.5, 10, 12.5, 15, 17.5, 20]}
+                    tickCount={9}
+                    tickSize={9}
                     allowDataOverflow
-                    domain={[-2.5, 20]}
+                    domain={[88, 100]}
                     axisLine={false}
                     tickLine={false}
                     minTickGap={1}
@@ -48,76 +40,31 @@ const QueueReportHistogram = () => {
                         bottom: 0,
                     }}
                 />
-                <YAxis
-                    yAxisId="3"
-                    orientation="right"
-                    type="number"
-                    allowDataOverflow
-                    domain={[-5, 40]}
-                    axisLine={false}
-                    tickLine={false}
-                    minTickGap={1}
-                    tickMargin={0}
-                    padding={{
-                        top: 0,
-                        bottom: 0,
-                    }}
-                />
+                <CartesianGrid stroke="#a6a2a2" vertical={false}/>
                 <Tooltip/>
-                <Legend onClick={(e:any)=> onOpActivityLegendHandle(e)}/>
-                <Bar dataKey="notAccept"
-                     barSize={20}
-                     fill="#cb4559"
-                     name="Не принято"
-                     yAxisId="1"
-                     label={{position: 'top'}}
-                />
+                <Legend style={{marginTop: "20px"}}/>
+                <Bar barSize={350}
+                     dataKey="accept"
+                     name={"Принято"}
+                     stackId="a"
+                     fill="#479e48"
+                     yAxisId={"1"}
+                     label={{position: 'center', fill: "#ffffff", fontSize: "12px"}}/>
+                <Bar dataKey="skipped"
+                     name={"Не принято"}
+                     stackId="a"
+                     fill="red"
+                     yAxisId={"1"}
+                     label={{position: 'centerTop', fill: "#ffffff", fontSize: "12px"}}/>
+                <Line type="linearClosed"
 
-                <Bar dataKey="accept"
-                     label={{position: 'top'}}
-                     barSize={20}
-                     fill="#4c9e48"
-                     name="Принято"
-                     yAxisId="1"
-                />
-                <Line type="monotone"
-                      dataKey="avgCall"
-                      stroke="#381274"
-                      fill="#381274"
+                      name={"Уровень обслуживания"}
+                      dataKey="serviceLevel"
+                      yAxisId={"2"}
+                      fill="#ebbe01"
+                      label={{position: "top", fill: "black", fontSize: "14px"}}
                       strokeWidth={2}
-                      name="Среднее время разговора"
-                      yAxisId="2"
-                      label={{position: 'top'}}
-                />
-                <Line type="monotone"
-                      dataKey="maxSimultaneousCall"
-                      stroke="#f0f119"
-                      fill="#f0f119"
-                      strokeWidth={2}
-                      name="Максимальное количество одновременных звонков"
-                      yAxisId="2"
-                      label={{position: 'top'}}
-                      display={""}
-                />
-                <Line type="monotone"
-                      dataKey="opInSys"
-                      stroke="#289a9c"
-                      fill="#289a9c"
-                      strokeWidth={2}
-                      name="Операторов в системе"
-                      yAxisId="2"
-                      label={{position: 'top'}}
-                />
-                <Line type="monotone"
-                      dataKey={opLineVisible ? "opActivity" : "_opActivity"}
-                      stroke={ opLineVisible ? "#e78e5d" :  "#504e4e"}
-                      fill={ opLineVisible ? "#e78e5d" :  "#504e4e"}
-                      style={ opLineVisible ?{color: "#e78e5d"} : {color: "#504e4e"}}
-                      strokeWidth={2}
-                      name="Активность операторов"
-                      yAxisId="3"
-                      label={{position: 'top'}}
-                />
+                      stroke="#ebbe01"/>
             </ComposedChart>
         </ResponsiveContainer>
     );
