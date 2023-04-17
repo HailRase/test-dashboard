@@ -92,7 +92,7 @@ const renderSkippedAcceptItem = (props: any) => {
     return (
         <g>
             <path d={paths[index]} stroke={fill} fill="none"/>
-            <text style={{fontSize: "12px", fontWeight: "500"}}
+            <text style={name==="Принято" ?{fontSize: "12px", fontWeight: "700"}:{fontSize: "12px", fontWeight: "500"}}
                   x={textAnchor === 'start' ? endPoint[index].x3 + 5 : endPoint[index].x3 - 5}
                   y={endPoint[index].y3 + 5}
                   textAnchor={textAnchor}
