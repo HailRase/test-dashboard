@@ -1,17 +1,16 @@
 import React from 'react';
 import {
     Bar,
-    Line,
-    XAxis,
-    YAxis,
     CartesianGrid,
-    Tooltip,
-    Legend,
     ComposedChart,
+    LabelList,
+    Legend,
+    Line,
     ResponsiveContainer,
-    LabelList
+    Tooltip,
+    XAxis,
+    YAxis
 } from 'recharts';
-import styles from './QueueReportHistogram.module.scss'
 
 const data = [
     {name: 'Кол-во звонков', date: "04.03", serviceLevel: 88, skipped: 37, accept: 1491},
@@ -27,7 +26,8 @@ const QueueReportHistogram = () => {
                 <YAxis yAxisId="1"
                        domain={[0, 1750]}
                        label={{value: 'Кол-во звонков', angle: -90, position: 'insideLeft', dy: 50}}
-                       tickCount={9}
+                       tickCount={8}
+                       tickSize={8}
                        axisLine={false}
                        tickLine={false}
                 />
@@ -35,9 +35,8 @@ const QueueReportHistogram = () => {
                     yAxisId="2"
                     orientation="right"
                     type="number"
-                    tickCount={9}
-                    tickSize={9}
-                    allowDataOverflow
+                    tickCount={8}
+                    tickSize={8}
                     domain={[88, 100]}
                     axisLine={false}
                     tickLine={false}
@@ -61,7 +60,7 @@ const QueueReportHistogram = () => {
                 <Bar dataKey="skipped"
                      name={"Не принято"}
                      stackId="a"
-                     fill="red"
+                     fill="#d54758"
                      yAxisId={"1"}
                      style={{paddingBottom: "5px"}}
                      label={{position: 'insideBottom', fill: "#737171", fontSize: "14px", dy: -10}}>
