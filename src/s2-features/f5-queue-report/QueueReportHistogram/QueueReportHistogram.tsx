@@ -25,7 +25,7 @@ const QueueReportHistogram = () => {
                        style={{fontSize: "12px", fontWeight: 600, textAnchor: "middle"}}/>
                 <YAxis yAxisId="1"
                        domain={[0, 1750]}
-                       label={{value: 'Кол-во звонков', angle: -90, position: 'insideLeft', dy: 50}}
+                       label={{value: 'Кол-во звонков', angle: -90, position: 'insideLeft', dy: 60}}
                        tickCount={8}
                        tickSize={8}
                        axisLine={false}
@@ -50,7 +50,7 @@ const QueueReportHistogram = () => {
                 <CartesianGrid stroke="#a6a2a2" vertical={false}/>
                 <Tooltip/>
                 <Legend/>
-                <Bar barSize={350}
+                <Bar barSize={380}
                      dataKey="accept"
                      name={"Принято"}
                      stackId="a"

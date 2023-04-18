@@ -1,12 +1,12 @@
 import React from 'react';
-import {Pie, PieChart} from "recharts";
+import {Pie, PieChart, ResponsiveContainer} from "recharts";
 import {queueReportData} from "../../../data/queueReportData";
 
 const QueueReportPie = () => {
 
     const data01 = [
-        {name: 'Slice', value: 37, fill: '#e70707'},
-        {name: 'Slice', value: 1491, fill: '#4bb253'},
+        {name: 'Пропущено', value: 37, fill: '#e70707'},
+        {name: 'Принято', value: 1491, fill: '#4bb253'},
     ];
     const reportData = [...queueReportData.map(r => ({name: r.queue, value: r.totalCall}))]
     console.log(reportData)
@@ -36,8 +36,8 @@ const QueueReportPie = () => {
 
 
         const endPoint = [
-            {x3: 295, y3: 25}, {x3: 235, y3: 50}, {x3: 215, y3: 70}, {x3: 200, y3: 90}, {x3: 195, y3: 110},
-            {x3: 195, y3: 130}, {x3: 200, y3: 150}, {x3: 205, y3: 170}, {x3: 230, y3: 210}, {x3: 425, y3: 100}
+            {x3: 360, y3: 50}, {x3: 315, y3: 70}, {x3: 285, y3: 90}, {x3: 275, y3: 110}, {x3: 265, y3: 130},
+            {x3: 265, y3: 150}, {x3: 265, y3: 170}, {x3: 265, y3: 190}, {x3: 290, y3: 255}, {x3: 505, y3: 125}
         ]
         const paths = [
             `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[0].x3} ${endPoint[0].y3}`,
@@ -80,7 +80,7 @@ const QueueReportPie = () => {
         const textAnchor = cos >= 0 ? 'start' : 'end';
 
 
-        const endPoint = [{x3: 330, y3: 75}, {x3: 305, y3: 195}]
+        const endPoint = [{x3: 400, y3:105}, {x3: 370, y3: 240}]
         const paths = [
             `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[0].x3} ${endPoint[0].y3}`,
             `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[1].x3} ${endPoint[1].y3}`,
@@ -89,7 +89,7 @@ const QueueReportPie = () => {
         return (
             <g>
                 <path d={paths[index]} stroke={fill} fill="none"/>
-                <text style={{fontSize: "12px", fontWeight: "500"}}
+                <text style={name==="Принято" ?{fontSize: "12px", fontWeight: "700"}:{fontSize: "12px", fontWeight: "500"}}
                       x={textAnchor === 'start' ? endPoint[index].x3 + 5 : endPoint[index].x3 - 5}
                       y={endPoint[index].y3 + 5}
                       textAnchor={textAnchor}
@@ -104,40 +104,39 @@ const QueueReportPie = () => {
     };
 
     return (
-        <PieChart width={630}
-                  height={265}
-
-                  margin={{
-                      top: 0,
-                      left: 0,
-                      bottom: 0,
-                      right: 0
-                  }}>
-            <Pie data={data02}
-                 startAngle={-270}
-                 dataKey={"value"}
-                 cx="50%"
-                 cy="50%"
-                 innerRadius={70}
-                 outerRadius={100}
-                 fill="#82ca9d"
-                 labelLine={false}
-                 label={renderQueueLabel}
-                 paddingAngle={1}
-            />
-            <Pie data={data01}
-                 startAngle={-280}
-                 dataKey="value"
-                 cx="50%"
-                 cy="50%"
-                 outerRadius={50}
-                 fill="#8884d8"
-                 labelLine={false}
-                 label={renderSkippedAcceptLabel}
-                 paddingAngle={2}
-            />
-
-        </PieChart>
+        <ResponsiveContainer>
+            <PieChart
+                      margin={{
+                          top: 0,
+                          left: 0,
+                          bottom: 0,
+                          right: 0
+                      }}>
+                <Pie data={data02}
+                     startAngle={-270}
+                     dataKey={"value"}
+                     cx="50%"
+                     cy="50%"
+                     innerRadius={80}
+                     outerRadius={110}
+                     fill="#82ca9d"
+                     labelLine={false}
+                     label={renderQueueLabel}
+                     paddingAngle={1}
+                />
+                <Pie data={data01}
+                     startAngle={-280}
+                     dataKey="value"
+                     cx="50%"
+                     cy="50%"
+                     outerRadius={60}
+                     fill="#8884d8"
+                     labelLine={false}
+                     label={renderSkippedAcceptLabel}
+                     paddingAngle={2}
+                />
+            </PieChart>
+        </ResponsiveContainer>
     );
 };
 
