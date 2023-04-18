@@ -6,6 +6,7 @@ import {ReactComponent as CallReportIcon} from '../../assets/call-report-icon.sv
 import {ReactComponent as CallIcon} from '../../assets/call-icon.svg'
 import {ReactComponent as OperatorIcon} from "../../assets/operator-icon.svg";
 import {ReactComponent as QueueIcon} from "../../assets/queue-icon.svg";
+import {ReactComponent as TOP20} from "../../assets/top20-icon.svg";
 import {PATH} from "../../common/routes/routes";
 import {useNavigate} from 'react-router-dom';
 
@@ -24,6 +25,9 @@ const Home = () => {
     const toQueueReportHandler = () => {
         navigate(PATH.QUEUE_REPORT)
     }
+    const toTopOperatorReportHandler = () => {
+        navigate(PATH.TOP_OPERATOR_REPORT)
+    }
 
     return (
         <div className={s.homeWrapper}>
@@ -41,11 +45,12 @@ const Home = () => {
                     <div className={s.monitoringContainer} onClick={toCallReportHandler} style={{marginLeft: "50px"}}>
                         <div className={s.monitoringContent}>
                             <CallReportIcon className={s.monitoring} width={60} height={60}/>
-                            <CallIcon className={s.call} width={30} height={30}/>
+                            <CallIcon className={s.call} width={30} height={30} style={{borderRadius: "0 15px 0 15px"}}/>
                         </div>
                         <div className={s.itemName}>Отчёт по звонкам</div>
                     </div>
-                    <div className={s.monitoringContainer} onClick={toOperatorReportHandler} style={{marginLeft: "20px"}}>
+                    <div className={s.monitoringContainer} onClick={toOperatorReportHandler}
+                         style={{marginLeft: "20px"}}>
                         <div className={s.monitoringContent}>
                             <CallReportIcon className={s.monitoring} width={60} height={60}/>
                             <OperatorIcon className={s.call} width={30} height={30}/>
@@ -56,6 +61,15 @@ const Home = () => {
                         <div className={s.monitoringContent}>
                             <CallReportIcon className={s.monitoring} width={60} height={60}/>
                             <QueueIcon className={s.call} width={30} height={30}/>
+                        </div>
+                        <div className={s.itemName}>Отчёт по очередям</div>
+                    </div>
+                    <div className={s.monitoringContainer} onClick={toTopOperatorReportHandler}
+                         style={{marginLeft: "20px"}}>
+                        <div className={s.monitoringContent}>
+                            <CallReportIcon className={s.monitoring} width={60} height={60}/>
+                            <TOP20 className={s.call} width={30} height={30}
+                                   style={{padding: "0px", borderRadius: "0 0 3px 15px"}}/>
                         </div>
                         <div className={s.itemName}>Отчёт по очередям</div>
                     </div>
