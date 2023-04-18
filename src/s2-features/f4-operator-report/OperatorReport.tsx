@@ -1,16 +1,16 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from "./OperatorReport.module.scss";
-import {Sidebar} from "../../common/Sidebar/Sidebar";
-import Table from "../../common/Table/Table";
+import {Sidebar} from "../../common/components/Sidebar/Sidebar";
+import Table from "../../common/components/Table/Table";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../common/routes/routes";
 import {operatorReportData} from "../../data/operatorReportData";
-import CustomTabs from "../../common/CustomTabs/CustomTabs";
-import ArrowLeftIcon from "../../common/ArrowLeftIcon/ArrowLeftIcon";
-import OptionIcon from "../../common/OptionIcon/OptionIcon";
-import HomeIcon from "../../common/HomeIcon/HomeIcon";
+import CustomTabs from "../../common/components/CustomTabs/CustomTabs";
+import ArrowLeftIcon from "../../common/components/ArrowLeftIcon/ArrowLeftIcon";
+import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
+import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import {Form} from "react-bootstrap";
-import TabButton from "../../common/TabButton/TabButton";
+import TabButton from "../../common/components/TabButton/TabButton";
 
 
 const columns = [

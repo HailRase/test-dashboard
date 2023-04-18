@@ -1,5 +1,5 @@
 import React from 'react';
-import {ReactComponent as OptionIconComponent} from "../../assets/option-icon.svg";
+import {ReactComponent as OptionIconComponent} from "../../../assets/option-icon.svg";
 import s from './OptionIcon.module.scss'
 type OptionIconPropType = {
     onClick: () => void

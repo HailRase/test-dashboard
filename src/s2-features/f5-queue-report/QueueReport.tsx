@@ -1,15 +1,19 @@
 import React, {useState} from 'react';
 import s from './QueueReport.module.scss'
-import {Sidebar} from "../../common/Sidebar/Sidebar";
-import ArrowLeftIcon from "../../common/ArrowLeftIcon/ArrowLeftIcon";
-import HomeIcon from "../../common/HomeIcon/HomeIcon";
-import OptionIcon from "../../common/OptionIcon/OptionIcon";
+import {Sidebar} from "../../common/components/Sidebar/Sidebar";
+import ArrowLeftIcon from "../../common/components/ArrowLeftIcon/ArrowLeftIcon";
+import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
+import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../common/routes/routes";
-import Table from "../../common/Table/Table";
+import Table from "../../common/components/Table/Table";
 import {queueReportData} from "../../data/queueReportData";
 import QueueReportPie from "./QueueReportPie/QueueReportPie";
 import QueueReportHistogram from "./QueueReportHistogram/QueueReportHistogram";
+import Form from "react-bootstrap/Form";
+import {dateNow} from "../../data/dateNow";
+import TabButton from "../../common/components/TabButton/TabButton";
+import Accordion from "../../common/components/Accordion/Accordion";
 
 const columns = [
     {
@@ -114,6 +118,35 @@ const columns = [
                 accessor: 'acceptLess10s',
                 width: 90
             }
+            ,
+            {
+                Header: 'Принято <20с',
+                accessor: 'acceptLess20s',
+                width: 90
+            }
+            ,
+            {
+                Header: 'Принято <30с',
+                accessor: 'acceptLess30s',
+                width: 90
+            }
+            ,
+            {
+                Header: 'Принято <1m',
+                accessor: 'acceptLess1m',
+                width: 90
+            }
+            ,
+            {
+                Header: 'Принято <2m',
+                accessor: 'acceptLess2m',
+                width: 90
+            },
+            {
+                Header: 'Принято >2м',
+                accessor: 'acceptMore2m',
+                width: 100
+            }
         ]
     },
 ]
@@ -141,7 +174,50 @@ const QueueReport = () => {
                         <span>Параметры отбора</span>
                     </div>
                     <div className={s.optionContent}>
+                        <Form.Group
+                            style={{display: "flex", justifyContent: "flex-end", padding: "5px", marginLeft: "20px"}}>
+                            <div>
+                                <Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label>
+                            </div>
+                            <div>
+                                <Form.Control type="date" defaultValue={dateNow} style={{width: "250px"}}/>
+                                <Form.Control type="time" defaultValue={"00:00"} style={{width: "250px"}}/>
+                            </div>
+                        </Form.Group>
+                        <Form.Group
+                            style={{display: "flex", justifyContent: "flex-end", padding: "5px", marginLeft: "20px"}}>
+                            <div>
+                                <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
+                            </div>
+                            <div>
+                                <Form.Control type="date" defaultValue={dateNow} style={{width: "250px"}}/>
+                                <Form.Control type="time" defaultValue={"23:59"} style={{width: "250px"}}/>
+                            </div>
+                        </Form.Group>
+                        <Accordion title={"Параметры"}>
+                            <Form.Group
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                    alignItems: "center",
+                                    marginBottom: "10px"
+                                }}>
+                                <Form.Label style={{color: "white", marginRight: "10px"}}>Тип</Form.Label>
+                                <Form.Select style={{width: "250px", borderRadius: "0px"}}>
+                                    <option value="День">День</option>
+                                    <option value="Неделя">Неделя</option>
+                                    <option value="Месяц">Месяц</option>
+                                </Form.Select>
+                            </Form.Group>
+                            <Form.Group style={{display: "flex", justifyContent: "flex-end", alignItems: "center"}}>
+                                <Form.Label style={{color: "white", marginRight: "10px"}}>Шаг</Form.Label>
+                                <Form.Control type="text" defaultValue={"1"}
+                                              style={{width: "250px", borderRadius: "0px"}}/>
 
+                            </Form.Group>
+                        </Accordion>
+                        <TabButton style={{marginTop: "0px"}} name={'Обновить'} onClick={() => {
+                        }}/>
                     </div>
                 </div>
             </Sidebar>
@@ -152,8 +228,14 @@ const QueueReport = () => {
                     <span>Отчёт по очередям</span>
                 </div>
                 <div className={s.callAndOperatorRating}>
-                    <QueueReportPie/>
-                    <QueueReportHistogram/>
+                    <div className={s.pieContainer}>
+                        <span>Кол-во принятых звонков по очередям</span>
+                        <QueueReportPie/>
+                    </div>
+                    <div className={s.histogramContainer}>
+                        <span>Все очереди</span>
+                        <QueueReportHistogram/>
+                    </div>
                 </div>
                 <div className={s.histogram}>
                     <Table data={queueReportData} columns={columns} pagination={true} width={"99vw"}/>

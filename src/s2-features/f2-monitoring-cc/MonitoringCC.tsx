@@ -5,12 +5,12 @@ import OperatorRating from "../f2-monitoring-cc/operator-raiting/OperatorRating"
 import Histogram from "../f2-monitoring-cc/histogram/Histogram";
 
 import {useNavigate} from "react-router-dom";
-import {Sidebar} from "../../common/Sidebar/Sidebar";
+import {Sidebar} from "../../common/components/Sidebar/Sidebar";
 import {PATH} from "../../common/routes/routes";
-import CustomTabs from "../../common/CustomTabs/CustomTabs";
-import ArrowLeftIcon from "../../common/ArrowLeftIcon/ArrowLeftIcon";
-import OptionIcon from "../../common/OptionIcon/OptionIcon";
-import HomeIcon from "../../common/HomeIcon/HomeIcon";
+import CustomTabs from "../../common/components/CustomTabs/CustomTabs";
+import ArrowLeftIcon from "../../common/components/ArrowLeftIcon/ArrowLeftIcon";
+import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
+import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 
 
 const MonitoringCc = () => {

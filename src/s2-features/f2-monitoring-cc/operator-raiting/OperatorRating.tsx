@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './OperatorRating.module.scss'
-import Table from "../../../common/Table/Table";
+import Table from "../../../common/components/Table/Table";
 import {operatorsRatingData} from "../../../data/operatorsData";
 
 

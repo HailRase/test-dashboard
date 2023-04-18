@@ -1,5 +1,5 @@
 import React from 'react';
-import {ReactComponent as HomeIconComponent} from "../../assets/home-icon.svg";
+import {ReactComponent as HomeIconComponent} from "../../../assets/home-icon.svg";
 import s from './HomeIcon.module.scss'
 type HomeIconPropType = {
     onClick: () => void

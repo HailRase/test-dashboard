@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import Tab from "react-bootstrap/Tab";
 import Form from "react-bootstrap/Form";
-import {dateNow} from "../../data/dateNow";
+import {dateNow} from "../../../data/dateNow";
 import Tabs from "react-bootstrap/Tabs";
 import './CustomTabs.css'
 import TabButton from "../TabButton/TabButton";
@@ -12,7 +12,7 @@ interface CustomTabsPropsType {
     fromTime?: string
     toDate?: string
     toTime?: string
-    onFromDateChange?: (date:  ChangeEvent<HTMLInputElement>) => void;
+    onFromDateChange?: (date: ChangeEvent<HTMLInputElement>) => void;
     onToDateChange?: (time: ChangeEvent<HTMLInputElement>) => void;
     onFromTimeChange?: (date: ChangeEvent<HTMLInputElement>) => void;
     onToTimeChange?: (time: ChangeEvent<HTMLInputElement>) => void;
@@ -54,15 +54,23 @@ const CustomTabs = ({
                  color="#000"
                  style={{padding: "10px"}}
             >
-                <Form.Group style={{padding: "5px", marginLeft: "20px"}}>
-                    <Form.Label style={{color: "white"}}>С:</Form.Label>
-                    <Form.Control value={fromDate} onChange={onFromDateChange} type="date" defaultValue={dateNow} style={{width: "250px"}}/>
-                    <Form.Control value={fromTime} onChange={onFromTimeChange} type="time" defaultValue={"00:00"} style={{width: "250px"}}/>
+                <Form.Group style={{display: "flex", justifyContent: "flex-end", padding: "5px", marginLeft: "20px"}}>
+                    <div><Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label></div>
+                    <div>
+                        <Form.Control value={fromDate} onChange={onFromDateChange} type="date" defaultValue={dateNow}
+                                      style={{width: "250px"}}/>
+                        <Form.Control value={fromTime} onChange={onFromTimeChange} type="time" defaultValue={"00:00"}
+                                      style={{width: "250px"}}/>
+                    </div>
                 </Form.Group>
-                <Form.Group style={{padding: "5px", marginLeft: "20px"}}>
-                    <Form.Label style={{color: "white"}}>По:</Form.Label>
-                    <Form.Control  value={toDate} onChange={onToDateChange} type="date" defaultValue={dateNow} style={{width: "250px"}}/>
-                    <Form.Control value={toTime} onChange={onToTimeChange} type="time" defaultValue={"23:59"} style={{width: "250px"}}/>
+                <Form.Group style={{display: "flex", justifyContent: "flex-end", padding: "5px", marginLeft: "20px"}}>
+                    <div><Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label></div>
+                    <div>
+                        <Form.Control value={toDate} onChange={onToDateChange} type="date" defaultValue={dateNow}
+                                      style={{width: "250px"}}/>
+                        <Form.Control value={toTime} onChange={onToTimeChange} type="time" defaultValue={"23:59"}
+                                      style={{width: "250px"}}/>
+                    </div>
                 </Form.Group>
                 <TabButton name={'Обновить'} onClick={() => {
                 }}/>

@@ -2,10 +2,10 @@ import React, {useEffect} from 'react'
 import {useBlockLayout, usePagination, useResizeColumns, useTable} from "react-table";
 import s from './Table.module.scss'
 import data from "bootstrap/js/src/dom/data";
-import {ReactComponent as InfoIcon} from "../../assets/info-icon.svg";
-import {ReactComponent as Like} from "../../assets/like.svg";
-import {truncateString} from "../utils/truncateString";
-import ExcelExporter from "../../ExcelExporter/ExcelExporter";
+import {ReactComponent as InfoIcon} from "../../../assets/info-icon.svg";
+import {ReactComponent as Like} from "../../../assets/like.svg";
+import {truncateString} from "../../utils/truncateString";
+import ExcelExporter from "../../../ExcelExporter/ExcelExporter";
 
 
 const Table = ({...props}) => {
@@ -85,7 +85,11 @@ const Table = ({...props}) => {
                 case 'totalAccept':
                 case 'acceptLess5s':
                 case 'acceptLess10s':
-                case 'skippedLess10s':
+                case 'acceptLess20s':
+                case 'acceptLess30s':
+                case 'acceptLess1m':
+                case 'acceptLess2m':
+                case 'acceptMore2m':
                     return s.grayColor
                 default:
                     return s.black

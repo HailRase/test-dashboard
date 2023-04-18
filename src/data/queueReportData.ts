@@ -18,6 +18,11 @@ type QueueReportDataType = {
     totalAccept: number
     acceptLess5s: number
     acceptLess10s: number
+    acceptLess20s: number
+    acceptLess30s: number
+    acceptLess1m: number
+    acceptLess2m: number
+    acceptMore2m: number
 }
 export const queueReportData:QueueReportDataType[] = [
     {
@@ -38,7 +43,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 1,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 0,
+        acceptLess20s: 0,
+        acceptLess30s: 0,
+        acceptLess1m: 0,
+        acceptLess2m: 9,
+        acceptMore2m: 9
     },
     {
         id:2,
@@ -58,7 +68,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 1,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 0,
+        acceptLess20s: 9,
+        acceptLess30s: 9,
+        acceptLess1m: 9,
+        acceptLess2m: 9,
+        acceptMore2m: 0
     },
     {
         id:3,
@@ -78,7 +93,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 0,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 9,
+        acceptLess20s: 0,
+        acceptLess30s: 9,
+        acceptLess1m: 0,
+        acceptLess2m: 0,
+        acceptMore2m: 9
     },
     {
         id:4,
@@ -98,7 +118,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 0,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 9,
+        acceptLess20s: 0,
+        acceptLess30s: 9,
+        acceptLess1m: 9,
+        acceptLess2m: 0,
+        acceptMore2m: 9
     },
     {
         id:5,
@@ -118,7 +143,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 1,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 0,
+        acceptLess20s: 9,
+        acceptLess30s: 9,
+        acceptLess1m: 0,
+        acceptLess2m: 0,
+        acceptMore2m: 9
     },
     {
         id:6,
@@ -138,7 +168,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 0,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 0,
+        acceptLess20s: 0,
+        acceptLess30s: 0,
+        acceptLess1m: 9,
+        acceptLess2m: 9,
+        acceptMore2m: 9
     },
     {
         id:7,
@@ -158,7 +193,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 1,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 0,
+        acceptLess20s: 9,
+        acceptLess30s: 9,
+        acceptLess1m: 9,
+        acceptLess2m: 0,
+        acceptMore2m: 0
     },
     {
         id:8,
@@ -178,7 +218,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 1,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 9,
+        acceptLess20s: 0,
+        acceptLess30s: 0,
+        acceptLess1m: 0,
+        acceptLess2m: 9,
+        acceptMore2m: 9
     },
     {
         id:9,
@@ -198,7 +243,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 1,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 0,
+        acceptLess20s: 0,
+        acceptLess30s: 9,
+        acceptLess1m: 9,
+        acceptLess2m: 9,
+        acceptMore2m: 0
     },
     {
         id:10,
@@ -218,7 +268,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 1,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 0,
+        acceptLess20s: 9,
+        acceptLess30s: 0,
+        acceptLess1m: 9,
+        acceptLess2m: 0,
+        acceptMore2m: 9
     },
     {
         id:11,
@@ -238,7 +293,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 0,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 9,
+        acceptLess20s: 0,
+        acceptLess30s: 2,
+        acceptLess1m: 0,
+        acceptLess2m: 0,
+        acceptMore2m: 9
     },
     {
         id:12,
@@ -258,7 +318,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 1,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 0,
+        acceptLess20s: 9,
+        acceptLess30s: 0,
+        acceptLess1m: 0,
+        acceptLess2m: 0,
+        acceptMore2m: 9
     },
     {
         id:13,
@@ -278,7 +343,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 1,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 0,
+        acceptLess20s: 9,
+        acceptLess30s: 0,
+        acceptLess1m: 9,
+        acceptLess2m: 0,
+        acceptMore2m: 9
     },
     {
         id:14,
@@ -298,7 +368,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 1,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 9,
+        acceptLess20s: 9,
+        acceptLess30s: 0,
+        acceptLess1m: 0,
+        acceptLess2m: 9,
+        acceptMore2m: 0
     },
     {
         id:15,
@@ -318,7 +393,12 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 0,
         totalAccept: 572,
         acceptLess5s: 521,
-        acceptLess10s: 9
+        acceptLess10s: 9,
+        acceptLess20s: 0,
+        acceptLess30s: 0,
+        acceptLess1m: 9,
+        acceptLess2m: 9,
+        acceptMore2m: 0
     },
     {
         id:16,
@@ -338,6 +418,11 @@ export const queueReportData:QueueReportDataType[] = [
         skippedMore2m: 1,
         totalAccept: 562,
         acceptLess5s: 560,
-        acceptLess10s: 2
+        acceptLess10s: 2,
+        acceptLess20s:0,
+        acceptLess30s: 9,
+        acceptLess1m: 0,
+        acceptLess2m: 0,
+        acceptMore2m: 9
     }
 ]
