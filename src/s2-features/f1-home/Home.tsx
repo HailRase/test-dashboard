@@ -36,28 +36,33 @@ const Home = () => {
                     <Logo className={s.logo} height={60} width={110}/>
                 </div>
                 <div className={s.homeContent}>
-                    <div className={s.monitoringContainer} onClick={toMonitoringHandler}>
+                    <div className={s.monitoringContainer} style={{width: "200px", textAlign: "center"}}
+                         onClick={toMonitoringHandler}>
                         <div className={s.monitoringContent}>
                             <Monitoring className={s.monitoring} width={60} height={60}/>
                         </div>
-                        <div className={s.itemName}>Мониторинг</div>
+                        <div className={s.itemName}>Мониторинг Контакт-центра (Past)</div>
                     </div>
-                    <div className={s.monitoringContainer} onClick={toCallReportHandler} style={{marginLeft: "50px"}}>
+                    <div className={s.monitoringContainer}
+                         style={{width: "150px", textAlign: "center", marginLeft: "10px"}}
+                         onClick={toCallReportHandler}>
                         <div className={s.monitoringContent}>
                             <CallReportIcon className={s.monitoring} width={60} height={60}/>
-                            <CallIcon className={s.call} width={30} height={30} style={{borderRadius: "0 15px 0 15px"}}/>
+                            <CallIcon className={s.call} width={30} height={30}
+                                      style={{borderRadius: "0 15px 0 15px"}}/>
                         </div>
                         <div className={s.itemName}>Отчёт по звонкам</div>
                     </div>
                     <div className={s.monitoringContainer} onClick={toOperatorReportHandler}
-                         style={{marginLeft: "20px"}}>
+                         style={{width: "150px", textAlign: "center", marginLeft: "10px"}}>
                         <div className={s.monitoringContent}>
                             <CallReportIcon className={s.monitoring} width={60} height={60}/>
                             <OperatorIcon className={s.call} width={30} height={30}/>
                         </div>
                         <div className={s.itemName}>Отчёт по операторам</div>
                     </div>
-                    <div className={s.monitoringContainer} onClick={toQueueReportHandler} style={{marginLeft: "20px"}}>
+                    <div className={s.monitoringContainer} onClick={toQueueReportHandler}
+                         style={{width: "150px", textAlign: "center", marginLeft: "10px"}}>
                         <div className={s.monitoringContent}>
                             <CallReportIcon className={s.monitoring} width={60} height={60}/>
                             <QueueIcon className={s.call} width={30} height={30}/>
@@ -65,13 +70,13 @@ const Home = () => {
                         <div className={s.itemName}>Отчёт по очередям</div>
                     </div>
                     <div className={s.monitoringContainer} onClick={toTopOperatorReportHandler}
-                         style={{marginLeft: "20px"}}>
+                         style={{width: "150px", textAlign: "center", marginLeft: "10px"}}>
                         <div className={s.monitoringContent}>
                             <CallReportIcon className={s.monitoring} width={60} height={60}/>
                             <TOP20 className={s.call} width={30} height={30}
                                    style={{padding: "0px", borderRadius: "0 0 3px 15px"}}/>
                         </div>
-                        <div className={s.itemName}>Отчёт по очередям</div>
+                        <div className={s.itemName}>Отчёт по операторам</div>
                     </div>
                 </div>
             </div>

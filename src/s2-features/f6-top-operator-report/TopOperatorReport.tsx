@@ -27,6 +27,7 @@ const columns = [
     {
         Header: 'Оператор',
         accessor: 'operator',
+        width: 300
     },
     {
         Header: 'Отдел',
@@ -101,10 +102,12 @@ const TopOperatorReport = () => {
                                     marginBottom: "10px"
                                 }}>
                                 <Form.Label style={{color: "white", marginRight: "10px"}}>Тип</Form.Label>
-                                <Form.Select style={{width: "250px", borderRadius: "0px"}}>
+                                <Form.Select defaultValue={"День"} style={{width: "250px", borderRadius: "0px"}}>
+                                    <option value="Минута">Минута</option>
+                                    <option value="Час">Час</option>
                                     <option value="День">День</option>
                                     <option value="Неделя">Неделя</option>
-                                    <option value="Месяц">Месяц</option>
+                                    <option value="Весь период">Весь период</option>
                                 </Form.Select>
                             </Form.Group>
                             <Form.Group style={{display: "flex", justifyContent: "flex-end", alignItems: "center"}}>
