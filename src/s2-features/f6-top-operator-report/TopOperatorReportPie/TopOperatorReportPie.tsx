@@ -101,13 +101,19 @@ const TopOperatorReportPie = () => {
     };
     const CustomTooltip = ({active, payload, label}: any) => {
         if (active && payload && payload[0].dataKey === "receivedIncomingCallsCount") {
-            console.log(payload)
             return (
                 <div className={s.tooltipContainer}>
                     <span className="label">{payload[0].payload.operator}</span>
                     <br/>
                     <span className="intro">Звонков принято: <b>{payload[0].value}</b></span>
                 </div>
+            );
+        }else if (active && payload && payload[0].dataKey === "value"){
+            return (
+                <div className={s.tooltipContainer}>
+                <span className="label">{payload[0].payload.name}: {payload[0].payload.value}</span>
+
+            </div>
             );
         }
     }
