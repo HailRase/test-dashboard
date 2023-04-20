@@ -1,14 +1,8 @@
 import React from 'react';
 import s from './Home.module.scss'
-import {ReactComponent as Logo} from '../../assets/Logo.svg'
-import {ReactComponent as Monitoring} from '../../assets/monitoring-icon.svg'
-import {ReactComponent as CallReportIcon} from '../../assets/call-report-icon.svg'
-import {ReactComponent as CallIcon} from '../../assets/call-icon.svg'
-import {ReactComponent as OperatorIcon} from "../../assets/operator-icon.svg";
-import {ReactComponent as QueueIcon} from "../../assets/queue-icon.svg";
-import {ReactComponent as TOP20} from "../../assets/top20-icon.svg";
 import {PATH} from "../../common/routes/routes";
 import {useNavigate} from 'react-router-dom';
+import HomeAccordion from "../../common/components/HomeAccordion/HomeAccordion";
 
 
 const Home = () => {
@@ -29,55 +23,83 @@ const Home = () => {
         navigate(PATH.TOP_OPERATOR_REPORT)
     }
 
+    const monitoringAccordion = [
+        {
+            title: "Мониторинг Контакт-центра",
+            body: "Оперативная информация по контактному центру, рейтинг операторов, нагрузка контактного центра по часам",
+            clickOnBody: () => {
+            }
+        },
+        {title: "Мониторинг Контакт-центра (Past)", body: "", clickOnBody: toMonitoringHandler},
+    ]
+    const operatorReportAccordion = [
+        {
+            title: "Отчёт по операторам",
+            body: "Отражает информация по операторам в табличном виде за период времени с шагом в час, день, месяц.",
+            clickOnBody: () => toTopOperatorReportHandler
+        },
+        {
+            title: "Отчёт по операторам (общий)",
+            body: "Отражает общую информацию по операторам в табличном виде за период.",
+            clickOnBody: () => {
+            }
+        },
+        {
+            title: "Отчёт по операторам (детальный)",
+            body: "Отражает детальную информация по очередям в виде таблицы за период времени с шагом в час, день, месяц.",
+            clickOnBody: () => {
+            }
+        },
+        {
+            title: "Отчёт по статусам оператора",
+            body: "Отражает информацию по статусам в которых находился оператор",
+            clickOnBody: () => {
+            }
+        },
+        {
+            title: "Отчёт по операторам (пропущенные)",
+            body: " Отражает статистику по пропущенным звонкам всех или отдельного оператора",
+            clickOnBody: () => {
+            }
+        },
+    ]
+    const queueReportAccordion = [
+        {
+            title: "Отчёт по очередям",
+            body: "Отображает информация по очередям в виде графиков и таблицы за период времени с шагом в час, день, месяц.",
+            clickOnBody: toQueueReportHandler
+        },
+        {
+            title: "Детальный отчёт по пропущенным с очередей", body: "", clickOnBody: () => {
+            }
+        },
+    ]
+    const statisticsAccordion = [
+        {
+            title: "Статистика по звонкам",
+            body: "Детальная статистика звонков.",
+            clickOnBody: toCallReportHandler
+        },
+        {
+            title: "Статистика по операторам",
+            body: "Детальная статистика по статусам в которых находились операторы.",
+            clickOnBody: toOperatorReportHandler
+        },
+    ]
+
     return (
         <div className={s.homeWrapper}>
-            <div className={s.homeContainer}>
-                <div className={s.homeHeader}>
-                    <Logo className={s.logo} height={60} width={110}/>
+            <div className={s.homeTitle}><span style={{color: "white"}}>Отчеты</span></div>
+            <div className={s.homeContent}>
+                <div className={s.homeContentTitle}>
+                    <span>Наименование отчёта</span>
+                    <span>Описание</span>
                 </div>
-                <div className={s.homeContent}>
-                    <div className={s.monitoringContainer} style={{width: "200px", textAlign: "center"}}
-                         onClick={toMonitoringHandler}>
-                        <div className={s.monitoringContent}>
-                            <Monitoring className={s.monitoring} width={60} height={60}/>
-                        </div>
-                        <div className={s.itemName}>Мониторинг Контакт-центра (Past)</div>
-                    </div>
-                    <div className={s.monitoringContainer}
-                         style={{width: "150px", textAlign: "center", marginLeft: "10px"}}
-                         onClick={toCallReportHandler}>
-                        <div className={s.monitoringContent}>
-                            <CallReportIcon className={s.monitoring} width={60} height={60}/>
-                            <CallIcon className={s.call} width={30} height={30}
-                                      style={{borderRadius: "0 15px 0 15px"}}/>
-                        </div>
-                        <div className={s.itemName}>Отчёт по звонкам</div>
-                    </div>
-                    <div className={s.monitoringContainer} onClick={toOperatorReportHandler}
-                         style={{width: "150px", textAlign: "center", marginLeft: "10px"}}>
-                        <div className={s.monitoringContent}>
-                            <CallReportIcon className={s.monitoring} width={60} height={60}/>
-                            <OperatorIcon className={s.call} width={30} height={30}/>
-                        </div>
-                        <div className={s.itemName}>Отчёт по операторам</div>
-                    </div>
-                    <div className={s.monitoringContainer} onClick={toQueueReportHandler}
-                         style={{width: "150px", textAlign: "center", marginLeft: "10px"}}>
-                        <div className={s.monitoringContent}>
-                            <CallReportIcon className={s.monitoring} width={60} height={60}/>
-                            <QueueIcon className={s.call} width={30} height={30}/>
-                        </div>
-                        <div className={s.itemName}>Отчёт по очередям</div>
-                    </div>
-                    <div className={s.monitoringContainer} onClick={toTopOperatorReportHandler}
-                         style={{width: "150px", textAlign: "center", marginLeft: "10px"}}>
-                        <div className={s.monitoringContent}>
-                            <CallReportIcon className={s.monitoring} width={60} height={60}/>
-                            <TOP20 className={s.call} width={30} height={30}
-                                   style={{padding: "0px", borderRadius: "0 0 3px 15px"}}/>
-                        </div>
-                        <div className={s.itemName}>Отчёт по операторам</div>
-                    </div>
+                <div className={s.homeContentBody}>
+                    <HomeAccordion title={"Мониторинг"} items={monitoringAccordion}/>
+                    <HomeAccordion title={"Отчёты по операторам"} items={operatorReportAccordion}/>
+                    <HomeAccordion title={"Отчёты по очередям"} items={queueReportAccordion}/>
+                    <HomeAccordion title={"Статистика"} items={statisticsAccordion}/>
                 </div>
             </div>
         </div>
