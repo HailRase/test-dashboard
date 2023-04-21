@@ -132,8 +132,8 @@ const TopOperatorReportPie = () => {
                      dataKey={"receivedIncomingCallsCount"}
                      cx="50%"
                      cy="50%"
-                     innerRadius={80}
-                     outerRadius={110}
+                     innerRadius={"40%"}
+                     outerRadius={"55%"}
                      fill="#82ca9d"
                      labelLine={false}
                      label={renderQueueLabel}
@@ -144,7 +144,7 @@ const TopOperatorReportPie = () => {
                      dataKey="value"
                      cx="50%"
                      cy="50%"
-                     outerRadius={60}
+                     outerRadius={"30%"}
                      fill="#8884d8"
                      labelLine={false}
                      label={renderSkippedAcceptLabel}

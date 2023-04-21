@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import MonitoringCc from "../../s2-features/f2-monitoring-cc/MonitoringCC";
+import MonitoringCCPast from "../../s2-features/f2-monitoring-cc/past/MonitoringCCPast";
 import {Route, Routes} from 'react-router-dom';
 import {PATH} from "../../common/routes/routes";
 import Home from "../../s2-features/f1-home/Home";
@@ -16,7 +16,7 @@ function App() {
         <div className="App">
             <Routes>
                 <Route path={PATH.HOME} element={<Home/>}/>
-                <Route path={PATH.MONITORING} element={<MonitoringCc/>}/>
+                <Route path={PATH.MONITORING} element={<MonitoringCCPast/>}/>
                 <Route path={PATH.CALL_REPORT} element={<CallReport/>}/>
                 <Route path={PATH.OPERATOR_REPORT} element={<OperatorReport/>}/>
                 <Route path={PATH.QUEUE_REPORT} element={<QueueReport/>}/>

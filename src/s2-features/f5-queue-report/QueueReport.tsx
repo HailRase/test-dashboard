@@ -22,12 +22,12 @@ const columns = [
             {
                 Header: 'Начало периода',
                 accessor: 'startPeriod',
-                width: 120
+                width: 130
             },
             {
                 Header: 'Конец периода',
                 accessor: 'endPeriod',
-                width: 113
+                width: 130
             },
         ]
     },

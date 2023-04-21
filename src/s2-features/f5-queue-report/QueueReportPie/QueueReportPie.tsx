@@ -1,15 +1,28 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Pie, PieChart, ResponsiveContainer} from "recharts";
 import {queueReportData} from "../../../data/queueReportData";
 
 const QueueReportPie = () => {
 
+    const [scale, setScale] = useState(1);
+
+    useEffect(() => {
+        function handleResize() {
+            const newScale = window.devicePixelRatio || 1;
+            setScale(newScale);
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+    console.log(scale)
     const data01 = [
         {name: 'Пропущено', value: 37, fill: '#e70707'},
         {name: 'Принято', value: 1491, fill: '#4bb253'},
     ];
-    const reportData = [...queueReportData.map(r => ({name: r.queue, value: r.totalCall}))]
-    console.log(reportData)
     const data02 = [
         {name: 'Видеотерминалы', value: 76/*totalCallReducer('Видеотерминалы')*/, fill: '#fdc6c8'},
         {name: 'GSM', value: 1 /*totalCallReducer('GSM')*/, fill: '#4bb253'},
@@ -36,8 +49,8 @@ const QueueReportPie = () => {
 
 
         const endPoint = [
-            {x3: 360, y3: 50}, {x3: 315, y3: 70}, {x3: 285, y3: 90}, {x3: 275, y3: 110}, {x3: 265, y3: 130},
-            {x3: 265, y3: 150}, {x3: 265, y3: 170}, {x3: 265, y3: 190}, {x3: 290, y3: 255}, {x3: 505, y3: 125}
+            {x3: x1 - 10 + (scale * 10), y3: y1 - 10}, {x3: x1 - 35, y3: y1 + 5}, {x3: x1 - 60, y3: y1 + 25}, {x3: x1 - 70, y3: y1 + 40}, {x3: x1 - 75, y3: y1 + 60},
+            {x3: x1 - 65, y3: y1 + 75}, {x3: x1 - 50, y3: y1 + 85}, {x3: x1 - 45, y3: y1 + 100}, {x3: x1 - 15, y3: y1 + 10}, {x3: x1 + 20, y3: y1 - 5}
         ]
         const paths = [
             `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[0].x3} ${endPoint[0].y3}`,
@@ -80,7 +93,7 @@ const QueueReportPie = () => {
         const textAnchor = cos >= 0 ? 'start' : 'end';
 
 
-        const endPoint = [{x3: 400, y3:105}, {x3: 370, y3: 240}]
+        const endPoint = [{x3: x1 + 5, y3: y1 - 10}, {x3: x1 - 5, y3: y1 + 10}]
         const paths = [
             `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[0].x3} ${endPoint[0].y3}`,
             `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[1].x3} ${endPoint[1].y3}`,
@@ -104,7 +117,7 @@ const QueueReportPie = () => {
     };
 
     return (
-        <ResponsiveContainer>
+        <ResponsiveContainer width={"100%"} height={"100%"} >
             <PieChart
                       margin={{
                           top: 0,
@@ -117,8 +130,8 @@ const QueueReportPie = () => {
                      dataKey={"value"}
                      cx="50%"
                      cy="50%"
-                     innerRadius={80}
-                     outerRadius={110}
+                     innerRadius={"40%"}
+                     outerRadius={"55%"}
                      fill="#82ca9d"
                      labelLine={false}
                      label={renderQueueLabel}
@@ -129,7 +142,7 @@ const QueueReportPie = () => {
                      dataKey="value"
                      cx="50%"
                      cy="50%"
-                     outerRadius={60}
+                     outerRadius={"30%"}
                      fill="#8884d8"
                      labelLine={false}
                      label={renderSkippedAcceptLabel}

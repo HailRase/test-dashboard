@@ -36,7 +36,7 @@ const Home = () => {
         {
             title: "Отчёт по операторам",
             body: "Отражает информация по операторам в табличном виде за период времени с шагом в час, день, месяц.",
-            clickOnBody: () => toTopOperatorReportHandler
+            clickOnBody: toTopOperatorReportHandler
         },
         {
             title: "Отчёт по операторам (общий)",
