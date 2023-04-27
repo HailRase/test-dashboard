@@ -136,7 +136,7 @@ const Table = ({...props}) => {
                         </tr>
                     ))}
                     </thead>
-                    <tbody {...getTableBodyProps()} className={s.rowsContainer}>
+                    <tbody {...getTableBodyProps()} className={s.rowsContainer} style={{overflow: "scroll", width: "100%"}}>
                     {page.map(row => {
                         prepareRow(row)
                         return (

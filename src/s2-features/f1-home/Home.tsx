@@ -10,6 +10,9 @@ const Home = () => {
     const toMonitoringHandler = () => {
         navigate(PATH.MONITORING)
     }
+    const toPastMonitoringHandler = () => {
+        navigate(PATH.PAST_MONITORING)
+    }
     const toCallReportHandler = () => {
         navigate(PATH.CALL_REPORT)
     }
@@ -27,10 +30,9 @@ const Home = () => {
         {
             title: "Мониторинг Контакт-центра",
             body: "Оперативная информация по контактному центру, рейтинг операторов, нагрузка контактного центра по часам",
-            clickOnBody: () => {
-            }
+            clickOnBody: toMonitoringHandler
         },
-        {title: "Мониторинг Контакт-центра (Past)", body: "", clickOnBody: toMonitoringHandler},
+        {title: "Мониторинг Контакт-центра (Past)", body: "", clickOnBody: toPastMonitoringHandler},
     ]
     const operatorReportAccordion = [
         {

@@ -1,0 +1,74 @@
+.monitoringCCWrapper {
+  height: 100vh;
+  width: 100vw;
+
+  .monitoringCCContainer {
+    width: 100%;
+    height: 100%;
+
+    .monitoringCCHeader {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 5vh;
+      border-radius: 5px;
+      background-color: rgb(44, 111, 177);
+
+      & > span {
+        margin: auto;
+        order: 2;
+        align-self: center;
+        display: block;
+        color: white;
+        font-size: 1vw;
+      }
+    }
+
+    .callAndOperatorRating {
+      display: flex;
+      margin-top: 5px;
+      height: 40vh;
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      & > div > span {
+        display: block;
+        width: 100%;
+        background-color: rgb(44, 111, 177);
+        color: white;
+        text-align: center;
+        font-size: 1vw;
+        border-radius: 5px;
+      }
+
+      .callTodayPie {
+        width: 30vw;
+        height: 100%;
+      }
+
+      .tableContainer {
+        width: 40vw;
+        height: 100%;
+
+        .table {
+          width: 100%;
+          height: 100%;
+          overflow: scroll;
+        }
+      }
+
+      .callMonthPie {
+        width: 30vw;
+        height: 100%;
+      }
+    }
+
+
+  }
+}
