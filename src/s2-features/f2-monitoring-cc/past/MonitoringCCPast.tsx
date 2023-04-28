@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import s from './MonitoringCCPast.module.scss'
 import DiagramCallRating from "./diagram-call-rating/DiagramCallRating";
 import OperatorRating from "./operator-raiting/OperatorRating";
-import Histogram from "./histogram/Histogram";
+import Histogram from "../../../common/components/Histogram/Histogram";
 
 import {useNavigate} from "react-router-dom";
 import {Sidebar} from "../../../common/components/Sidebar/Sidebar";
@@ -11,6 +11,7 @@ import CustomTabs from "../../../common/components/CustomTabs/CustomTabs";
 import ArrowLeftIcon from "../../../common/components/ArrowLeftIcon/ArrowLeftIcon";
 import OptionIcon from "../../../common/components/OptionIcon/OptionIcon";
 import HomeIcon from "../../../common/components/HomeIcon/HomeIcon";
+import {monitoringPastData} from "../../../data/histogram-data/monitoringPastData";
 
 
 const MonitoringCCPast = () => {
@@ -53,7 +54,7 @@ const MonitoringCCPast = () => {
                     <OperatorRating/>
                 </div>
                 <div className={s.histogram}>
-                    <Histogram/>
+                    <Histogram data={monitoringPastData}/>
                 </div>
             </div>
         </div>

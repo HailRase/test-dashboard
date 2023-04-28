@@ -7,6 +7,8 @@ import CallTodayPie from "./r1-calls-today-pie/CallTodayPie";
 import CallsMonthPie from "./r2-calls-month-pie/CallsMonthPie";
 import Table from '../../../common/components/Table/Table'
 import {operatorsRatingData} from "../../../data/operatorsMonthData";
+import Histogram from "../../../common/components/Histogram/Histogram";
+import {monitoringRealTimeData} from "../../../data/histogram-data/monitoringRealTimeData";
 
 
 const MonitoringCCRealTime = () => {
@@ -90,13 +92,16 @@ const MonitoringCCRealTime = () => {
                     <div className={s.tableContainer}>
                         <span>Рейтинг операторов</span>
                         <div className={s.table}>
-                            <Table columns={columns} data={operatorsRatingData}/>
+                            <Table columns={columns} data={operatorsRatingData} height={"36vh"}/>
                         </div>
                     </div>
                     <div className={s.callMonthPie}>
                         <span>Звонков за текущий месяц</span>
                         <CallsMonthPie/>
                     </div>
+                </div>
+                <div className={s.histogramContainer}>
+                    <Histogram data={monitoringRealTimeData}/>
                 </div>
             </div>
         </div>

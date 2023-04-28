@@ -118,11 +118,11 @@ const Table = ({...props}) => {
                                     {...column.getHeaderProps(column.getSortByToggleProps())}
                                 >
                                     <span>{column.render('Header')}</span>
-                                    <div style={{width: "20px", height: "100%"}}>
+                                    <div className={s.overlayContainer}>
                                     {column.isSorted
                                         ? column.isSortedDesc
-                                            ? <span style={{fontSize: "28px"}}>&darr;</span>
-                                            : <span style={{fontSize: "28px"}}>&uarr;</span>
+                                            ? <div className={s.overlayItem}><span>&darr;</span></div>
+                                            : <div className={s.overlayItem}><span>&uarr;</span></div>
                                         : ''}
                                      </div>
                                     <div
@@ -143,7 +143,7 @@ const Table = ({...props}) => {
                             <tr className={s.rowContainer} {...row.getRowProps()}>
                                 {row.cells.map(cell => {
                                     return (
-                                        <td className={`${s.cellContainer} ${fillCellCall(cell.value)} ${fillCellQueue({...cell.getCellProps()}.key, cell.value)}`}
+                                        <td  className={`${s.cellContainer} ${fillCellCall(cell.value)} ${fillCellQueue({...cell.getCellProps()}.key, cell.value)}`}
                                             {...cell.getCellProps()}>
                                             {({...cell.getCellProps()}.key).indexOf("ratingRecordId") > 0
                                                 ? cell.value <= 10 ? <Like className={s.likeIcon}/> :

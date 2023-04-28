@@ -18,6 +18,7 @@
         :last-child {
           .cellContainer {
             border-bottom: 0;
+            font-size: .8vw;
           }
         }
       }
@@ -28,6 +29,31 @@
         align-items: center;
         & > #text {
           margin: 0;
+        }
+        & > .overlayContainer {
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          .overlayItem {
+            font-size: 0;
+          }
+          &:hover > .overlayItem {
+            position: absolute;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: 2vw;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.4);
+            & > span {
+              display: block;
+            }
+          }
+
         }
       }
 

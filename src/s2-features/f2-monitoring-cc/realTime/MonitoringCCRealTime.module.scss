@@ -54,12 +54,9 @@
 
       .tableContainer {
         width: 40vw;
-        height: 100%;
 
         .table {
           width: 100%;
-          height: 100%;
-          overflow: scroll;
         }
       }
 
@@ -68,7 +65,8 @@
         height: 100%;
       }
     }
-
-
+    .histogramContainer {
+      height: 52vh;
+    }
   }
 }

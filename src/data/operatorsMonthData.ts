@@ -130,7 +130,7 @@ export const operatorsRatingData: OperatorsRatingDataType[] = [{
     },
     {
         ratingRecordId: 10,
-        ratingRecordIdMonth: 30,
+        ratingRecordIdMonth: 7,
         operatorName: "Головень Егор Владимирович",
         accept: 289,
         skip: 20,
