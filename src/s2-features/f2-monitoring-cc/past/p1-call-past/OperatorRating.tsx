@@ -49,13 +49,7 @@ const defaultColumn = {
 export const OperatorRating = () => {
     return (
         <div className={s.operatorRatingWrapper}>
-            <div className={s.operatorRatingContainer}>
-                <div className={s.operatorRatingHeader}>
-                    <span>Рейтинг операторов</span>
-                </div>
-                <Table data={operatorsRatingData} columns={columns} defaultColumn={defaultColumn} height={"40vh"}/>
 
-            </div>
         </div>
     );
 };

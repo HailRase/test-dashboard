@@ -57,13 +57,13 @@
       justify-content: flex-start;
       align-items: center;
       height: 51vh;
-      width: 100%;
+      width: 100vw;
       margin-top: 5px;
 
       .pieContainer {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: 50vw;
         height: 100%;
         & > span {
           display: flex;
@@ -81,7 +81,7 @@
       .histogramContainer {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: 50vw;
         height: 100%;
         & > span {
           display: flex;

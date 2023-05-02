@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {Pie, PieChart} from 'recharts';
+import {Pie, PieChart, ResponsiveContainer} from 'recharts';
 
 const data01 = [
     {name: 'Пропущено', value: 11, fill: '#e70707'},
@@ -22,8 +22,6 @@ const data02 = [
 ];
 
 
-
-
 const renderProviderItem = (props: any) => {
     const RADIAN = Math.PI / 180;
     const {cx, cy, midAngle, outerRadius, fill, percent, value, name, index} = props;
@@ -36,9 +34,11 @@ const renderProviderItem = (props: any) => {
     const textAnchor = cos >= 0 ? 'start' : 'end';
 
     const endPoint = [
-        {x3: 305, y3: 25}, {x3: 245, y3: 45}, {x3: 215, y3: 70}, {x3: 205, y3: 90}, {x3: 205, y3: 110},
-        {x3: 200, y3: 130}, {x3: 205, y3: 150}, {x3: 205, y3: 170}, {x3: 220, y3: 190}, {x3: 230, y3: 210},
-        {x3: 395, y3: 215}, {x3: 430, y3: 120}, {x3: 400, y3: 50}
+        {x3: x1 - 20, y3: y1 - 10}, {x3: x1 - 40, y3: y1 + 5}, {x3: x1 - 55, y3: y1 + 20},
+        {x3: x1 - 50, y3: y1 + 30}, {x3: x1 - 20, y3: y1 + 10}, {x3: x1 - 10, y3: y1 - 35},
+        {x3: x1 - 20, y3: y1 - 35}, {x3: x1 - 25, y3: y1 - 35}, {x3: x1 - 35, y3: y1 - 35},
+        {x3: x1 - 5, y3: y1 + 10}, {x3: x1 - 5, y3: y1 + 20}, {x3: x1 + 20, y3: y1 - 5},
+        {x3: x1 + 20, y3: y1 - 5}
     ]
     const paths = [
         `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[0].x3} ${endPoint[0].y3}`,
@@ -83,7 +83,7 @@ const renderSkippedAcceptItem = (props: any) => {
     const y2 = cy + (outerRadius + 10) * sin;
     const textAnchor = cos >= 0 ? 'start' : 'end';
 
-    const endPoint = [{x3: 310, y3: 70}, {x3: 325, y3: 190}]
+    const endPoint = [{x3: x1 + 5, y3: y1 - 10}, {x3: x1 - 5, y3: y1 + 10}]
     const paths = [
         `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[0].x3} ${endPoint[0].y3}`,
         `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[1].x3} ${endPoint[1].y3}`,
@@ -92,7 +92,10 @@ const renderSkippedAcceptItem = (props: any) => {
     return (
         <g>
             <path d={paths[index]} stroke={fill} fill="none"/>
-            <text style={name==="Принято" ?{fontSize: "12px", fontWeight: "700"}:{fontSize: "12px", fontWeight: "500"}}
+            <text style={name === "Принято" ? {fontSize: "12px", fontWeight: "700"} : {
+                fontSize: "12px",
+                fontWeight: "500"
+            }}
                   x={textAnchor === 'start' ? endPoint[index].x3 + 5 : endPoint[index].x3 - 5}
                   y={endPoint[index].y3 + 5}
                   textAnchor={textAnchor}
@@ -107,46 +110,46 @@ const renderSkippedAcceptItem = (props: any) => {
 };
 
 
-export default class PieDoughnut extends PureComponent {
+export default class CallPastPie extends PureComponent {
     static demoUrl = 'https://codesandbox.io/s/pie-chart-of-two-levels-gor24';
 
     render() {
         return (
+            <ResponsiveContainer width={"100%"} height={"100%"}>
+                <PieChart width={630}
+                          height={265}
+                          margin={{
+                              top: 0,
+                              left: 0,
+                              bottom: 0,
+                              right: 0
+                          }}>
+                    <Pie data={data02}
+                         startAngle={-270}
+                         dataKey={"value"}
+                         cx="50%"
+                         cy="50%"
+                         innerRadius={"50%"}
+                         outerRadius={"65%"}
+                         fill="#82ca9d"
+                         labelLine={false}
+                         label={renderProviderItem}
+                         paddingAngle={1}
+                    />
+                    <Pie data={data01}
+                         startAngle={-270}
+                         dataKey="value"
+                         cx="50%"
+                         cy="50%"
+                         outerRadius={"40%"}
+                         fill="#8884d8"
+                         labelLine={false}
+                         paddingAngle={2}
+                         label={renderSkippedAcceptItem}
+                    />
 
-            <PieChart width={630}
-                      height={265}
-                      margin={{
-                          top: 0,
-                          left: 0,
-                          bottom: 0,
-                          right: 0
-                      }}>
-                <Pie data={data02}
-                     startAngle={-270}
-                     dataKey={"value"}
-                     cx="50%"
-                     cy="50%"
-                     innerRadius={70}
-                     outerRadius={100}
-                     fill="#82ca9d"
-                     labelLine={false}
-                     label={renderProviderItem}
-                     paddingAngle={1}
-                />
-                <Pie data={data01}
-                     startAngle={-270}
-                     dataKey="value"
-                     cx="50%"
-                     cy="50%"
-                     outerRadius={50}
-                     fill="#8884d8"
-                     labelLine={false}
-                     paddingAngle={2}
-                     label={renderSkippedAcceptItem}
-                />
-
-            </PieChart>
-
+                </PieChart>
+            </ResponsiveContainer>
         );
     }
 }
