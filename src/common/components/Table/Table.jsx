@@ -30,6 +30,7 @@ const Table = ({...props}) => {
         getTableProps,
         getTableBodyProps,
         headerGroups,
+        footerGroups,
         prepareRow,
         setPageSize,
         rows,
@@ -157,6 +158,15 @@ const Table = ({...props}) => {
                         )
                     })}
                     </tbody>
+                    <tfoot>
+                    {footerGroups.map(group => (
+                        <tr {...group.getFooterGroupProps()}>
+                            {group.headers.map(column => (
+                                <td {...column.getFooterProps()}>{column.render('Footer')}</td>
+                            ))}
+                        </tr>
+                    ))}
+                    </tfoot>
                 </table>
             </div>
             {props.pagination && <div className={s.pagination}>

@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-import s from "./TopOperatorReport.module.scss";
+import {useNavigate} from "react-router-dom";
+import {PATH} from "../../common/routes/routes";
+import s from "../f6-top-operator-report/TopOperatorReport.module.scss";
 import {Sidebar} from "../../common/components/Sidebar/Sidebar";
 import ArrowLeftIcon from "../../common/components/ArrowLeftIcon/ArrowLeftIcon";
 import Form from "react-bootstrap/Form";
@@ -8,99 +10,33 @@ import Accordion from "../../common/components/Accordion/Accordion";
 import TabButton from "../../common/components/TabButton/TabButton";
 import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
+import TopOperatorReportPie from "../f6-top-operator-report/TopOperatorReportPie/TopOperatorReportPie";
+import TopOperatorReportHistogram
+    from "../f6-top-operator-report/TopOperatorReportHistogram/TopOperatorReportHistogram";
 import Table from "../../common/components/Table/Table";
-import TopOperatorReportPie from "./TopOperatorReportPie/TopOperatorReportPie";
-import TopOperatorReportHistogram from "./TopOperatorReportHistogram/TopOperatorReportHistogram";
-import {useNavigate} from "react-router-dom";
-import {PATH} from "../../common/routes/routes";
 import {topOperatorReportData} from "../../data/topOperatorReportData";
 
 const columns = [
     {
-        Header: 'Начало периода',
-        accessor: 'startPeriod',
-    },
-    {
-        Header: 'Конец периода',
-        accessor: 'endPeriod',
-    },
-    {
         Header: 'Оператор',
         accessor: 'operator',
+    },
+    {
+        Header: 'Дата',
+        accessor: 'date',
+    },
+    {
+        Header: 'Статус',
+        accessor: 'status',
         width: 300
     },
     {
-        Header: 'Отдел',
-        accessor: 'department',
+        Header: 'Коммент',
+        accessor: 'comment',
     },
-    {
-        Header: 'Суммарное время в логине',
-        accessor: 'totalTimeInLogin',
-        Footer: (info: any) => {
-            const total = React.useMemo(
-                () =>
-                    info.rows.reduce((sum: any, row: any) =>
-                    {
-                        const utcSeconds = new Date(`1970-01-01T0${row.values.totalTimeInLogin}Z`).getTime()
-                        const newSum = utcSeconds + sum
-                       return newSum
-                    },
-                        new Date(`1970-01-01T00:00:00Z`).getTime()
-
-                    )
-                ,
-                [info.rows]
-            )
-
-            return <>Total: {new Date (total).toLocaleTimeString()}</>
-        },
-    },
-    {
-        Header: 'Количество принятых входящих звонков',
-        accessor: 'receivedIncomingCallsCount',
-        Footer: (info: any) => {
-            // Only calculate total visits if rows change
-            const total = React.useMemo(
-                () =>
-                    info.rows.reduce((sum: any, row: any) => row.values.receivedIncomingCallsCount + sum, 0),
-                [info.rows]
-            )
-
-            return <>Total: {total}</>
-        },
-    },
-    {
-        Header: 'Количество пропущенных звонков',
-        accessor: 'missedCallsCount',
-        Footer: (info: any) => {
-            // Only calculate total visits if rows change
-            const total = React.useMemo(
-                () =>
-                    info.rows.reduce((sum: any, row: any) => row.values.missedCallsCount + sum, 0),
-                [info.rows]
-            )
-
-            return <>Total: {total}</>
-        },
-    },
-    {
-        Header: 'Количество сделанных исходящих',
-        accessor: 'outgoingCallsCount',
-        Footer: (info: any) => {
-            // Only calculate total visits if rows change
-            const total = React.useMemo(
-                () =>
-                    info.rows.reduce((sum: any, row: any) => row.values.outgoingCallsCount + sum, 0),
-                [info.rows]
-            )
-
-            return <>Total: {total}</>
-        },
-    }
 ]
 
-const TopOperatorReport = () => {
-
+const OperatorStatusReport = () => {
     const [isActive, setIsActive] = useState<boolean>(false)
     const navigate = useNavigate()
 
@@ -113,7 +49,6 @@ const TopOperatorReport = () => {
     const onCloseSidebar = () => {
         setIsActive(false)
     }
-
     return (
         <div className={s.queueReportWrapper}>
             <Sidebar isActive={isActive}>
@@ -174,15 +109,15 @@ const TopOperatorReport = () => {
                 <div className={s.queueReportHeader}>
                     <HomeIcon onClick={onHomeHandler}/>
                     <OptionIcon onClick={onOpenSidebar}/>
-                    <span>Отчёт по операторам</span>
+                    <span>Отчёт по статусам оператора</span>
                 </div>
                 <div className={s.callAndOperatorRating}>
                     <div className={s.pieContainer}>
-                        <span>ТОP 20 операторов по принятым звонкам</span>
+                        <span>Нахождение во всех статусах</span>
                         <TopOperatorReportPie/>
                     </div>
                     <div className={s.histogramContainer}>
-                        <span>Все операторы</span>
+                        <span>Нахождение в статусе "Не готов"</span>
                         <TopOperatorReportHistogram/>
                     </div>
                 </div>
@@ -194,4 +129,4 @@ const TopOperatorReport = () => {
     );
 };
 
-export default TopOperatorReport;
+export default OperatorStatusReport;

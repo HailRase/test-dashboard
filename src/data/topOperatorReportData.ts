@@ -24,7 +24,7 @@ export const topOperatorReportData: TopOperatorReportDataType[] = [
         endPeriod: "05.03.2023 00:00",
         operator: "Вай Инна Владимировна",
         department: "Специалисты",
-        totalTimeInLogin: "0:00:00",
+        totalTimeInLogin: "0:00:02",
         receivedIncomingCallsCount: 124,
         missedCallsCount: 2,
         outgoingCallsCount: 5
@@ -34,7 +34,7 @@ export const topOperatorReportData: TopOperatorReportDataType[] = [
         endPeriod: "05.03.2023 00:00",
         operator: "Григорович Вадим Дмитриевич",
         department: "Специалисты",
-        totalTimeInLogin: "0:00:00",
+        totalTimeInLogin: "0:00:05",
         receivedIncomingCallsCount: 98,
         missedCallsCount: 2,
         outgoingCallsCount: 5
@@ -44,7 +44,7 @@ export const topOperatorReportData: TopOperatorReportDataType[] = [
         endPeriod: "05.03.2023 00:00",
         operator: "Куценко Дмитрий Васильевич",
         department: "Специалисты",
-        totalTimeInLogin: "0:00:00",
+        totalTimeInLogin: "0:00:07",
         receivedIncomingCallsCount: 154,
         missedCallsCount: 2,
         outgoingCallsCount: 5
@@ -64,7 +64,7 @@ export const topOperatorReportData: TopOperatorReportDataType[] = [
         endPeriod: "05.03.2023 00:00",
         operator: "Хренина Влада Сергеевна",
         department: "Специалисты",
-        totalTimeInLogin: "0:00:00",
+        totalTimeInLogin: "0:00:01",
         receivedIncomingCallsCount: 45,
         missedCallsCount: 2,
         outgoingCallsCount: 5
@@ -84,7 +84,7 @@ export const topOperatorReportData: TopOperatorReportDataType[] = [
         endPeriod: "05.03.2023 00:00",
         operator: "Садохо Александр Игоревич",
         department: "Специалисты",
-        totalTimeInLogin: "0:00:00",
+        totalTimeInLogin: "0:00:06",
         receivedIncomingCallsCount: 78,
         missedCallsCount: 2,
         outgoingCallsCount: 5
@@ -104,7 +104,7 @@ export const topOperatorReportData: TopOperatorReportDataType[] = [
         endPeriod: "05.03.2023 00:00",
         operator: "Хомич Павел Алексеевич",
         department: "Специалисты",
-        totalTimeInLogin: "0:00:00",
+        totalTimeInLogin: "0:01:02",
         receivedIncomingCallsCount: 45,
         missedCallsCount: 2,
         outgoingCallsCount: 5
@@ -114,7 +114,7 @@ export const topOperatorReportData: TopOperatorReportDataType[] = [
         endPeriod: "05.03.2023 00:00",
         operator: "Головень Егор Игоревич",
         department: "Специалисты",
-        totalTimeInLogin: "0:00:00",
+        totalTimeInLogin: "0:01:04",
         receivedIncomingCallsCount: 145,
         missedCallsCount: 2,
         outgoingCallsCount: 5

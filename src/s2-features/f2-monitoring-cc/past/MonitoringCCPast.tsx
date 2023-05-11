@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import s from './MonitoringCCPast.module.scss'
-import OperatorRating from "./p1-call-past/OperatorRating";
 import Histogram from "../../../common/components/Histogram/Histogram";
-
 import {useNavigate} from "react-router-dom";
 import {Sidebar} from "../../../common/components/Sidebar/Sidebar";
 import {PATH} from "../../../common/routes/routes";

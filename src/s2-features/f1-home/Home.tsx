@@ -25,6 +25,9 @@ const Home = () => {
     const toTopOperatorReportHandler = () => {
         navigate(PATH.TOP_OPERATOR_REPORT)
     }
+    const toOperatorStatusReportHandler = () => {
+        navigate(PATH.OPERATOR_STATUS_REPORT)
+    }
 
     const monitoringAccordion = [
         {
@@ -55,8 +58,7 @@ const Home = () => {
         {
             title: "Отчёт по статусам оператора",
             body: "Отражает информацию по статусам в которых находился оператор",
-            clickOnBody: () => {
-            }
+            clickOnBody: toOperatorStatusReportHandler
         },
         {
             title: "Отчёт по операторам (пропущенные)",
