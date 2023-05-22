@@ -1,7 +1,9 @@
 export type OperatorsReportGeneralDataType = {
     id: number
     operator: string
-    department: "Дежурный по выдаче" | "Специалисты" | "Инж подгот кадр" | "Ст деж по выдаче" | "Начальник ЛКЦ"
+    department: "Начальник ЛКЦ" | "Зам. Начальника ЛКЦ" | "Инженеры по подготовке кадров" | "Инженеры по ТО"
+        | "Специалисты по контролю качества" | "Специалисты"
+        | "Дежурные по выдаче справок (старшие)" | "Дежурные по выдаче справок" | "Ведущий специалист"
     loginTime: string
     logoutTime: string
     totalLoginTime: string
@@ -22,7 +24,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 1,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -79,7 +81,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 4,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -117,7 +119,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 6,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -136,7 +138,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 7,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -193,7 +195,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 10,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -212,7 +214,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 11,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -231,7 +233,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 12,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -250,7 +252,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 13,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -269,7 +271,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 14,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -288,7 +290,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 15,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -307,7 +309,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 16,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -326,7 +328,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 17,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -345,7 +347,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 18,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -364,7 +366,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 19,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -383,7 +385,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 20,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -402,7 +404,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 21,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -421,7 +423,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 22,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -440,7 +442,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 23,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -459,7 +461,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 24,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -478,7 +480,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 25,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",
@@ -497,7 +499,7 @@ export const operatorsReportGeneralData: OperatorsReportGeneralDataType[] = [
     {
         id: 26,
         operator: "Куценоко Лариса Николаевна",
-        department: "Дежурный по выдаче",
+        department: "Дежурные по выдаче справок",
         loginTime: "2023-04-19 11:01:21",
         logoutTime: "2023-04-20 00:00:00",
         totalLoginTime: "12:58:28",

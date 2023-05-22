@@ -133,7 +133,6 @@ const OperatorsReportGeneral = () => {
     }
     const handleRefreshClick = () => {
         const filteredData = operatorsReportGeneralData.filter(item => item.department === selectedDepartment);
-        // Обновляем состояние отфильтрованными данными
         if (selectedDepartment === '') {
             setData(operatorsReportGeneralData);
         }else {
@@ -182,8 +181,15 @@ const OperatorsReportGeneral = () => {
                                 <Form.Label style={{color: "white", marginRight: "10px"}}>Отдел</Form.Label>
                                 <Form.Select value={selectedDepartment} onChange={e => setSelectedDepartment(e.target.value)} style={{width: "250px", borderRadius: "0px"}}>
                                     <option value="">Все отделы</option>
-                                    {operatorsReportGeneralData.filter((item, index, self) => self.findIndex(t => t.department === item.department) === index)
-                                        .map(item => <option value={item.department}>{item.department}</option>)}
+                                    <option value="Начальник ЛКЦ">Начальник ЛКЦ</option>
+                                    <option value="Зам. Начальника ЛКЦ">Зам. Начальника ЛКЦ</option>
+                                    <option value="Инженеры по подготовке кадров">Инженеры по подготовке кадров</option>
+                                    <option value="Инженеры по ТО">Инженеры по ТО</option>
+                                    <option value="Специалисты по контролю качества">Специалисты по контролю качества</option>
+                                    <option value="Специалисты">Специалисты</option>
+                                    <option value="Дежурные по выдаче справок (старшие)">Дежурные по выдаче справок (старшие)</option>
+                                    <option value="Дежурные по выдаче справок">Дежурные по выдаче справок</option>
+                                    <option value="Ведущий специалист">Ведущий специалист</option>
                                 </Form.Select>
                             </Form.Group>
                         </Accordion>
@@ -197,7 +203,7 @@ const OperatorsReportGeneral = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Отчёт по операторам (Общий)</span>
                 </div>
-                <Table data={data} columns={columns} pagination={true} width={"99vw"}/>
+                <Table data={data} columns={columns} pagination={true} width={"100vw"}/>
             </div>
         </div>
     );

@@ -11,7 +11,8 @@ import QueueReport from "../../s2-features/f5-queue-report/QueueReport";
 import TopOperatorReport from "../../s2-features/f6-top-operator-report/TopOperatorReport";
 import MonitoringCCRealTime from "../../s2-features/f2-monitoring-cc/realTime/MonitoringCCRealTime";
 import OperatorStatusReport from "../../s2-features/f7-operator-status-report/OperatorStatusReport";
-import OperatorsReportGeneral from "../../s2-features/OperatorsReportGeneral/OperatorsReportGeneral";
+import OperatorsReportGeneral from "../../s2-features/f8-operators-report-general/OperatorsReportGeneral";
+import OperatorsReportDetailed from "../../s2-features/f9-operators-report-detailed/OperatorsReportDetailed";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
                 <Route path={PATH.TOP_OPERATOR_REPORT} element={<TopOperatorReport/>}/>
                 <Route path={PATH.OPERATOR_STATUS_REPORT} element={<OperatorStatusReport/>}/>
                 <Route path={PATH.OPERATORS_REPORT_GENERAL} element={<OperatorsReportGeneral/>}/>
+                <Route path={PATH.OPERATORS_REPORT_DETAILED} element={<OperatorsReportDetailed/>}/>
             </Routes>
         </div>
     );

@@ -31,6 +31,9 @@ const Home = () => {
     const toOperatorsReportGeneralHandler = () => {
         navigate(PATH.OPERATORS_REPORT_GENERAL)
     }
+    const toOperatorsReportDetailedHandler = () => {
+        navigate(PATH.OPERATORS_REPORT_DETAILED)
+    }
 
     const monitoringAccordion = [
         {
@@ -58,8 +61,7 @@ const Home = () => {
         {
             title: "Отчёт по операторам (детальный)",
             body: "Отражает детальную информация по очередям в виде таблицы за период времени с шагом в час, день, месяц.",
-            clickOnBody: () => {
-            }
+            clickOnBody: toOperatorsReportDetailedHandler
         },
         /*{
             title: "Отчёт по статусам оператора",
