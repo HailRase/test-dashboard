@@ -102,6 +102,23 @@ const Table = ({...props}) => {
             }
         }
     }
+    const fillCellOperatorsGeneral = (objKey, value) => {
+        const newObjKey = truncateString(objKey)
+        if (value === "0:00:00") {
+            switch (newObjKey) {
+                case 'totalTalkTime':
+                case 'totalFreeTime':
+                case 'totalNotReadyTime':
+                case 'totalBusyTime':
+                case 'totalIncomingCall':
+                case 'totalOutgoingCall':
+                case 'totalLogoutTime':
+                    return s.grayColor
+                default:
+                    return s.black
+            }
+        }
+    }
 
 
     const {pageIndex, pageSize = 20} = state
@@ -144,7 +161,7 @@ const Table = ({...props}) => {
                             <tr className={s.rowContainer} {...row.getRowProps()}>
                                 {row.cells.map(cell => {
                                     return (
-                                        <td  className={`${s.cellContainer} ${fillCellCall(cell.value)} ${fillCellQueue({...cell.getCellProps()}.key, cell.value)}`}
+                                        <td  className={`${s.cellContainer} ${fillCellCall(cell.value)} ${fillCellQueue({...cell.getCellProps()}.key, cell.value)} ${fillCellOperatorsGeneral({...cell.getCellProps()}.key, cell.value)}`}
                                             {...cell.getCellProps()}>
                                             {({...cell.getCellProps()}.key).indexOf("ratingRecordId") > 0
                                                 ? cell.value <= 10 ? <Like className={s.likeIcon}/> :
@@ -158,15 +175,6 @@ const Table = ({...props}) => {
                         )
                     })}
                     </tbody>
-                    <tfoot>
-                    {footerGroups.map(group => (
-                        <tr {...group.getFooterGroupProps()}>
-                            {group.headers.map(column => (
-                                <td {...column.getFooterProps()}>{column.render('Footer')}</td>
-                            ))}
-                        </tr>
-                    ))}
-                    </tfoot>
                 </table>
             </div>
             {props.pagination && <div className={s.pagination}>

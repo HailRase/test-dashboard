@@ -12,6 +12,7 @@ import {monitoringPastData} from "../../../data/histogram-data/monitoringPastDat
 import CallPastPie from "./p1-call-past-pie/CallPastPie";
 import Table from "../../../common/components/Table/Table";
 import {operatorsRatingData} from "../../../data/operatorsData";
+import Loader from "../../../common/components/Loader/Loader";
 
 
 const MonitoringCCPast = () => {

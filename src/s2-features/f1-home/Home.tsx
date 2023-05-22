@@ -28,6 +28,9 @@ const Home = () => {
     const toOperatorStatusReportHandler = () => {
         navigate(PATH.OPERATOR_STATUS_REPORT)
     }
+    const toOperatorsReportGeneralHandler = () => {
+        navigate(PATH.OPERATORS_REPORT_GENERAL)
+    }
 
     const monitoringAccordion = [
         {
@@ -35,19 +38,22 @@ const Home = () => {
             body: "Оперативная информация по контактному центру, рейтинг операторов, нагрузка контактного центра по часам",
             clickOnBody: toMonitoringHandler
         },
-        {title: "Мониторинг Контакт-центра (Past)", body: "", clickOnBody: toPastMonitoringHandler},
+        {
+            title: "Мониторинг Контакт-центра (Past)",
+            body: "Информация по контактному центру, рейтинг операторов, нагрузка контактного за выбранный промежуток времени",
+            clickOnBody: toPastMonitoringHandler
+        },
     ]
     const operatorReportAccordion = [
-        {
+        /*{
             title: "Отчёт по операторам",
             body: "Отражает информация по операторам в табличном виде за период времени с шагом в час, день, месяц.",
             clickOnBody: toTopOperatorReportHandler
-        },
+        },*/
         {
             title: "Отчёт по операторам (общий)",
             body: "Отражает общую информацию по операторам в табличном виде за период.",
-            clickOnBody: () => {
-            }
+            clickOnBody: toOperatorsReportGeneralHandler
         },
         {
             title: "Отчёт по операторам (детальный)",
@@ -55,7 +61,7 @@ const Home = () => {
             clickOnBody: () => {
             }
         },
-        {
+        /*{
             title: "Отчёт по статусам оператора",
             body: "Отражает информацию по статусам в которых находился оператор",
             clickOnBody: toOperatorStatusReportHandler
@@ -65,7 +71,7 @@ const Home = () => {
             body: " Отражает статистику по пропущенным звонкам всех или отдельного оператора",
             clickOnBody: () => {
             }
-        },
+        },*/
     ]
     const queueReportAccordion = [
         {
@@ -73,10 +79,10 @@ const Home = () => {
             body: "Отображает информация по очередям в виде графиков и таблицы за период времени с шагом в час, день, месяц.",
             clickOnBody: toQueueReportHandler
         },
-        {
+        /*{
             title: "Детальный отчёт по пропущенным с очередей", body: "", clickOnBody: () => {
             }
-        },
+        },*/
     ]
     const statisticsAccordion = [
         {
