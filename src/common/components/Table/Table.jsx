@@ -96,6 +96,30 @@ const Table = ({...props}) => {
                 case 'acceptLess1m':
                 case 'acceptLess2m':
                 case 'acceptMore2m':
+                case 'percentUnanswered':
+                case 'percentAnswered':
+                case 'serviceLevelUpTo5Sec':
+                case 'serviceLevelUpTo10Sec':
+                case 'accept':
+                case 'acceptLess5':
+                case 'acceptLess10':
+                case 'acceptLess15':
+                case 'acceptMore15':
+                case 'canceled':
+                case 'skipped':
+                case 'received':
+                case 'outgoingCallHandlingTotal':
+                case 'outgoingCallHandlingAnswered':
+                case 'outgoingCallHandlingNotAnswered':
+                case 'outgoingCallHandlingCanceled':
+                case 'outgoingCallHandlingBusy':
+                case 'outgoingCallHandlingNotAvailable':
+                case 'handlingInternalCallsTotal':
+                case 'handlingInternalCallsAnswered':
+                case 'handlingInternalCallsNotAnswered':
+                case 'handlingInternalCallsCanceled':
+                case 'handlingInternalCallsBusy':
+                case 'handlingInternalCallsNotAvailable':
                     return s.grayColor
                 default:
                     return s.black
@@ -113,6 +137,15 @@ const Table = ({...props}) => {
                 case 'totalIncomingCall':
                 case 'totalOutgoingCall':
                 case 'totalLogoutTime':
+                case 'incomingCallsAvgTalkTime':
+                case 'incomingCallsAvgHoldTime':
+                case 'incomingCallsAvgCallingTime':
+                case 'outgoingCallsAvgTalkTime':
+                case 'outgoingCallsAvgHoldTime':
+                case 'outgoingCallsAvgCallingTime':
+                case 'internalCallsAvgTalkTime':
+                case 'internalCallsAvgHoldTime':
+                case 'internalCallsAvgCallingTime':
                     return s.grayColor
                 default:
                     return s.black

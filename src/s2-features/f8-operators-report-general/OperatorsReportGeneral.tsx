@@ -35,7 +35,7 @@ const columns = [
             {
                 Header: 'Время залогинивания',
                 accessor: 'loginTime',
-                width: 130
+                width: 150
             },
             {
                 Header: 'Время разлогинивания',
