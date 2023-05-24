@@ -14,9 +14,6 @@ import Form from "react-bootstrap/Form";
 import {dateNow} from "../../data/dateNow";
 import TabButton from "../../common/components/TabButton/TabButton";
 import Accordion from "../../common/components/Accordion/Accordion";
-import {useAppSelector} from "../../s1-main/m2-bll/store";
-import {useDispatch} from "react-redux";
-import {loginTC} from "../../s1-main/m2-bll/auth-reducer";
 import useIsAuth from "../../common/hooks/useIsAuth";
 
 const columns = [
