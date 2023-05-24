@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './MonitoringCCPast.module.scss'
 import Histogram from "../../../common/components/Histogram/Histogram";
 import {useNavigate} from "react-router-dom";
@@ -12,7 +12,10 @@ import {monitoringPastData} from "../../../data/histogram-data/monitoringPastDat
 import CallPastPie from "./p1-call-past-pie/CallPastPie";
 import Table from "../../../common/components/Table/Table";
 import {operatorsRatingData} from "../../../data/operatorsData";
-import Loader from "../../../common/components/Loader/Loader";
+import {useAppSelector} from "../../../s1-main/m2-bll/store";
+import {useDispatch} from "react-redux";
+import {loginTC} from "../../../s1-main/m2-bll/auth-reducer";
+import useIsAuth from "../../../common/hooks/useIsAuth";
 
 
 const MonitoringCCPast = () => {
@@ -20,7 +23,13 @@ const MonitoringCCPast = () => {
 
     const [isActive, setIsActive] = useState<boolean>(false)
     const navigate = useNavigate()
+    const isAuth = useIsAuth()
 
+
+
+    useEffect(() => {
+        if (!isAuth) navigate('/')
+    },[])
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)
     }

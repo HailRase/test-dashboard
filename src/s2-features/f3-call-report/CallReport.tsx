@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './CallReport.module.scss'
 import Table from "../../common/components/Table/Table";
 import {useNavigate} from "react-router-dom";
@@ -11,6 +11,9 @@ import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
 import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import {Form} from "react-bootstrap";
 import TabButton from "../../common/components/TabButton/TabButton";
+import {useAppSelector} from "../../s1-main/m2-bll/store";
+import {useDispatch} from "react-redux";
+import useIsAuth from "../../common/hooks/useIsAuth";
 
 
 const columns = [
@@ -143,6 +146,11 @@ const CallReport = () => {
 
     const [isActiveSideBar, setIsActiveSideBar] = useState<boolean>(false)
     const navigate = useNavigate()
+    const isAuth = useIsAuth()
+
+    useEffect(() => {
+        if (!isAuth) navigate('/')
+    },[])
 
 
     const onChangeSelectType = (value: ChangeEvent<HTMLSelectElement>) => {

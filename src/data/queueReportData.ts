@@ -23,6 +23,14 @@ type QueueReportDataType = {
     acceptLess1m: number
     acceptLess2m: number
     acceptMore2m: number
+    avgCallDuration: string
+    maxCallDuration: string
+    avgWaitingTimeLostCall: string
+    maxWaitingTimeLostCall: string
+    avgWaitingTimeReceivedCall: string
+    maxWaitingTimeReceivedCall: string
+    avgTalkTime: string
+    maxTalkTime: string
 }
 export const queueReportData:QueueReportDataType[] = [
     {
@@ -48,7 +56,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 0,
         acceptLess1m: 0,
         acceptLess2m: 9,
-        acceptMore2m: 9
+        acceptMore2m: 9,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:2,
@@ -73,7 +89,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 9,
         acceptLess1m: 9,
         acceptLess2m: 9,
-        acceptMore2m: 0
+        acceptMore2m: 0,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:3,
@@ -98,7 +122,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 9,
         acceptLess1m: 0,
         acceptLess2m: 0,
-        acceptMore2m: 9
+        acceptMore2m: 9,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:4,
@@ -123,7 +155,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 9,
         acceptLess1m: 9,
         acceptLess2m: 0,
-        acceptMore2m: 9
+        acceptMore2m: 9,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:5,
@@ -148,7 +188,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 9,
         acceptLess1m: 0,
         acceptLess2m: 0,
-        acceptMore2m: 9
+        acceptMore2m: 9,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:6,
@@ -173,7 +221,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 0,
         acceptLess1m: 9,
         acceptLess2m: 9,
-        acceptMore2m: 9
+        acceptMore2m: 9,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:7,
@@ -198,7 +254,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 9,
         acceptLess1m: 9,
         acceptLess2m: 0,
-        acceptMore2m: 0
+        acceptMore2m: 0,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:8,
@@ -223,7 +287,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 0,
         acceptLess1m: 0,
         acceptLess2m: 9,
-        acceptMore2m: 9
+        acceptMore2m: 9,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:9,
@@ -248,7 +320,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 9,
         acceptLess1m: 9,
         acceptLess2m: 9,
-        acceptMore2m: 0
+        acceptMore2m: 0,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:10,
@@ -273,7 +353,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 0,
         acceptLess1m: 9,
         acceptLess2m: 0,
-        acceptMore2m: 9
+        acceptMore2m: 9,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:11,
@@ -298,7 +386,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 2,
         acceptLess1m: 0,
         acceptLess2m: 0,
-        acceptMore2m: 9
+        acceptMore2m: 9,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:12,
@@ -323,7 +419,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 0,
         acceptLess1m: 0,
         acceptLess2m: 0,
-        acceptMore2m: 9
+        acceptMore2m: 9,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:13,
@@ -348,7 +452,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 0,
         acceptLess1m: 9,
         acceptLess2m: 0,
-        acceptMore2m: 9
+        acceptMore2m: 9,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:14,
@@ -373,7 +485,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 0,
         acceptLess1m: 0,
         acceptLess2m: 9,
-        acceptMore2m: 0
+        acceptMore2m: 0,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:15,
@@ -398,7 +518,15 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 0,
         acceptLess1m: 9,
         acceptLess2m: 9,
-        acceptMore2m: 0
+        acceptMore2m: 0,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     },
     {
         id:16,
@@ -423,6 +551,14 @@ export const queueReportData:QueueReportDataType[] = [
         acceptLess30s: 9,
         acceptLess1m: 0,
         acceptLess2m: 0,
-        acceptMore2m: 9
+        acceptMore2m: 9,
+        avgCallDuration: "0:02:00",
+        maxCallDuration: "0:01:00",
+        avgWaitingTimeLostCall: "0:00:00",
+        maxWaitingTimeLostCall: "0:01:00",
+        avgWaitingTimeReceivedCall: "0:20:00",
+        maxWaitingTimeReceivedCall: "0:03:00",
+        avgTalkTime: "0:00:00",
+        maxTalkTime: "0:03:00",
     }
 ]

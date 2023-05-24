@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './QueueReport.module.scss'
 import {Sidebar} from "../../common/components/Sidebar/Sidebar";
 import ArrowLeftIcon from "../../common/components/ArrowLeftIcon/ArrowLeftIcon";
@@ -14,6 +14,10 @@ import Form from "react-bootstrap/Form";
 import {dateNow} from "../../data/dateNow";
 import TabButton from "../../common/components/TabButton/TabButton";
 import Accordion from "../../common/components/Accordion/Accordion";
+import {useAppSelector} from "../../s1-main/m2-bll/store";
+import {useDispatch} from "react-redux";
+import {loginTC} from "../../s1-main/m2-bll/auth-reducer";
+import useIsAuth from "../../common/hooks/useIsAuth";
 
 const columns = [
     {
@@ -149,11 +153,55 @@ const columns = [
             }
         ]
     },
+    {
+        Header: 'Временные показатели входящих вызовов',
+        columns: [
+            {
+                Header: 'Средняя длительность звонка',
+                accessor: 'avgCallDuration',
+            },
+            {
+                Header: 'Максимальная длительность звонка',
+                accessor: 'maxCallDuration',
+            },
+            {
+                Header: 'Среднее время ожидания утерянного звонка',
+                accessor: 'avgWaitingTimeLostCall',
+            },
+            {
+                Header: 'Максимальное время ожидания утерянного звонка',
+                accessor: 'maxWaitingTimeLostCall',
+            },
+            {
+                Header: 'Среднее время ожидания принятого звонка',
+                accessor: 'avgWaitingTimeReceivedCall',
+            }
+            ,
+            {
+                Header: 'Максимальное время ожидания принятого звонка',
+                accessor: 'maxWaitingTimeReceivedCall',
+            }
+            ,
+            {
+                Header: 'Среднее время разговора',
+                accessor: 'avgTalkTime',
+            },
+            {
+                Header: 'Максимальное время разговора',
+                accessor: 'maxTalkTime',
+            }
+        ]
+    },
 ]
 
 const QueueReport = () => {
     const [isActive, setIsActive] = useState<boolean>(false)
     const navigate = useNavigate()
+    const isAuth = useIsAuth()
+
+    useEffect(() => {
+        if (!isAuth) navigate('/')
+    },[])
 
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)

@@ -78,7 +78,8 @@ const Histogram: React.FC<HistogramPropsType> = ({data}) => {
                             bottom: 0,
                         }}
                     />
-                    {opActivity && <YAxis
+                    <YAxis
+                        style={!opActivity ? {visibility: "hidden"} : {visibility: "visible"}}
                         yAxisId="3"
                         orientation="right"
                         type="number"
@@ -92,7 +93,7 @@ const Histogram: React.FC<HistogramPropsType> = ({data}) => {
                             top: 0,
                             bottom: 0,
                         }}
-                    />}
+                    />
                     <Tooltip/>
                     <Legend onClick={(e:any)=> onVisibleLegendHandle(e)}/>
                     <Bar dataKey={notAcceptVisible ? "notAccept" : "_notAccept"}

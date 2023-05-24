@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Pie, PieChart, ResponsiveContainer} from "recharts";
+import {Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
 import {queueReportData} from "../../../data/queueReportData";
 
 const QueueReportPie = () => {
@@ -148,6 +148,7 @@ const QueueReportPie = () => {
                      label={renderSkippedAcceptLabel}
                      paddingAngle={2}
                 />
+                <Tooltip/>
             </PieChart>
         </ResponsiveContainer>
     );

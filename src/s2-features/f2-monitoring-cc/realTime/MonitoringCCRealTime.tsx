@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../../common/routes/routes";
 import s from "./MonitoringCCRealTime.module.scss";
@@ -9,11 +9,18 @@ import Table from '../../../common/components/Table/Table'
 import {operatorsRatingData} from "../../../data/operatorsMonthData";
 import Histogram from "../../../common/components/Histogram/Histogram";
 import {monitoringRealTimeData} from "../../../data/histogram-data/monitoringRealTimeData";
+import useIsAuth from "../../../common/hooks/useIsAuth";
 
 
 const MonitoringCCRealTime = () => {
 
     const navigate = useNavigate()
+    const isAuth = useIsAuth()
+
+
+    useEffect(() => {
+        if (!isAuth) navigate('/')
+    },[])
 
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)

@@ -2,13 +2,15 @@ import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunkMiddleware from 'redux-thunk'
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {dataReducer} from "./data-reducer";
+import {authReducer} from "./auth-reducer";
 
 
 
 
 
 const rootReducer = combineReducers({
-    data: dataReducer
+    data: dataReducer,
+    auth: authReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))

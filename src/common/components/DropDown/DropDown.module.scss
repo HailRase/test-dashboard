@@ -1,0 +1,47 @@
+.dropdownContainer {
+  position: relative;
+  .dropDown {
+    width: 100%;
+    .arrow {
+      fill: white;
+      font-size: 16px;
+      transition: .3s all;
+    }
+    .arrowUp {
+      transform: rotate(180deg);
+    }
+    .arrowUp {
+      transform: rotate(-180deg);
+    }
+    &:hover {
+      opacity: .9;
+    }
+    &:active {
+      opacity: 1;
+    }
+  }
+
+  .optionsContainer {
+    width: 100%;
+    background-color: #2b71ad;
+    position: absolute;
+    border-radius: 3px;
+    z-index: 999;
+    padding: 0 5px 5px 5px;
+    .option {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      text-align: end;
+      text-anchor: middle;
+      & > span {
+        display: block;
+        color: white;
+        transition: .2s;
+        &:hover {
+          opacity: .8;
+        }
+      }
+    }
+  }
+}

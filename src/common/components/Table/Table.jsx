@@ -146,6 +146,14 @@ const Table = ({...props}) => {
                 case 'internalCallsAvgTalkTime':
                 case 'internalCallsAvgHoldTime':
                 case 'internalCallsAvgCallingTime':
+                case 'avgCallDuration':
+                case 'maxCallDuration':
+                case 'avgWaitingTimeLostCall':
+                case 'maxWaitingTimeLostCall':
+                case 'avgWaitingTimeReceivedCall':
+                case 'maxWaitingTimeReceivedCall':
+                case 'avgTalkTime':
+                case 'maxTalkTime':
                     return s.grayColor
                 default:
                     return s.black

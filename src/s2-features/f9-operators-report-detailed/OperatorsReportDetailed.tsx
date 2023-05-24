@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {operatorsReportGeneralData, OperatorsReportGeneralDataType} from "../../data/operatorsReportGeneralData";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../common/routes/routes";
@@ -13,6 +13,10 @@ import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
 import Table from "../../common/components/Table/Table";
 import {operatorsReportDetailedData, OperatorsReportDetailedDataType} from "../../data/operatorsReportDetailedData";
+import {useAppSelector} from "../../s1-main/m2-bll/store";
+import {useDispatch} from "react-redux";
+import {loginTC} from "../../s1-main/m2-bll/auth-reducer";
+import useIsAuth from "../../common/hooks/useIsAuth";
 
 const columns = [
     {
@@ -255,8 +259,12 @@ const OperatorsReportDetailed = () => {
     const [isActive, setIsActive] = useState<boolean>(false)
     const [selectedDepartment, setSelectedDepartment] = useState('');
     const [data, setData] = useState<OperatorsReportDetailedDataType[]>(operatorsReportDetailedData)
-    debugger
     const navigate = useNavigate()
+    const isAuth = useIsAuth()
+
+    useEffect(() => {
+        if (!isAuth) navigate('/')
+    },[])
 
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)

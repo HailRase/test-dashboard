@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../common/routes/routes";
 import s from "../f6-top-operator-report/TopOperatorReport.module.scss";
@@ -15,6 +15,10 @@ import TopOperatorReportHistogram
     from "../f6-top-operator-report/TopOperatorReportHistogram/TopOperatorReportHistogram";
 import Table from "../../common/components/Table/Table";
 import {topOperatorReportData} from "../../data/topOperatorReportData";
+import {useAppSelector} from "../../s1-main/m2-bll/store";
+import {useDispatch} from "react-redux";
+import {loginTC} from "../../s1-main/m2-bll/auth-reducer";
+import useIsAuth from "../../common/hooks/useIsAuth";
 
 const columns = [
     {
@@ -39,6 +43,11 @@ const columns = [
 const OperatorStatusReport = () => {
     const [isActive, setIsActive] = useState<boolean>(false)
     const navigate = useNavigate()
+    const isAuth = useIsAuth()
+
+    useEffect(() => {
+        if (!isAuth) navigate('/')
+    },[])
 
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)

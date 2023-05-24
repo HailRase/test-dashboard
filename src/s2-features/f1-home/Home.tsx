@@ -1,12 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './Home.module.scss'
 import {PATH} from "../../common/routes/routes";
 import {useNavigate} from 'react-router-dom';
 import HomeAccordion from "../../common/components/HomeAccordion/HomeAccordion";
+import Login from "../f10-login/Login";
+import {useAppSelector} from "../../s1-main/m2-bll/store";
+import {loginTC, logout} from "../../s1-main/m2-bll/auth-reducer";
+import {useDispatch} from "react-redux";
+import DropDown from "../../common/components/DropDown/DropDown";
 
 
 const Home = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const isAuth = useAppSelector<boolean>(state => state.auth.isAuth)
+
+    useEffect(() => {
+        // @ts-ignore
+        dispatch(loginTC())
+    }, [])
+    if (isAuth) {
+        console.log("Залогинен")
+    } else {
+        console.log("Не залогинен")
+    }
     const toMonitoringHandler = () => {
         navigate(PATH.MONITORING)
     }
@@ -34,7 +51,10 @@ const Home = () => {
     const toOperatorsReportDetailedHandler = () => {
         navigate(PATH.OPERATORS_REPORT_DETAILED)
     }
-
+    const onLogoutHandler = () => {
+        // @ts-ignore
+        dispatch(logout())
+    }
     const monitoringAccordion = [
         {
             title: "Мониторинг Контакт-центра",
@@ -43,7 +63,7 @@ const Home = () => {
         },
         {
             title: "Мониторинг Контакт-центра (Past)",
-            body: "Информация по контактному центру, рейтинг операторов, нагрузка контактного за выбранный промежуток времени",
+            body: "Информация по контактному центру, рейтинг операторов, нагрузка контактного центра за выбранный промежуток времени",
             clickOnBody: toPastMonitoringHandler
         },
     ]
@@ -60,7 +80,7 @@ const Home = () => {
         },
         {
             title: "Отчёт по операторам (детальный)",
-            body: "Отражает детальную информация по очередям в виде таблицы за период времени с шагом в час, день, месяц.",
+            body: "Отражает детальную информация по очередям в виде таблицы за период времени с шагом в день, час, минута.",
             clickOnBody: toOperatorsReportDetailedHandler
         },
         /*{
@@ -78,7 +98,7 @@ const Home = () => {
     const queueReportAccordion = [
         {
             title: "Отчёт по очередям",
-            body: "Отображает информация по очередям в виде графиков и таблицы за период времени с шагом в час, день, месяц.",
+            body: "Отображает информация по очередям в виде графиков и таблицы за период времени с шагом в день, час, минута.",
             clickOnBody: toQueueReportHandler
         },
         /*{
@@ -99,10 +119,26 @@ const Home = () => {
         },
     ]
 
+    const getNameSupervisor = () => {
+        debugger
+        if (localStorage.getItem('report-login')) {
+            return localStorage.getItem('report-login')
+        } else {
+            return sessionStorage.getItem('report-login')
+        }
+    }
+
     return (
         <div className={s.homeWrapper}>
-            <div className={s.homeTitle}><span style={{color: "white"}}>Отчеты</span></div>
-            <div className={s.homeContent}>
+            <div className={s.homeTitle}><span style={{color: "white"}}>Отчеты</span>
+                {isAuth && <div className={s.profileContainer}>
+                    <DropDown options={[{id: 1, text: "Выход", onClick: onLogoutHandler}]}
+                              title={`Супервизор (${getNameSupervisor()})`}/>
+                    {/*Супервизор({getNameSupervisor()})
+                    Выход*/}
+                </div>}
+            </div>
+            {isAuth && <div className={s.homeContent}>
                 <div className={s.homeContentTitle}>
                     <span>Наименование отчёта</span>
                     <span>Описание</span>
@@ -113,7 +149,8 @@ const Home = () => {
                     <HomeAccordion title={"Отчёты по очередям"} items={queueReportAccordion}/>
                     <HomeAccordion title={"Статистика"} items={statisticsAccordion}/>
                 </div>
-            </div>
+            </div>}
+            {!isAuth && <Login/>}
         </div>
     );
 };

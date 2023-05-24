@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Pie, PieChart, ResponsiveContainer} from "recharts";
+import {Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
 
 const CallTodayPie = () => {
     const [scale, setScale] = useState(1);
@@ -158,6 +158,7 @@ const CallTodayPie = () => {
                      label={renderSkippedAcceptLabel}
                      paddingAngle={2}
                 />
+                <Tooltip/>
             </PieChart>
         </ResponsiveContainer>
     );

@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {Pie, PieChart, ResponsiveContainer} from 'recharts';
+import {Pie, PieChart, ResponsiveContainer, Tooltip} from 'recharts';
 
 const data01 = [
     {name: 'Пропущено', value: 11, fill: '#e70707'},
@@ -129,8 +129,8 @@ export default class CallPastPie extends PureComponent {
                          dataKey={"value"}
                          cx="50%"
                          cy="50%"
-                         innerRadius={"50%"}
-                         outerRadius={"65%"}
+                         innerRadius={"40%"}
+                         outerRadius={"55%"}
                          fill="#82ca9d"
                          labelLine={false}
                          label={renderProviderItem}
@@ -141,13 +141,13 @@ export default class CallPastPie extends PureComponent {
                          dataKey="value"
                          cx="50%"
                          cy="50%"
-                         outerRadius={"40%"}
+                         outerRadius={"30%"}
                          fill="#8884d8"
                          labelLine={false}
                          paddingAngle={2}
                          label={renderSkippedAcceptItem}
                     />
-
+                    <Tooltip/>
                 </PieChart>
             </ResponsiveContainer>
         );

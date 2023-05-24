@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../common/routes/routes";
 import s from "./OperatorsReportGeneral.module.scss";
@@ -12,6 +12,10 @@ import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
 import Table from "../../common/components/Table/Table";
 import {operatorsReportGeneralData, OperatorsReportGeneralDataType} from "../../data/operatorsReportGeneralData";
+import {useAppSelector} from "../../s1-main/m2-bll/store";
+import {useDispatch} from "react-redux";
+import {loginTC} from "../../s1-main/m2-bll/auth-reducer";
+import useIsAuth from "../../common/hooks/useIsAuth";
 
 const columns = [
     {
@@ -23,7 +27,7 @@ const columns = [
                 width: 130
             },
             {
-                Header: 'Отедл',
+                Header: 'Отдел',
                 accessor: 'department',
                 width: 130
             },
@@ -53,12 +57,12 @@ const columns = [
                 width: 100
             },
             {
-                Header: 'Количество принятых входящих зконков',
+                Header: 'Количество принятых входящих звонков',
                 accessor: 'incomingCallsCount',
                 width: 100
             },
             {
-                Header: 'Количество сделаннх исходящих',
+                Header: 'Количество сделанных исходящих',
                 accessor: 'outgoingCallsCount',
                 width: 100
             },
@@ -119,8 +123,12 @@ const OperatorsReportGeneral = () => {
     const [isActive, setIsActive] = useState<boolean>(false)
     const [selectedDepartment, setSelectedDepartment] = useState('');
     const [data, setData] = useState<OperatorsReportGeneralDataType[]>(operatorsReportGeneralData)
-    debugger
     const navigate = useNavigate()
+    const isAuth = useIsAuth()
+
+    useEffect(() => {
+        if (!isAuth) navigate('/')
+    },[])
 
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)
@@ -185,7 +193,6 @@ const OperatorsReportGeneral = () => {
                                     <option value="Зам. Начальника ЛКЦ">Зам. Начальника ЛКЦ</option>
                                     <option value="Инженеры по подготовке кадров">Инженеры по подготовке кадров</option>
                                     <option value="Инженеры по ТО">Инженеры по ТО</option>
-                                    <option value="Специалисты по контролю качества">Специалисты по контролю качества</option>
                                     <option value="Специалисты">Специалисты</option>
                                     <option value="Дежурные по выдаче справок (старшие)">Дежурные по выдаче справок (старшие)</option>
                                     <option value="Дежурные по выдаче справок">Дежурные по выдаче справок</option>
