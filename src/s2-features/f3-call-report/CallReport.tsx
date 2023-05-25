@@ -269,7 +269,7 @@ const CallReport = () => {
                         <Form.Group style={{display: "flex", justifyContent: "space-between", marginBottom: "10px"}}>
                             <Form.Label style={{color: "white"}} column={true}>Очередь: </Form.Label>
                             <Form.Select value={queueFilter} onChange={(value) => onChangeSelectQueue(value)}
-                                         style={{width: "250px"}}>
+                                         style={{width: "75%"}}>
                                 <option value=''>&lt;Все&gt;</option>
                                 <option value="105 GSM">105 GSM</option>
                                 <option value="105 Beltelecom">105 Beltelecom</option>
@@ -277,12 +277,12 @@ const CallReport = () => {
                         </Form.Group>
                         <Form.Group style={{display: "flex", justifyContent: "space-between"}}>
                             <Form.Label style={{width: "20px", color: "white"}}>Время:      &gt;</Form.Label>
-                            <Form.Control style={{width: "250px", height: "40px"}} type="text" placeholder="0"/>
+                            <Form.Control style={{width: "75%", height: "40px"}} type="text" placeholder="0"/>
                         </Form.Group>
                         <Form.Group style={{display: "flex", justifyContent: "space-between", marginBottom: "10px"}}>
                             <Form.Label style={{color: "white"}}>Тип: </Form.Label>
                             <Form.Select
-                                style={{width: "250px"}}
+                                style={{width: "80%"}}
                                 value={typeFilter}
                                 onChange={(value) => onChangeSelectType(value)}>
                                 <option value=''>&lt;Все&gt;</option>
@@ -294,7 +294,7 @@ const CallReport = () => {
                             <Form.Label style={{width: "20px", color: "white"}}>Напра вление: </Form.Label>
                             <Form.Select
                                 value={directionFilter}
-                                style={{width: "250px", height: "40px"}}
+                                style={{width: "75%", height: "40px"}}
                                 onChange={(value) => onChangeSelectDirection(value)}>
                                 <option value=''>&lt;Все&gt;</option>
                                 <option value="Входящий">Входящий</option>
@@ -305,7 +305,7 @@ const CallReport = () => {
                             <Form.Label style={{color: "white"}}>Статус: </Form.Label>
                             <Form.Select
                                 value={statusFilter}
-                                style={{width: "250px"}}
+                                style={{width: "75%"}}
                                 onChange={(value) => onChangeSelectStatus(value)}>
                                 <option value=''>&lt;Все&gt;</option>
                                 <option value="Отвечен">Отвечен</option>
@@ -324,7 +324,7 @@ const CallReport = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Статистика по звонкам</span>
                 </div>
-                <Table data={filteredData} columns={columns} defaultColumn={defaultColumn} pagination={true}/>
+                <Table data={filteredData} columns={columns}  pagination={true}/>
             </div>
         </div>
     );

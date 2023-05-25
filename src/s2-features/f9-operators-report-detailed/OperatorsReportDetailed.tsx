@@ -295,23 +295,23 @@ const OperatorsReportDetailed = () => {
                     </div>
                     <div className={s.optionContent}>
                         <Form.Group
-                            style={{display: "flex", justifyContent: "flex-end", padding: "5px", marginLeft: "20px"}}>
+                            style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
                             <div>
                                 <Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label>
                             </div>
                             <div>
-                                <Form.Control type="date" defaultValue={dateNow} style={{width: "250px"}}/>
-                                <Form.Control type="time" defaultValue={"00:00"} style={{width: "250px"}}/>
+                                <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
+                                <Form.Control type="time" defaultValue={"00:00"} style={{width: "95%"}}/>
                             </div>
                         </Form.Group>
                         <Form.Group
-                            style={{display: "flex", justifyContent: "flex-end", padding: "5px", marginLeft: "20px"}}>
+                            style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
                             <div>
                                 <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
                             </div>
                             <div>
-                                <Form.Control type="date" defaultValue={dateNow} style={{width: "250px"}}/>
-                                <Form.Control type="time" defaultValue={"23:59"} style={{width: "250px"}}/>
+                                <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
+                                <Form.Control type="time" defaultValue={"23:59"} style={{width: "95%"}}/>
                             </div>
                         </Form.Group>
                         <Accordion title={"Параметры"}>
@@ -319,11 +319,11 @@ const OperatorsReportDetailed = () => {
                                 style={{
                                     display: "flex",
                                     justifyContent: "flex-end",
-                                    alignItems: "center",
+                                    flexDirection: "column",
                                     marginBottom: "10px"
                                 }}>
-                                <Form.Label style={{color: "white", marginRight: "10px"}}>Тип</Form.Label>
-                                <Form.Select defaultValue={"День"} style={{width: "250px", borderRadius: "0px"}}>
+                                <Form.Label style={{color: "white", marginRight: "10px"}}>Тип:</Form.Label>
+                                <Form.Select defaultValue={"День"} style={{width: "95%", borderRadius: "0px"}}>
                                     <option value="Минута">Минута</option>
                                     <option value="Час">Час</option>
                                     <option value="День">День</option>
@@ -331,10 +331,10 @@ const OperatorsReportDetailed = () => {
                                     <option value="Весь период">Весь период</option>
                                 </Form.Select>
                             </Form.Group>
-                            <Form.Group style={{display: "flex", justifyContent: "flex-end", alignItems: "center"}}>
-                                <Form.Label style={{color: "white", marginRight: "10px"}}>Шаг</Form.Label>
+                            <Form.Group style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
+                                <Form.Label style={{color: "white", marginRight: "10px"}}>Шаг:</Form.Label>
                                 <Form.Control type="text" defaultValue={"1"}
-                                              style={{width: "250px", borderRadius: "0px"}}/>
+                                              style={{width: "95%", borderRadius: "0px"}}/>
 
                             </Form.Group>
                         </Accordion>

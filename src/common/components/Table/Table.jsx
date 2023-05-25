@@ -216,6 +216,15 @@ const Table = ({...props}) => {
                         )
                     })}
                     </tbody>
+                    {props.footer &&<tfoot>
+                    {footerGroups.map(group => (
+                        <tr {...group.getFooterGroupProps()}>
+                            {group.headers.map(column => (
+                                <td {...column.getFooterProps()}>{column.render('Footer')}</td>
+                            ))}
+                        </tr>
+                    ))}
+                    </tfoot>}
                 </table>
             </div>
             {props.pagination && <div className={s.pagination}>

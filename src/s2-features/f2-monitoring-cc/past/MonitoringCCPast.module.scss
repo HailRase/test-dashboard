@@ -21,6 +21,7 @@
     }
 
     .optionContent {
+
       margin-top: 10px;
 
       .tab  {
@@ -79,6 +80,9 @@
 
       .ratingContainer {
         width: 50vw;
+        .table {
+          width: 100%;
+        }
       }
 
     }

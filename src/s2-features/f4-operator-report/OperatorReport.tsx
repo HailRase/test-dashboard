@@ -11,9 +11,6 @@ import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
 import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import {Form} from "react-bootstrap";
 import TabButton from "../../common/components/TabButton/TabButton";
-import {useAppSelector} from "../../s1-main/m2-bll/store";
-import {useDispatch} from "react-redux";
-import {loginTC} from "../../s1-main/m2-bll/auth-reducer";
 import useIsAuth from "../../common/hooks/useIsAuth";
 
 
@@ -48,12 +45,6 @@ const columns = [
         width: 369
     }
 ]
-
-const defaultColumn = {
-    minWidth: 20,
-    width: 120,
-    maxWidth: 300,
-}
 
 const OperatorReport = () => {
 
@@ -121,7 +112,7 @@ const OperatorReport = () => {
                                 <Form.Select
                                     value={statusFilter}
                                     onChange={onChangeSelectStatus}
-                                    style={{width: "250px"}}>
+                                    style={{width: "75%"}}>
                                     <option value="">&lt;Все&gt;</option>
                                     <option value="Готов">Готов</option>
                                     <option value="Говорит">Говорит</option>
@@ -133,7 +124,7 @@ const OperatorReport = () => {
                             <Form.Group style={{display: "flex", justifyContent: "space-between"}}>
                                 <Form.Label style={{width: "20px", color: "white"}}>Длитель
                                     ность:      &gt;=</Form.Label>
-                                <Form.Control style={{width: "250px", height: "40px"}} type="text" placeholder="0"/>
+                                <Form.Control style={{width: "75%   ", height: "40px"}} type="text" placeholder="0"/>
                             </Form.Group>
                             <Form.Group style={{marginBottom: "10px"}}>
                                 <Form.Control value={operatorFilter}

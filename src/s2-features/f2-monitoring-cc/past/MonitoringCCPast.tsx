@@ -12,9 +12,6 @@ import {monitoringPastData} from "../../../data/histogram-data/monitoringPastDat
 import CallPastPie from "./p1-call-past-pie/CallPastPie";
 import Table from "../../../common/components/Table/Table";
 import {operatorsRatingData} from "../../../data/operatorsData";
-import {useAppSelector} from "../../../s1-main/m2-bll/store";
-import {useDispatch} from "react-redux";
-import {loginTC} from "../../../s1-main/m2-bll/auth-reducer";
 import useIsAuth from "../../../common/hooks/useIsAuth";
 
 
@@ -77,11 +74,6 @@ const MonitoringCCPast = () => {
             width: 120
         }
     ]
-    const defaultColumn = {
-        minWidth: 20,
-        width: 100,
-        maxWidth: 400,
-    }
 
     return (
         <div className={s.monitoringCCWrapper}>
@@ -109,8 +101,7 @@ const MonitoringCCPast = () => {
                     </div>
                     <div className={s.ratingContainer}>
                         <span>Рейтинг операторов</span>
-                        <Table data={operatorsRatingData} columns={columns} defaultColumn={defaultColumn}
-                               height={"40vh"}/>
+                        <div className={s.table}><Table data={operatorsRatingData} columns={columns} height={"40vh"}/></div>
                     </div>
                 </div>
                 <div className={s.histogram}>

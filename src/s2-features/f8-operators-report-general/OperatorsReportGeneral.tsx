@@ -59,7 +59,16 @@ const columns = [
             {
                 Header: 'Количество принятых входящих звонков',
                 accessor: 'incomingCallsCount',
-                width: 100
+                width: 100,
+                Footer: (info: any) => {
+                    const total = React.useMemo(
+                        () =>
+                            info.rows.reduce((sum: number, row: any) => row.values.incomingCallsCount + sum, 0),
+                        [info.rows]
+                    )
+
+                    return <>Total: {total}</>
+                },
             },
             {
                 Header: 'Количество сделанных исходящих',
@@ -159,35 +168,27 @@ const OperatorsReportGeneral = () => {
                     </div>
                     <div className={s.optionContent}>
                         <Form.Group
-                            style={{display: "flex", justifyContent: "flex-end", padding: "5px", marginLeft: "20px"}}>
-                            <div>
+                            style={{display: "flex", justifyContent: "flex-end", flexDirection:"column"}}>
                                 <Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label>
-                            </div>
-                            <div>
-                                <Form.Control type="date" defaultValue={dateNow} style={{width: "250px"}}/>
-                                <Form.Control type="time" defaultValue={"00:00"} style={{width: "250px"}}/>
-                            </div>
+                                <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
+                                <Form.Control type="time" defaultValue={"00:00"} style={{width: "95%"}}/>
                         </Form.Group>
                         <Form.Group
-                            style={{display: "flex", justifyContent: "flex-end", padding: "5px", marginLeft: "20px"}}>
-                            <div>
+                            style={{display: "flex", justifyContent: "flex-end", flexDirection:"column"}}>
                                 <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
-                            </div>
-                            <div>
-                                <Form.Control type="date" defaultValue={dateNow} style={{width: "250px"}}/>
-                                <Form.Control type="time" defaultValue={"23:59"} style={{width: "250px"}}/>
-                            </div>
+                                <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
+                                <Form.Control type="time" defaultValue={"23:59"} style={{width: "95%"}}/>
                         </Form.Group>
                         <Accordion title={"Параметры"}>
                             <Form.Group
                                 style={{
                                     display: "flex",
                                     justifyContent: "flex-end",
-                                    alignItems: "center",
+                                    flexDirection: "column",
                                     marginBottom: "10px"
                                 }}>
-                                <Form.Label style={{color: "white", marginRight: "10px"}}>Отдел</Form.Label>
-                                <Form.Select value={selectedDepartment} onChange={e => setSelectedDepartment(e.target.value)} style={{width: "250px", borderRadius: "0px"}}>
+                                <Form.Label style={{color: "white", marginRight: "10px"}}>Отдел:</Form.Label>
+                                <Form.Select value={selectedDepartment} onChange={e => setSelectedDepartment(e.target.value)} style={{width: "95%", borderRadius: "0px"}}>
                                     <option value="">Все отделы</option>
                                     <option value="Начальник ЛКЦ">Начальник ЛКЦ</option>
                                     <option value="Зам. Начальника ЛКЦ">Зам. Начальника ЛКЦ</option>
