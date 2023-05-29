@@ -12,128 +12,142 @@ import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
 import Table from "../../common/components/Table/Table";
 import {operatorsReportGeneralData, OperatorsReportGeneralDataType} from "../../data/operatorsReportGeneralData";
-import {useAppSelector} from "../../s1-main/m2-bll/store";
-import {useDispatch} from "react-redux";
-import {loginTC} from "../../s1-main/m2-bll/auth-reducer";
 import useIsAuth from "../../common/hooks/useIsAuth";
+import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
+import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
 
-const columns = [
-    {
-        Header: 'Общая информация',
-        columns: [
-            {
-                Header: 'Оператор',
-                accessor: 'operator',
-                width: 130
-            },
-            {
-                Header: 'Отдел',
-                accessor: 'department',
-                width: 130
-            },
-        ]
-    },
-    {
-        Header: 'Смена',
-        columns: [
-            {
-                Header: 'Время залогинивания',
-                accessor: 'loginTime',
-                width: 150
-            },
-            {
-                Header: 'Время разлогинивания',
-                accessor: 'logoutTime',
-                width: 130
-            },
-        ]
-    },
-    {
-        Header: 'Общие показатели',
-        columns: [
-            {
-                Header: 'Суммарное время в логине',
-                accessor: 'totalLoginTime',
-                width: 100
-            },
-            {
-                Header: 'Количество принятых входящих звонков',
-                accessor: 'incomingCallsCount',
-                width: 100,
-                Footer: (info: any) => {
-                    const total = React.useMemo(
-                        () =>
-                            info.rows.reduce((sum: number, row: any) => row.values.incomingCallsCount + sum, 0),
-                        [info.rows]
-                    )
 
-                    return <>Total: {total}</>
-                },
-            },
-            {
-                Header: 'Количество сделанных исходящих',
-                accessor: 'outgoingCallsCount',
-                width: 100
-            },
-            {
-                Header: 'Средняя длительность входящих',
-                accessor: 'avgDurationIncoming',
-                width: 100
-            },
-            {
-                Header: 'Средняя длительность исходящих',
-                accessor: 'avgDurationOutgoing',
-                width: 100
-            },
-        ]
-    },
-    {
-        Header: 'Время нахождения в статусах',
-        columns: [
-            {
-                Header: 'Разговор',
-                accessor: 'totalTalkTime',
-                width: 90
-            },
-            {
-                Header: 'Свободен',
-                accessor: 'totalFreeTime',
-                width: 90
-            },
-            {
-                Header: 'Не готов',
-                accessor: 'totalNotReadyTime',
-                width: 90
-            },
-            {
-                Header: 'Занят',
-                accessor: 'totalBusyTime',
-                width: 90
-            },
-            {
-                Header: 'Входящий дозвон',
-                accessor: 'totalIncomingCall',
-                width: 90
-            },
-            {
-                Header: 'Исходящий дозвон',
-                accessor: 'totalOutgoingCall',
-                width: 90
-            },
-            {
-                Header: 'Разлогинен',
-                accessor: 'totalLogoutTime',
-                width: 90
-            }
-        ]
-    },
-]
 const OperatorsReportGeneral = () => {
+
     const [isActive, setIsActive] = useState<boolean>(false)
     const [selectedDepartment, setSelectedDepartment] = useState('');
     const [data, setData] = useState<OperatorsReportGeneralDataType[]>(operatorsReportGeneralData)
     const navigate = useNavigate()
     const isAuth = useIsAuth()
+
+    const columns = [
+        {
+            Header: 'Общая информация',
+            Footer: <></>,
+            columns: [
+                {
+                    Header: 'Оператор',
+                    accessor: 'operator',
+                    Footer: <>Total:</>,
+                    width: 130
+                },
+                {
+                    Header: 'Отдел',
+                    accessor: 'department',
+                    Footer: <></>,
+                    width: 130
+                },
+            ]
+        },
+        {
+            Header: 'Смена',
+            Footer: <></>,
+            columns: [
+                {
+                    Header: 'Время залогинивания',
+                    accessor: 'loginTime',
+                    Footer: <></>,
+                    width: 150
+                },
+                {
+                    Header: 'Время разлогинивания',
+                    accessor: 'logoutTime',
+                    Footer: <></>,
+                    width: 130
+                },
+            ]
+        },
+        {
+            Header: 'Общие показатели',
+            Footer: <></>,
+            columns: [
+                {
+                    Header: 'Суммарное время в логине',
+                    accessor: 'totalLoginTime',
+                    width: 100,
+                    Footer: (info: any) => useCalcTimeTotal(info, 'totalLoginTime')
+                },
+                {
+                    Header: 'Количество принятых входящих звонков',
+                    accessor: 'incomingCallsCount',
+                    width: 100,
+                    Footer: (info: any) => useCalcNumTotal(info, 'incomingCallsCount')
+                },
+                {
+                    Header: 'Количество сделанных исходящих',
+                    accessor: 'outgoingCallsCount',
+                    width: 100,
+                    Footer: (info: any) => useCalcNumTotal(info, 'outgoingCallsCount')
+
+                },
+                {
+                    Header: 'Средняя длительность входящих',
+                    accessor: 'avgDurationIncoming',
+                    Footer: (info: any) => useCalcTimeTotal(info, 'avgDurationIncoming'),
+                    width: 100
+                },
+                {
+                    Header: 'Средняя длительность исходящих',
+                    accessor: 'avgDurationOutgoing',
+                    Footer: (info: any) => useCalcTimeTotal(info, 'avgDurationOutgoing'),
+                    width: 100
+                },
+            ]
+        },
+        {
+            Header: 'Время нахождения в статусах',
+            Footer: <></>,
+            columns: [
+                {
+                    Header: 'Разговор',
+                    accessor: 'totalTalkTime',
+                    Footer: (info: any) => useCalcTimeTotal(info, 'totalTalkTime'),
+                    width: 90
+                },
+                {
+                    Header: 'Свободен',
+                    accessor: 'totalFreeTime',
+                    Footer: (info: any) => useCalcTimeTotal(info, 'totalFreeTime'),
+                    width: 90
+                },
+                {
+                    Header: 'Не готов',
+                    accessor: 'totalNotReadyTime',
+                    Footer: (info: any) => useCalcTimeTotal(info, 'totalNotReadyTime'),
+                    width: 90
+                },
+                {
+                    Header: 'Занят',
+                    accessor: 'totalBusyTime',
+                    Footer: (info: any) => useCalcTimeTotal(info, 'totalBusyTime'),
+                    width: 90
+                },
+                {
+                    Header: 'Входящий дозвон',
+                    accessor: 'totalIncomingCall',
+                    Footer: (info: any) => useCalcTimeTotal(info, 'totalIncomingCall'),
+                    width: 90
+                },
+                {
+                    Header: 'Исходящий дозвон',
+                    accessor: 'totalOutgoingCall',
+                    Footer: (info: any) => useCalcTimeTotal(info, 'totalOutgoingCall'),
+                    width: 90
+                },
+                {
+                    Header: 'Разлогинен',
+                    accessor: 'totalLogoutTime',
+                    Footer: (info: any) => useCalcTimeTotal(info, 'totalLogoutTime'),
+                    width: 90
+                }
+            ]
+        },
+    ]
 
     useEffect(() => {
         if (!isAuth) navigate('/')
@@ -211,7 +225,7 @@ const OperatorsReportGeneral = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Отчёт по операторам (Общий)</span>
                 </div>
-                <Table data={data} columns={columns} pagination={true} width={"100vw"}/>
+                <Table data={data} columns={columns} pagination={true} width={"100vw"} footer/>
             </div>
         </div>
     );

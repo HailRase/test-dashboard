@@ -12,36 +12,43 @@ import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import {Form} from "react-bootstrap";
 import TabButton from "../../common/components/TabButton/TabButton";
 import useIsAuth from "../../common/hooks/useIsAuth";
+import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
 
 
 const columns = [
     {
         Header: 'Дата',
         accessor: 'date',
+        Footer: <>Total:</>,
         width: 150
     },
     {
         Header: 'Оператор',
         accessor: 'operator',
+        Footer: <></>,
         width: 300
     },
     {
         Header: 'Статус',
         accessor: 'status',
+        Footer: <></>,
         width: 250
     },
     {
         Header: 'Длительность',
         accessor: 'duration',
+        Footer: (info: any) => useCalcTimeTotal(info, 'duration'),
     },
     {
         Header: 'Причина',
         accessor: 'reason',
+        Footer: <></>,
         width: 300
     },
     {
         Header: 'Комментарий',
         accessor: 'comment',
+        Footer: <></>,
         width: 369
     }
 ]
@@ -156,7 +163,7 @@ const OperatorReport = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Статистика по операторам</span>
                 </div>
-                <Table data={filteredData} columns={columns} pagination={true} width={"100vw"}/>
+                <Table data={filteredData} columns={columns} pagination={true} width={"100vw"} footer/>
             </div>
         </div>
     );

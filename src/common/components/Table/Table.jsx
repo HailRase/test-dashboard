@@ -54,6 +54,7 @@ const Table = ({...props}) => {
     useEffect(() => {
         setPageSize(30)
     }, [])
+    console.log("footerGroups: "+ footerGroups[0].headers.map(column => column))
     const fillCellCall = (value) => {
         switch (value) {
             case 'Отвечен':
@@ -161,9 +162,7 @@ const Table = ({...props}) => {
         }
     }
 
-
     const {pageIndex, pageSize = 20} = state
-
     return (
         <div className={s.callReportTableWrapper}>
             <div className={s.callReportTableContainer}
@@ -216,12 +215,12 @@ const Table = ({...props}) => {
                         )
                     })}
                     </tbody>
-                    {props.footer &&<tfoot>
+                    {props.footer && <tfoot>
                     {footerGroups.map(group => (
                         <tr {...group.getFooterGroupProps()}>
-                            {group.headers.map(column => (
-                                <td {...column.getFooterProps()}>{column.render('Footer')}</td>
-                            ))}
+                            {group.headers.map(column => column !== null
+                                ?<td style={{color: "#000000"}} {...column.getFooterProps()}>{column.render('Footer')}</td>
+                            : "")}
                         </tr>
                     ))}
                     </tfoot>}

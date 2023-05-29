@@ -11,120 +11,138 @@ import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
 import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import {Form} from "react-bootstrap";
 import TabButton from "../../common/components/TabButton/TabButton";
-import {useAppSelector} from "../../s1-main/m2-bll/store";
-import {useDispatch} from "react-redux";
 import useIsAuth from "../../common/hooks/useIsAuth";
+import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
 
 
 const columns = [
     {
         Header: 'Даты',
+        Footer: <></>,
         columns: [
             {
                 Header: 'Начало',
-                accessor: 'dateStart'
+                accessor: 'dateStart',
+                Footer: <>Total:</>,
             },
             {
                 Header: 'Завершение',
                 accessor: 'dateEnd',
+                Footer: <></>,
             },
         ]
     },
     {
         Header: 'Контактные номера',
+        Footer: <></>,
         columns: [
             {
                 Header: 'Инициатор',
                 accessor: 'initiator',
+                Footer: <></>,
             },
             {
                 Header: 'Получатель',
                 accessor: 'recipient',
+                Footer: <></>,
             },
         ]
     },
     {
         Header: 'Основная информация',
+        Footer: <></>,
         columns: [
             {
                 Header: 'Направление',
                 accessor: 'direction',
+                Footer: <></>,
             },
             {
                 Header: 'Статус',
                 accessor: 'status',
+                Footer: <></>,
             },
             {
                 Header: 'Тип',
                 accessor: 'type',
+                Footer: <></>,
             },
             {
                 Header: 'Очередь',
                 accessor: 'queue',
+                Footer: <></>,
             }
         ]
     },
     {
         Header: 'Время',
+        Footer: <></>,
         columns: [
             {
                 Header: 'Общее время',
                 accessor: 'totalTime',
+                Footer: (info: any) => useCalcTimeTotal(info, 'totalTime'),
             },
             {
                 Header: 'Время разговора',
                 accessor: 'talkTime',
+                Footer: (info: any) => useCalcTimeTotal(info, 'talkTime'),
             },
             {
                 Header: 'Время соединения',
                 accessor: 'connectionTime',
+                Footer: (info: any) => useCalcTimeTotal(info, 'connectionTime'),
             },
             {
                 Header: 'Время на удержании',
                 accessor: 'holdTime',
+                Footer: (info: any) => useCalcTimeTotal(info, 'holdTime'),
             },
             {
                 Header: 'Время в очереди',
                 accessor: 'queueTime',
+                Footer: (info: any) => useCalcTimeTotal(info, 'queueTime'),
             },
         ]
     },
     {
         Header: 'Контакты в CallWay',
+        Footer: <></>,
         columns: [
             {
                 Header: 'Контакт инициатора',
                 accessor: 'initiatorContact',
+                Footer: <></>,
             },
             {
                 Header: 'контакт получателя',
                 accessor: 'recipientContact',
+                Footer: <></>,
             },
             {
                 Header: 'Оператор',
                 accessor: 'operator',
+                Footer: <></>,
             }
         ]
     },
     {
         Header: 'Распределение одного звонка',
+        Footer: <></>,
         columns: [
             {
                 Header: 'Был на очередях',
                 accessor: 'wasOnQueue',
+                Footer: <></>,
             },
             {
                 Header: 'Был на операторах',
                 accessor: 'wasOnOperators',
+                Footer: <></>,
             }
         ]
     },
 ]
-const defaultColumn = {
-    minWidth: 20,
-    width: 120,
-    maxWidth: 300,
-}
 
 const CallReport = () => {
 
@@ -324,7 +342,7 @@ const CallReport = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Статистика по звонкам</span>
                 </div>
-                <Table data={filteredData} columns={columns}  pagination={true}/>
+                <Table data={filteredData} columns={columns}  pagination={true} footer/>
             </div>
         </div>
     );
