@@ -148,6 +148,11 @@ const OperatorsReportGeneral = () => {
             ]
         },
     ]
+    const defaultColumnsSize = {
+        size: 200,
+        minSize: 200,
+        maxSize: 4000,
+    }
 
     useEffect(() => {
         if (!isAuth) navigate('/')
@@ -225,7 +230,7 @@ const OperatorsReportGeneral = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Отчёт по операторам (Общий)</span>
                 </div>
-                <Table data={data} columns={columns} pagination={true} width={"100vw"} footer/>
+                <Table data={data} defaultColumn={defaultColumnsSize} columns={columns} pagination={true} width={"100vw"} footer/>
             </div>
         </div>
     );

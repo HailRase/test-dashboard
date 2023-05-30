@@ -11,8 +11,8 @@ export const monitoringRealTimeData = [
     },
     {
         name: '01:00',
-        notAccept: 0,
-        accept: 10,
+        notAccept: 320,
+        accept: 335,
         avgCall: 1.2,
         maxSimultaneousCall: 3,
         opInSys: 4,

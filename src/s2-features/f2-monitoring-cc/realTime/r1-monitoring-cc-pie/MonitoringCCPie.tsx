@@ -1,41 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
-
-const CallsMonthPie = () => {
-    const [scale, setScale] = useState(1);
-
-    useEffect(() => {
-        function handleResize() {
-            const newScale = window.devicePixelRatio || 1;
-            setScale(newScale);
-        }
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-    console.log(scale)
-    const data01 = [
-        {name: 'Пропущено', value: 511, fill: '#e70707'},
-        {name: 'Принято', value: 3534, fill: '#4bb253'},
-    ];
-    const data02 = [
-        {name: 'НОД-5', value: 114/*totalCallReducer('Видеотерминалы')*/, fill: '#fdc6c8'},
-        {name: 'НОД-4', value: 126/*totalCallReducer('Видеотерминалы')*/, fill: '#b26467'},
-        {name: 'НОД-1', value: 153/*totalCallReducer('Видеотерминалы')*/, fill: '#2d585d'},
-        {name: 'Белтел Могилёвская', value: 158 /*totalCallReducer('GSM')*/, fill: '#4bb253'},
-        {name: 'Белтел Минская', value: 1270 /*totalCallReducer('39-48-75')*/, fill: '#008dfe'},
-        {name: 'Белтел Гродненская', value: 148 /*totalCallReducer('39-25-47')*/, fill: '#ec977d'},
-        {name: 'Белтел Гомельская', value: 170 /*totalCallReducer('151 Other')*/, fill: '#a2bab1'},
-        {name: 'Белтел Витебская', value: 171/*totalCallReducer('151 GSM')*/, fill: '#76c5e7'},
-        {name: 'Белтел Брестская', value: 175/*totalCallReducer('151 Beltelecom')*/, fill: '#392c70'},
-        {name: 'Repeat call', value: 165/*totalCallReducer('151 Beltelecom')*/, fill: '#4f457e'},
-        {name: 'MTC', value: 1423/*totalCallReducer('105 Other')*/, fill: '#ece296'},
-        {name: 'Life', value: 147 /*totalCallReducer('105 GSM')*/, fill: '#489f48'},
-        {name: 'A1', value: 1333/*totalCallReducer('105 Beltelecom')*/, fill: '#d34758'},
-    ];
+import {useScale} from "../../../../common/hooks/useScale";
+export interface TotalAcceptAndSkippedCallType {
+    name: 'Пропущено' | 'Принято'
+    value: number
+    fill: string
+}
+export interface QueueDataType {
+    name: 'НОД-6' | 'НОД-5' | 'НОД-4' | 'НОД-3' | 'НОД-2' | 'НОД-1' |
+        'Белтел Могилёвская' | 'Белтел Минская' | 'Белтел Гродненская' | 'Белтел Гомельская' | 'Белтел Витебская' |
+        'Белтел Брестская' | 'Repeat call' | 'MTC' | 'Life' | 'International' | 'A1'
+    value: number
+    fill: string
+}
+interface CallPieType {
+    data1: TotalAcceptAndSkippedCallType[]
+    data2: QueueDataType[]
+}
+const MonitoringCCPie: React.FC<CallPieType> = ( {data1,data2}) => {
+    const scale = useScale()
 
     const renderQueueLabel = (props: any) => {
         const RADIAN = Math.PI / 180;
@@ -46,15 +29,27 @@ const CallsMonthPie = () => {
         const y1 = cy + outerRadius * sin;
         const x2 = cx + (outerRadius + 10) * cos;
         const y2 = cy + (outerRadius + 10) * sin;
-        const textAnchor = cos >= 0 ? 'start' : 'end';
+        const textAnchor = index >= 13 ? 'start' : 'end';
 
 
         const endPoint = [
-            {x3: x1 - 10, y3: y1 - 10}, {x3: x1 - 30, y3: y1 + 5}, {x3: x1 - 45, y3: y1 + 20},
-            {x3: x1 - 40, y3: y1 + 30}, {x3: x1 - 15, y3: y1 + 10}, {x3: x1 - 15, y3: y1 - 20},
-            {x3: x1 - 20, y3: y1 - 20}, {x3: x1 - 25, y3: y1 - 20}, {x3: x1 - 35, y3: y1 - 20},
-            {x3: x1 - 5, y3: y1 + 10}, {x3: x1 - 5, y3: y1 + 20}, {x3: x1 + 20, y3: y1 - 5},
-            {x3: x1 + 20, y3: y1 - 5}
+            {x3: 280 / scale, y3: 60 / scale} /*1.НОД-6*/,
+            {x3: 250 / scale, y3: 75 / scale} /*2.НОД-5*/,
+            {x3: 225 / scale, y3: 90 / scale} /*3.НОД-4*/,
+            {x3: 205 / scale, y3: 105 / scale} /*4.НОД-3*/,
+            {x3: 200 / scale, y3: 120 / scale} /*5.НОД-2*/,
+            {x3: 190 / scale, y3: 135 / scale} /*6.НОД-1*/,
+            {x3: 190 / scale, y3: 160 / scale} /*7.Белтел Могилёвская*/,
+            {x3: 190 / scale, y3: 175 / scale} /*8.Белтел Минская*/,
+            {x3: 195 / scale, y3: 190 / scale} /*9.Белтел Гродненская*/,
+            {x3: 200 / scale, y3: 205 / scale} /*10.Белтел Гомельская*/,
+            {x3: 205 / scale, y3: 220 / scale} /*11.Белтел Витебская*/,
+            {x3: 215 / scale, y3: 235 / scale} /*12.Белтел Брестская*/,
+            {x3: 255 / scale, y3: 265 / scale} /*13.Repeat call*/,
+            {x3: 390 / scale, y3: 205 / scale} /*14.MTC*/,
+            {x3: 390 / scale, y3: 190 / scale} /*15.Life*/,
+            {x3: 390 / scale, y3: 175 / scale} /*16.International*/,
+            {x3: 370 / scale, y3: 90 / scale} /*17.A1*/
         ]
         const paths = [
             `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[0].x3} ${endPoint[0].y3}`,
@@ -70,6 +65,10 @@ const CallsMonthPie = () => {
             `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[10].x3} ${endPoint[10].y3}`,
             `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[11].x3} ${endPoint[11].y3}`,
             `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[12].x3} ${endPoint[12].y3}`,
+            `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[13].x3} ${endPoint[13].y3}`,
+            `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[14].x3} ${endPoint[14].y3}`,
+            `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[15].x3} ${endPoint[15].y3}`,
+            `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[16].x3} ${endPoint[16].y3}`,
         ];
 
         return (
@@ -135,7 +134,7 @@ const CallsMonthPie = () => {
                     bottom: 0,
                     right: 0
                 }}>
-                <Pie data={data02}
+                <Pie data={data2}
                      startAngle={-270}
                      dataKey={"value"}
                      cx="50%"
@@ -146,8 +145,11 @@ const CallsMonthPie = () => {
                      labelLine={false}
                      label={renderQueueLabel}
                      paddingAngle={1}
+                     activeShape={<>
+                         <path></path>
+                     </>}
                 />
-                <Pie data={data01}
+                <Pie data={data1}
                      startAngle={-280}
                      dataKey="value"
                      cx="50%"
@@ -164,4 +166,4 @@ const CallsMonthPie = () => {
     );
 };
 
-export default CallsMonthPie;
+export default MonitoringCCPie;

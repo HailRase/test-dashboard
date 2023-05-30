@@ -27,6 +27,8 @@
         display: flex !important;
         justify-content: center;
         align-items: center;
+        font-size: 1vw;
+
         & > #text {
           margin: 0;
         }
@@ -142,6 +144,15 @@
             color: #c0bfbf;
           }
         }
+      }
+      .footerTr {
+        .footerTd {
+          color: black;
+          padding-left: 5px;
+        }
+      }
+      .footerTr:first-child {
+        border-bottom: 1px solid gray;
       }
     }
 

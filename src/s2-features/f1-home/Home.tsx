@@ -120,7 +120,6 @@ const Home = () => {
     ]
 
     const getNameSupervisor = () => {
-        debugger
         if (localStorage.getItem('report-login')) {
             return localStorage.getItem('report-login')
         } else {

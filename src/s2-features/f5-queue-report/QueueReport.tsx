@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import moment from 'moment';
 import s from './QueueReport.module.scss'
 import {Sidebar} from "../../common/components/Sidebar/Sidebar";
 import ArrowLeftIcon from "../../common/components/ArrowLeftIcon/ArrowLeftIcon";
@@ -16,9 +15,8 @@ import {dateNow} from "../../data/dateNow";
 import TabButton from "../../common/components/TabButton/TabButton";
 import Accordion from "../../common/components/Accordion/Accordion";
 import useIsAuth from "../../common/hooks/useIsAuth";
-import { useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
+import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
-
 
 
 const QueueReport = () => {

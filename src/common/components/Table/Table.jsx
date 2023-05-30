@@ -54,7 +54,6 @@ const Table = ({...props}) => {
     useEffect(() => {
         setPageSize(30)
     }, [])
-    console.log("footerGroups: "+ footerGroups[0].headers.map(column => column))
     const fillCellCall = (value) => {
         switch (value) {
             case 'Отвечен':
@@ -217,9 +216,9 @@ const Table = ({...props}) => {
                     </tbody>
                     {props.footer && <tfoot>
                     {footerGroups.map(group => (
-                        <tr {...group.getFooterGroupProps()}>
+                        <tr {...group.getFooterGroupProps()} className={s.footerTr}>
                             {group.headers.map(column => column !== null
-                                ?<td style={{color: "#000000"}} {...column.getFooterProps()}>{column.render('Footer')}</td>
+                                ?<td className={s.footerTd} {...column.getFooterProps()}>{column.render('Footer')}</td>
                             : "")}
                         </tr>
                     ))}
@@ -228,7 +227,7 @@ const Table = ({...props}) => {
             </div>
             {props.pagination && <div className={s.pagination}>
                 <div>
-                    <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px"}}
+                    <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px", fontWeight: 500}}
                             onClick={() => gotoPage(0)}
                             disabled={!canPreviousPage}>
                         {'<<'}
