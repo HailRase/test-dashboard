@@ -160,9 +160,10 @@
   }
 
   .pagination {
+    height: 30px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 5px;
     padding-left: 10px;
     border-left: 1px solid gray;

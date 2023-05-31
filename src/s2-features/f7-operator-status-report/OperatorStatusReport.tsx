@@ -15,9 +15,6 @@ import TopOperatorReportHistogram
     from "../f6-top-operator-report/TopOperatorReportHistogram/TopOperatorReportHistogram";
 import Table from "../../common/components/Table/Table";
 import {topOperatorReportData} from "../../data/topOperatorReportData";
-import {useAppSelector} from "../../s1-main/m2-bll/store";
-import {useDispatch} from "react-redux";
-import {loginTC} from "../../s1-main/m2-bll/auth-reducer";
 import useIsAuth from "../../common/hooks/useIsAuth";
 
 const columns = [

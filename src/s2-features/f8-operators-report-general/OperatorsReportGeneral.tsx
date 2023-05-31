@@ -15,10 +15,11 @@ import {operatorsReportGeneralData, OperatorsReportGeneralDataType} from "../../
 import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
 import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
+import {useScale} from "../../common/hooks/useScale";
 
 
 const OperatorsReportGeneral = () => {
-
+    const scale = useScale()
     const [isActive, setIsActive] = useState<boolean>(false)
     const [selectedDepartment, setSelectedDepartment] = useState('');
     const [data, setData] = useState<OperatorsReportGeneralDataType[]>(operatorsReportGeneralData)
@@ -34,13 +35,13 @@ const OperatorsReportGeneral = () => {
                     Header: 'Оператор',
                     accessor: 'operator',
                     Footer: <>Total:</>,
-                    width: 130
+                    width: 162.5 / scale
                 },
                 {
                     Header: 'Отдел',
                     accessor: 'department',
                     Footer: <></>,
-                    width: 130
+                    width: 162.5 / scale
                 },
             ]
         },
@@ -52,13 +53,13 @@ const OperatorsReportGeneral = () => {
                     Header: 'Время залогинивания',
                     accessor: 'loginTime',
                     Footer: <></>,
-                    width: 150
+                    width: 187.5 / scale
                 },
                 {
                     Header: 'Время разлогинивания',
                     accessor: 'logoutTime',
                     Footer: <></>,
-                    width: 130
+                    width: 162.5 / scale
                 },
             ]
         },
@@ -69,19 +70,19 @@ const OperatorsReportGeneral = () => {
                 {
                     Header: 'Суммарное время в логине',
                     accessor: 'totalLoginTime',
-                    width: 100,
+                    width: 125 / scale,
                     Footer: (info: any) => useCalcTimeTotal(info, 'totalLoginTime')
                 },
                 {
                     Header: 'Количество принятых входящих звонков',
                     accessor: 'incomingCallsCount',
-                    width: 100,
+                    width: 125 / scale,
                     Footer: (info: any) => useCalcNumTotal(info, 'incomingCallsCount')
                 },
                 {
                     Header: 'Количество сделанных исходящих',
                     accessor: 'outgoingCallsCount',
-                    width: 100,
+                    width: 125 / scale,
                     Footer: (info: any) => useCalcNumTotal(info, 'outgoingCallsCount')
 
                 },
@@ -89,13 +90,13 @@ const OperatorsReportGeneral = () => {
                     Header: 'Средняя длительность входящих',
                     accessor: 'avgDurationIncoming',
                     Footer: (info: any) => useCalcTimeTotal(info, 'avgDurationIncoming'),
-                    width: 100
+                    width: 125 / scale
                 },
                 {
                     Header: 'Средняя длительность исходящих',
                     accessor: 'avgDurationOutgoing',
                     Footer: (info: any) => useCalcTimeTotal(info, 'avgDurationOutgoing'),
-                    width: 100
+                    width: 125 / scale
                 },
             ]
         },
@@ -107,50 +108,50 @@ const OperatorsReportGeneral = () => {
                     Header: 'Разговор',
                     accessor: 'totalTalkTime',
                     Footer: (info: any) => useCalcTimeTotal(info, 'totalTalkTime'),
-                    width: 90
+                    width: 112.5 / scale
                 },
                 {
                     Header: 'Свободен',
                     accessor: 'totalFreeTime',
                     Footer: (info: any) => useCalcTimeTotal(info, 'totalFreeTime'),
-                    width: 90
+                    width: 112.5 / scale
                 },
                 {
                     Header: 'Не готов',
                     accessor: 'totalNotReadyTime',
                     Footer: (info: any) => useCalcTimeTotal(info, 'totalNotReadyTime'),
-                    width: 90
+                    width: 112.5 / scale
                 },
                 {
                     Header: 'Занят',
                     accessor: 'totalBusyTime',
                     Footer: (info: any) => useCalcTimeTotal(info, 'totalBusyTime'),
-                    width: 90
+                    width: 112.5 / scale
                 },
                 {
                     Header: 'Входящий дозвон',
                     accessor: 'totalIncomingCall',
                     Footer: (info: any) => useCalcTimeTotal(info, 'totalIncomingCall'),
-                    width: 90
+                    width: 112.5 / scale
                 },
                 {
                     Header: 'Исходящий дозвон',
                     accessor: 'totalOutgoingCall',
                     Footer: (info: any) => useCalcTimeTotal(info, 'totalOutgoingCall'),
-                    width: 90
+                    width: 112.5 / scale
                 },
                 {
                     Header: 'Разлогинен',
                     accessor: 'totalLogoutTime',
                     Footer: (info: any) => useCalcTimeTotal(info, 'totalLogoutTime'),
-                    width: 90
+                    width: 112.5 / scale
                 }
             ]
         },
     ]
     const defaultColumnsSize = {
         size: 200,
-        minSize: 200,
+        minSize: 400,
         maxSize: 4000,
     }
 

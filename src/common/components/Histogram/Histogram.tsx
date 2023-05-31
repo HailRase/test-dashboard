@@ -43,6 +43,18 @@ const Histogram: React.FC<HistogramPropsType> = ({data}) => {
         }
     }
 
+    const renderCustomLineLabel = (props:any) => {
+        const { x, y, value } = props;
+        return (
+            <g>
+                <text x={x} y={y} dy={-5} fill={"gray"} fontSize={12} textAnchor="middle   "
+                      style={{textShadow: "white 0px -1px 3px"}}>
+                    {value}
+                </text>
+            </g>
+        );
+    };
+
 
     return (
         <ResponsiveContainer width="100%" height="100%">
@@ -96,30 +108,30 @@ const Histogram: React.FC<HistogramPropsType> = ({data}) => {
                     }}
                 />
                 <Tooltip/>
-                <Legend onClick={(e: any) => onVisibleLegendHandle(e)} color={"#000000"}/>
+                <Legend onClick={(e: any) => onVisibleLegendHandle(e)} className={'legend'}/>
                 <Bar dataKey="accept"
                      hide={!acceptVisible}
-                     barSize={25}
+                     barSize={30}
                      stackId="a"
                      fill="#4c9e48"
                      name="Принято"
                      yAxisId="1"
                      onClick={onVisibleLegendHandle}
                      animationEasing={"ease"}
-                     label={{position: 'center', fill: "#ffffff", fontSize: "10px"}}
+                     label={{position: 'center', fill: "#ffffff", fontSize: "12px"}}
                 />
                 <Bar dataKey="notAccept"
                      hide={!notAcceptVisible}
-                     barSize={25}
+                     barSize={30}
                      stackId="a"
                      fill="#cb4559"
                      name="Не принято"
                      yAxisId="1"
-                     label={{position: 'insideTop', fill: "#737171", fontSize: "12px", dy: -20,}}
+                     label={{position: 'insideTop', fill: "#737171", fontSize: "14px", dy: -20,}}
                      onClick={onVisibleLegendHandle}
                      animationEasing={"ease"}
                 >
-                    <LabelList dataKey="notAccept" position="center" fill="#ffffff" style={{fontSize: "10px"}}/>
+                    <LabelList dataKey="notAccept" position="center" fill="#ffffff" style={{fontSize: "12px"}}/>
                 </Bar>
                 <Line type="monotone"
                       dataKey="avgCall"
@@ -129,20 +141,20 @@ const Histogram: React.FC<HistogramPropsType> = ({data}) => {
                       strokeWidth={1}
                       name="Среднее время разговора"
                       yAxisId="2"
-                      label={{position: 'top', fontSize: "10px"}}
+                      label={renderCustomLineLabel}
                       onClick={onVisibleLegendHandle}
                       animationEasing={"ease"}
                 />
                 <Line type="monotone"
                       dataKey="maxSimultaneousCall"
                       hide={!maxSimultaneousCallVisible}
-                      stroke="#f0f119"
-                      fill="#f0f119"
+                      stroke="#c1c22d"
+                      fill="#c1c22d"
+                      style={{color: "#c1c22d"}}
                       strokeWidth={1}
                       name="Максимальное количество одновременных звонков"
                       yAxisId="2"
-                      label={{position: 'top', fontSize: "10px"}}
-                      display={""}
+                      label={renderCustomLineLabel}
                       onClick={onVisibleLegendHandle}
                       animationEasing={"ease"}
                 />
@@ -154,7 +166,7 @@ const Histogram: React.FC<HistogramPropsType> = ({data}) => {
                       strokeWidth={1}
                       name="Операторов в системе"
                       yAxisId="2"
-                      label={{position: 'top', fontSize: "10px"}}
+                      label={renderCustomLineLabel}
                       onClick={onVisibleLegendHandle}
                       animationEasing={"ease"}
                 />
@@ -167,7 +179,7 @@ const Histogram: React.FC<HistogramPropsType> = ({data}) => {
                       strokeWidth={1}
                       name="Активность операторов"
                       yAxisId="3"
-                      label={{position: 'top', fontSize: "10px"}}
+                      label={renderCustomLineLabel}
                       onClick={onVisibleLegendHandle}
                       animationEasing={"ease"}
                 />

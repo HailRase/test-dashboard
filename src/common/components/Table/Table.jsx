@@ -4,9 +4,11 @@ import s from './Table.module.scss'
 import {ReactComponent as InfoIcon} from "../../../assets/info-icon.svg";
 import {ReactComponent as Like} from "../../../assets/like.svg";
 import {truncateString} from "../../utils/truncateString";
-import ExcelExporter from "../../../ExcelExporter/ExcelExporter";
 import {ReactComponent as ExcelIcon} from "../../../assets/excel-icon.svg";
 import {DownloadTableExcel} from 'react-export-table-to-excel';
+import Pagination from 'react-bootstrap/Pagination';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
 
 
 const Table = ({...props}) => {
@@ -49,7 +51,7 @@ const Table = ({...props}) => {
             data: tableData,
             defaultColumn: defaultColumnTable,
             initialState: {pageIndex: 0, pageSize: 20},
-        }, useSortBy, usePagination, useBlockLayout, useResizeColumns )
+        }, useSortBy, usePagination, useBlockLayout, useResizeColumns)
     const firstPageRows = rows.slice(0, 20)
     useEffect(() => {
         setPageSize(30)
@@ -176,12 +178,12 @@ const Table = ({...props}) => {
                                 >
                                     <span>{column.render('Header')}</span>
                                     <div className={s.overlayContainer}>
-                                    {column.isSorted
-                                        ? column.isSortedDesc
-                                            ? <div className={s.overlayItem}><span>&darr;</span></div>
-                                            : <div className={s.overlayItem}><span>&uarr;</span></div>
-                                        : ''}
-                                     </div>
+                                        {column.isSorted
+                                            ? column.isSortedDesc
+                                                ? <div className={s.overlayItem}><span>&darr;</span></div>
+                                                : <div className={s.overlayItem}><span>&uarr;</span></div>
+                                            : ''}
+                                    </div>
                                     <div
                                         {...column.getResizerProps()}
                                         className={`${s.resizer} ${
@@ -193,14 +195,15 @@ const Table = ({...props}) => {
                         </tr>
                     ))}
                     </thead>
-                    <tbody {...getTableBodyProps()} className={s.rowsContainer} style={{overflow: "scroll", width: "100%"}}>
+                    <tbody {...getTableBodyProps()} className={s.rowsContainer}
+                           style={{overflow: "scroll", width: "100%"}}>
                     {page.map(row => {
                         prepareRow(row)
                         return (
                             <tr className={s.rowContainer} {...row.getRowProps()}>
                                 {row.cells.map(cell => {
                                     return (
-                                        <td  className={`${s.cellContainer} ${fillCellCall(cell.value)} ${fillCellQueue({...cell.getCellProps()}.key, cell.value)} ${fillCellOperatorsGeneral({...cell.getCellProps()}.key, cell.value)}`}
+                                        <td className={`${s.cellContainer} ${fillCellCall(cell.value)} ${fillCellQueue({...cell.getCellProps()}.key, cell.value)} ${fillCellOperatorsGeneral({...cell.getCellProps()}.key, cell.value)}`}
                                             {...cell.getCellProps()}>
                                             {({...cell.getCellProps()}.key).indexOf("ratingRecordId") > 0
                                                 ? cell.value <= 10 ? <Like className={s.likeIcon}/> :
@@ -218,15 +221,15 @@ const Table = ({...props}) => {
                     {footerGroups.map(group => (
                         <tr {...group.getFooterGroupProps()} className={s.footerTr}>
                             {group.headers.map(column => column !== null
-                                ?<td className={s.footerTd} {...column.getFooterProps()}>{column.render('Footer')}</td>
-                            : "")}
+                                ? <td className={s.footerTd} {...column.getFooterProps()}>{column.render('Footer')}</td>
+                                : "")}
                         </tr>
                     ))}
                     </tfoot>}
                 </table>
             </div>
             {props.pagination && <div className={s.pagination}>
-                <div>
+                {/*<div>
                     <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px", fontWeight: 500}}
                             onClick={() => gotoPage(0)}
                             disabled={!canPreviousPage}>
@@ -263,7 +266,34 @@ const Table = ({...props}) => {
                             disabled={!canNextPage}>
                         {'>>'}
                     </button>
-                </div>
+                </div>*/}
+
+                    <Pagination size={"sm"} style={{height:"30px"}}>
+                        <Pagination.First onClick={() => gotoPage(0)}
+                                          disabled={!canPreviousPage}/>
+                        <Pagination.Prev onClick={() => previousPage()}
+                                         disabled={!canPreviousPage}/>
+                        <InputGroup className="mb-3" size={"sm"} style={{width: "190px"}}>
+                            <InputGroup.Text id="basic-addon1">Страница:</InputGroup.Text>
+                            <Form.Control
+                                defaultValue={pageIndex + 1}
+                                onChange={e => {
+                                    const page = e.target.value ? Number(e.target.value) - 1 : 0
+                                    gotoPage(page)
+                                }}
+                                value={pageIndex + 1}
+                                type={"number"}
+                                placeholder="№"
+                                aria-label="№"
+                                aria-describedby="basic-addon1"
+                            />
+                            <InputGroup.Text id="basic-addon1">{ 'из ' + pageOptions.length}</InputGroup.Text>
+                        </InputGroup>
+                        <Pagination.Next onClick={() => nextPage()}
+                                         disabled={!canNextPage}/>
+                        <Pagination.Last onClick={() => gotoPage(pageCount - 1)}
+                                         disabled={!canNextPage}/>
+                    </Pagination>
                 <DownloadTableExcel
                     filename="users table"
                     sheet="users"
