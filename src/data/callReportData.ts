@@ -4,10 +4,13 @@ export type CallReportDataType = {
     dateEnd: string
     initiator: string
     recipient: number
-    direction: "Входящий" | "Исходящий"
-    status: "Отвечен" | "Не отвечен"
+    direction: "Входящий" | "Исходящий" | "Внутренний"
+    status: "Отвечен" | "Занят" | "Отменен" | "Недоступно" | "Не отвечен"
     type: "Обычный" | "Липкость"
-    queue: "105 GSM" | "105 Beltelecom",
+    queue:
+        "105 GSM" | "105 Beltelecom" | "151 Beltelecom" | "Видеотерминалы" | "39-25-47"
+        | "Проблемные и VIP" | "GSM" | "39-48-75" | "39-20-30" | "151 GSM" | "151 Other" | "105 Other"
+        | "39-48-72" | "39-48-78" | "39-48-73"
     totalTime: string
     talkTime: string
     connectionTime: string
@@ -19,7 +22,7 @@ export type CallReportDataType = {
     wasOnQueue: number
     wasOnOperators: number
 }
-export const callReportData:CallReportDataType[] = [{
+export const callReportData: CallReportDataType[] = [{
     id: 1,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -39,7 +42,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 2,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -59,7 +62,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Вай Инна Владимировна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 3,
     dateStart: "04.03.23 15:48:03",
     dateEnd: "04.03.23 15:50:01",
@@ -79,7 +82,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 4,
     dateStart: "05.03.23 14:48:03",
     dateEnd: "05.03.23 14:50:01",
@@ -99,7 +102,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 5,
     dateStart: "06.03.23 01:48:03",
     dateEnd: "06.03.23 01:50:01",
@@ -119,7 +122,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 6,
     dateStart: "07.03.23 14:48:03",
     dateEnd: "07.03.23 14:50:01",
@@ -139,7 +142,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 7,
     dateStart: "04.03.23 21:48:03",
     dateEnd: "04.03.23 21:50:01",
@@ -159,7 +162,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 8,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -179,7 +182,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 9,
     dateStart: "04.03.23 03:48:03",
     dateEnd: "04.03.23 03:50:01",
@@ -199,7 +202,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 10,
     dateStart: "04.03.23 08:48:03",
     dateEnd: "04.03.23 08:50:01",
@@ -219,7 +222,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 11,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -239,7 +242,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 12,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -259,7 +262,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 13,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -279,7 +282,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 14,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -299,7 +302,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 15,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -319,7 +322,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 16,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -339,7 +342,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 17,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -359,7 +362,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 18,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -379,7 +382,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 19,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -399,7 +402,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 20,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -419,7 +422,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 21,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -439,7 +442,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 22,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -459,7 +462,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 23,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -479,7 +482,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 24,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -499,7 +502,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 25,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -519,7 +522,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 26,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -539,7 +542,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 27,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -559,7 +562,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 28,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -579,7 +582,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 29,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -599,7 +602,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 30,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -619,7 +622,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 31,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -639,7 +642,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 32,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -659,7 +662,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 33,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",
@@ -679,7 +682,7 @@ export const callReportData:CallReportDataType[] = [{
     operator: "Ковшун Виолетта Константиновна",
     wasOnQueue: 1,
     wasOnOperators: 0
-},{
+}, {
     id: 34,
     dateStart: "04.03.23 14:48:03",
     dateEnd: "04.03.23 14:50:01",

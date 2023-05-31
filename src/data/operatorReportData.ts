@@ -2,7 +2,8 @@ type OperatorReportDataType = {
     id: number
     date: string
     operator: string
-    status: "Готов" | "Входящий дозвон" | "Говорит" | "Занят" | "Не готов"
+    status: "Готов" | "Входящий дозвон" | "Говорит" | "Занят" | "Не готов" | "Исходящий дозвон"
+        | "Не залогинен в систему"
     duration: string
     reason: string
     comment: string

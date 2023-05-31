@@ -291,6 +291,19 @@ const CallReport = () => {
                                 <option value=''>&lt;Все&gt;</option>
                                 <option value="105 GSM">105 GSM</option>
                                 <option value="105 Beltelecom">105 Beltelecom</option>
+                                <option value="151 Beltelecom">151 Beltelecom</option>
+                                <option value="Видеотерминалы">Видеотерминалы</option>
+                                <option value="39-25-47">39-25-47</option>
+                                <option value="Проблемные и VIP">Проблемные и VIP</option>
+                                <option value="GSM">GSM</option>
+                                <option value="39-48-75">39-48-75</option>
+                                <option value="39-20-30">39-20-30</option>
+                                <option value="151 GSM">151 GSM</option>
+                                <option value="151 Other">151 Other</option>
+                                <option value="105 Other">105 Other</option>
+                                <option value="39-48-72">39-48-72</option>
+                                <option value="39-48-78">39-48-78</option>
+                                <option value="39-48-73">39-48-73</option>
                             </Form.Select>
                         </Form.Group>
                         <Form.Group style={{display: "flex", justifyContent: "space-between"}}>
@@ -317,6 +330,7 @@ const CallReport = () => {
                                 <option value=''>&lt;Все&gt;</option>
                                 <option value="Входящий">Входящий</option>
                                 <option value="Исходящий">Исходящий</option>
+                                <option value="Внутренний">Внутренний</option>
                             </Form.Select>
                         </Form.Group>
                         <Form.Group style={{display: "flex", justifyContent: "space-between", marginBottom: "10px"}}>
@@ -327,6 +341,9 @@ const CallReport = () => {
                                 onChange={(value) => onChangeSelectStatus(value)}>
                                 <option value=''>&lt;Все&gt;</option>
                                 <option value="Отвечен">Отвечен</option>
+                                <option value="Занят">Занят</option>
+                                <option value="Отменен">Отменен</option>
+                                <option value="Недоступно">Недоступно</option>
                                 <option value="Не отвечен">Не отвечен</option>
                             </Form.Select>
                         </Form.Group>

@@ -121,10 +121,15 @@ const OperatorReport = () => {
                                     onChange={onChangeSelectStatus}
                                     style={{width: "75%"}}>
                                     <option value="">&lt;Все&gt;</option>
+                                    <option value="Не готов">Не готов</option>
+                                    <option value="Занят">Занят</option>
+                                    <option value="Входящий дозвон">Входящий дозвон</option>
+                                    <option value="Не залогинен в систему">Не залогинен в систему</option>
                                     <option value="Готов">Готов</option>
                                     <option value="Говорит">Говорит</option>
-                                    <option value="Входящий дозвон">Входящий дозвон</option>
-                                    <option value="Не готов">Не готов</option>
+                                    <option value="Исходящий дозвон">Исходящий дозвон</option>
+
+
                                     <option value="Занят">Занят</option>
                                 </Form.Select>
                             </Form.Group>
