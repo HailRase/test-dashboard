@@ -1,24 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
-import {queueReportData} from "../../../data/queueReportData";
+import {useScale} from "../../../common/hooks/useScale";
 
 const QueueReportPie = () => {
 
-    const [scale, setScale] = useState(1);
-
-    useEffect(() => {
-        function handleResize() {
-            const newScale = window.devicePixelRatio || 1;
-            setScale(newScale);
-        }
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-    console.log(scale)
+    const scale = useScale()
     const data01 = [
         {name: 'Пропущено', value: 37, fill: '#e70707'},
         {name: 'Принято', value: 1491, fill: '#4bb253'},
@@ -45,12 +31,20 @@ const QueueReportPie = () => {
         const y1 = cy + outerRadius * sin;
         const x2 = cx + (outerRadius + 10) * cos;
         const y2 = cy + (outerRadius + 10) * sin;
-        const textAnchor = cos >= 0 ? 'start' : 'end';
+        const textAnchor = index >= 9 ? 'start' : 'end';
 
 
         const endPoint = [
-            {x3: x1 - 10 + (scale * 10), y3: y1 - 10}, {x3: x1 - 35, y3: y1 + 5}, {x3: x1 - 60, y3: y1 + 25}, {x3: x1 - 70, y3: y1 + 40}, {x3: x1 - 75, y3: y1 + 60},
-            {x3: x1 - 65, y3: y1 + 75}, {x3: x1 - 50, y3: y1 + 85}, {x3: x1 - 45, y3: y1 + 100}, {x3: x1 - 15, y3: y1 + 10}, {x3: x1 + 20, y3: y1 - 5}
+            {x3: 430 / scale, y3:  90/ scale} /*1.Видеотерминалы*/,
+            {x3: 390 / scale, y3:  115/ scale} /*2.GSM*/,
+            {x3: 370 / scale, y3:  140/ scale} /*3.39-48-75*/,
+            {x3: 350 / scale, y3:  165/ scale} /*4.39-25-47*/,
+            {x3: 345 / scale, y3:  190/ scale} /*5.151 Other*/,
+            {x3: 345 / scale, y3:  215/ scale} /*6.151 GSM*/,
+            {x3: 345 / scale, y3:  240/ scale} /*7.151 Beltelecom*/,
+            {x3: 350 / scale, y3:  265/ scale} /*8.105 Other*/,
+            {x3: 395 / scale, y3:  320/ scale} /*9.105 GSM*/,
+            {x3: 620 / scale, y3:  165/ scale} /*10.105 Beltelecom*/
         ]
         const paths = [
             `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[0].x3} ${endPoint[0].y3}`,

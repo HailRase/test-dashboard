@@ -287,11 +287,11 @@ const QueueReport = () => {
                                 }}>
                                 <Form.Label style={{color: "white", marginRight: "10px"}}>Тип:</Form.Label>
                                 <Form.Select defaultValue={"День"} style={{width: "95%", borderRadius: "0px"}}>
-                                    <option value="Минута">Минута</option>
-                                    <option value="Час">Час</option>
                                     <option value="День">День</option>
-                                    <option value="Неделя">Неделя</option>
                                     <option value="Весь период">Весь период</option>
+                                    <option value="Неделя">Неделя</option>
+                                    <option value="Час">Час</option>
+                                    <option value="Минута">Минута</option>
                                 </Form.Select>
                             </Form.Group>
                             <Form.Group style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
