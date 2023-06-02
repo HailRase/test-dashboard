@@ -14,7 +14,7 @@ type ActionDataType = ReturnType<typeof setData>
 
 
 type InitialStateType = {
-    data: string
+    data: any
 }
 
 const initialState:InitialStateType = {
@@ -34,16 +34,16 @@ export const dataReducer = (state:InitialStateType = initialState, action:Action
     }
 }
 
-export const setData = (data: string)  => {
+export const setData = (data: any)  => {
     return {
         type: SET_DATA,
         data
     } as const;
 };
 
-export const fetchData =  (param1: string):DataThunkAction => async(dispatch)  => {
+export const fetchData =  ():DataThunkAction => async(dispatch)  => {
     try {
-        const data = await oktellAPI.getData(param1)
+        const data = await oktellAPI.getOperatorActivity()
         dispatch(setData(data.data))
     } catch (e: any) {
     }

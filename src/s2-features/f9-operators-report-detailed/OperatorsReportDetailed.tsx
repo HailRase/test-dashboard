@@ -11,18 +11,18 @@ import TabButton from "../../common/components/TabButton/TabButton";
 import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
 import Table from "../../common/components/Table/Table";
-import {operatorsReportDetailedData, OperatorsReportDetailedDataType} from "../../data/operatorsReportDetailedData";
 import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
 import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
 import {useScale} from "../../common/hooks/useScale";
+import {useAppSelector} from "../../s1-main/m2-bll/store";
 
 
 const OperatorsReportDetailed = () => {
     const scale = useScale()
+    const operatorReportDetailedData = useAppSelector(state => state.operatorReportDetailedData.data)
     const [isActive, setIsActive] = useState<boolean>(false)
     const [selectedDepartment, setSelectedDepartment] = useState('');
-    const [data, setData] = useState<OperatorsReportDetailedDataType[]>(operatorsReportDetailedData)
     const navigate = useNavigate()
     const isAuth = useIsAuth()
     const columns = [
@@ -322,14 +322,14 @@ const OperatorsReportDetailed = () => {
     const onCloseSidebar = () => {
         setIsActive(false)
     }
-    const handleRefreshClick = () => {
+    /*const handleRefreshClick = () => {
         const filteredData = operatorsReportDetailedData.filter(item => item.department === selectedDepartment);
         if (selectedDepartment === '') {
             setData(operatorsReportDetailedData);
         }else {
             setData(filteredData)
         }
-    };
+    };*/
 
 
     return (
@@ -396,7 +396,7 @@ const OperatorsReportDetailed = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Отчёт по операторам (Детальный)</span>
                 </div>
-                <Table data={operatorsReportDetailedData} columns={columns} pagination={true} width={"100vw"} footer/>
+                <Table data={operatorReportDetailedData} columns={columns} pagination={true} width={"100vw"} footer/>
             </div>
         </div>
     );

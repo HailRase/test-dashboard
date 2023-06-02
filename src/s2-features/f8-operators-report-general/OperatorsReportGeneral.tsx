@@ -16,13 +16,15 @@ import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
 import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
 import {useScale} from "../../common/hooks/useScale";
+import {useAppSelector} from "../../s1-main/m2-bll/store";
 
 
 const OperatorsReportGeneral = () => {
     const scale = useScale()
+    const operatorReportGeneralData = useAppSelector(state => state.operatorReportGeneralData.data)
     const [isActive, setIsActive] = useState<boolean>(false)
     const [selectedDepartment, setSelectedDepartment] = useState('');
-    const [data, setData] = useState<OperatorsReportGeneralDataType[]>(operatorsReportGeneralData)
+    const [data, setData] = useState<OperatorsReportGeneralDataType[]>(operatorReportGeneralData)
     const navigate = useNavigate()
     const isAuth = useIsAuth()
 
@@ -169,9 +171,9 @@ const OperatorsReportGeneral = () => {
         setIsActive(false)
     }
     const handleRefreshClick = () => {
-        const filteredData = operatorsReportGeneralData.filter(item => item.department === selectedDepartment);
+        const filteredData = operatorReportGeneralData.filter(item => item.department === selectedDepartment);
         if (selectedDepartment === '') {
-            setData(operatorsReportGeneralData);
+            setData(operatorReportGeneralData);
         }else {
             setData(filteredData)
         }

@@ -1,8 +1,13 @@
 import {useEffect, useState} from "react";
 
 export const useScale = () => {
-    const [scale, setScale] = useState(1.25);
-
+    let initialScale = window.innerWidth
+    if (initialScale < 1600){
+        initialScale = 1.25
+    } else {
+        initialScale = 1
+    }
+    const [scale, setScale] = useState(initialScale);
     useEffect(() => {
         function handleResize() {
             const newScale = window.devicePixelRatio || 1;

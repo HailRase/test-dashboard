@@ -13,6 +13,8 @@ import {Form} from "react-bootstrap";
 import TabButton from "../../common/components/TabButton/TabButton";
 import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
+import {fetchData} from "../../s1-main/m2-bll/data-reducer";
+import {useDispatch} from "react-redux";
 
 
 const columns = [
@@ -57,7 +59,7 @@ const OperatorReport = () => {
 
 
     const [state, setState] = useState(operatorReportData)
-
+    const dispatch = useDispatch()
     const [statusFilter, setStatusFilter] = useState('');
     const [durationFilter, setDurationFilter] = useState('');
     const [operatorFilter, setOperatorFilter] = useState('');
@@ -68,6 +70,10 @@ const OperatorReport = () => {
     const navigate = useNavigate()
     const isAuth = useIsAuth()
 
+    useEffect(() => {
+        // @ts-ignore
+        dispatch(fetchData())
+    },[])
     useEffect(() => {
         if (!isAuth) navigate('/')
     },[])
@@ -96,13 +102,18 @@ const OperatorReport = () => {
         setIsActiveSideBar(false)
     }
 
+
+    const onFetchDataHandler = () => {
+        // @ts-ignore
+        dispatch(fetchData())
+    }
+
     const filteredData = state.filter((item) =>
         item.status.includes(statusFilter) &&
         item.operator.includes(operatorFilter) &&
         item.reason.includes(reasonFilter) &&
         item.comment.includes(commentFilter)
     );
-
     return (
         <div className={s.operatorReportWrapper}>
             <Sidebar isActive={isActiveSideBar}>
@@ -128,8 +139,6 @@ const OperatorReport = () => {
                                     <option value="Готов">Готов</option>
                                     <option value="Говорит">Говорит</option>
                                     <option value="Исходящий дозвон">Исходящий дозвон</option>
-
-
                                     <option value="Занят">Занят</option>
                                 </Form.Select>
                             </Form.Group>
@@ -156,8 +165,8 @@ const OperatorReport = () => {
                                               type="text"
                                               placeholder="Введите комментарий"/>
                             </Form.Group>
-                            <TabButton name={"Обновить"} onClick={() => {
-                            }}/>
+                            {/*//@ts-ignore*/}
+                            <TabButton name={"Обновить"} onClick={onFetchDataHandler}/>
                         </CustomTabs>
                     </div>
                 </div>

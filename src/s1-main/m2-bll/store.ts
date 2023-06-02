@@ -1,15 +1,14 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunkMiddleware from 'redux-thunk'
 import {TypedUseSelectorHook, useSelector} from "react-redux";
-import {dataReducer} from "./data-reducer";
 import {authReducer} from "./auth-reducer";
-
-
-
+import {operatorReportDetailedReducer} from "./operatorReportDetailed-reducer";
+import {operatorReportGeneralReducer} from "./operatorReportGeneral-reducer";
 
 
 const rootReducer = combineReducers({
-    data: dataReducer,
+    operatorReportGeneralData: operatorReportGeneralReducer,
+    operatorReportDetailedData: operatorReportDetailedReducer,
     auth: authReducer
 })
 
