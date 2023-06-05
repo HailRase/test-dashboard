@@ -1,4 +1,16 @@
-import {OperatorReportDetailedType} from "./operatorReportDetailed-reducer";
+import {StoreType} from "./store";
+import {ThunkAction} from "redux-thunk";
+
+const SET_OPERATOR_REPORT_DATA = "SET_OPERATOR_REPORT_DATA";
+const SET_STATUS = "SET_STATUS"
+
+type DataThunkAction = ThunkAction<void,
+    StoreType,
+    void,
+    ActionDataType>;
+
+
+type ActionDataType = ReturnType<typeof setOperatorReportData> | ReturnType<typeof setStatus>
 
 type OperatorReportDataType = {
     id: number
@@ -327,9 +339,32 @@ const initialState:InitialStateType = {
     ],
     status: "init"
 }
-export const operatorReportReducer = (state: InitialStateType = initialState, action: any) => {
-    switch (action) {
+export const operatorReportReducer = (state: InitialStateType = initialState, action: ActionDataType) => {
+    switch (action.type) {
+        case SET_OPERATOR_REPORT_DATA:
+            return {
+                ...state,
+                data: action.data
+            }
+        case SET_STATUS:
+            return {
+                ...state,
+                status: action.status
+            }
         default:
             return state
     }
+}
+
+export const setOperatorReportData = (data: OperatorReportDataType[]) => {
+    return {
+        type: SET_OPERATOR_REPORT_DATA,
+        data
+    } as const;
+};
+export const setStatus = (status: StatusType) => {
+    return {
+        type: SET_STATUS,
+        status
+    } as const
 }

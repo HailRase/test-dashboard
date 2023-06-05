@@ -14,9 +14,6 @@ import TopOperatorReportHistogram from "./TopOperatorReportHistogram/TopOperator
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../common/routes/routes";
 import {topOperatorReportData} from "../../data/topOperatorReportData";
-import {useAppSelector} from "../../s1-main/m2-bll/store";
-import {useDispatch} from "react-redux";
-import {loginTC} from "../../s1-main/m2-bll/auth-reducer";
 import useIsAuth from "../../common/hooks/useIsAuth";
 
 const columns = [

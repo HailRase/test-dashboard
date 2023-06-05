@@ -1,27 +1,4 @@
-export type CallReportDataType = {
-    id: number
-    dateStart: string
-    dateEnd: string
-    initiator: string
-    recipient: number
-    direction: "Входящий" | "Исходящий" | "Внутренний"
-    status: "Отвечен" | "Занят" | "Отменен" | "Недоступно" | "Не отвечен"
-    type: "Обычный" | "Липкость"
-    queue:
-        "105 GSM" | "105 Beltelecom" | "151 Beltelecom" | "Видеотерминалы" | "39-25-47"
-        | "Проблемные и VIP" | "GSM" | "39-48-75" | "39-20-30" | "151 GSM" | "151 Other" | "105 Other"
-        | "39-48-72" | "39-48-78" | "39-48-73"
-    totalTime: string
-    talkTime: string
-    connectionTime: string
-    holdTime: string
-    queueTime: string
-    initiatorContact: string
-    recipientContact: string
-    operator: string
-    wasOnQueue: number
-    wasOnOperators: number
-}
+import {CallReportDataType} from "../s1-main/m2-bll/call-report-reducer";
 export const callReportData: CallReportDataType[] = [{
     id: 1,
     dateStart: "04.03.23 14:48:03",

@@ -4,7 +4,6 @@ import {Sidebar} from "../../common/components/Sidebar/Sidebar";
 import Table from "../../common/components/Table/Table";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../common/routes/routes";
-import {operatorReportData} from "../../data/operatorReportData";
 import CustomTabs from "../../common/components/CustomTabs/CustomTabs";
 import ArrowLeftIcon from "../../common/components/ArrowLeftIcon/ArrowLeftIcon";
 import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
@@ -15,6 +14,7 @@ import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
 import {fetchData} from "../../s1-main/m2-bll/data-reducer";
 import {useDispatch} from "react-redux";
+import {useAppSelector} from "../../s1-main/m2-bll/store";
 
 
 const columns = [
@@ -57,7 +57,7 @@ const columns = [
 
 const OperatorReport = () => {
 
-
+    const operatorReportData = useAppSelector(state => state.operatorReportData.data)
     const [state, setState] = useState(operatorReportData)
     const dispatch = useDispatch()
     const [statusFilter, setStatusFilter] = useState('');

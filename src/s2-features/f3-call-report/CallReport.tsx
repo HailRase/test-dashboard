@@ -3,7 +3,6 @@ import s from './CallReport.module.scss'
 import Table from "../../common/components/Table/Table";
 import {useNavigate} from "react-router-dom";
 import {Sidebar} from "../../common/components/Sidebar/Sidebar";
-import {callReportData} from "../../data/callReportData";
 import {PATH} from "../../common/routes/routes";
 import CustomTabs from "../../common/components/CustomTabs/CustomTabs";
 import ArrowLeftIcon from "../../common/components/ArrowLeftIcon/ArrowLeftIcon";
@@ -13,6 +12,7 @@ import {Form} from "react-bootstrap";
 import TabButton from "../../common/components/TabButton/TabButton";
 import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
+import {useAppSelector} from "../../s1-main/m2-bll/store";
 
 
 const columns = [
@@ -146,7 +146,7 @@ const columns = [
 
 const CallReport = () => {
 
-
+    const callReportData = useAppSelector(state => state.callReportData.data)
     const [state, seState] = useState(callReportData)
 
     const [statusFilter, setStatusFilter] = useState('');

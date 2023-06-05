@@ -11,7 +11,7 @@ import {Sidebar} from "../../common/components/Sidebar/Sidebar";
 import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
 import Table from "../../common/components/Table/Table";
-import {operatorsReportGeneralData, OperatorsReportGeneralDataType} from "../../data/operatorsReportGeneralData";
+import {OperatorsReportGeneralDataType} from "../../data/operatorsReportGeneralData";
 import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
 import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
