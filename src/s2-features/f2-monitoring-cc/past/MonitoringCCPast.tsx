@@ -13,6 +13,7 @@ import CallPastPie from "./p1-call-past-pie/CallPastPie";
 import Table from "../../../common/components/Table/Table";
 import {operatorsRatingData} from "../../../data/operatorsData";
 import useIsAuth from "../../../common/hooks/useIsAuth";
+import {useDispatch} from "react-redux";
 
 
 const MonitoringCCPast = () => {
@@ -22,7 +23,7 @@ const MonitoringCCPast = () => {
     const navigate = useNavigate()
     const isAuth = useIsAuth()
 
-
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (!isAuth) navigate('/')

@@ -11,22 +11,26 @@ import {Sidebar} from "../../common/components/Sidebar/Sidebar";
 import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
 import Table from "../../common/components/Table/Table";
-import {OperatorsReportGeneralDataType} from "../../data/operatorsReportGeneralData";
 import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
 import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
 import {useScale} from "../../common/hooks/useScale";
 import {useAppSelector} from "../../s1-main/m2-bll/store";
+import {useDispatch} from "react-redux";
+import {fetchOperatorReportGeneralData} from "../../s1-main/m2-bll/operatorReportGeneral-reducer";
+import Loader from "../../common/components/Loader/Loader";
 
 
 const OperatorsReportGeneral = () => {
     const scale = useScale()
     const operatorReportGeneralData = useAppSelector(state => state.operatorReportGeneralData.data)
+    const status = useAppSelector(state => state.operatorReportGeneralData.status)
     const [isActive, setIsActive] = useState<boolean>(false)
-    const [selectedDepartment, setSelectedDepartment] = useState('');
-    const [data, setData] = useState<OperatorsReportGeneralDataType[]>(operatorReportGeneralData)
+    const [selectedDepartment, setSelectedDepartment] = useState('Call-центр');
+    const [data, setData] = useState<any[]>(operatorReportGeneralData)
     const navigate = useNavigate()
     const isAuth = useIsAuth()
+    const dispatch = useDispatch<any>()
 
     const columns = [
         {
@@ -159,7 +163,13 @@ const OperatorsReportGeneral = () => {
 
     useEffect(() => {
         if (!isAuth) navigate('/')
-    },[])
+    }, [])
+    useEffect(() => {
+        dispatch(fetchOperatorReportGeneralData(selectedDepartment))
+    }, [])
+    useEffect(() => {
+        setData(operatorReportGeneralData)
+    }, [operatorReportGeneralData])
 
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)
@@ -171,14 +181,17 @@ const OperatorsReportGeneral = () => {
         setIsActive(false)
     }
     const handleRefreshClick = () => {
-        const filteredData = operatorReportGeneralData.filter(item => item.department === selectedDepartment);
+        const filteredData = operatorReportGeneralData.filter((item: any) => item.department === selectedDepartment);
         if (selectedDepartment === '') {
             setData(operatorReportGeneralData);
-        }else {
+        } else {
             setData(filteredData)
         }
     };
-
+    const onLoadDataHandler = () => {
+        dispatch(fetchOperatorReportGeneralData(selectedDepartment))
+    }
+    console.log(operatorReportGeneralData)
 
     return (
         <div className={s.operatorsReportGeneralWrapper}>
@@ -190,16 +203,16 @@ const OperatorsReportGeneral = () => {
                     </div>
                     <div className={s.optionContent}>
                         <Form.Group
-                            style={{display: "flex", justifyContent: "flex-end", flexDirection:"column"}}>
-                                <Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label>
-                                <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
-                                <Form.Control type="time" defaultValue={"00:00"} style={{width: "95%"}}/>
+                            style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
+                            <Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label>
+                            <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
+                            <Form.Control type="time" defaultValue={"00:00"} style={{width: "95%"}}/>
                         </Form.Group>
                         <Form.Group
-                            style={{display: "flex", justifyContent: "flex-end", flexDirection:"column"}}>
-                                <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
-                                <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
-                                <Form.Control type="time" defaultValue={"23:59"} style={{width: "95%"}}/>
+                            style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
+                            <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
+                            <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
+                            <Form.Control type="time" defaultValue={"23:59"} style={{width: "95%"}}/>
                         </Form.Group>
                         <Accordion title={"Параметры"}>
                             <Form.Group
@@ -210,20 +223,26 @@ const OperatorsReportGeneral = () => {
                                     marginBottom: "10px"
                                 }}>
                                 <Form.Label style={{color: "white", marginRight: "10px"}}>Отдел:</Form.Label>
-                                <Form.Select value={selectedDepartment} onChange={e => setSelectedDepartment(e.target.value)} style={{width: "95%", borderRadius: "0px"}}>
+                                <Form.Select value={selectedDepartment}
+                                             onChange={e => setSelectedDepartment(e.target.value)}
+                                             style={{width: "95%", borderRadius: "0px"}}>
                                     <option value="">Все отделы</option>
+                                    <option value="Call-центр">Call-центр</option>
+                                    <option value="Системные администраторы">Системные администраторы</option>
                                     <option value="Начальник ЛКЦ">Начальник ЛКЦ</option>
                                     <option value="Зам. Начальника ЛКЦ">Зам. Начальника ЛКЦ</option>
                                     <option value="Инженеры по подготовке кадров">Инженеры по подготовке кадров</option>
                                     <option value="Инженеры по ТО">Инженеры по ТО</option>
                                     <option value="Специалисты">Специалисты</option>
-                                    <option value="Дежурные по выдаче справок (старшие)">Дежурные по выдаче справок (старшие)</option>
+                                    <option value="Дежурные по выдаче справок (старшие)">Дежурные по выдаче справок
+                                        (старшие)
+                                    </option>
                                     <option value="Дежурные по выдаче справок">Дежурные по выдаче справок</option>
                                     <option value="Ведущий специалист">Ведущий специалист</option>
                                 </Form.Select>
                             </Form.Group>
                         </Accordion>
-                        <TabButton  style={{marginTop: "0px"}} name={'Обновить'} onClick={handleRefreshClick}/>
+                        <TabButton style={{marginTop: "0px"}} name={'Обновить'} onClick={onLoadDataHandler}/>
                     </div>
                 </div>
             </Sidebar>
@@ -233,7 +252,11 @@ const OperatorsReportGeneral = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Отчёт по операторам (Общий)</span>
                 </div>
-                <Table data={data} defaultColumn={defaultColumnsSize} columns={columns} pagination={true} width={"100vw"} footer/>
+                {status === 'loaded'
+                    ? <Table data={data} defaultColumn={defaultColumnsSize} columns={columns} pagination={true}
+                             width={"100vw"} footer/>
+                    : <Loader width={200} height={200}/>
+                }
             </div>
         </div>
     );

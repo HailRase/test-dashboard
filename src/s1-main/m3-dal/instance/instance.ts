@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const instance = axios.create({
-    baseURL: 'http://localhost:3001/',
+    baseURL: 'http://192.168.1.60:50300/',
 });
 /*https://testzone.a1.axatel.by/api/token/v1/d0934bf48d84b7fef4ed05cb13fdd613*/
 

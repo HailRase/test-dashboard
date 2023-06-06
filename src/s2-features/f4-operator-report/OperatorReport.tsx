@@ -15,6 +15,7 @@ import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
 import {fetchData} from "../../s1-main/m2-bll/data-reducer";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../s1-main/m2-bll/store";
+import {oktellAPI} from "../../s1-main/m3-dal/oktell/oktell";
 
 
 const columns = [
@@ -74,6 +75,7 @@ const OperatorReport = () => {
         // @ts-ignore
         dispatch(fetchData())
     },[])
+
     useEffect(() => {
         if (!isAuth) navigate('/')
     },[])
@@ -103,9 +105,9 @@ const OperatorReport = () => {
     }
 
 
-    const onFetchDataHandler = () => {
+    const onFetchDataHandler =  async () => {
         // @ts-ignore
-        dispatch(fetchData())
+        console.log(await oktellAPI.getOperatorReportGeneralData())
     }
 
     const filteredData = state.filter((item) =>
@@ -131,6 +133,7 @@ const OperatorReport = () => {
                                     value={statusFilter}
                                     onChange={onChangeSelectStatus}
                                     style={{width: "75%"}}>
+
                                     <option value="">&lt;Все&gt;</option>
                                     <option value="Не готов">Не готов</option>
                                     <option value="Занят">Занят</option>

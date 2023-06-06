@@ -1,8 +1,8 @@
 import {instance} from "../instance/instance";
 
 export const oktellAPI = {
-    getData(){
-        return instance.get(`data`)
+    getOperatorReportGeneralData(department: string){
+        return instance.get(`dashboard1?dtStart=2023-05-01T23:59:59.000&dtStop=2023-05-21T23:59:59.000&departament=${department}`)
     },
     getOperatorActivity(){
         return instance.get(`execsvcscriptplain`)

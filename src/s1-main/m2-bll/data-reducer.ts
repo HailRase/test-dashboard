@@ -43,8 +43,8 @@ export const setData = (data: any)  => {
 
 export const fetchData =  ():DataThunkAction => async(dispatch)  => {
     try {
-        const data = await oktellAPI.getOperatorActivity()
-        dispatch(setData(data.data))
+        /*const data = await oktellAPI.getOperatorReportGeneralData()*/
+        // dispatch(setData(data.data))
     } catch (e: any) {
     }
 }

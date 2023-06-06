@@ -209,30 +209,28 @@ const CallReport = () => {
 
     const onChangeFromDate = (date: ChangeEvent<HTMLInputElement>) => {
         setFromDate(date.target.value)
-        console.log(date.target.value)
     }
     const onChangeFromTime = (time: ChangeEvent<HTMLInputElement>) => {
         setFromTime(time.target.value)
-        console.log(time.target.value)
     }
     const onChangeToDate = (date: ChangeEvent<HTMLInputElement>) => {
         setToDate(date.target.value)
-        console.log(date.target.value)
     }
     const onChangeToTime = (time: ChangeEvent<HTMLInputElement>) => {
         setToTime(time.target.value)
-        console.log(time.target.value)
     }
 
-    const filteredData = state.filter((item) =>
-        item.status.includes(statusFilter) &&
-        item.direction.includes(directionFilter) &&
-        item.type.includes(typeFilter) &&
-        item.queue.includes(queueFilter) &&
-        item.initiator.toString().includes(initiatorFilter) &&
-        item.operator.includes(operatorFilter) &&
-        (item.initiatorContact.includes(contactFilter) || item.recipientContact.includes(contactFilter))
-    );
+        const filteredData = state.filter((item) =>
+            item.status.includes(statusFilter) &&
+            item.direction.includes(directionFilter) &&
+            item.type.includes(typeFilter) &&
+            item.queue.includes(queueFilter) &&
+            item.initiator.toString().includes(initiatorFilter) &&
+            item.operator.includes(operatorFilter) &&
+            (item.initiatorContact.includes(contactFilter) || item.recipientContact.includes(contactFilter))
+        );
+
+
 
 
     const onHomeHandler = () => {

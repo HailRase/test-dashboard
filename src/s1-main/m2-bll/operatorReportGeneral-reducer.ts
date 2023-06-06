@@ -1,5 +1,6 @@
 import {StoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
+import {oktellAPI} from "../m3-dal/oktell/oktell";
 
 const SET_OPERATOR_REPORT_GENERAL_DATA = "SET_OPERATOR_REPORT_GENERAL_DATA";
 const SET_STATUS = "SET_STATUS"
@@ -39,7 +40,7 @@ type InitialStateType = {
     data: OperatorReportGeneralType[]
     status: StatusType
 }
-const initialState:InitialStateType = {
+const initialState:any = {
     data: [
         {
             id: 1,
@@ -539,7 +540,7 @@ const initialState:InitialStateType = {
     status: "init"
 }
 
-export const operatorReportGeneralReducer = (state:InitialStateType = initialState, action:ActionDataType ):InitialStateType => {
+export const operatorReportGeneralReducer = (state:any = initialState, action:ActionDataType ):any => {
     switch (action.type){
         case "SET_OPERATOR_REPORT_GENERAL_DATA":{
             return {
@@ -559,7 +560,7 @@ export const operatorReportGeneralReducer = (state:InitialStateType = initialSta
     }
 }
 
-export const setOperatorReportDetailedData = (data: OperatorReportGeneralType[])  => {
+export const setOperatorReportDetailedData = (data: any)  => {
     return {
         type: SET_OPERATOR_REPORT_GENERAL_DATA,
         data
@@ -570,4 +571,14 @@ export const setStatus = (status:StatusType) => {
         type: SET_STATUS,
         status
     } as const
+}
+export const fetchOperatorReportGeneralData =  (department:string):DataThunkAction => async(dispatch)  => {
+    try {
+        dispatch(setStatus("loading"))
+        const data = await oktellAPI.getOperatorReportGeneralData(department)
+        dispatch(setOperatorReportDetailedData(data.data))
+        dispatch(setStatus("loaded"))
+    } catch (e: any) {
+
+    }
 }
