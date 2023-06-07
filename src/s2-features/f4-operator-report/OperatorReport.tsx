@@ -16,48 +16,52 @@ import {fetchData} from "../../s1-main/m2-bll/data-reducer";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../s1-main/m2-bll/store";
 import {oktellAPI} from "../../s1-main/m3-dal/oktell/oktell";
+import {useScale} from "../../common/hooks/useScale";
 
 
-const columns = [
-    {
-        Header: 'Дата',
-        accessor: 'date',
-        Footer: <>Total:</>,
-        width: 150
-    },
-    {
-        Header: 'Оператор',
-        accessor: 'operator',
-        Footer: <></>,
-        width: 300
-    },
-    {
-        Header: 'Статус',
-        accessor: 'status',
-        Footer: <></>,
-        width: 250
-    },
-    {
-        Header: 'Длительность',
-        accessor: 'duration',
-        Footer: (info: any) => useCalcTimeTotal(info, 'duration'),
-    },
-    {
-        Header: 'Причина',
-        accessor: 'reason',
-        Footer: <></>,
-        width: 300
-    },
-    {
-        Header: 'Комментарий',
-        accessor: 'comment',
-        Footer: <></>,
-        width: 369
-    }
-]
+
 
 const OperatorReport = () => {
 
+    const scale = useScale()
+    const columns = [
+        {
+            Header: 'Дата',
+            accessor: 'date',
+            Footer: <>Total:</>,
+            width: 200/scale
+        },
+        {
+            Header: 'Оператор',
+            accessor: 'operator',
+            Footer: <></>,
+            width: 350/scale
+        },
+        {
+            Header: 'Статус',
+            accessor: 'status',
+            Footer: <></>,
+            width: 300/scale
+        },
+        {
+            Header: 'Длительность',
+            accessor: 'duration',
+            Footer: (info: any) => useCalcTimeTotal(info, 'duration'),
+            width: 200/scale
+        },
+        {
+            Header: 'Причина',
+            accessor: 'reason',
+            Footer: <></>,
+            width: 350/scale
+        },
+        {
+            Header: 'Комментарий',
+            accessor: 'comment',
+            Footer: <></>,
+            width: 500/scale
+        }
+    ]
     const operatorReportData = useAppSelector(state => state.operatorReportData.data)
     const [state, setState] = useState(operatorReportData)
     const dispatch = useDispatch()

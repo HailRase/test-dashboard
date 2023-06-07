@@ -4,6 +4,7 @@ import {oktellAPI} from "../m3-dal/oktell/oktell";
 
 const SET_OPERATOR_REPORT_GENERAL_DATA = "SET_OPERATOR_REPORT_GENERAL_DATA";
 const SET_STATUS = "SET_STATUS"
+const SET_ERROR = "SET_ERROR"
 
 type DataThunkAction = ThunkAction<void,
     StoreType,
@@ -12,6 +13,7 @@ type DataThunkAction = ThunkAction<void,
 
 
 type ActionDataType = ReturnType<typeof setOperatorReportDetailedData> | ReturnType<typeof setStatus>
+    | ReturnType<typeof setError>
 
 
 export type OperatorReportGeneralType = {
@@ -35,10 +37,11 @@ export type OperatorReportGeneralType = {
     totalOutgoingCall: string
     totalLogoutTime: string
 }
-type StatusType = "init" | "loading" | "loaded"
+type StatusType = "init" | "loading" | "loaded" | "error"
 type InitialStateType = {
     data: OperatorReportGeneralType[]
     status: StatusType
+    errorMessage: string
 }
 const initialState:any = {
     data: [
@@ -537,7 +540,8 @@ const initialState:any = {
             totalLogoutTime: "11:01:21"
         }
     ],
-    status: "init"
+    status: "init",
+    errorMessage: ''
 }
 
 export const operatorReportGeneralReducer = (state:any = initialState, action:ActionDataType ):any => {
@@ -552,6 +556,12 @@ export const operatorReportGeneralReducer = (state:any = initialState, action:Ac
             return {
                 ...state,
                 status: action.status
+            }
+        }
+        case "SET_ERROR": {
+            return {
+                ...state,
+                errorMessage: action.errorMessage
             }
         }
         default: {
@@ -572,6 +582,12 @@ export const setStatus = (status:StatusType) => {
         status
     } as const
 }
+export const setError = (errorMessage:string) => {
+    return {
+        type: SET_ERROR,
+        errorMessage
+    } as const
+}
 export const fetchOperatorReportGeneralData =  (department:string):DataThunkAction => async(dispatch)  => {
     try {
         dispatch(setStatus("loading"))
@@ -579,6 +595,7 @@ export const fetchOperatorReportGeneralData =  (department:string):DataThunkActi
         dispatch(setOperatorReportDetailedData(data.data))
         dispatch(setStatus("loaded"))
     } catch (e: any) {
-
+        dispatch(setStatus("error"))
+        dispatch(setError(e.message))
     }
 }

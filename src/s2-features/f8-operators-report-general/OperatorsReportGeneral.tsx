@@ -17,7 +17,6 @@ import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
 import {useScale} from "../../common/hooks/useScale";
 import {useAppSelector} from "../../s1-main/m2-bll/store";
 import {useDispatch} from "react-redux";
-import {fetchOperatorReportGeneralData} from "../../s1-main/m2-bll/operatorReportGeneral-reducer";
 import Loader from "../../common/components/Loader/Loader";
 
 
@@ -164,9 +163,9 @@ const OperatorsReportGeneral = () => {
     useEffect(() => {
         if (!isAuth) navigate('/')
     }, [])
-    useEffect(() => {
+    /*useEffect(() => {
         dispatch(fetchOperatorReportGeneralData(selectedDepartment))
-    }, [])
+    }, [])*/
     useEffect(() => {
         setData(operatorReportGeneralData)
     }, [operatorReportGeneralData])
@@ -188,10 +187,23 @@ const OperatorsReportGeneral = () => {
             setData(filteredData)
         }
     };
-    const onLoadDataHandler = () => {
+    /*const onLoadDataHandler = () => {
         dispatch(fetchOperatorReportGeneralData(selectedDepartment))
+    }*/
+
+
+    const renderContent = () => {
+        if (status === "loaded" || status === "init"){
+            return <Table data={data} defaultColumn={defaultColumnsSize} columns={columns} pagination={true}
+                         width={"100vw"} footer/>
+        } else if (status === "loading"){
+            return <div className={s.loaderContainer}>
+                <Loader width={200} height={200}/>
+            </div>
+        } else if (status === "error"){
+            return <div></div>
+        }
     }
-    console.log(operatorReportGeneralData)
 
     return (
         <div className={s.operatorsReportGeneralWrapper}>
@@ -242,7 +254,7 @@ const OperatorsReportGeneral = () => {
                                 </Form.Select>
                             </Form.Group>
                         </Accordion>
-                        <TabButton style={{marginTop: "0px"}} name={'Обновить'} onClick={onLoadDataHandler}/>
+                        <TabButton style={{marginTop: "0px"}} name={'Обновить'} onClick={()=> {}}/>
                     </div>
                 </div>
             </Sidebar>
@@ -252,10 +264,7 @@ const OperatorsReportGeneral = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Отчёт по операторам (Общий)</span>
                 </div>
-                {status === 'loaded'
-                    ? <Table data={data} defaultColumn={defaultColumnsSize} columns={columns} pagination={true}
-                             width={"100vw"} footer/>
-                    : <Loader width={200} height={200}/>
+                {renderContent()
                 }
             </div>
         </div>
