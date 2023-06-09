@@ -130,7 +130,7 @@ const Table = ({...props}) => {
     }
     const fillCellOperatorsGeneral = (objKey, value) => {
         const newObjKey = truncateString(objKey)
-        if (value === "0:00:00") {
+        if (value === "00:00:00") {
             switch (newObjKey) {
                 case 'totalTalkTime':
                 case 'totalFreeTime':

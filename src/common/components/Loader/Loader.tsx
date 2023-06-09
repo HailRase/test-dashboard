@@ -1,5 +1,5 @@
 import React from 'react';
-import {ReactComponent as LoaderSVG} from '../../../assets/loader.svg'
+import svg from '../../../assets/loadergif.gif'
 
 type LoaderPropsType = {
     width: number
@@ -7,8 +7,11 @@ type LoaderPropsType = {
 }
 const Loader:React.FC<LoaderPropsType> = ({width,height}) => {
     return (
-        <div>
-            <LoaderSVG width={width} height={height}/>
+        <div style={{display: "flex", flexDirection: "column", alignItems:"center"}}>
+
+            <img src={svg} alt="" width={width} height={height}/>
+            <span>&#128349;Загрузка данных...</span>
+            {/*<LoaderSVG width={width} height={height}/>*/}
         </div>
     );
 };

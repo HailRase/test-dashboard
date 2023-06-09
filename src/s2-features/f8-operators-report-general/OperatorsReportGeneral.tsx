@@ -4,7 +4,6 @@ import {PATH} from "../../common/routes/routes";
 import s from "./OperatorsReportGeneral.module.scss";
 import ArrowLeftIcon from "../../common/components/ArrowLeftIcon/ArrowLeftIcon";
 import Form from "react-bootstrap/Form";
-import {dateNow} from "../../data/dateNow";
 import Accordion from "../../common/components/Accordion/Accordion";
 import TabButton from "../../common/components/TabButton/TabButton";
 import {Sidebar} from "../../common/components/Sidebar/Sidebar";
@@ -18,6 +17,8 @@ import {useScale} from "../../common/hooks/useScale";
 import {useAppSelector} from "../../s1-main/m2-bll/store";
 import {useDispatch} from "react-redux";
 import Loader from "../../common/components/Loader/Loader";
+import {fetchOperatorReportGeneralData} from "../../s1-main/m2-bll/operatorReportGeneral-reducer";
+import moment from "moment/moment";
 
 
 const OperatorsReportGeneral = () => {
@@ -25,6 +26,10 @@ const OperatorsReportGeneral = () => {
     const operatorReportGeneralData = useAppSelector(state => state.operatorReportGeneralData.data)
     const status = useAppSelector(state => state.operatorReportGeneralData.status)
     const [isActive, setIsActive] = useState<boolean>(false)
+    const [dateStart, setDateStart] = useState(moment().format("YYYY-MM-DD"))
+    const [timeStart, setTimeStart] = useState("00:00")
+    const [dateEnd, setDateEnd] = useState(moment(moment()).add(1, 'day').format('YYYY-MM-DD'))
+    const [timeEnd, setTimeEnd] = useState("00:00")
     const [selectedDepartment, setSelectedDepartment] = useState('Call-центр');
     const [data, setData] = useState<any[]>(operatorReportGeneralData)
     const navigate = useNavigate()
@@ -163,9 +168,9 @@ const OperatorsReportGeneral = () => {
     useEffect(() => {
         if (!isAuth) navigate('/')
     }, [])
-    /*useEffect(() => {
-        dispatch(fetchOperatorReportGeneralData(selectedDepartment))
-    }, [])*/
+    useEffect(() => {
+        dispatch(fetchOperatorReportGeneralData(dateStart, timeStart, dateEnd, timeEnd,selectedDepartment))
+    }, [])
     useEffect(() => {
         setData(operatorReportGeneralData)
     }, [operatorReportGeneralData])
@@ -179,6 +184,18 @@ const OperatorsReportGeneral = () => {
     const onCloseSidebar = () => {
         setIsActive(false)
     }
+    const onDateStartChangeHandler = (e:any) => {
+        setDateStart(e.currentTarget.value)
+    }
+    const onTimeStartChangeHandler = (e:any) => {
+        setTimeStart(e.currentTarget.value)
+    }
+    const onDateEndChangeHandler = (e:any) => {
+        setDateEnd(e.currentTarget.value)
+    }
+    const onTimeEndChangeHandler = (e:any) => {
+        setTimeEnd(e.currentTarget.value)
+    }
     const handleRefreshClick = () => {
         const filteredData = operatorReportGeneralData.filter((item: any) => item.department === selectedDepartment);
         if (selectedDepartment === '') {
@@ -187,24 +204,24 @@ const OperatorsReportGeneral = () => {
             setData(filteredData)
         }
     };
-    /*const onLoadDataHandler = () => {
-        dispatch(fetchOperatorReportGeneralData(selectedDepartment))
-    }*/
+    const onLoadDataHandler = () => {
+        dispatch(fetchOperatorReportGeneralData(dateStart, timeStart, dateEnd, timeEnd,selectedDepartment))
+    }
 
 
     const renderContent = () => {
-        if (status === "loaded" || status === "init"){
+        if (status === "loaded" || status === "init") {
             return <Table data={data} defaultColumn={defaultColumnsSize} columns={columns} pagination={true}
-                         width={"100vw"} footer/>
-        } else if (status === "loading"){
+                          width={"100vw"} footer/>
+        } else if (status === "loading") {
             return <div className={s.loaderContainer}>
-                <Loader width={200} height={200}/>
+                <Loader width={280} height={18}/>
             </div>
-        } else if (status === "error"){
+        } else if (status === "error") {
             return <div></div>
         }
     }
-
+    console.log(dateStart + " " + timeStart + " " + dateEnd + " " + timeEnd)
     return (
         <div className={s.operatorsReportGeneralWrapper}>
             <Sidebar isActive={isActive}>
@@ -217,14 +234,17 @@ const OperatorsReportGeneral = () => {
                         <Form.Group
                             style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
                             <Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label>
-                            <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
-                            <Form.Control type="time" defaultValue={"00:00"} style={{width: "95%"}}/>
+                            <Form.Control type="date" defaultValue={dateStart}
+                                          style={{width: "95%"}} onChange={onDateStartChangeHandler}/>
+                            <Form.Control type="time" defaultValue={timeStart} style={{width: "95%"}}
+                                          onChange={onTimeStartChangeHandler}/>
                         </Form.Group>
                         <Form.Group
                             style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
                             <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
-                            <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
-                            <Form.Control type="time" defaultValue={"23:59"} style={{width: "95%"}}/>
+                            <Form.Control type="date" defaultValue={dateEnd}
+                                          style={{width: "95%"}} onChange={onDateEndChangeHandler}/>
+                            <Form.Control type="time" defaultValue={timeEnd} style={{width: "95%"}} onChange={onTimeEndChangeHandler}/>
                         </Form.Group>
                         <Accordion title={"Параметры"}>
                             <Form.Group
@@ -254,7 +274,7 @@ const OperatorsReportGeneral = () => {
                                 </Form.Select>
                             </Form.Group>
                         </Accordion>
-                        <TabButton style={{marginTop: "0px"}} name={'Обновить'} onClick={()=> {}}/>
+                        <TabButton style={{marginTop: "0px"}} name={'Обновить'} onClick={onLoadDataHandler}/>
                     </div>
                 </div>
             </Sidebar>
@@ -264,8 +284,7 @@ const OperatorsReportGeneral = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Отчёт по операторам (Общий)</span>
                 </div>
-                {renderContent()
-                }
+                {renderContent()}
             </div>
         </div>
     );

@@ -2,14 +2,12 @@ import React from 'react';
 import {Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
 import {useScale} from "../../../../common/hooks/useScale";
 export interface TotalAcceptAndSkippedCallType {
-    name: 'Пропущено' | 'Принято'
+    name: string
     value: number
     fill: string
 }
 export interface QueueDataType {
-    name: 'НОД-6' | 'НОД-5' | 'НОД-4' | 'НОД-3' | 'НОД-2' | 'НОД-1' |
-        'Белтел Могилёвская' | 'Белтел Минская' | 'Белтел Гродненская' | 'Белтел Гомельская' | 'Белтел Витебская' |
-        'Белтел Брестская' | 'Repeat call' | 'MTC' | 'Life' | 'International' | 'A1'
+    name: string
     value: number
     fill: string
 }

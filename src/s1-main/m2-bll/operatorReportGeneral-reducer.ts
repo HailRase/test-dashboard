@@ -570,28 +570,28 @@ export const operatorReportGeneralReducer = (state:any = initialState, action:Ac
     }
 }
 
-export const setOperatorReportDetailedData = (data: any)  => {
+const setOperatorReportDetailedData = (data: any)  => {
     return {
         type: SET_OPERATOR_REPORT_GENERAL_DATA,
         data
     } as const;
 };
-export const setStatus = (status:StatusType) => {
+const setStatus = (status:StatusType) => {
     return {
         type: SET_STATUS,
         status
     } as const
 }
-export const setError = (errorMessage:string) => {
+const setError = (errorMessage:string) => {
     return {
         type: SET_ERROR,
         errorMessage
     } as const
 }
-export const fetchOperatorReportGeneralData =  (department:string):DataThunkAction => async(dispatch)  => {
+export const fetchOperatorReportGeneralData =  (dateStart: string,timeStart: string, dateEnd: string,timeEnd: string,department: string):DataThunkAction => async(dispatch)  => {
     try {
         dispatch(setStatus("loading"))
-        const data = await oktellAPI.getOperatorReportGeneralData(department)
+        const data = await oktellAPI.getOperatorReportGeneralData(dateStart, timeStart, dateEnd,timeEnd,department)
         dispatch(setOperatorReportDetailedData(data.data))
         dispatch(setStatus("loaded"))
     } catch (e: any) {

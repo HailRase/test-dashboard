@@ -14,11 +14,12 @@ import Table from "../../../common/components/Table/Table";
 import {operatorsRatingData} from "../../../data/operatorsData";
 import useIsAuth from "../../../common/hooks/useIsAuth";
 import {useDispatch} from "react-redux";
+import {useScale} from "../../../common/hooks/useScale";
 
 
 const MonitoringCCPast = () => {
 
-
+    const scale = useScale()
     const [isActive, setIsActive] = useState<boolean>(false)
     const navigate = useNavigate()
     const isAuth = useIsAuth()
@@ -42,37 +43,37 @@ const MonitoringCCPast = () => {
         {
             Header: '№',
             accessor: 'ratingRecordId',
-            width: 60
+            width: 70 /scale
         },
         {
             Header: 'Оператор',
             accessor: 'operatorName',
-            width: 200
+            width: 350 / scale
         },
         {
             Header: 'Принял',
             accessor: 'accept',
-            width: 70,
+            width: 80 / scale
         },
         {
             Header: 'Пропустил',
             accessor: 'skip',
-            width: 90
+            width: 90 / scale
         },
         {
             Header: 'Уровень обслуживания',
             accessor: 'serviceLevel',
-            width: 120
+            width: 120 / scale
         },
         {
             Header: 'Среднее время разговора',
             accessor: 'avgServiceTime',
-            width: 85
+            width: 110/ scale
         },
         {
             Header: 'Загруженность',
             accessor: 'workload',
-            width: 120
+            width: 120 / scale
         }
     ]
 
