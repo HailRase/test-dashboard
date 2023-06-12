@@ -2,10 +2,10 @@ import {ThunkAction} from "redux-thunk";
 import {StoreType} from "../store";
 import {monitoringCCPastAPI} from "../../m3-dal/d2-api/monitoringCCPastAPI";
 
-const SET_REAL_TIME_TODAY_PIE_DATA = "SET_REAL_TIME_TODAY_PIE_DATA";
-const SET_REAL_TIME_TODAY_PIE_TOTAL_DATA = "SET_REAL_TIME_TODAY_PIE_TOTAL_DATA";
-const SET_REAL_TIME_TODAY_PIE_STATUS = "SET_REAL_TIME_TODAY_PIE_STATUS"
-const SET_REAL_TIME_TODAY_PIE_ERROR = "SET_REAL_TIME_TODAY_PIE_ERROR"
+const SET_REAL_TIME_MONTH_PIE_DATA = "SET_REAL_TIME_MONTH_PIE_DATA";
+const SET_REAL_TIME_MONTH_PIE_TOTAL_DATA = "SET_REAL_TIME_MONTH_PIE_TOTAL_DATA";
+const SET_REAL_TIME_MONTH_PIE_STATUS = "SET_REAL_TIME_MONTH_PIE_STATUS"
+const SET_REAL_TIME_MONTH_PIE_ERROR = "SET_REAL_TIME_MONTH_PIE_ERROR"
 
 type DataThunkAction = ThunkAction<void,
     StoreType,
@@ -13,23 +13,23 @@ type DataThunkAction = ThunkAction<void,
     ActionDataType>;
 
 
-type ActionDataType = ReturnType<typeof setRealTimeTodayPieTotalData> |ReturnType<typeof setRealTimeTodayPieData> | ReturnType<typeof setRealTimeTodayPieStatus>
-    | ReturnType<typeof setError>
+type ActionDataType = ReturnType<typeof setRealTimeMonthPieTotalData> |ReturnType<typeof setRealMonthTodayPieData>
+    | ReturnType<typeof setRealTimeMonthPieStatus> | ReturnType<typeof setError>
 
-export type RealTimeTodayPieDataType = {
+export type RealTimeMonthPieDataType = {
     name: string
     value: number
     fill: string
 }
-export type RealTimeTodayPieTotalDataType = {
+export type RealTimeMonthPieTotalDataType = {
     name: string
     value: number
     fill: string
 }
-export type StatusType = "init" | "loading" | "loaded" | "error"
+type StatusType = "init" | "loading" | "loaded" | "error"
 type InitState = {
-    data: RealTimeTodayPieDataType[],
-    totalData: RealTimeTodayPieTotalDataType[]
+    data: RealTimeMonthPieDataType[],
+    totalData: RealTimeMonthPieTotalDataType[]
     status: StatusType,
     errorMessage: string,
 }
@@ -61,27 +61,27 @@ const initialState:InitState = {
 const dataColors = ['#b3b3d9','#ef9288','#c94322','#6171c5','#d4830e','#50878d','#64b280','#7dbecf','#ec977d',
     '#fcea87','#76c5e7','#7c84b8','#f1a492','#02bbd0','#489f48','#7eb9f6','#fd3101']
 const totalDataColor = ['#e70707','#4bb253']
-export const realTimeTodayPieReducer = (state = initialState, action: ActionDataType) => {
+export const realTimeMonthPieReducer = (state = initialState, action: ActionDataType) => {
     switch (action.type) {
-        case SET_REAL_TIME_TODAY_PIE_DATA: {
+        case SET_REAL_TIME_MONTH_PIE_DATA: {
             return {
                 ...state,
                 data: action.data
             }
         }
-        case SET_REAL_TIME_TODAY_PIE_TOTAL_DATA: {
+        case SET_REAL_TIME_MONTH_PIE_TOTAL_DATA: {
             return {
                 ...state,
                 totalData: action.totalData
             }
         }
-        case SET_REAL_TIME_TODAY_PIE_STATUS: {
+        case SET_REAL_TIME_MONTH_PIE_STATUS: {
             return {
                 ...state,
                 status: action.status
             }
         }
-        case SET_REAL_TIME_TODAY_PIE_ERROR: {
+        case SET_REAL_TIME_MONTH_PIE_ERROR: {
             return {
                 ...state,
                 errorMessage: action.errorMessage
@@ -92,56 +92,54 @@ export const realTimeTodayPieReducer = (state = initialState, action: ActionData
         }
     }
 }
-const setRealTimeTodayPieData = (data: RealTimeTodayPieDataType[])  => {
+const setRealMonthTodayPieData = (data: RealTimeMonthPieDataType[])  => {
     return {
-        type: SET_REAL_TIME_TODAY_PIE_DATA,
+        type: SET_REAL_TIME_MONTH_PIE_DATA,
         data
     } as const
 };
-const setRealTimeTodayPieTotalData = (totalData: RealTimeTodayPieTotalDataType[])  => {
+const setRealTimeMonthPieTotalData = (totalData: RealTimeMonthPieTotalDataType[])  => {
     return {
-        type: SET_REAL_TIME_TODAY_PIE_TOTAL_DATA,
+        type: SET_REAL_TIME_MONTH_PIE_TOTAL_DATA,
         totalData
     } as const
 };
-const setRealTimeTodayPieStatus = (status:StatusType) => {
+const setRealTimeMonthPieStatus = (status:StatusType) => {
     return {
-        type: SET_REAL_TIME_TODAY_PIE_STATUS,
+        type: SET_REAL_TIME_MONTH_PIE_STATUS,
         status
     } as const
 }
 const setError = (errorMessage:string) => {
     return {
-        type: SET_REAL_TIME_TODAY_PIE_ERROR,
+        type: SET_REAL_TIME_MONTH_PIE_ERROR,
         errorMessage
     } as const
 }
-export const fetchRealTimeTodayPieData =  ():DataThunkAction => async(dispatch)  => {
+export const fetchRealMonthTodayPieData =  ():DataThunkAction => async(dispatch)  => {
     try {
-        dispatch(setRealTimeTodayPieStatus("loading"))
-        const innerData = await monitoringCCPastAPI.getTodayRealTimeInnerPieData()
-        const outerData = await monitoringCCPastAPI.getTodayRealTimeOuterPieData()
-        const changedInnerData = [...innerData.data.map((obj: RealTimeTodayPieTotalDataType, index: number) => {
+        dispatch(setRealTimeMonthPieStatus("loading"))
+        const innerData = await monitoringCCPastAPI.getMontRealTimeInnerPieData()
+        const outerData = await monitoringCCPastAPI.getMonthRealTimeOuterPieData()
+        const changedInnerData = [...innerData.data.map((obj: RealTimeMonthPieTotalDataType, index: number) => {
             return {
                 ...obj,
                 fill: totalDataColor[index]
             }
         })]
         /*console.log("Внутренний кружок: " +JSON.stringify(changedInnerData))*/
-        const changedOuterData = [...outerData.data.map((obj: RealTimeTodayPieDataType, index: number) => {
+        const changedOuterData = [...outerData.data.map((obj: RealTimeMonthPieDataType, index: number) => {
             return {
                 ...obj,
                 fill: dataColors[index]
             }
         })]
         /*console.log("Внешний кружок: " +JSON.stringify(changedOuterData))*/
-        dispatch(setRealTimeTodayPieTotalData(changedInnerData))
-        dispatch(setRealTimeTodayPieData(changedOuterData))
-        dispatch(setRealTimeTodayPieStatus("loaded"))
+        dispatch(setRealTimeMonthPieTotalData(changedInnerData))
+        dispatch(setRealMonthTodayPieData(changedOuterData))
+        dispatch(setRealTimeMonthPieStatus("loaded"))
     } catch (e: any) {
-        debugger
-        dispatch(setRealTimeTodayPieStatus("error"))
+        dispatch(setRealTimeMonthPieStatus("error"))
         dispatch(setError(e.message))
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!Ошибка:'+e.message)
     }
 }

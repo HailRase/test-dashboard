@@ -1,10 +1,15 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 
 export const useScale = () => {
-    let initialScale = window.innerWidth
-    if (initialScale < 1600){
+    let innerWidth = window.innerWidth
+    useMemo(()=> {
+    }, [innerWidth])
+    let initialScale = 1
+    if (innerWidth === 1536){
         initialScale = 1.25
-    } else {
+    } else if (innerWidth === 980){
+        initialScale = 2
+    } else if (innerWidth === 1920){
         initialScale = 1
     }
     const [scale, setScale] = useState(initialScale);

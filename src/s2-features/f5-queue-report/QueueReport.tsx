@@ -17,6 +17,7 @@ import Accordion from "../../common/components/Accordion/Accordion";
 import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
+import ErrorWindow from "../../common/components/ErrorWindow/ErrorWindow";
 
 
 const QueueReport = () => {
@@ -307,6 +308,7 @@ const QueueReport = () => {
             </Sidebar>
             <div className={s.queueReportContainer}>
                 <div className={s.queueReportHeader}>
+
                     <HomeIcon onClick={onHomeHandler}/>
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Отчёт по очередям</span>
@@ -315,6 +317,7 @@ const QueueReport = () => {
                     <div className={s.pieContainer}>
                         <span>Кол-во принятых звонков по очередям</span>
                         <QueueReportPie/>
+                        <ErrorWindow errorMessage={"asdfgsdfgsdfg"}/>
                     </div>
                     <div className={s.histogramContainer}>
                         <span>Все очереди</span>

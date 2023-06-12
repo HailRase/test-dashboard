@@ -1,36 +1,46 @@
-import React, {useEffect, useState} from 'react';
+import React, {ReactComponentElement, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../../common/routes/routes";
 import s from "./MonitoringCCRealTime.module.scss";
 import HomeIcon from "../../../common/components/HomeIcon/HomeIcon";
-import MonitoringCCPie, {QueueDataType, TotalAcceptAndSkippedCallType} from "./r1-monitoring-cc-pie/MonitoringCCPie";
+import MonitoringCCPie from "./r1-monitoring-cc-pie/MonitoringCCPie";
 import Table from '../../../common/components/Table/Table'
 import {operatorsRatingData} from "../../../data/operatorsMonthData";
 import Histogram from "../../../common/components/Histogram/Histogram";
 import useIsAuth from "../../../common/hooks/useIsAuth";
-import {StoreType, useAppSelector} from "../../../s1-main/m2-bll/store";
-import {useDispatch, useSelector} from "react-redux";
+import {useAppSelector} from "../../../s1-main/m2-bll/store";
+import {useDispatch} from "react-redux";
 import {
-    fetchRealTimeHistogramData, RealTimeHistogramDataType
+    fetchRealTimeHistogramData
 } from "../../../s1-main/m2-bll/b2-monitoring-real-time-reducer/realTimeHistogram-reducer";
 import {
-    fetchRealTimeTodayPieData
+    fetchRealTimeTodayPieData,
+    StatusType
 } from "../../../s1-main/m2-bll/b2-monitoring-real-time-reducer/realTimeTodayPie-reducer";
 import Loader from "../../../common/components/Loader/Loader";
+import {
+    fetchRealMonthTodayPieData
+} from "../../../s1-main/m2-bll/b2-monitoring-real-time-reducer/realTimeMonthPie-reducer";
+import ErrorWindow from "../../../common/components/ErrorWindow/ErrorWindow";
+import {findMaxAcceptAndNotAcceptSum} from "../../../common/utils/findMaxAcceptAndNotAcceptSum";
 
 
 const MonitoringCCRealTime = () => {
-    //const realTimeHistogramData = useAppSelector(state => state.realTimeHistogramData.data)
-    const realTimeHistogramData = useSelector<StoreType, RealTimeHistogramDataType[]>(state => state.realTimeHistogramData.data)
+    const realTimeHistogramData = useAppSelector(state => state.realTimeHistogramData.data)
     const realTimeTodayOuterPieData = useAppSelector(state => state.realTimeTodayPieData.data)
     const realTimeTodayInnerPieData = useAppSelector(state => state.realTimeTodayPieData.totalData)
+    const realTimeMonthOuterPieData = useAppSelector(state => state.realTimeMonthPieData.data)
+    const realTimeMonthInnerPieData = useAppSelector(state => state.realTimeMonthPieData.totalData)
     const histogramStatus = useAppSelector(state => state.realTimeHistogramData.status)
-    const todayPieStatus = useAppSelector(state => state.realTimeHistogramData.status)
+    const todayPieStatus = useAppSelector(state => state.realTimeTodayPieData.status)
+    const monthPieStatus = useAppSelector(state => state.realTimeMonthPieData.status)
+    const histogramError = useAppSelector(state => state.realTimeHistogramData.errorMessage)
+    const todayPieError = useAppSelector(state => state.realTimeTodayPieData.errorMessage)
+    const monthPieError = useAppSelector(state => state.realTimeMonthPieData.errorMessage)
     const [realTimeHistogramStateData, setRealTimeHistogramStateData] = useState(realTimeHistogramData)
     const navigate = useNavigate()
     const isAuth = useIsAuth()
     const dispatch = useDispatch<any>()
-    console.log(realTimeHistogramData)
 
 
     useEffect(() => {
@@ -39,15 +49,17 @@ const MonitoringCCRealTime = () => {
     useEffect(() => {
         dispatch(fetchRealTimeHistogramData())
         dispatch(fetchRealTimeTodayPieData())
+        dispatch(fetchRealMonthTodayPieData())
         const intervalId = setInterval(() => {
             dispatch(fetchRealTimeHistogramData())
             dispatch(fetchRealTimeTodayPieData())
+            dispatch(fetchRealMonthTodayPieData())
         }, 20 * 60 * 1000);
 
         return () => clearInterval(intervalId);
 
     }, []);
-    useEffect(()=> {
+    useEffect(() => {
         setRealTimeHistogramStateData(realTimeHistogramData)
     }, [realTimeHistogramData])
     const onHomeHandler = () => {
@@ -106,49 +118,26 @@ const MonitoringCCRealTime = () => {
             width: 120
         },
         {
-            Header: 'Загруженность',
+            Header: 'Загруженность за месяц',
             accessor: 'workloadMonth',
             width: 120
         }
     ]
 
-    const monthPieData1: TotalAcceptAndSkippedCallType[] = [
-        {name: 'Пропущено', value: 511, fill: '#e70707'},
-        {name: 'Принято', value: 3534, fill: '#4bb253'},
-    ];
-    const monthPieData2: QueueDataType[] = [
-        {name: 'НОД-6', value: 114/*totalCallReducer('Видеотерминалы')*/, fill: '#b3b3d9'},
-        {name: 'НОД-5', value: 124/*totalCallReducer('Видеотерминалы')*/, fill: '#ef9288'},
-        {name: 'НОД-4', value: 132/*totalCallReducer('Видеотерминалы')*/, fill: '#c94322'},
-        {name: 'НОД-3', value: 187/*totalCallReducer('Видеотерминалы')*/, fill: '#6171c5'},
-        {name: 'НОД-2', value: 146/*totalCallReducer('Видеотерминалы')*/, fill: '#d4830e'},
-        {name: 'НОД-1', value: 153/*totalCallReducer('Видеотерминалы')*/, fill: '#50878d'},
-        {name: 'Белтел Могилёвская', value: 158 /*totalCallReducer('GSM')*/, fill: '#64b280'},
-        {name: 'Белтел Минская', value: 165 /*totalCallReducer('39-48-75')*/, fill: '#7dbecf'},
-        {name: 'Белтел Гродненская', value: 148 /*totalCallReducer('39-25-47')*/, fill: '#ec977d'},
-        {name: 'Белтел Гомельская', value: 170 /*totalCallReducer('151 Other')*/, fill: '#fcea87'},
-        {name: 'Белтел Витебская', value: 1271/*totalCallReducer('151 GSM')*/, fill: '#76c5e7'},
-        {name: 'Белтел Брестская', value: 175/*totalCallReducer('151 Beltelecom')*/, fill: '#7c84b8'},
-        {name: 'Repeat call', value: 165/*totalCallReducer('151 Beltelecom')*/, fill: '#f1a492'},
-        {name: 'MTC', value: 1123/*totalCallReducer('105 Other')*/, fill: '#02bbd0'},
-        {name: 'Life', value: 147 /*totalCallReducer('105 GSM')*/, fill: '#489f48'},
-        {name: 'International', value: 1153/*totalCallReducer('105 Beltelecom')*/, fill: '#7eb9f6'},
-        {name: 'A1', value: 1333/*totalCallReducer('105 Beltelecom')*/, fill: '#fd3101'},
-    ];
-
-    /*const renderContent = () => {
-        if (status === "loaded" || status === "init") {
-            return <Table data={data} defaultColumn={defaultColumnsSize} columns={columns} pagination={true}
-                          width={"100vw"} footer/>
-        } else if (status === "loading") {
-            return <div className={s.loaderContainer}>
+    const renderComponent = (component: ReactComponentElement <any>, status: StatusType, error: string) => {
+        if (status === "loaded"){
+            return component
+        } else if (status === "loading"){
+            return <div className={s.centringLoader}>
                 <Loader width={280} height={18}/>
             </div>
         } else if (status === "error") {
-            return <div></div>
+            return <div className={s.centringLoader}>
+                <ErrorWindow errorMessage={error}/>
+            </div>
         }
-    }*/
-
+    }
+    const domainYAxisCalls = findMaxAcceptAndNotAcceptSum(realTimeHistogramData)
     return (
         <div className={s.monitoringCCWrapper}>
             <div className={s.monitoringCCContainer}>
@@ -159,7 +148,11 @@ const MonitoringCCRealTime = () => {
                 <div className={s.callAndOperatorRating}>
                     <div className={s.callTodayPie}>
                         <span>Звонков сегодня</span>
-                        {todayPieStatus !== "loaded" ? <Loader width={280} height={18}/> :<MonitoringCCPie data1={realTimeTodayInnerPieData} data2={realTimeTodayOuterPieData}/>}
+                        {renderComponent(
+                            <MonitoringCCPie data1={realTimeTodayInnerPieData} data2={realTimeTodayOuterPieData}/>,
+                            todayPieStatus,
+                            todayPieError
+                        )}
                     </div>
                     <div className={s.tableContainer}>
                         <span>Рейтинг операторов</span>
@@ -169,11 +162,19 @@ const MonitoringCCRealTime = () => {
                     </div>
                     <div className={s.callMonthPie}>
                         <span>Звонков за текущий месяц</span>
-                        <MonitoringCCPie data1={monthPieData1} data2={monthPieData2}/>
+                        {renderComponent(
+                            <MonitoringCCPie data1={realTimeMonthInnerPieData} data2={realTimeMonthOuterPieData}/>,
+                            monthPieStatus,
+                            monthPieError
+                        )}
                     </div>
                 </div>
                 <div className={s.histogramContainer}>
-                    {histogramStatus !== "loaded" ? <Loader width={280} height={18}/> : <Histogram data={realTimeHistogramStateData}/>}
+                    {renderComponent(
+                        <Histogram data={realTimeHistogramStateData} callYAxisDomain={domainYAxisCalls}/>,
+                        histogramStatus,
+                        histogramError
+                    )}
                 </div>
             </div>
         </div>

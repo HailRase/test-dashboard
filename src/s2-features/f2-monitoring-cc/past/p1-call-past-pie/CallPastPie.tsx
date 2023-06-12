@@ -47,22 +47,22 @@ const CallPastPie = () => {
         const textAnchor = index >= 13 ? 'start' : 'end';
 
         const endPoint = [
-            {x3: 460 / scale, y3: 70 / scale} /*1.НОД-6*/,
-            {x3: 430 / scale, y3: 85 / scale} /*2.НОД-5*/,
-            {x3: 410 / scale, y3: 100 / scale} /*3.НОД-4*/,
-            {x3: 390 / scale, y3: 115 / scale} /*4.НОД-3*/,
-            {x3: 385 / scale, y3: 130 / scale} /*5.НОД-2*/,
-            {x3: 370 / scale, y3: 145 / scale} /*6.НОД-1*/,
+            {x3: 460 / scale, y3: 55 / scale} /*1.НОД-6*/,
+            {x3: 425 / scale, y3: 75 / scale} /*2.НОД-5*/,
+            {x3: 405 / scale, y3: 95 / scale} /*3.НОД-4*/,
+            {x3: 385 / scale, y3: 115 / scale} /*4.НОД-3*/,
+            {x3: 375 / scale, y3: 135 / scale} /*5.НОД-2*/,
+            {x3: 370 / scale, y3: 155 / scale} /*6.НОД-1*/,
             {x3: 360 / scale, y3: 180 / scale} /*7.Белтел Могилёвская*/,
             {x3: 360 / scale, y3: 195 / scale} /*8.Белтел Минская*/,
-            {x3: 360 / scale, y3: 210 / scale} /*9.Белтел Гродненская*/,
-            {x3: 370 / scale, y3: 225 / scale} /*10.Белтел Гомельская*/,
-            {x3: 380 / scale, y3: 240 / scale} /*11.Белтел Витебская*/,
-            {x3: 385 / scale, y3: 255 / scale} /*12.Белтел Брестская*/,
-            {x3: 400 / scale, y3: 290 / scale} /*13.Repeat call*/,
-            {x3: 600 / scale, y3: 205 / scale} /*14.MTC*/,
+            {x3: 360 / scale, y3: 215 / scale} /*9.Белтел Гродненская*/,
+            {x3: 370 / scale, y3: 235 / scale} /*10.Белтел Гомельская*/,
+            {x3: 380 / scale, y3: 255 / scale} /*11.Белтел Витебская*/,
+            {x3: 385 / scale, y3: 275 / scale} /*12.Белтел Брестская*/,
+            {x3: 430 / scale, y3: 300 / scale} /*13.Repeat call*/,
+            {x3: 600 / scale, y3: 210 / scale} /*14.MTC*/,
             {x3: 600 / scale, y3: 190 / scale} /*15.Life*/,
-            {x3: 600 / scale, y3: 175 / scale} /*16.International*/,
+            {x3: 600 / scale, y3: 170 / scale} /*16.International*/,
             {x3: 560 / scale, y3: 90 / scale} /*17.A1*/
         ]
         const paths = [

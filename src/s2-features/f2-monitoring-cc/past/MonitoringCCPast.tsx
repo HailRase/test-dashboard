@@ -107,7 +107,7 @@ const MonitoringCCPast = () => {
                     </div>
                 </div>
                 <div className={s.histogram}>
-                    <Histogram data={monitoringPastData}/>
+                    <Histogram data={monitoringPastData} callYAxisDomain={1000}/>
                 </div>
             </div>
         </div>

@@ -1,0 +1,29 @@
+.errorWindowContainer {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  min-height: 5vw;
+
+  .errorWindowHeader {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px;
+    border-radius:5px 5px 0 0;
+    background-color: #2c6fb0;
+    .errorWindowHeaderTitle {
+      color: white;
+      font-size: 20px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .errorWindowBody {
+    width: 100%;
+    font-size: 22px;
+    padding: 10px;
+    background-color: #e0e0e1;
+  }
+}

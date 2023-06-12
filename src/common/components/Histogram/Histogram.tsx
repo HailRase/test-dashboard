@@ -12,13 +12,15 @@ import {
     YAxis,
 } from 'recharts';
 import './Histogram.scss'
+import {useScale} from "../../hooks/useScale";
 
 
 type HistogramPropsType = {
     data: any
+    callYAxisDomain: number
 }
 
-const Histogram: React.FC<HistogramPropsType> = ({data}) => {
+const Histogram: React.FC<HistogramPropsType> = ({data, callYAxisDomain}) => {
 
     const [notAcceptVisible, setNotAcceptVisible] = useState<boolean>(true)
     const [acceptVisible, setAcceptVisible] = useState<boolean>(true)
@@ -26,6 +28,7 @@ const Histogram: React.FC<HistogramPropsType> = ({data}) => {
     const [maxSimultaneousCallVisible, setMaxSimultaneousCallVisible] = useState<boolean>(true)
     const [opInSysVisible, setOpInSysVisible] = useState<boolean>(true)
     const [opActivity, setOpActivity] = useState<boolean>(false)
+    const scale = useScale()
 
     const onVisibleLegendHandle = (e: any) => {
         if (e.dataKey === "opActivity") {
@@ -34,11 +37,11 @@ const Histogram: React.FC<HistogramPropsType> = ({data}) => {
             setNotAcceptVisible(!notAcceptVisible)
         } else if (e.dataKey === "accept") {
             setAcceptVisible(!acceptVisible)
-        } else if (e.dataKey === "avgCall") {
+        } else if (e.dataKey === "avgCalls") {
             setAvgCallVisible(!avgCallVisible)
         } else if (e.dataKey === "maxSimultaneousCall") {
             setMaxSimultaneousCallVisible(!maxSimultaneousCallVisible)
-        } else if (e.dataKey === "opInSys") {
+        } else if (e.dataKey === "oplnSys") {
             setOpInSysVisible(!opInSysVisible)
         }
     }
@@ -47,8 +50,8 @@ const Histogram: React.FC<HistogramPropsType> = ({data}) => {
         const { x, y, value } = props;
         return (
             <g>
-                <text x={x} y={y} dy={-5} fill={"gray"} fontSize={12} textAnchor="middle   "
-                      style={{textShadow: "white 0px -1px 3px"}}>
+                <text x={x} y={y} dy={-5} fill={"gray"} fontSize={12} textAnchor="middle  "
+                      style={{textShadow: "white 0px -1px 3px", color: "#000000"}}>
                     {value}
                 </text>
             </g>
@@ -70,7 +73,7 @@ const Histogram: React.FC<HistogramPropsType> = ({data}) => {
                 <CartesianGrid stroke="#a6a2a2" vertical={false}/>
                 <XAxis dataKey="name"/>
                 <YAxis yAxisId="1"
-                       domain={[0, 1000]}
+                       domain={[0, Math.floor(callYAxisDomain * scale * 1.25)]}
                        label={{value: 'Кол-во звонков', angle: -90, position: 'insideLeft'}}
                        tickCount={10}
                 />
@@ -134,7 +137,7 @@ const Histogram: React.FC<HistogramPropsType> = ({data}) => {
                     <LabelList dataKey="notAccept" position="center" fill="#ffffff" style={{fontSize: "12px"}}/>
                 </Bar>
                 <Line type="monotone"
-                      dataKey="avgCall"
+                      dataKey="avgCalls"
                       hide={!avgCallVisible}
                       stroke="#381274"
                       fill="#000000"
@@ -159,7 +162,7 @@ const Histogram: React.FC<HistogramPropsType> = ({data}) => {
                       animationEasing={"ease"}
                 />
                 <Line type="monotone"
-                      dataKey="opInSys"
+                      dataKey="oplnSys"
                       hide={!opInSysVisible}
                       stroke="#289a9c"
                       fill="#289a9c"
