@@ -317,7 +317,6 @@ const QueueReport = () => {
                     <div className={s.pieContainer}>
                         <span>Кол-во принятых звонков по очередям</span>
                         <QueueReportPie/>
-                        <ErrorWindow errorMessage={"asdfgsdfgsdfg"}/>
                     </div>
                     <div className={s.histogramContainer}>
                         <span>Все очереди</span>

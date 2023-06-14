@@ -30,7 +30,7 @@ type InitState = {
     status: StatusType,
     errorMessage: string,
 }
-const initialState:InitState = {
+const initialState: InitState = {
     data: [
         {
             name: '00:00',
@@ -278,25 +278,25 @@ export const realTimeHistogramReducer = (state = initialState, action: ActionDat
         }
     }
 }
-const setRealTimeHistogramData = (data: RealTimeHistogramDataType[])  => {
+const setRealTimeHistogramData = (data: RealTimeHistogramDataType[]) => {
     return {
         type: SET_REAL_TIME_HISTOGRAM_DATA,
         data
     } as const
 };
-const setStatus = (status:StatusType) => {
+const setStatus = (status: StatusType) => {
     return {
         type: SET_REAL_TIME_HISTOGRAM_STATUS,
         status
     } as const
 }
-const setError = (errorMessage:string) => {
+const setError = (errorMessage: string) => {
     return {
         type: SET_REAL_TIME_HISTOGRAM_ERROR,
         errorMessage
     } as const
 }
-export const fetchRealTimeHistogramData =  ():DataThunkAction => async(dispatch)  => {
+export const fetchRealTimeHistogramData = (): DataThunkAction => async (dispatch) => {
     try {
         dispatch(setStatus("loading"))
         const data = await monitoringCCPastAPI.getRealTimeHistogramData()

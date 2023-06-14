@@ -205,7 +205,11 @@ const Table = ({...props}) => {
                                     return (
                                         <td className={`${s.cellContainer} ${fillCellCall(cell.value)} ${fillCellQueue({...cell.getCellProps()}.key, cell.value)} ${fillCellOperatorsGeneral({...cell.getCellProps()}.key, cell.value)}`}
                                             {...cell.getCellProps()}>
-                                            {({...cell.getCellProps()}.key).indexOf("ratingRecordId") > 0
+                                            {({...cell.getCellProps()}.key).indexOf("ratingToday") > 0
+                                                ? cell.value <= 10 ? <Like className={s.likeIcon}/> :
+                                                    <InfoIcon className={s.infoIcon}/>
+                                                : ""}
+                                            {({...cell.getCellProps()}.key).indexOf("ratingMonth") > 0
                                                 ? cell.value <= 10 ? <Like className={s.likeIcon}/> :
                                                     <InfoIcon className={s.infoIcon}/>
                                                 : ""}

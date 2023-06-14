@@ -1,6 +1,6 @@
 .homeAccordionContainer {
   width: 100%;
-  min-height: 4vh;
+  min-height: 30px;
   border-top: 2px solid #e8e7e7;
 
   .homeAccordionTitle {
@@ -28,7 +28,7 @@
     }
 
     .accordionItemTitle {
-      font-size: 1vw;
+      font-size: .8vw;
       width: 15vw;
       padding: 5px;
       border-right: 1px solid #c7c6c6;
@@ -37,6 +37,7 @@
     .accordionItemBody {
       width: 45vw;
       padding: 5px;
+      font-size: .8vw;
       border-bottom: 1px solid #c7c6c6;
     }
   }

@@ -12,12 +12,11 @@ import {
     YAxis,
 } from 'recharts';
 import './Histogram.scss'
-import {useScale} from "../../hooks/useScale";
 
 
 type HistogramPropsType = {
     data: any
-    callYAxisDomain: number
+    callYAxisDomain?: number
 }
 
 const Histogram: React.FC<HistogramPropsType> = ({data, callYAxisDomain}) => {
@@ -28,7 +27,7 @@ const Histogram: React.FC<HistogramPropsType> = ({data, callYAxisDomain}) => {
     const [maxSimultaneousCallVisible, setMaxSimultaneousCallVisible] = useState<boolean>(true)
     const [opInSysVisible, setOpInSysVisible] = useState<boolean>(true)
     const [opActivity, setOpActivity] = useState<boolean>(false)
-    const scale = useScale()
+
 
     const onVisibleLegendHandle = (e: any) => {
         if (e.dataKey === "opActivity") {
@@ -50,8 +49,8 @@ const Histogram: React.FC<HistogramPropsType> = ({data, callYAxisDomain}) => {
         const { x, y, value } = props;
         return (
             <g>
-                <text x={x} y={y} dy={-5} fill={"gray"} fontSize={12} textAnchor="middle  "
-                      style={{textShadow: "white 0px -1px 3px", color: "#000000"}}>
+                <text x={x} y={y} dy={-5} fill={"gray"} fontSize={12} textAnchor="middle   "
+                      style={{textShadow: "white 0px -1px 3px"}}>
                     {value}
                 </text>
             </g>
@@ -73,7 +72,7 @@ const Histogram: React.FC<HistogramPropsType> = ({data, callYAxisDomain}) => {
                 <CartesianGrid stroke="#a6a2a2" vertical={false}/>
                 <XAxis dataKey="name"/>
                 <YAxis yAxisId="1"
-                       domain={[0, Math.floor(callYAxisDomain * scale * 1.25)]}
+                       domain={[0, 1000]}
                        label={{value: 'Кол-во звонков', angle: -90, position: 'insideLeft'}}
                        tickCount={10}
                 />

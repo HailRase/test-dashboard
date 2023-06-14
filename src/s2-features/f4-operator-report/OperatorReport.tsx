@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from "./OperatorReport.module.scss";
 import {Sidebar} from "../../common/components/Sidebar/Sidebar";
 import Table from "../../common/components/Table/Table";
@@ -12,91 +12,89 @@ import {Form} from "react-bootstrap";
 import TabButton from "../../common/components/TabButton/TabButton";
 import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
-import {fetchData} from "../../s1-main/m2-bll/data-reducer";
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../s1-main/m2-bll/store";
-import {oktellAPI} from "../../s1-main/m3-dal/oktell/oktell";
 import {useScale} from "../../common/hooks/useScale";
-
-
+import {fetchOperatorReportData} from "../../s1-main/m2-bll/b7-operator-report-reducer/operatorReport-reducer";
+import moment from "moment";
 
 
 const OperatorReport = () => {
-
+    const operatorReportData = useAppSelector(state => state.operatorReportData.data)
+    const status = useAppSelector(state => state.operatorReportData.status)
+    const error = useAppSelector(state => state.operatorReportData.errorMessage)
     const scale = useScale()
     const columns = [
         {
             Header: 'Дата',
             accessor: 'date',
             Footer: <>Total:</>,
-            width: 200/scale
+            width: 200 / scale
         },
         {
             Header: 'Оператор',
             accessor: 'operator',
             Footer: <></>,
-            width: 350/scale
+            width: 350 / scale
         },
         {
             Header: 'Статус',
             accessor: 'status',
             Footer: <></>,
-            width: 300/scale
+            width: 300 / scale
         },
         {
             Header: 'Длительность',
             accessor: 'duration',
             Footer: (info: any) => useCalcTimeTotal(info, 'duration'),
-            width: 200/scale
+            width: 200 / scale
         },
         {
             Header: 'Причина',
             accessor: 'reason',
             Footer: <></>,
-            width: 350/scale
+            width: 350 / scale
         },
         {
             Header: 'Комментарий',
             accessor: 'comment',
             Footer: <></>,
-            width: 500/scale
+            width: 500 / scale
         }
     ]
-    const operatorReportData = useAppSelector(state => state.operatorReportData.data)
-    const [state, setState] = useState(operatorReportData)
-    const dispatch = useDispatch()
-    const [statusFilter, setStatusFilter] = useState('');
-    const [durationFilter, setDurationFilter] = useState('');
-    const [operatorFilter, setOperatorFilter] = useState('');
-    const [reasonFilter, setReasonFilter] = useState('');
-    const [commentFilter, setCommentFilter] = useState('');
+
+    const dispatch = useDispatch<any>()
+    const [dateStart, setDateStart] = useState(moment().format("YYYY-MM-DD"))
+    const [timeStart, setTimeStart] = useState("00:00")
+    const [dateEnd, setDateEnd] = useState(moment(moment()).add(1, 'day').format('YYYY-MM-DD'))
+    const [timeEnd, setTimeEnd] = useState("00:00")
+    const [statusFilter, setStatusFilter] = useState('all');
+    const [durationFilter, setDurationFilter] = useState(0);
+    const [operatorFilter, setOperatorFilter] = useState('all');
+    const [reasonFilter, setReasonFilter] = useState('all');
+    const [commentFilter, setCommentFilter] = useState('all');
 
     const [isActiveSideBar, setIsActiveSideBar] = useState<boolean>(false)
     const navigate = useNavigate()
     const isAuth = useIsAuth()
 
-    useEffect(() => {
-        // @ts-ignore
-        dispatch(fetchData())
-    },[])
 
     useEffect(() => {
         if (!isAuth) navigate('/')
-    },[])
-
-
-    const onChangeSelectStatus = (value: ChangeEvent<HTMLSelectElement>) => {
-            setStatusFilter(value.target.value)
-    }
-    const onChangeInputOperator = (value: ChangeEvent<HTMLInputElement>) => {
-            setOperatorFilter(value.target.value)
-    }
-    const onChangeInputReason = (value: ChangeEvent<HTMLInputElement>) => {
-            setReasonFilter(value.target.value)
-    }
-    const onChangeInputComment = (value: ChangeEvent<HTMLInputElement>) => {
-            setCommentFilter(value.target.value)
-    }
+    }, [])
+    useEffect(() => {
+        dispatch(fetchOperatorReportData(
+            dateStart,
+            timeStart,
+            dateEnd,
+            timeEnd,
+            statusFilter,
+            durationFilter,
+            operatorFilter,
+            reasonFilter,
+            commentFilter
+        ))
+    }, []);
 
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)
@@ -109,17 +107,20 @@ const OperatorReport = () => {
     }
 
 
-    const onFetchDataHandler =  async () => {
-        // @ts-ignore
-        console.log(await oktellAPI.getOperatorReportGeneralData())
+    const onFetchDataHandler = () => {
+        dispatch(fetchOperatorReportData(
+            dateStart,
+            timeStart,
+            dateEnd,
+            timeEnd,
+            statusFilter,
+            durationFilter,
+            operatorFilter,
+            reasonFilter,
+            commentFilter
+        ))
     }
 
-    const filteredData = state.filter((item) =>
-        item.status.includes(statusFilter) &&
-        item.operator.includes(operatorFilter) &&
-        item.reason.includes(reasonFilter) &&
-        item.comment.includes(commentFilter)
-    );
     return (
         <div className={s.operatorReportWrapper}>
             <Sidebar isActive={isActiveSideBar}>
@@ -129,50 +130,76 @@ const OperatorReport = () => {
                         <span>Параметры отбора</span>
                     </div>
                     <div className={s.optionContent}>
-                        <CustomTabs param={true}>
+                        <CustomTabs param={true} disabledPeriod>
+                            <Form.Group
+                                style={{display: "flex", justifyContent: "flex-start", flexDirection: "column"}}>
+                                <Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label>
+                                <Form.Control value={dateStart} onChange={(e: any) => setDateStart(e.target.value)} type="date"/>
+                                <Form.Control value={timeStart} onChange={(e: any) => setTimeStart(e.target.value)} type="time"/>
+
+                            </Form.Group>
+                            <Form.Group
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "flex-start",
+                                    flexDirection: "column",
+                                    marginBottom: "20px"
+                                }}
+                            >
+                                <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
+                                <Form.Control value={dateEnd} onChange={(e: any) => setDateEnd(e.target.value)} type="date"/>
+                                <Form.Control value={timeStart} onChange={(e: any) => setTimeEnd(e.target.value)} type="time"/>
+                            </Form.Group>
                             <Form.Group
                                 style={{display: "flex", justifyContent: "space-between", marginBottom: "10px"}}>
                                 <Form.Label style={{color: "white"}}>Статус: </Form.Label>
                                 <Form.Select
                                     value={statusFilter}
-                                    onChange={onChangeSelectStatus}
+                                    onChange={(e: any) => setStatusFilter(e)}
                                     style={{width: "75%"}}>
 
-                                    <option value="">&lt;Все&gt;</option>
-                                    <option value="Не готов">Не готов</option>
-                                    <option value="Занят">Занят</option>
-                                    <option value="Входящий дозвон">Входящий дозвон</option>
-                                    <option value="Не залогинен в систему">Не залогинен в систему</option>
+                                    <option value="all">&lt;Все&gt;</option>
+                                    <option value="Предварительная обработка">Предварительная обработка</option>
+                                    <option value="Ожидание ответа абонента">Ожидание ответа абонента</option>
+                                    <option value="Обратный вызов">Обратный вызов</option>
+                                    <option value="Разговор с абонентом">Разговор с абонентом</option>
+                                    <option value="Разговор между операторами">Разговор между операторами</option>
+                                    <option value="Разговор по задаче">Разговор по задаче</option>
+                                    <option value="Поствызывная обработка">Поствызывная обработка</option>
+                                    <option value="Прочие разговоры">Прочие разговоры</option>
+                                    <option value="Перерыв">Перерыв</option>
                                     <option value="Готов">Готов</option>
-                                    <option value="Говорит">Говорит</option>
-                                    <option value="Исходящий дозвон">Исходящий дозвон</option>
-                                    <option value="Занят">Занят</option>
                                 </Form.Select>
                             </Form.Group>
+
                             <Form.Group style={{display: "flex", justifyContent: "space-between"}}>
                                 <Form.Label style={{width: "20px", color: "white"}}>Длитель
                                     ность:      &gt;=</Form.Label>
-                                <Form.Control style={{width: "75%   ", height: "40px"}} type="text" placeholder="0"/>
+                                <Form.Control value={durationFilter} onChange={(e: any) => setDurationFilter(e.target.value)}
+                                              style={{width: "75%   ", height: "40px"}} type="text" placeholder="0"/>
                             </Form.Group>
+
                             <Form.Group style={{marginBottom: "10px"}}>
                                 <Form.Control value={operatorFilter}
-                                              onChange={onChangeInputOperator}
+                                              onChange={(e: any) => setOperatorFilter(e.target.value)}
                                               type="text"
                                               placeholder="Введите оператора"/>
                             </Form.Group>
+
                             <Form.Group style={{marginBottom: "10px"}}>
                                 <Form.Control value={reasonFilter}
-                                              onChange={onChangeInputReason}
+                                              onChange={(e: any) => setReasonFilter(e.target.value)}
                                               type="text"
                                               placeholder="Введите причину"/>
                             </Form.Group>
+
                             <Form.Group style={{marginBottom: "10px"}}>
                                 <Form.Control value={commentFilter}
-                                              onChange={onChangeInputComment}
+                                              onChange={(e: any) => setCommentFilter(e.target.value)}
                                               type="text"
                                               placeholder="Введите комментарий"/>
                             </Form.Group>
-                            {/*//@ts-ignore*/}
+
                             <TabButton name={"Обновить"} onClick={onFetchDataHandler}/>
                         </CustomTabs>
                     </div>
@@ -184,7 +211,7 @@ const OperatorReport = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Статистика по операторам</span>
                 </div>
-                <Table data={filteredData} columns={columns} pagination={true} width={"100vw"} footer/>
+                <Table data={operatorReportData} columns={columns} pagination={true} width={"100vw"} footer/>
             </div>
         </div>
     );

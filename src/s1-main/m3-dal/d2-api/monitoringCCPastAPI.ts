@@ -15,5 +15,8 @@ export const monitoringCCPastAPI = {
     },
     getMontRealTimeInnerPieData(){
         return instance.get('dashboard1_month_all')
+    },
+    getRealTimeTableData(){
+        return instance.get('dashboard1_table')
     }
 }

@@ -23,18 +23,22 @@ import {
 } from "../../../s1-main/m2-bll/b2-monitoring-real-time-reducer/realTimeMonthPie-reducer";
 import ErrorWindow from "../../../common/components/ErrorWindow/ErrorWindow";
 import {findMaxAcceptAndNotAcceptSum} from "../../../common/utils/findMaxAcceptAndNotAcceptSum";
+import {fetchRealTimeTableData} from "../../../s1-main/m2-bll/b2-monitoring-real-time-reducer/realTimeTable-reducer";
 
 
 const MonitoringCCRealTime = () => {
     const realTimeHistogramData = useAppSelector(state => state.realTimeHistogramData.data)
+    const realTimeTableData = useAppSelector(state => state.realTimeTableData.data)
     const realTimeTodayOuterPieData = useAppSelector(state => state.realTimeTodayPieData.data)
     const realTimeTodayInnerPieData = useAppSelector(state => state.realTimeTodayPieData.totalData)
     const realTimeMonthOuterPieData = useAppSelector(state => state.realTimeMonthPieData.data)
     const realTimeMonthInnerPieData = useAppSelector(state => state.realTimeMonthPieData.totalData)
     const histogramStatus = useAppSelector(state => state.realTimeHistogramData.status)
+    const tableStatus = useAppSelector(state => state.realTimeTableData.status)
     const todayPieStatus = useAppSelector(state => state.realTimeTodayPieData.status)
     const monthPieStatus = useAppSelector(state => state.realTimeMonthPieData.status)
     const histogramError = useAppSelector(state => state.realTimeHistogramData.errorMessage)
+    const tableError = useAppSelector(state => state.realTimeTableData.errorMessage)
     const todayPieError = useAppSelector(state => state.realTimeTodayPieData.errorMessage)
     const monthPieError = useAppSelector(state => state.realTimeMonthPieData.errorMessage)
     const [realTimeHistogramStateData, setRealTimeHistogramStateData] = useState(realTimeHistogramData)
@@ -50,10 +54,12 @@ const MonitoringCCRealTime = () => {
         dispatch(fetchRealTimeHistogramData())
         dispatch(fetchRealTimeTodayPieData())
         dispatch(fetchRealMonthTodayPieData())
+        dispatch(fetchRealTimeTableData())
         const intervalId = setInterval(() => {
             dispatch(fetchRealTimeHistogramData())
             dispatch(fetchRealTimeTodayPieData())
             dispatch(fetchRealMonthTodayPieData())
+            dispatch(fetchRealTimeTableData())
         }, 20 * 60 * 1000);
 
         return () => clearInterval(intervalId);
@@ -69,12 +75,12 @@ const MonitoringCCRealTime = () => {
     const columns = [
         {
             Header: '№ за сегодня',
-            accessor: 'ratingRecordId',
+            accessor: 'ratingToday',
             width: 60
         },
         {
             Header: '№ за месяц',
-            accessor: 'ratingRecordIdMonth',
+            accessor: 'ratingMonth',
             width: 60
         },
         {
@@ -99,7 +105,7 @@ const MonitoringCCRealTime = () => {
         },
         {
             Header: 'Среднее время разговора',
-            accessor: 'avgServiceTime',
+            accessor: 'avgServiseTime',
             width: 85
         },
         {
@@ -109,7 +115,7 @@ const MonitoringCCRealTime = () => {
         },
         {
             Header: 'Рейтинг за месяц',
-            accessor: 'ratingMonth',
+            accessor: 'monthRating',
             width: 85
         },
         {
@@ -123,7 +129,6 @@ const MonitoringCCRealTime = () => {
             width: 120
         }
     ]
-
     const renderComponent = (component: ReactComponentElement <any>, status: StatusType, error: string) => {
         if (status === "loaded"){
             return component
@@ -157,7 +162,11 @@ const MonitoringCCRealTime = () => {
                     <div className={s.tableContainer}>
                         <span>Рейтинг операторов</span>
                         <div className={s.table}>
-                            <Table columns={columns} data={operatorsRatingData} height={"36vh"}/>
+                            {renderComponent(
+                                <Table columns={columns} data={realTimeTableData} height={"36vh"}/>,
+                                tableStatus,
+                                tableError
+                            )}
                         </div>
                     </div>
                     <div className={s.callMonthPie}>

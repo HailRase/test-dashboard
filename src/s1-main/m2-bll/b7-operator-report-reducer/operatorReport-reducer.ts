@@ -1,33 +1,37 @@
-import {StoreType} from "./store";
 import {ThunkAction} from "redux-thunk";
+import {StoreType} from "../store";
+import {operatorReportAPI} from "../../m3-dal/d2-api/operatorReportAPI";
 
 const SET_OPERATOR_REPORT_DATA = "SET_OPERATOR_REPORT_DATA";
-const SET_STATUS = "SET_STATUS"
+const SET_OPERATOR_REPORT_STATUS = "SET_OPERATOR_REPORT_STATUS"
+const SET_OPERATOR_REPORT_ERROR = "SET_OPERATOR_REPORT_ERROR"
+
+
+
+
 
 type DataThunkAction = ThunkAction<void,
     StoreType,
     void,
     ActionDataType>;
-
-
-type ActionDataType = ReturnType<typeof setOperatorReportData> | ReturnType<typeof setStatus>
-
+type ActionDataType = ReturnType<typeof setOperatorReportData> | ReturnType<typeof setOperatorReportStatus>
+    | ReturnType<typeof setError>
 type OperatorReportDataType = {
     id: number
     date: string
     operator: string
-    status: "Готов" | "Входящий дозвон" | "Говорит" | "Занят" | "Не готов" | "Исходящий дозвон"
-        | "Не залогинен в систему"
+    status: string
     duration: string
     reason: string
     comment: string
 }
-type StatusType = "init" | "loading" | "loaded"
-type InitialStateType = {
-    data: OperatorReportDataType[]
-    status: StatusType
+export type StatusType = "init" | "loading" | "loaded" | "error"
+type InitState = {
+    data: OperatorReportDataType[],
+    status: StatusType,
+    errorMessage: string,
 }
-const initialState:InitialStateType = {
+const initialState: InitState = {
     data: [
         {
             id: 1,
@@ -51,7 +55,7 @@ const initialState:InitialStateType = {
             id: 3,
             date: "04.03.23 00:00:57",
             operator: "Маханькова Мария Викторовна",
-            status: "Занят",
+            status: "Разговор с абонентом",
             duration: "0:00:02",
             reason: "Проблема со связью",
             comment: ""
@@ -60,7 +64,7 @@ const initialState:InitialStateType = {
             id: 4,
             date: "04.03.23 00:00:57",
             operator: "Маханькова Мария Викторовна",
-            status: "Занят",
+            status: "Разговор с абонентом",
             duration: "0:00:02",
             reason: "",
             comment: ""
@@ -69,7 +73,7 @@ const initialState:InitialStateType = {
             id: 5,
             date: "04.03.23 00:00:57",
             operator: "Маханькова Мария Викторовна",
-            status: "Входящий дозвон",
+            status: "Разговор с абонентом",
             duration: "0:00:02",
             reason: "",
             comment: ""
@@ -78,7 +82,7 @@ const initialState:InitialStateType = {
             id: 6,
             date: "04.03.23 00:00:57",
             operator: "Маханькова Мария Викторовна",
-            status: "Говорит",
+            status: "Разговор с абонентом",
             duration: "0:00:02",
             reason: "",
             comment: ""
@@ -87,7 +91,7 @@ const initialState:InitialStateType = {
             id: 7,
             date: "04.03.23 00:00:57",
             operator: "Маханькова Мария Викторовна",
-            status: "Говорит",
+            status: "Разговор с абонентом",
             duration: "0:00:02",
             reason: "",
             comment: ""
@@ -114,7 +118,7 @@ const initialState:InitialStateType = {
             id: 10,
             date: "04.03.23 00:00:57",
             operator: "Маханькова Мария Викторовна",
-            status: "Занят",
+            status: "Разговор с абонентом",
             duration: "0:00:02",
             reason: "",
             comment: ""
@@ -132,7 +136,7 @@ const initialState:InitialStateType = {
             id: 12,
             date: "04.03.23 00:00:57",
             operator: "Маханькова Мария Викторовна",
-            status: "Входящий дозвон",
+            status: "Разговор с абонентом",
             duration: "0:00:02",
             reason: "",
             comment: ""
@@ -337,34 +341,82 @@ const initialState:InitialStateType = {
         }
 
     ],
-    status: "init"
+    status: 'init',
+    errorMessage: ''
 }
-export const operatorReportReducer = (state: InitialStateType = initialState, action: ActionDataType) => {
+
+export const operatorReportReducer = (state = initialState, action: ActionDataType) => {
     switch (action.type) {
-        case SET_OPERATOR_REPORT_DATA:
+        case SET_OPERATOR_REPORT_DATA: {
             return {
                 ...state,
                 data: action.data
             }
-        case SET_STATUS:
+        }
+        case SET_OPERATOR_REPORT_STATUS: {
             return {
                 ...state,
                 status: action.status
             }
-        default:
+        }
+        case SET_OPERATOR_REPORT_ERROR: {
+            return {
+                ...state,
+                errorMessage: action.errorMessage
+            }
+        }
+        default: {
             return state
+        }
     }
 }
-
-export const setOperatorReportData = (data: OperatorReportDataType[]) => {
+const setOperatorReportData = (data: OperatorReportDataType[]) => {
     return {
         type: SET_OPERATOR_REPORT_DATA,
         data
-    } as const;
+    } as const
 };
-export const setStatus = (status: StatusType) => {
+const setOperatorReportStatus = (status: StatusType) => {
     return {
-        type: SET_STATUS,
+        type: SET_OPERATOR_REPORT_STATUS,
         status
     } as const
+}
+const setError = (errorMessage: string) => {
+    return {
+        type: SET_OPERATOR_REPORT_ERROR,
+        errorMessage
+    } as const
+}
+export const fetchOperatorReportData = (
+    dateStart: string,
+    timeStart: string,
+    dateEnd: string,
+    timeEnd: string,
+    status: string,
+    duration: number,
+    operatorName: string,
+    reason: string,
+    comment: string
+): DataThunkAction => async (dispatch) => {
+    try {
+        dispatch(setOperatorReportStatus("loading"))
+        const data = await operatorReportAPI.getOperatorReportData(
+            dateStart,
+            timeStart,
+            dateEnd,
+            timeEnd,
+            status,
+            duration,
+            operatorName,
+            reason,
+            comment
+        )
+        dispatch(setOperatorReportData(data.data))
+        dispatch(setOperatorReportStatus("loaded"))
+    } catch (e: any) {
+        dispatch(setOperatorReportStatus("error"))
+        dispatch(setError(e.message))
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!Ошибка:' + e.message)
+    }
 }

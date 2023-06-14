@@ -15,6 +15,7 @@ import {operatorsRatingData} from "../../../data/operatorsData";
 import useIsAuth from "../../../common/hooks/useIsAuth";
 import {useDispatch} from "react-redux";
 import {useScale} from "../../../common/hooks/useScale";
+import {findMaxAcceptAndNotAcceptSum} from "../../../common/utils/findMaxAcceptAndNotAcceptSum";
 
 
 const MonitoringCCPast = () => {
@@ -77,6 +78,8 @@ const MonitoringCCPast = () => {
         }
     ]
 
+    const domainYAxisCalls = findMaxAcceptAndNotAcceptSum(monitoringPastData)
+
     return (
         <div className={s.monitoringCCWrapper}>
             <Sidebar isActive={isActive}>
@@ -107,7 +110,7 @@ const MonitoringCCPast = () => {
                     </div>
                 </div>
                 <div className={s.histogram}>
-                    <Histogram data={monitoringPastData} callYAxisDomain={1000}/>
+                    <Histogram data={monitoringPastData} callYAxisDomain={domainYAxisCalls}/>
                 </div>
             </div>
         </div>

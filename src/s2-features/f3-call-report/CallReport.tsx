@@ -13,6 +13,7 @@ import TabButton from "../../common/components/TabButton/TabButton";
 import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
 import {useAppSelector} from "../../s1-main/m2-bll/store";
+import {sortServiceLevelRatings} from "../../common/utils/sortServiceLevelRatings";
 
 
 const columns = [
@@ -148,6 +149,7 @@ const CallReport = () => {
 
     const callReportData = useAppSelector(state => state.callReportData.data)
     const [state, seState] = useState(callReportData)
+    const tableData = useAppSelector(state => state.realTimeTableData.data)
 
     const [statusFilter, setStatusFilter] = useState('');
     const [directionFilter, setDirectionFilter] = useState('');
@@ -169,8 +171,7 @@ const CallReport = () => {
     useEffect(() => {
         if (!isAuth) navigate('/')
     },[])
-
-
+    console.log(sortServiceLevelRatings(tableData))
     const onChangeSelectType = (value: ChangeEvent<HTMLSelectElement>) => {
         if (value) {
             setTypeFilter(value.target.value)
