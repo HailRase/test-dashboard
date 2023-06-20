@@ -19,12 +19,14 @@ import {useDispatch} from "react-redux";
 import Loader from "../../common/components/Loader/Loader";
 import {fetchOperatorReportGeneralData} from "../../s1-main/m2-bll/operatorReportGeneral-reducer";
 import moment from "moment/moment";
+import ErrorWindow from "../../common/components/ErrorWindow/ErrorWindow";
 
 
 const OperatorsReportGeneral = () => {
     const scale = useScale()
     const operatorReportGeneralData = useAppSelector(state => state.operatorReportGeneralData.data)
     const status = useAppSelector(state => state.operatorReportGeneralData.status)
+    const error = useAppSelector(state => state.operatorReportGeneralData.errorMessage)
     const [isActive, setIsActive] = useState<boolean>(false)
     const [dateStart, setDateStart] = useState(moment().format("YYYY-MM-DD"))
     const [timeStart, setTimeStart] = useState("00:00")
@@ -208,17 +210,18 @@ const OperatorsReportGeneral = () => {
         dispatch(fetchOperatorReportGeneralData(dateStart, timeStart, dateEnd, timeEnd,selectedDepartment))
     }
 
-
     const renderContent = () => {
         if (status === "loaded" || status === "init") {
             return <Table data={data} defaultColumn={defaultColumnsSize} columns={columns} pagination={true}
                           width={"100vw"} footer/>
         } else if (status === "loading") {
-            return <div className={s.loaderContainer}>
+            return <div className={s.centringLoader}>
                 <Loader width={280} height={18}/>
             </div>
         } else if (status === "error") {
-            return <div></div>
+            return <div className={s.centringLoader}>
+                <ErrorWindow errorMessage={error}/>
+            </div>
         }
     }
     console.log(dateStart + " " + timeStart + " " + dateEnd + " " + timeEnd)

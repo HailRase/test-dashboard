@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ReactComponentElement, useEffect, useState} from 'react';
 import s from "./OperatorReport.module.scss";
 import {Sidebar} from "../../common/components/Sidebar/Sidebar";
 import Table from "../../common/components/Table/Table";
@@ -17,6 +17,9 @@ import {useAppSelector} from "../../s1-main/m2-bll/store";
 import {useScale} from "../../common/hooks/useScale";
 import {fetchOperatorReportData} from "../../s1-main/m2-bll/b7-operator-report-reducer/operatorReport-reducer";
 import moment from "moment";
+import {StatusType} from "../../s1-main/m2-bll/b2-monitoring-real-time-reducer/realTimeTodayPie-reducer";
+import Loader from "../../common/components/Loader/Loader";
+import ErrorWindow from "../../common/components/ErrorWindow/ErrorWindow";
 
 
 const OperatorReport = () => {
@@ -106,7 +109,6 @@ const OperatorReport = () => {
         setIsActiveSideBar(false)
     }
 
-
     const onFetchDataHandler = () => {
         dispatch(fetchOperatorReportData(
             dateStart,
@@ -119,6 +121,20 @@ const OperatorReport = () => {
             reasonFilter,
             commentFilter
         ))
+    }
+
+    const renderComponent = (component: ReactComponentElement <any>, status: StatusType, error: string) => {
+        if (status === "loaded"){
+            return component
+        } else if (status === "loading"){
+            return <div className={s.centringLoader}>
+                <Loader width={280} height={18}/>
+            </div>
+        } else if (status === "error") {
+            return <div className={s.centringLoader}>
+                <ErrorWindow errorMessage={error}/>
+            </div>
+        }
     }
 
     return (
@@ -180,27 +196,27 @@ const OperatorReport = () => {
                             </Form.Group>
 
                             <Form.Group style={{marginBottom: "10px"}}>
-                                <Form.Control value={operatorFilter}
+                                <Form.Control value={operatorFilter === "all" ? "" : operatorFilter}
                                               onChange={(e: any) => setOperatorFilter(e.target.value)}
                                               type="text"
                                               placeholder="Введите оператора"/>
                             </Form.Group>
 
                             <Form.Group style={{marginBottom: "10px"}}>
-                                <Form.Control value={reasonFilter}
+                                <Form.Control value={reasonFilter  === "all" ? "" :reasonFilter}
                                               onChange={(e: any) => setReasonFilter(e.target.value)}
                                               type="text"
                                               placeholder="Введите причину"/>
                             </Form.Group>
 
                             <Form.Group style={{marginBottom: "10px"}}>
-                                <Form.Control value={commentFilter}
+                                <Form.Control value={commentFilter  === "all" ? "" :commentFilter}
                                               onChange={(e: any) => setCommentFilter(e.target.value)}
                                               type="text"
                                               placeholder="Введите комментарий"/>
                             </Form.Group>
 
-                            <TabButton name={"Обновить"} onClick={onFetchDataHandler}/>
+                            <TabButton name={"Обновить"} onClick={onFetchDataHandler} disabled={status === "loading"}/>
                         </CustomTabs>
                     </div>
                 </div>
@@ -211,7 +227,11 @@ const OperatorReport = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Статистика по операторам</span>
                 </div>
-                <Table data={operatorReportData} columns={columns} pagination={true} width={"100vw"} footer/>
+                {renderComponent(
+                    <Table data={operatorReportData} columns={columns} pagination={true} width={"100vw"} footer/>,
+                    status,
+                    error
+                )}
             </div>
         </div>
     );

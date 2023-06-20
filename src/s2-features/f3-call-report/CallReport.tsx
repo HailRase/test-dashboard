@@ -149,7 +149,6 @@ const CallReport = () => {
 
     const callReportData = useAppSelector(state => state.callReportData.data)
     const [state, seState] = useState(callReportData)
-    const tableData = useAppSelector(state => state.realTimeTableData.data)
 
     const [statusFilter, setStatusFilter] = useState('');
     const [directionFilter, setDirectionFilter] = useState('');
@@ -171,7 +170,6 @@ const CallReport = () => {
     useEffect(() => {
         if (!isAuth) navigate('/')
     },[])
-    console.log(sortServiceLevelRatings(tableData))
     const onChangeSelectType = (value: ChangeEvent<HTMLSelectElement>) => {
         if (value) {
             setTypeFilter(value.target.value)
@@ -300,9 +298,6 @@ const CallReport = () => {
                                 <option value="151 GSM">151 GSM</option>
                                 <option value="151 Other">151 Other</option>
                                 <option value="105 Other">105 Other</option>
-                                <option value="39-48-72">39-48-72</option>
-                                <option value="39-48-78">39-48-78</option>
-                                <option value="39-48-73">39-48-73</option>
                             </Form.Select>
                         </Form.Group>
                         <Form.Group style={{display: "flex", justifyContent: "space-between"}}>

@@ -17,7 +17,6 @@ import Accordion from "../../common/components/Accordion/Accordion";
 import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
-import ErrorWindow from "../../common/components/ErrorWindow/ErrorWindow";
 
 
 const QueueReport = () => {

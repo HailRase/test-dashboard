@@ -35,16 +35,18 @@ const QueueReportPie = () => {
 
 
         const endPoint = [
-            {x3: 430 / scale, y3:  90/ scale} /*1.Видеотерминалы*/,
-            {x3: 390 / scale, y3:  115/ scale} /*2.GSM*/,
-            {x3: 370 / scale, y3:  140/ scale} /*3.39-48-75*/,
-            {x3: 350 / scale, y3:  165/ scale} /*4.39-25-47*/,
-            {x3: 345 / scale, y3:  190/ scale} /*5.151 Other*/,
-            {x3: 345 / scale, y3:  215/ scale} /*6.151 GSM*/,
-            {x3: 345 / scale, y3:  240/ scale} /*7.151 Beltelecom*/,
-            {x3: 350 / scale, y3:  265/ scale} /*8.105 Other*/,
-            {x3: 395 / scale, y3:  320/ scale} /*9.105 GSM*/,
-            {x3: 620 / scale, y3:  165/ scale} /*10.105 Beltelecom*/
+            {x3: 430 / scale, y3:  90/ scale} /*1.105 GSM*/,
+            {x3: 390 / scale, y3:  115/ scale} /*2.105 Beltelecom*/,
+            {x3: 620 / scale, y3:  165/ scale} /*10.105 Other*/,
+            {x3: 620 / scale, y3:  165/ scale} /*10.151 GSM*/,
+            {x3: 370 / scale, y3:  140/ scale} /*3.151 Beltelecom*/,
+            {x3: 620 / scale, y3:  165/ scale} /*10.151 Other*/,
+            {x3: 345 / scale, y3:  240/ scale} /*7.GSM*/,
+            {x3: 350 / scale, y3:  165/ scale} /*4.Видеотерминалы*/,
+            {x3: 345 / scale, y3:  215/ scale} /*6.Проблемнеы и VIP*/,
+            {x3: 345 / scale, y3:  190/ scale} /*5.39-25-47*/,
+            {x3: 350 / scale, y3:  265/ scale} /*8.39-48-75*/,
+            {x3: 395 / scale, y3:  320/ scale} /*9.39-20-30*/,
         ]
         const paths = [
             `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[0].x3} ${endPoint[0].y3}`,

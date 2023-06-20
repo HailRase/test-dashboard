@@ -101,6 +101,7 @@ const MonitoringCCRealTime = () => {
         {
             Header: 'Уровень обслуживания',
             accessor: 'serviceLevel',
+            title: '',
             width: 120
         },
         {

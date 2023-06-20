@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useRef} from 'react'
 import {useBlockLayout, usePagination, useResizeColumns, useSortBy, useTable} from "react-table";
 import s from './Table.module.scss'
 import {ReactComponent as InfoIcon} from "../../../assets/info-icon.svg";
@@ -9,6 +9,7 @@ import {DownloadTableExcel} from 'react-export-table-to-excel';
 import Pagination from 'react-bootstrap/Pagination';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
+import {FormGroup} from "react-bootstrap";
 
 
 const Table = ({...props}) => {
@@ -35,7 +36,6 @@ const Table = ({...props}) => {
         footerGroups,
         prepareRow,
         setPageSize,
-        rows,
         page,
         canPreviousPage,
         canNextPage,
@@ -50,12 +50,8 @@ const Table = ({...props}) => {
             columns: tableColumns,
             data: tableData,
             defaultColumn: defaultColumnTable,
-            initialState: {pageIndex: 0, pageSize: 20},
+            initialState: {pageIndex: 0, pageSize: 30},
         }, useSortBy, usePagination, useBlockLayout, useResizeColumns)
-    const firstPageRows = rows.slice(0, 20)
-    useEffect(() => {
-        setPageSize(30)
-    }, [])
     const fillCellCall = (value) => {
         switch (value) {
             case 'Отвечен':
@@ -164,6 +160,27 @@ const Table = ({...props}) => {
     }
 
     const {pageIndex, pageSize = 20} = state
+
+    function getHeaderTitle(objKey, header) {
+        switch (objKey) {
+            case 'serviceLevel': {
+                return 'Принял/Пропустил'
+            }
+            case 'monthRating': {
+                return 'Принял за месяц/Пропустил за месяц'
+            }
+            case 'workload': {
+                return 'Время в разговоре / (Время в разговоре + Время в статусе свободен)'
+            }
+            case 'workloadMonth': {
+                return 'Время в разговоре за месяц / (Время в разговоре за месяц + Время в статусе свободен за месяц)'
+            }
+            default: {
+                return `Сортитровать по полю ${header}`
+            }
+        }
+    }
+
     return (
         <div className={s.callReportTableWrapper}>
             <div className={s.callReportTableContainer}
@@ -175,7 +192,9 @@ const Table = ({...props}) => {
                             {headerGroup.headers.map(column => (
                                 <th className={s.columnTh}
                                     {...column.getHeaderProps(column.getSortByToggleProps())}
+                                    title={getHeaderTitle(column.id, column.Header)}
                                 >
+
                                     <span>{column.render('Header')}</span>
                                     <div className={s.overlayContainer}>
                                         {column.isSorted
@@ -233,74 +252,48 @@ const Table = ({...props}) => {
                 </table>
             </div>
             {props.pagination && <div className={s.pagination}>
-                {/*<div>
-                    <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px", fontWeight: 500}}
-                            onClick={() => gotoPage(0)}
-                            disabled={!canPreviousPage}>
-                        {'<<'}
-                    </button>
-                    {' '}
-                    <button style={{background: "none", border: "none", fontSize: "18px", marginRight: "10px"}}
-                            onClick={() => previousPage()}
-                            disabled={!canPreviousPage}>
-                        {'<'}
-                    </button>
-                    {' '}
-                    <span style={{color: "black"}}>| Страница:{' '}</span>
-                    <input
-                        type="number"
-                        defaultValue={pageIndex + 1}
-                        onChange={e => {
-                            const page = e.target.value ? Number(e.target.value) - 1 : 0
-                            gotoPage(page)
-                        }}
-                        value={pageIndex + 1}
-                        style={{width: '100px', marginRight: "10px", marginLeft: "5px", padding: "2px 3px"}}
-                    />
-                    <span style={{marginRight: "10px"}}>из</span>
-                    {pageOptions.length + ' | '}
-                    <button style={{background: "none", border: "none", fontSize: "18px", marginLeft: "10px"}}
-                            onClick={() => nextPage()}
-                            disabled={!canNextPage}>
-                        {'>'}
-                    </button>
-                    {' '}
-                    <button style={{background: "none", border: "none", fontSize: "18px", marginLeft: "10px"}}
-                            onClick={() => gotoPage(pageCount - 1)}
-                            disabled={!canNextPage}>
-                        {'>>'}
-                    </button>
-                </div>*/}
-
-                    <Pagination size={"sm"} style={{height:"30px"}}>
-                        <Pagination.First onClick={() => gotoPage(0)}
-                                          disabled={!canPreviousPage}/>
-                        <Pagination.Prev onClick={() => previousPage()}
-                                         disabled={!canPreviousPage}/>
-                        <InputGroup className="mb-3" size={"sm"} style={{width: "190px"}}>
-                            <InputGroup.Text id="basic-addon1">Страница:</InputGroup.Text>
-                            <Form.Control
-                                defaultValue={pageIndex + 1}
-                                onChange={e => {
-                                    const page = e.target.value ? Number(e.target.value) - 1 : 0
-                                    gotoPage(page)
-                                }}
-                                value={pageIndex + 1}
-                                type={"number"}
-                                placeholder="№"
-                                aria-label="№"
-                                aria-describedby="basic-addon1"
-                            />
-                            <InputGroup.Text id="basic-addon1">{ 'из ' + pageOptions.length}</InputGroup.Text>
-                        </InputGroup>
-                        <Pagination.Next onClick={() => nextPage()}
-                                         disabled={!canNextPage}/>
-                        <Pagination.Last onClick={() => gotoPage(pageCount - 1)}
-                                         disabled={!canNextPage}/>
-                    </Pagination>
+                <Pagination size={"sm"} style={{height: "30px",marginTop: "5px"}}>
+                    <Pagination.First onClick={() => gotoPage(0)}
+                                      disabled={!canPreviousPage}/>
+                    <Pagination.Prev onClick={() => previousPage()}
+                                     disabled={!canPreviousPage}/>
+                    <InputGroup className="mb-3" size={"sm"} style={{width: "190px"}}>
+                        <InputGroup.Text id="basic-addon1">Страница:</InputGroup.Text>
+                        <Form.Control
+                            defaultValue={pageIndex + 1}
+                            onChange={e => {
+                                const page = e.target.value ? Number(e.target.value) - 1 : 0
+                                gotoPage(page)
+                            }}
+                            value={pageIndex + 1}
+                            type={"number"}
+                            placeholder="№"
+                            aria-label="№"
+                            aria-describedby="basic-addon1"
+                        />
+                        <InputGroup.Text id="basic-addon1">{'из ' + pageOptions.length}</InputGroup.Text>
+                    </InputGroup>
+                    <Pagination.Next onClick={() => nextPage()}
+                                     disabled={!canNextPage}/>
+                    <Pagination.Last onClick={() => gotoPage(pageCount - 1)}
+                                     disabled={!canNextPage}/>
+                </Pagination>
+                <FormGroup className={s.recordCount} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <Form.Label   style={{marginRight: "10px", display: "block", fontSize: "18px", marginTop: "5px"}}>Кол-во записей на странице: </Form.Label>
+                    <Form.Select onChange={(e) => setPageSize(e.currentTarget.value)} defaultValue={30} size="sm"
+                                 style={{width: "100px"}}>
+                        <option value={props.data.length}>MAX</option>
+                        <option value={1000}>1000</option>
+                        <option value={500}>500</option>
+                        <option value={300}>300</option>
+                        <option value={100}>100</option>
+                        <option value={50}>50</option>
+                        <option value={30}>30</option>
+                    </Form.Select>
+                </FormGroup>
                 <DownloadTableExcel
-                    filename="users table"
-                    sheet="users"
+                    filename="report"
+                    sheet="report"
                     currentTableRef={tableRef.current}
                 >
                     <ExcelIcon style={{cursor: "pointer", marginRight: "20px"}}
@@ -316,65 +309,3 @@ const Table = ({...props}) => {
 export default Table;
 
 
-/*<div className={s.callReportTableContainer}>
-            <div className={s.callReportTableHeaderContainer}>
-                <div className={s.date}>
-                    Дата
-                </div>
-                <div className={s.contactNumbers}>
-                    Контактные номера
-                </div>
-                <div className={s.basicInformation}>Основная информация</div>
-                <div className={s.time}>Время</div>
-                <div className={s.contactTD}>Контакты в тд</div>
-                <div className={s.dateItem}>
-                    <div className={s.start}>Начало</div>
-                    <div className={s.end}>Завершение</div>
-                </div>
-                <div className={s.contactNumbersItems}>
-                    <div className={s.iniciator}>Инициатор</div>
-                    <div className={s.resipient}>Получатель</div>
-                </div>
-                <div className={s.basicInformationItems}>
-                    <div className={s.direction}>Направление</div>
-                    <div className={s.status}>Статус</div>
-                    <div className={s.type}>Тип</div>
-                    <div className={s.queue}>Очередь</div>
-                </div>
-                <div className={s.timeItems}>
-                    <div className={s.totalTime}>Общее время</div>
-                    <div className={s.talkTime}>Время разговора</div>
-                    <div className={s.timeConnection}>Время соединения</div>
-                    <div className={s.holdTime}>Время на удержании</div>
-                    <div className={s.queueTime}>Время в очереди</div>
-                </div>
-                <div className={s.contactTDItems}>
-                    <div className={s.initiatorContact}>Контакт инициатора</div>
-                    <div className={s.recipientContact}>Контакт получателя</div>
-                    <div className={s.operator}>Оператор</div>
-                </div>
-            </div>
-            <div className={s.callReportTableContent}>
-                {callReportData.map((d: CallReportDataType) => <div className={s.callReportItem}>
-                    <div className={s.startItem}>{d.dateStart}</div>
-                    <div className={s.endItem}>{d.dateEnd}</div>
-                    <div className={s.iniciatorItem}>{d.initiator}</div>
-                    <div className={s.resipientItem}>{d.recipient}</div>
-                    <div className={s.directionItem}>{d.direction}</div>
-                    <div className={s.statusItem}>{d.status}</div>
-                    <div className={s.tipeItem}>{d.type}</div>
-                    <div className={s.queueItem}>{d.queue}</div>
-                    <div className={s.totalTimeItem}>{d.totalTime}</div>
-                    <div className={s.talkTimeItem}>{d.talkTime}</div>
-                    <div className={s.timeConnectionItem}>{d.connectionTime}</div>
-                    <div className={s.holdTimeItem}>{d.holdTime}</div>
-                    <div className={s.queueTimeItem}>{d.queueTime}</div>
-                    <div className={s.initiatorContactItem}>{d.initiatorContact}</div>
-                    <div className={s.recipientContactItem}>{d.recipientContact}</div>
-                    <div className={s.operatorItem}>{d.operator}</div>
-                </div>)}
-            </div>
-            <div className={s.callReportTableFooter}>
-
-            </div>
-        </div>*/

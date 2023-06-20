@@ -14,4 +14,6 @@
     opacity: 1;
   }
 }
-
+.disabled {
+  background: linear-gradient(0deg, rgba(39, 90, 140, 0.5) 0%, rgba(43, 102, 160, 0.5) 83%, rgba(44, 110, 171, 0.5) 94%, rgba(40, 109, 174, 0.5) 100%);
+}
