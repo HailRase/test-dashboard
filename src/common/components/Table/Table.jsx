@@ -252,7 +252,7 @@ const Table = ({...props}) => {
                 </table>
             </div>
             {props.pagination && <div className={s.pagination}>
-                <Pagination size={"sm"} style={{height: "30px",marginTop: "5px"}}>
+                <Pagination size={"sm"} style={{height: "30px", marginTop: "5px"}}>
                     <Pagination.First onClick={() => gotoPage(0)}
                                       disabled={!canPreviousPage}/>
                     <Pagination.Prev onClick={() => previousPage()}
@@ -278,28 +278,30 @@ const Table = ({...props}) => {
                     <Pagination.Last onClick={() => gotoPage(pageCount - 1)}
                                      disabled={!canNextPage}/>
                 </Pagination>
-                <FormGroup className={s.recordCount} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                    <Form.Label   style={{marginRight: "10px", display: "block", fontSize: "18px", marginTop: "5px"}}>Кол-во записей на странице: </Form.Label>
-                    <Form.Select onChange={(e) => setPageSize(e.currentTarget.value)} defaultValue={30} size="sm"
-                                 style={{width: "100px"}}>
-                        <option value={props.data.length}>MAX</option>
-                        <option value={1000}>1000</option>
-                        <option value={500}>500</option>
-                        <option value={300}>300</option>
-                        <option value={100}>100</option>
-                        <option value={50}>50</option>
-                        <option value={30}>30</option>
-                    </Form.Select>
-                </FormGroup>
-                <DownloadTableExcel
-                    filename="report"
-                    sheet="report"
-                    currentTableRef={tableRef.current}
-                >
-                    <ExcelIcon style={{cursor: "pointer", marginRight: "20px"}}
-                               width={30}
-                               height={30}/>
-                </DownloadTableExcel>
+                <div style={{display: "flex",alignItems: "center"}}>
+                    <FormGroup style={{display: "flex", justifyContent: "center", alignItems: "center", marginRight: "10px"}}>
+                        <Form.Label style={{marginRight: "10px", display: "block", fontSize: "18px", marginTop: "5px"}}>Кол-во
+                            записей на странице: </Form.Label>
+                        <Form.Select onChange={(e) => setPageSize(e.currentTarget.value)} defaultValue={30} size="sm"
+                                     style={{width: "100px"}}>
+                            <option value={props.data.length}>MAX</option>
+                            <option value={1000}>1000</option>
+                            <option value={500}>500</option>
+                            <option value={300}>300</option>
+                            <option value={100}>100</option>
+                            <option value={50}>50</option>
+                            <option value={30}>30</option>
+                        </Form.Select>
+                    </FormGroup>
+                    <DownloadTableExcel
+                        filename="report"
+                        sheet="report"
+                        currentTableRef={tableRef.current}
+                    >
+                        <ExcelIcon style={{cursor: "pointer", marginRight: "20px"}}
+                                   width={30}
+                                   height={30}/>
+                    </DownloadTableExcel></div>
             </div>}
         </div>
     )

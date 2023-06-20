@@ -1,11 +1,8 @@
 {
   "name": "greeting",
   "version": "0.1.0",
-  "homepage": "https://hailrase.github.io/greeting-oktell",
+  "homepage": ".",
   "private": true,
-  "browser": {
-    "fs": false
-  },
   "dependencies": {
 
     "@faker-js/faker": "^7.6.0",

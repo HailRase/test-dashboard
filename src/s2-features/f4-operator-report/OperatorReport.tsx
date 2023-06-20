@@ -171,7 +171,7 @@ const OperatorReport = () => {
                                 <Form.Label style={{color: "white"}}>Статус: </Form.Label>
                                 <Form.Select
                                     value={statusFilter}
-                                    onChange={(e: any) => setStatusFilter(e)}
+                                    onChange={(e) => setStatusFilter(e.target.value)}
                                     style={{width: "75%"}}>
 
                                     <option value="all">&lt;Все&gt;</option>

@@ -10,16 +10,18 @@ const QueueReportPie = () => {
         {name: 'Принято', value: 1491, fill: '#4bb253'},
     ];
     const data02 = [
-        {name: 'Видеотерминалы', value: 76/*totalCallReducer('Видеотерминалы')*/, fill: '#fdc6c8'},
-        {name: 'GSM', value: 1 /*totalCallReducer('GSM')*/, fill: '#4bb253'},
-        {name: '39-48-75', value: 4 /*totalCallReducer('39-48-75')*/, fill: '#008dfe'},
-        {name: '39-25-47', value: 4 /*totalCallReducer('39-25-47')*/, fill: '#ec977d'},
-        {name: '151 Other', value: 1 /*totalCallReducer('151 Other')*/, fill: '#a2bab1'},
-        {name: '151 GSM', value: 52/*totalCallReducer('151 GSM')*/, fill: '#76c5e7'},
-        {name: '151 Beltelecom', value: 10/*totalCallReducer('151 Beltelecom')*/, fill: '#392c70'},
-        {name: '105 Other', value: 7/*totalCallReducer('105 Other')*/, fill: '#ece296'},
-        {name: '105 GSM', value: 766 /*totalCallReducer('105 GSM')*/, fill: '#489f48'},
-        {name: '105 Beltelecom', value: 572/*totalCallReducer('105 Beltelecom')*/, fill: '#d34758'},
+        {name: '105 Beltelecom', value: 72, fill: '#d34758'},
+        {name: '105 GSM', value: 76, fill: '#fdc6c8'},
+        {name: '105 Other', value: 7, fill: '#fd9a4c'},
+        {name: '151 Beltelecom', value: 10, fill: '#bbadff'},
+        {name: '151 GSM', value: 52, fill: '#76c5e7'},
+        {name: '151 Other', value: 34, fill: '#a2bab1'},
+        {name: 'GSM', value: 1, fill: '#64e5d9'},
+        {name: 'Видеотерминалы', value: 48, fill: '#e8ec6d'},
+        {name: 'Проблемные и VIP', value: 166, fill: '#489f48'},
+        {name: '39-25-47', value: 18, fill: '#ff81db'},
+        {name: '39-48-75', value: 39, fill: '#008dfe'},
+        {name: '39-20-30', value: 21, fill: '#65d97e'},
     ];
 
     const renderQueueLabel = (props: any) => {
@@ -31,22 +33,22 @@ const QueueReportPie = () => {
         const y1 = cy + outerRadius * sin;
         const x2 = cx + (outerRadius + 10) * cos;
         const y2 = cy + (outerRadius + 10) * sin;
-        const textAnchor = index >= 9 ? 'start' : 'end';
+        const textAnchor = index >= 14 ? 'start' : 'end';
 
 
         const endPoint = [
-            {x3: 430 / scale, y3:  90/ scale} /*1.105 GSM*/,
-            {x3: 390 / scale, y3:  115/ scale} /*2.105 Beltelecom*/,
-            {x3: 620 / scale, y3:  165/ scale} /*10.105 Other*/,
-            {x3: 620 / scale, y3:  165/ scale} /*10.151 GSM*/,
-            {x3: 370 / scale, y3:  140/ scale} /*3.151 Beltelecom*/,
-            {x3: 620 / scale, y3:  165/ scale} /*10.151 Other*/,
-            {x3: 345 / scale, y3:  240/ scale} /*7.GSM*/,
-            {x3: 350 / scale, y3:  165/ scale} /*4.Видеотерминалы*/,
-            {x3: 345 / scale, y3:  215/ scale} /*6.Проблемнеы и VIP*/,
-            {x3: 345 / scale, y3:  190/ scale} /*5.39-25-47*/,
-            {x3: 350 / scale, y3:  265/ scale} /*8.39-48-75*/,
-            {x3: 395 / scale, y3:  320/ scale} /*9.39-20-30*/,
+            {x3: 450 / scale, y3:  80/ scale} /*1.105 Beltelecom*/,
+            {x3: 420 / scale, y3:  100/ scale} /*2.105 GSM*/,
+            {x3: 380 / scale, y3:  120/ scale} /*3.105 Other*/,
+            {x3: 360 / scale, y3:  140/ scale} /*4.151 Beltelecom*/,
+            {x3: 340 / scale, y3:  160/ scale} /*5.151 GSM*/,
+            {x3: 335 / scale, y3:  180/ scale} /*6.151 Other*/,
+            {x3: 335 / scale, y3:  200/ scale} /*7.GSM*/,
+            {x3: 335 / scale, y3:  220/ scale} /*8.Видеотерминалы*/,
+            {x3: 340 / scale, y3:  240/ scale} /*9.Проблемнеы и VIP*/,
+            {x3: 340 / scale, y3:  260/ scale} /*10.39-25-47*/,
+            {x3: 345 / scale, y3:  280/ scale} /*11.39-48-75*/,
+            {x3: 350 / scale, y3:  300/ scale} /*12.39-20-30*/,
         ]
         const paths = [
             `M ${x1} ${y1} Q ${x2} ${y2}, ${endPoint[0].x3} ${endPoint[0].y3}`,
