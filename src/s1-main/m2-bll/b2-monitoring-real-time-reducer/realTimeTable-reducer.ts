@@ -3,6 +3,7 @@ import {StoreType} from "../store";
 import {monitoringCCPastAPI} from "../../m3-dal/d2-api/monitoringCCPastAPI";
 import {calcServiceLevel} from "../../../common/utils/calcServiceLevel";
 import {updateRatings} from "../../../common/utils/updateRatings";
+import {calcMonthRating} from "../../../common/utils/calcMonthRating";
 
 const SET_REAL_TIME_TABLE_DATA = "SET_REAL_TIME_TABLE_DATA";
 const SET_REAL_TIME_TABLE_STATUS = "SET_REAL_TIME_TABLE_STATUS"
@@ -164,6 +165,7 @@ export const fetchRealTimeTableData = (): DataThunkAction => async (dispatch) =>
         dispatch(setRealTimeTableStatus("loading"))
         const data = await monitoringCCPastAPI.getRealTimeTableData()
         const tableData: RealTimeTableDataType[] = data.data.map((record: any) => {
+            console.log(record.skippedMonth)
             return {
                 id: record.id,
                 ratingToday: 0,
@@ -177,7 +179,7 @@ export const fetchRealTimeTableData = (): DataThunkAction => async (dispatch) =>
                 skippedMonth: record.skippedMonth,
                 avgServiseTime: record.avgServiseTime,
                 avgServiceTimeMonth: record.avgServiceTimeMonth,
-                monthRating: `${record.acceptMonth} (${record.acceptMonth || record.skippedMonth === 0 ? 0 :(100 - ((record.skippedMonth / record.acceptMonth) * 100)).toFixed(1)})`,
+                monthRating: calcMonthRating(record),
                 workload: `${record.workload}%`,
                 workloadMonth: `${record.workloadMonth}%`
             }
@@ -185,9 +187,7 @@ export const fetchRealTimeTableData = (): DataThunkAction => async (dispatch) =>
         dispatch(setRealTimeTableData(updateRatings(tableData)))
         dispatch(setRealTimeTableStatus("loaded"))
     } catch (e: any) {
-        debugger
         dispatch(setRealTimeTableStatus("error"))
         dispatch(setError(e.message))
-        console.log('Ошибка:' + e.message)
     }
 }

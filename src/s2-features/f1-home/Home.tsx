@@ -19,11 +19,7 @@ const Home = () => {
         // @ts-ignore
         dispatch(loginTC())
     }, [])
-    if (isAuth) {
-        console.log("Залогинен")
-    } else {
-        console.log("Не залогинен")
-    }
+
     const toMonitoringHandler = () => {
         navigate(PATH.MONITORING)
     }

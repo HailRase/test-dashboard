@@ -58,7 +58,6 @@ app.get('/execsvcscriptplain', async (req, res) => {
         const response = await axios.get(url);
         res.send(response.data);
     } catch (error) {
-        console.error(error);
         res.status(500).send('Internal Server Error');
     }
 });

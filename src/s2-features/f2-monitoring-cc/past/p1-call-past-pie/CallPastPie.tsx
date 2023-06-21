@@ -6,9 +6,6 @@ import {QueueDataType, TotalAcceptAndSkippedCallType} from "../../realTime/r1-mo
 
 const CallPastPie = () => {
     const scale = useScale()
-    useEffect(()=> {
-        console.log(scale)
-    },[scale])
     const data01: TotalAcceptAndSkippedCallType[] = [
         {name: 'Пропущено', value: 11, fill: '#e70707'},
         {name: 'Принято', value: 1534, fill: '#4bb253'},

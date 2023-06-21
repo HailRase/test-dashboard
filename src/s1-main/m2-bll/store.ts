@@ -3,7 +3,7 @@ import thunkMiddleware from 'redux-thunk'
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {authReducer} from "./auth-reducer";
 import {operatorReportDetailedReducer} from "./operatorReportDetailed-reducer";
-import {operatorReportGeneralReducer} from "./operatorReportGeneral-reducer";
+import {operatorReportGeneralReducer} from "./b3-operator-report-general-reducer/operatorReportGeneral-reducer";
 import {callReportReducer} from "./call-report-reducer";
 import {operatorReportReducer} from "./b7-operator-report-reducer/operatorReport-reducer";
 import {realTimeHistogramReducer} from "./b2-monitoring-real-time-reducer/realTimeHistogram-reducer";

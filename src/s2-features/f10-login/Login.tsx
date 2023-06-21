@@ -27,13 +27,10 @@ const Login = () => {
         if (isValidCredentials && remember) {
             localStorage.setItem('report-login', login)
             localStorage.setItem('report-password', password)
-            console.log("Записано в LocalStorage")
         } else if (isValidCredentials && !remember) {
             sessionStorage.setItem('report-login', login)
             sessionStorage.setItem('report-password', password)
-            console.log("Записано в SessionStorage")
         }else if (!isValidCredentials) {
-            console.log("Неврный логин или пароль!")
         }
 
         // @ts-ignore

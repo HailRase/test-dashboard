@@ -388,6 +388,7 @@ const setError = (errorMessage: string) => {
         errorMessage
     } as const
 }
+
 export const fetchOperatorReportData = (
     dateStart: string,
     timeStart: string,
@@ -417,6 +418,5 @@ export const fetchOperatorReportData = (
     } catch (e: any) {
         dispatch(setOperatorReportStatus("error"))
         dispatch(setError(e.message))
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!Ошибка:' + e.message)
     }
 }

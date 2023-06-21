@@ -17,7 +17,7 @@ import {useScale} from "../../common/hooks/useScale";
 import {useAppSelector} from "../../s1-main/m2-bll/store";
 import {useDispatch} from "react-redux";
 import Loader from "../../common/components/Loader/Loader";
-import {fetchOperatorReportGeneralData} from "../../s1-main/m2-bll/operatorReportGeneral-reducer";
+import {fetchOperatorReportGeneralData} from "../../s1-main/m2-bll/b3-operator-report-general-reducer/operatorReportGeneral-reducer";
 import moment from "moment/moment";
 import ErrorWindow from "../../common/components/ErrorWindow/ErrorWindow";
 
@@ -224,7 +224,6 @@ const OperatorsReportGeneral = () => {
             </div>
         }
     }
-    console.log(dateStart + " " + timeStart + " " + dateEnd + " " + timeEnd)
     return (
         <div className={s.operatorsReportGeneralWrapper}>
             <Sidebar isActive={isActive}>

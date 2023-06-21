@@ -25,6 +25,5 @@ export const useScale = () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
-    console.log(scale)
     return scale
 }

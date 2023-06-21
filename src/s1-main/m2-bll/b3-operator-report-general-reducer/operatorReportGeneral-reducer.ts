@@ -1,6 +1,6 @@
-import {StoreType} from "./store";
+import {StoreType} from "../store";
 import {ThunkAction} from "redux-thunk";
-import {oktellAPI} from "../m3-dal/oktell/oktell";
+import {oktellAPI} from "../../m3-dal/oktell/oktell";
 
 const SET_OPERATOR_REPORT_GENERAL_DATA = "SET_OPERATOR_REPORT_GENERAL_DATA";
 const SET_STATUS = "SET_STATUS"

@@ -5,7 +5,6 @@ import s from "./MonitoringCCRealTime.module.scss";
 import HomeIcon from "../../../common/components/HomeIcon/HomeIcon";
 import MonitoringCCPie from "./r1-monitoring-cc-pie/MonitoringCCPie";
 import Table from '../../../common/components/Table/Table'
-import {operatorsRatingData} from "../../../data/operatorsMonthData";
 import Histogram from "../../../common/components/Histogram/Histogram";
 import useIsAuth from "../../../common/hooks/useIsAuth";
 import {useAppSelector} from "../../../s1-main/m2-bll/store";
@@ -130,10 +129,10 @@ const MonitoringCCRealTime = () => {
             width: 120
         }
     ]
-    const renderComponent = (component: ReactComponentElement <any>, status: StatusType, error: string) => {
-        if (status === "loaded"){
+    const renderComponent = (component: ReactComponentElement<any>, status: StatusType, error: string) => {
+        if (status === "loaded") {
             return component
-        } else if (status === "loading"){
+        } else if (status === "loading") {
             return <div className={s.centringLoader}>
                 <Loader width={280} height={18}/>
             </div>
@@ -154,11 +153,14 @@ const MonitoringCCRealTime = () => {
                 <div className={s.callAndOperatorRating}>
                     <div className={s.callTodayPie}>
                         <span>Звонков сегодня</span>
-                        {renderComponent(
-                            <MonitoringCCPie data1={realTimeTodayInnerPieData} data2={realTimeTodayOuterPieData}/>,
-                            todayPieStatus,
-                            todayPieError
-                        )}
+                        {realTimeTodayOuterPieData.every(obj => obj.value === 0) &&
+                        realTimeTodayInnerPieData.every(obj => obj.value === 0)
+                            ? <h1>Ничога няма</h1>
+                            : renderComponent(
+                                <MonitoringCCPie data1={realTimeTodayInnerPieData} data2={realTimeTodayOuterPieData}/>,
+                                todayPieStatus,
+                                todayPieError
+                            )}
                     </div>
                     <div className={s.tableContainer}>
                         <span>Рейтинг операторов</span>
