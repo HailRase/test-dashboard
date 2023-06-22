@@ -352,7 +352,7 @@ const OperatorsReportDetailed = () => {
                             </div>
                         </Form.Group>
                         <Form.Group
-                            style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
+                            style={{display: "flex", justifyContent: "flex-end", flexDirection: "column", marginBottom: "15px"}}>
                             <div>
                                 <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
                             </div>
@@ -361,30 +361,6 @@ const OperatorsReportDetailed = () => {
                                 <Form.Control type="time" defaultValue={"23:59"} style={{width: "95%"}}/>
                             </div>
                         </Form.Group>
-                        <Accordion title={"Параметры"}>
-                            <Form.Group
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    flexDirection: "column",
-                                    marginBottom: "10px"
-                                }}>
-                                <Form.Label style={{color: "white", marginRight: "10px"}}>Тип:</Form.Label>
-                                <Form.Select defaultValue={"День"} style={{width: "95%", borderRadius: "0px"}}>
-                                    <option value="День">День</option>
-                                    <option value="Весь период">Весь период</option>
-                                    <option value="Неделя">Неделя</option>
-                                    <option value="Час">Час</option>
-                                    <option value="Минута">Минута</option>
-                                </Form.Select>
-                            </Form.Group>
-                            <Form.Group style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
-                                <Form.Label style={{color: "white", marginRight: "10px"}}>Шаг:</Form.Label>
-                                <Form.Control type="text" defaultValue={"1"}
-                                              style={{width: "95%", borderRadius: "0px"}}/>
-
-                            </Form.Group>
-                        </Accordion>
                         <TabButton style={{marginTop: "0px"}} name={'Обновить'} onClick={() => {
                         }}/>
                     </div>

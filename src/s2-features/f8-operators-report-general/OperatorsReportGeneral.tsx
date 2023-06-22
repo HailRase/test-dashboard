@@ -32,7 +32,7 @@ const OperatorsReportGeneral = () => {
     const [timeStart, setTimeStart] = useState("00:00")
     const [dateEnd, setDateEnd] = useState(moment(moment()).add(1, 'day').format('YYYY-MM-DD'))
     const [timeEnd, setTimeEnd] = useState("00:00")
-    const [selectedDepartment, setSelectedDepartment] = useState('Call-центр');
+    const [selectedDepartment, setSelectedDepartment] = useState('all');
     const [data, setData] = useState<any[]>(operatorReportGeneralData)
     const navigate = useNavigate()
     const isAuth = useIsAuth()

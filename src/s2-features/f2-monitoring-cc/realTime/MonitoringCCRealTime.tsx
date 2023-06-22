@@ -23,6 +23,7 @@ import {
 import ErrorWindow from "../../../common/components/ErrorWindow/ErrorWindow";
 import {findMaxAcceptAndNotAcceptSum} from "../../../common/utils/findMaxAcceptAndNotAcceptSum";
 import {fetchRealTimeTableData} from "../../../s1-main/m2-bll/b2-monitoring-real-time-reducer/realTimeTable-reducer";
+import InfoWindow from "../../../common/components/InfoWindow/InfoWindow";
 
 
 const MonitoringCCRealTime = () => {
@@ -155,7 +156,7 @@ const MonitoringCCRealTime = () => {
                         <span>Звонков сегодня</span>
                         {realTimeTodayOuterPieData.every(obj => obj.value === 0) &&
                         realTimeTodayInnerPieData.every(obj => obj.value === 0)
-                            ? <h1>Ничога няма</h1>
+                            ? <div className={s.centringLoader}><InfoWindow message={'По вашему запросу ничего не найдено'}/></div>
                             : renderComponent(
                                 <MonitoringCCPie data1={realTimeTodayInnerPieData} data2={realTimeTodayOuterPieData}/>,
                                 todayPieStatus,
@@ -174,7 +175,10 @@ const MonitoringCCRealTime = () => {
                     </div>
                     <div className={s.callMonthPie}>
                         <span>Звонков за текущий месяц</span>
-                        {renderComponent(
+                        {realTimeMonthOuterPieData.every(obj => obj.value === 0) &&
+                        realTimeMonthInnerPieData.every(obj => obj.value === 0)
+                            ? <div className={s.centringLoader}><InfoWindow message={'По вашему запросу ничего не найдено'}/></div>
+                            :renderComponent(
                             <MonitoringCCPie data1={realTimeMonthInnerPieData} data2={realTimeMonthOuterPieData}/>,
                             monthPieStatus,
                             monthPieError

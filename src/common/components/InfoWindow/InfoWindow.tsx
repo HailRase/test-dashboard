@@ -1,12 +1,9 @@
 import React, {useState} from 'react';
-import s from './ErrorWindow.module.scss'
-import {ReactComponent as ErrorIcon} from "../../../assets/error-message.svg";
 import {Alert} from "react-bootstrap";
-
-type ErrorWindowType = {
-    errorMessage: string
+type InfoWindowType = {
+    message: string
 }
-const ErrorWindow: React.FC<ErrorWindowType> = ({errorMessage}) => {
+const InfoWindow: React.FC<InfoWindowType> = ({message}) => {
     const [show, setShow] = useState(true);
 
     if (show) {
@@ -21,16 +18,16 @@ const ErrorWindow: React.FC<ErrorWindowType> = ({errorMessage}) => {
                 </div>
 
             </div>*/
-            <Alert variant="primary" onClose={() => setShow(false)} dismissible>
+            <Alert variant="warning" onClose={() => setShow(false)} dismissible>
                 <Alert.Heading>Ошибка!</Alert.Heading>
                 <p>
-                    {errorMessage}
+                    {message}
                 </p>
             </Alert>
         );
     }
     return <></>
 
-};
+}
 
-export default ErrorWindow;
+export default InfoWindow;

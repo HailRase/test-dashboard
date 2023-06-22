@@ -54,22 +54,30 @@ const Table = ({...props}) => {
         }, useSortBy, usePagination, useBlockLayout, useResizeColumns)
     const fillCellCall = (value) => {
         switch (value) {
-            case 'Отвечен':
+            case 'Предварительная обработка':
+                return s.green
+            case 'Ожидание ответа абонента':
+                return s.green
+            case 'Обратный вызов':
+                return s.green
+            case 'Разговор с абонентом':
+                return s.green
+            case 'Разговор между операторами':
+                return s.green
+            case 'Разговор по задаче':
+                return s.green
+            case 'Поствызывная обработка':
+                return s.green
+            case 'Прочие разговоры':
                 return s.green
             case 'Готов':
                 return s.green
-            case 'Входящий дозвон':
-                return s.green
-            case 'Не отвечен':
-                return s.red
-            case 'Говорит':
-                return s.green
-            case 'Занят':
+            case 'Перерыв':
                 return s.red
             case 'Входящий':
                 return s.green
             case 'Исходящий':
-                return s.red
+                return s.green
             default:
                 return s.black
         }
