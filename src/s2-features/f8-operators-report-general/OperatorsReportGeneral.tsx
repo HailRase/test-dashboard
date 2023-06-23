@@ -25,6 +25,7 @@ import ErrorWindow from "../../common/components/ErrorWindow/ErrorWindow";
 const OperatorsReportGeneral = () => {
     const scale = useScale()
     const operatorReportGeneralData = useAppSelector(state => state.operatorReportGeneralData.data)
+    const operatorReportGeneralDepartment = useAppSelector(state => state.operatorReportGeneralData.department)
     const status = useAppSelector(state => state.operatorReportGeneralData.status)
     const error = useAppSelector(state => state.operatorReportGeneralData.errorMessage)
     const [isActive, setIsActive] = useState<boolean>(false)
@@ -260,19 +261,9 @@ const OperatorsReportGeneral = () => {
                                 <Form.Select value={selectedDepartment}
                                              onChange={e => setSelectedDepartment(e.target.value)}
                                              style={{width: "95%", borderRadius: "0px"}}>
-                                    <option value="">Все отделы</option>
-                                    <option value="Call-центр">Call-центр</option>
-                                    <option value="Системные администраторы">Системные администраторы</option>
-                                    <option value="Начальник ЛКЦ">Начальник ЛКЦ</option>
-                                    <option value="Зам. Начальника ЛКЦ">Зам. Начальника ЛКЦ</option>
-                                    <option value="Инженеры по подготовке кадров">Инженеры по подготовке кадров</option>
-                                    <option value="Инженеры по ТО">Инженеры по ТО</option>
-                                    <option value="Специалисты">Специалисты</option>
-                                    <option value="Дежурные по выдаче справок (старшие)">Дежурные по выдаче справок
-                                        (старшие)
-                                    </option>
-                                    <option value="Дежурные по выдаче справок">Дежурные по выдаче справок</option>
-                                    <option value="Ведущий специалист">Ведущий специалист</option>
+                                    <option value="all">Все отделы</option>
+                                    {operatorReportGeneralDepartment && operatorReportGeneralDepartment
+                                        .map((dep:any) => <option value={dep.departmentName}>{dep.departmentName}</option>)}
                                 </Form.Select>
                             </Form.Group>
                         </Accordion>

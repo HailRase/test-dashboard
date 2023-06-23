@@ -10,9 +10,13 @@ import {realTimeHistogramReducer} from "./b2-monitoring-real-time-reducer/realTi
 import {realTimeTodayPieReducer} from "./b2-monitoring-real-time-reducer/realTimeTodayPie-reducer";
 import {realTimeMonthPieReducer} from "./b2-monitoring-real-time-reducer/realTimeMonthPie-reducer";
 import {realTimeTableReducer} from "./b2-monitoring-real-time-reducer/realTimeTable-reducer";
+import {pastHistogramReducer} from "./b1-monitoring-past-reducer/pastHistogram-reducer";
+import {pastPieReducer} from "./b1-monitoring-past-reducer/pastPie-reducer";
 
 
 const rootReducer = combineReducers({
+    pastHistogramData: pastHistogramReducer,
+    pastPieData: pastPieReducer,
     realTimeTableData: realTimeTableReducer,
     realTimeHistogramData: realTimeHistogramReducer,
     realTimeTodayPieData:realTimeTodayPieReducer,

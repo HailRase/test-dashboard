@@ -1,6 +1,6 @@
 import {ThunkAction} from "redux-thunk";
 import {StoreType} from "../store";
-import {monitoringCCPastAPI} from "../../m3-dal/d2-api/monitoringCCPastAPI";
+import {monitoringCCRealTimeAPI} from "../../m3-dal/d2-api/monitoringCCRealTimeAPI";
 
 const SET_REAL_TIME_TODAY_PIE_DATA = "SET_REAL_TIME_TODAY_PIE_DATA";
 const SET_REAL_TIME_TODAY_PIE_TOTAL_DATA = "SET_REAL_TIME_TODAY_PIE_TOTAL_DATA";
@@ -119,8 +119,8 @@ const setError = (errorMessage:string) => {
 export const fetchRealTimeTodayPieData =  ():DataThunkAction => async(dispatch)  => {
     try {
         dispatch(setRealTimeTodayPieStatus("loading"))
-        const innerData = await monitoringCCPastAPI.getTodayRealTimeInnerPieData()
-        const outerData = await monitoringCCPastAPI.getTodayRealTimeOuterPieData()
+        const innerData = await monitoringCCRealTimeAPI.getTodayRealTimeInnerPieData()
+        const outerData = await monitoringCCRealTimeAPI.getTodayRealTimeOuterPieData()
         const changedInnerData = [...innerData.data.map((obj: RealTimeTodayPieTotalDataType, index: number) => {
             return {
                 ...obj,

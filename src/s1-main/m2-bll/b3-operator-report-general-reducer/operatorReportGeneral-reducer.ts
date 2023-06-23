@@ -1,8 +1,9 @@
 import {StoreType} from "../store";
 import {ThunkAction} from "redux-thunk";
-import {oktellAPI} from "../../m3-dal/oktell/oktell";
+import {operatorReportGeneralAPI} from "../../m3-dal/d2-api/operatorReportGeneralAPI";
 
 const SET_OPERATOR_REPORT_GENERAL_DATA = "SET_OPERATOR_REPORT_GENERAL_DATA";
+const SET_OPERATOR_REPORT_GENERAL_DEPARTMENT = "SET_OPERATOR_REPORT_GENERAL_DEPARTMENT";
 const SET_STATUS = "SET_STATUS"
 const SET_ERROR = "SET_ERROR"
 
@@ -12,8 +13,8 @@ type DataThunkAction = ThunkAction<void,
     ActionDataType>;
 
 
-type ActionDataType = ReturnType<typeof setOperatorReportDetailedData> | ReturnType<typeof setStatus>
-    | ReturnType<typeof setError>
+type ActionDataType = ReturnType<typeof setOperatorReportGeneralData> | ReturnType<typeof setOperatorReportGeneralDepartment>
+    | ReturnType<typeof setStatus> | ReturnType<typeof setError>
 
 
 export type OperatorReportGeneralType = {
@@ -40,6 +41,7 @@ export type OperatorReportGeneralType = {
 type StatusType = "init" | "loading" | "loaded" | "error"
 type InitialStateType = {
     data: OperatorReportGeneralType[]
+    department: {departmentName: string}[]
     status: StatusType
     errorMessage: string
 }
@@ -540,25 +542,32 @@ const initialState:any = {
             totalLogoutTime: "11:01:21"
         }
     ],
+    department: [],
     status: "init",
     errorMessage: ''
 }
 
 export const operatorReportGeneralReducer = (state:any = initialState, action:ActionDataType ):any => {
     switch (action.type){
-        case "SET_OPERATOR_REPORT_GENERAL_DATA":{
+        case SET_OPERATOR_REPORT_GENERAL_DATA:{
             return {
                 ...state,
                 data: action.data
             }
         }
-        case "SET_STATUS":{
+        case SET_OPERATOR_REPORT_GENERAL_DEPARTMENT:{
+            return {
+                ...state,
+                department: action.department
+            }
+        }
+        case SET_STATUS:{
             return {
                 ...state,
                 status: action.status
             }
         }
-        case "SET_ERROR": {
+        case SET_ERROR: {
             return {
                 ...state,
                 errorMessage: action.errorMessage
@@ -570,12 +579,18 @@ export const operatorReportGeneralReducer = (state:any = initialState, action:Ac
     }
 }
 
-const setOperatorReportDetailedData = (data: any)  => {
+const setOperatorReportGeneralData = (data: any)  => {
     return {
         type: SET_OPERATOR_REPORT_GENERAL_DATA,
         data
     } as const;
 };
+const setOperatorReportGeneralDepartment = (department: {departmentName: string}[]) => {
+    return {
+        type: SET_OPERATOR_REPORT_GENERAL_DEPARTMENT,
+        department
+    } as const
+}
 const setStatus = (status:StatusType) => {
     return {
         type: SET_STATUS,
@@ -591,8 +606,11 @@ const setError = (errorMessage:string) => {
 export const fetchOperatorReportGeneralData =  (dateStart: string,timeStart: string, dateEnd: string,timeEnd: string,department: string):DataThunkAction => async(dispatch)  => {
     try {
         dispatch(setStatus("loading"))
-        const data = await oktellAPI.getOperatorReportGeneralData(dateStart, timeStart, dateEnd,timeEnd,department)
-        dispatch(setOperatorReportDetailedData(data.data))
+        const departmentData = await operatorReportGeneralAPI.getOperatorReportGeneralDepartment()
+        const data = await operatorReportGeneralAPI.getOperatorReportGeneralData(dateStart, timeStart, dateEnd,timeEnd,department)
+        dispatch(setOperatorReportGeneralDepartment(departmentData.data))
+        console.log(departmentData.data)
+        dispatch(setOperatorReportGeneralData(data.data))
         dispatch(setStatus("loaded"))
     } catch (e: any) {
         dispatch(setStatus("error"))

@@ -1,14 +1,11 @@
 import {instance} from "../d1-instance/instance";
 
-export const oktellAPI = {
+export const operatorReportGeneralAPI = {
     getOperatorReportGeneralData(dateStart: string, timeStart: string, dateEnd: string, timeEnd: string, department: string) {
         return instance.get(`dashboard3?dtStart=${dateStart}T${timeStart}:59.000&dtStop=${dateEnd}T${timeEnd}:59.000&departament=${department}`)
     },
-    getRealTimeHistogramData() {
-        return instance.get('dashboard1_schema')
-    },
-    getOperatorActivity() {
-        return instance.get(`execsvcscriptplain`)
+    getOperatorReportGeneralDepartment() {
+        return instance.get(`filter_department`)
     }
 }
 

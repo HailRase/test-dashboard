@@ -1,13 +1,13 @@
 import {ThunkAction} from "redux-thunk";
 import {StoreType} from "../store";
-import {monitoringCCRealTimeAPI} from "../../m3-dal/d2-api/monitoringCCRealTimeAPI";
 import {calcServiceLevel} from "../../../common/utils/calcServiceLevel";
 import {updateRatings} from "../../../common/utils/updateRatings";
-import {calcMonthRating} from "../../../common/utils/calcMonthRating";
+import {monitoringCCPastAPI} from "../../m3-dal/d2-api/monitoringCCPastAPI";
+import {sortServiceLevelMonthRatings} from "../../../common/utils/sortServiceLevelMonthRatings";
 
-const SET_REAL_TIME_TABLE_DATA = "SET_REAL_TIME_TABLE_DATA";
-const SET_REAL_TIME_TABLE_STATUS = "SET_REAL_TIME_TABLE_STATUS"
-const SET_REAL_TIME_TABLE_ERROR = "SET_REAL_TIME_TABLE_ERROR"
+const SET_PAST_TABLE_DATA = "SET_PAST_TABLE_DATA";
+const SET_PAST_TABLE_STATUS = "SET_PAST_TABLE_STATUS"
+const SET_PAST_TABLE_ERROR = "SET_PAST_TABLE_ERROR"
 
 type DataThunkAction = ThunkAction<void,
     StoreType,
@@ -15,30 +15,23 @@ type DataThunkAction = ThunkAction<void,
     ActionDataType>;
 
 
-type ActionDataType = ReturnType<typeof setRealTimeTableData> | ReturnType<typeof setRealTimeTableStatus>
+type ActionDataType = ReturnType<typeof setPastTableData> | ReturnType<typeof setPastTableStatus>
     | ReturnType<typeof setError>
 
 
-export type RealTimeTableDataType = {
+export type PastTableDataType = {
     id: number
     ratingToday: number
-    ratingMonth: number
     operatorName: string
     accept: number
-    acceptMonth: number
     skip: number
-    skippedMonth: number
     serviceLevel: string
-    serviceLevelMonth: number
     avgServiseTime: string
-    avgServiceTimeMonth: string
-    monthRating: string
     workload: string
-    workloadMonth: string
 }
 export type StatusType = "init" | "loading" | "loaded" | "error"
 type InitState = {
-    data: RealTimeTableDataType[],
+    data: PastTableDataType[],
     status: StatusType,
     errorMessage: string,
 }
@@ -117,21 +110,21 @@ const initialState: InitState = {
     errorMessage: ''
 }
 
-export const realTimeTableReducer = (state = initialState, action: ActionDataType) => {
+export const pastTableReducer = (state = initialState, action: ActionDataType) => {
     switch (action.type) {
-        case SET_REAL_TIME_TABLE_DATA: {
+        case SET_PAST_TABLE_DATA: {
             return {
                 ...state,
                 data: action.data
             }
         }
-        case SET_REAL_TIME_TABLE_STATUS: {
+        case SET_PAST_TABLE_STATUS: {
             return {
                 ...state,
                 status: action.status
             }
         }
-        case SET_REAL_TIME_TABLE_ERROR: {
+        case SET_PAST_TABLE_ERROR: {
             return {
                 ...state,
                 errorMessage: action.errorMessage
@@ -142,52 +135,49 @@ export const realTimeTableReducer = (state = initialState, action: ActionDataTyp
         }
     }
 }
-const setRealTimeTableData = (data: RealTimeTableDataType[]) => {
+const setPastTableData = (data: PastTableDataType[]) => {
     return {
-        type: SET_REAL_TIME_TABLE_DATA,
+        type: SET_PAST_TABLE_DATA,
         data
     } as const
 };
-const setRealTimeTableStatus = (status: StatusType) => {
+const setPastTableStatus = (status: StatusType) => {
     return {
-        type: SET_REAL_TIME_TABLE_STATUS,
+        type: SET_PAST_TABLE_STATUS,
         status
     } as const
 }
 const setError = (errorMessage: string) => {
     return {
-        type: SET_REAL_TIME_TABLE_ERROR,
+        type: SET_PAST_TABLE_ERROR,
         errorMessage
     } as const
 }
-export const fetchRealTimeTableData = (): DataThunkAction => async (dispatch) => {
+export const fetchPastTableData = (): DataThunkAction => async (dispatch) => {
     try {
-        dispatch(setRealTimeTableStatus("loading"))
-        const data = await monitoringCCRealTimeAPI.getRealTimeTableData()
-        const tableData: RealTimeTableDataType[] = data.data.map((record: any) => {
-            console.log(record.skippedMonth)
+        dispatch(setPastTableStatus("loading"))
+        const data = await monitoringCCPastAPI.getPastTableData()
+        const tableData: PastTableDataType[] = data.data.map((record: any) => {
             return {
                 id: record.id,
                 ratingToday: 0,
-                ratingMonth: 0,
                 operatorName: record.operatorName,
                 accept: record.accept,
-                acceptMonth: record.acceptMonth,
                 skip: record.skip,
                 serviceLevel: `${calcServiceLevel(record.accept, record.skip)}%`,
-                serviceLevelMonth: calcServiceLevel(record.accept, record.skip),
-                skippedMonth: record.skippedMonth,
                 avgServiseTime: record.avgServiseTime,
-                avgServiceTimeMonth: record.avgServiceTimeMonth,
-                monthRating: calcMonthRating(record),
                 workload: `${record.workload}%`,
-                workloadMonth: `${record.workloadMonth}%`
             }
         })
-        dispatch(setRealTimeTableData(updateRatings(tableData)))
-        dispatch(setRealTimeTableStatus("loaded"))
+        dispatch(setPastTableData(tableData.sort(sortServiceLevelMonthRatings).map((item, index) => {
+            return {
+                ...item,
+                ratingMonth: index+1
+            }
+        })))
+        dispatch(setPastTableStatus("loaded"))
     } catch (e: any) {
-        dispatch(setRealTimeTableStatus("error"))
+        dispatch(setPastTableStatus("error"))
         dispatch(setError(e.message))
     }
 }

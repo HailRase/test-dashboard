@@ -1,11 +1,11 @@
 import {ThunkAction} from "redux-thunk";
 import {StoreType} from "../store";
-import {monitoringCCRealTimeAPI} from "../../m3-dal/d2-api/monitoringCCRealTimeAPI";
+import {monitoringCCPastAPI} from "../../m3-dal/d2-api/monitoringCCPastAPI";
 
-const SET_REAL_TIME_MONTH_PIE_DATA = "SET_REAL_TIME_MONTH_PIE_DATA";
-const SET_REAL_TIME_MONTH_PIE_TOTAL_DATA = "SET_REAL_TIME_MONTH_PIE_TOTAL_DATA";
-const SET_REAL_TIME_MONTH_PIE_STATUS = "SET_REAL_TIME_MONTH_PIE_STATUS"
-const SET_REAL_TIME_MONTH_PIE_ERROR = "SET_REAL_TIME_MONTH_PIE_ERROR"
+const SET_PAST_PIE_DATA = "SET_PAST_PIE_DATA";
+const SET_PAST_PIE_TOTAL_DATA = "SET_PAST_PIE_TOTAL_DATA";
+const SET_PAST_PIE_STATUS = "SET_PAST_PIE_STATUS"
+const SET_PAST_PIE_ERROR = "SET_PAST_PIE_ERROR"
 
 type DataThunkAction = ThunkAction<void,
     StoreType,
@@ -13,23 +13,23 @@ type DataThunkAction = ThunkAction<void,
     ActionDataType>;
 
 
-type ActionDataType = ReturnType<typeof setRealTimeMonthPieTotalData> |ReturnType<typeof setRealMonthTodayPieData>
-    | ReturnType<typeof setRealTimeMonthPieStatus> | ReturnType<typeof setError>
+type ActionDataType = ReturnType<typeof setPastPieTotalData> |ReturnType<typeof setPastPieData> | ReturnType<typeof setPastPieStatus>
+    | ReturnType<typeof setError>
 
-export type RealTimeMonthPieDataType = {
+export type PastPieDataType = {
     name: string
     value: number
     fill: string
 }
-export type RealTimeMonthPieTotalDataType = {
+export type PastPieTotalDataType = {
     name: string
     value: number
     fill: string
 }
-type StatusType = "init" | "loading" | "loaded" | "error"
+export type StatusType = "init" | "loading" | "loaded" | "error"
 type InitState = {
-    data: RealTimeMonthPieDataType[],
-    totalData: RealTimeMonthPieTotalDataType[]
+    data: PastPieDataType[],
+    totalData: PastPieTotalDataType[]
     status: StatusType,
     errorMessage: string,
 }
@@ -61,27 +61,27 @@ const initialState:InitState = {
 const dataColors = ['#b3b3d9','#ef9288','#c94322','#6171c5','#d4830e','#50878d','#64b280','#7dbecf','#ec977d',
     '#fcea87','#76c5e7','#7c84b8','#f1a492','#02bbd0','#489f48','#7eb9f6','#fd3101']
 const totalDataColor = ['#e70707','#4bb253']
-export const realTimeMonthPieReducer = (state = initialState, action: ActionDataType) => {
+export const pastPieReducer = (state = initialState, action: ActionDataType) => {
     switch (action.type) {
-        case SET_REAL_TIME_MONTH_PIE_DATA: {
+        case SET_PAST_PIE_DATA: {
             return {
                 ...state,
                 data: action.data
             }
         }
-        case SET_REAL_TIME_MONTH_PIE_TOTAL_DATA: {
+        case SET_PAST_PIE_TOTAL_DATA: {
             return {
                 ...state,
                 totalData: action.totalData
             }
         }
-        case SET_REAL_TIME_MONTH_PIE_STATUS: {
+        case SET_PAST_PIE_STATUS: {
             return {
                 ...state,
                 status: action.status
             }
         }
-        case SET_REAL_TIME_MONTH_PIE_ERROR: {
+        case SET_PAST_PIE_ERROR: {
             return {
                 ...state,
                 errorMessage: action.errorMessage
@@ -92,54 +92,54 @@ export const realTimeMonthPieReducer = (state = initialState, action: ActionData
         }
     }
 }
-const setRealMonthTodayPieData = (data: RealTimeMonthPieDataType[])  => {
+const setPastPieData = (data: PastPieDataType[])  => {
     return {
-        type: SET_REAL_TIME_MONTH_PIE_DATA,
+        type: SET_PAST_PIE_DATA,
         data
     } as const
 };
-const setRealTimeMonthPieTotalData = (totalData: RealTimeMonthPieTotalDataType[])  => {
+const setPastPieTotalData = (totalData: PastPieTotalDataType[])  => {
     return {
-        type: SET_REAL_TIME_MONTH_PIE_TOTAL_DATA,
+        type: SET_PAST_PIE_TOTAL_DATA,
         totalData
     } as const
 };
-const setRealTimeMonthPieStatus = (status:StatusType) => {
+const setPastPieStatus = (status:StatusType) => {
     return {
-        type: SET_REAL_TIME_MONTH_PIE_STATUS,
+        type: SET_PAST_PIE_STATUS,
         status
     } as const
 }
 const setError = (errorMessage:string) => {
     return {
-        type: SET_REAL_TIME_MONTH_PIE_ERROR,
+        type: SET_PAST_PIE_ERROR,
         errorMessage
     } as const
 }
-export const fetchRealMonthTodayPieData =  ():DataThunkAction => async(dispatch)  => {
+export const fetchPastPieData =  ():DataThunkAction => async(dispatch)  => {
     try {
-        dispatch(setRealTimeMonthPieStatus("loading"))
-        const innerData = await monitoringCCRealTimeAPI.getMontRealTimeInnerPieData()
-        const outerData = await monitoringCCRealTimeAPI.getMonthRealTimeOuterPieData()
-        const changedInnerData = [...innerData.data.map((obj: RealTimeMonthPieTotalDataType, index: number) => {
+        dispatch(setPastPieStatus("loading"))
+        const innerData = await monitoringCCPastAPI.getPastInnerPieData()
+        const outerData = await monitoringCCPastAPI.getPastOuterPieData()
+        const changedInnerData = [...innerData.data.map((obj: PastPieTotalDataType, index: number) => {
             return {
                 ...obj,
                 fill: totalDataColor[index]
             }
         })]
-        /*console.log("Внутренний кружок: " +JSON.stringify(changedInnerData))*/
-        const changedOuterData = [...outerData.data.map((obj: RealTimeMonthPieDataType, index: number) => {
+        const changedOuterData = [...outerData.data.map((obj: PastPieDataType, index: number) => {
             return {
                 ...obj,
                 fill: dataColors[index]
             }
         })]
-        /*console.log("Внешний кружок: " +JSON.stringify(changedOuterData))*/
-        dispatch(setRealTimeMonthPieTotalData(changedInnerData))
-        dispatch(setRealMonthTodayPieData(changedOuterData))
-        dispatch(setRealTimeMonthPieStatus("loaded"))
+        dispatch(setPastPieTotalData(changedInnerData))
+        dispatch(setPastPieData(changedOuterData))
+        dispatch(setPastPieStatus("loaded"))
+        debugger
     } catch (e: any) {
-        dispatch(setRealTimeMonthPieStatus("error"))
+        debugger
+        dispatch(setPastPieStatus("error"))
         dispatch(setError(e.message))
     }
 }

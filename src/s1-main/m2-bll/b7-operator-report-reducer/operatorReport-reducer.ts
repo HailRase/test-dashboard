@@ -14,8 +14,8 @@ type DataThunkAction = ThunkAction<void,
     StoreType,
     void,
     ActionDataType>;
-type ActionDataType = ReturnType<typeof setOperatorReportData> | ReturnType<typeof setOperatorReportStatus>
-    | ReturnType<typeof setError>
+type ActionDataType = ReturnType<typeof setOperatorReportData>
+    |ReturnType<typeof setOperatorReportStatus> | ReturnType<typeof setError>
 type OperatorReportDataType = {
     id: number
     date: string
@@ -28,6 +28,7 @@ type OperatorReportDataType = {
 export type StatusType = "init" | "loading" | "loaded" | "error"
 type InitState = {
     data: OperatorReportDataType[],
+    department: string[]
     status: StatusType,
     errorMessage: string,
 }
@@ -341,6 +342,7 @@ const initialState: InitState = {
         }
 
     ],
+    department: [],
     status: 'init',
     errorMessage: ''
 }
@@ -376,6 +378,7 @@ const setOperatorReportData = (data: OperatorReportDataType[]) => {
         data
     } as const
 };
+
 const setOperatorReportStatus = (status: StatusType) => {
     return {
         type: SET_OPERATOR_REPORT_STATUS,

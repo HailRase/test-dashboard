@@ -13,7 +13,6 @@ import QueueReportHistogram from "./QueueReportHistogram/QueueReportHistogram";
 import Form from "react-bootstrap/Form";
 import {dateNow} from "../../data/dateNow";
 import TabButton from "../../common/components/TabButton/TabButton";
-import Accordion from "../../common/components/Accordion/Accordion";
 import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
