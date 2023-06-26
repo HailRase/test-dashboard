@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ReactComponentElement, useEffect, useState} from 'react';
 import s from './QueueReport.module.scss'
 import {Sidebar} from "../../common/components/Sidebar/Sidebar";
 import ArrowLeftIcon from "../../common/components/ArrowLeftIcon/ArrowLeftIcon";
@@ -7,15 +7,20 @@ import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../common/routes/routes";
 import Table from "../../common/components/Table/Table";
-import {queueReportData} from "../../data/queueReportData";
 import QueueReportPie from "./QueueReportPie/QueueReportPie";
 import QueueReportHistogram from "./QueueReportHistogram/QueueReportHistogram";
 import Form from "react-bootstrap/Form";
-import {dateNow} from "../../data/dateNow";
 import TabButton from "../../common/components/TabButton/TabButton";
 import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
+import {useAppSelector} from "../../s1-main/m2-bll/store";
+import moment from "moment";
+import {fetchQueueReportData} from "../../s1-main/m2-bll/b5-queue-report-reducer/queueReportTable-reducer";
+import {useDispatch} from "react-redux";
+import Loader from "../../common/components/Loader/Loader";
+import ErrorWindow from "../../common/components/ErrorWindow/ErrorWindow";
+import {StatusType} from "../../s1-main/m2-bll/b2-monitoring-real-time-reducer/realTimeTodayPie-reducer";
 
 
 const QueueReport = () => {
@@ -52,7 +57,7 @@ const QueueReport = () => {
                     Header: 'Всего звонков',
                     accessor: 'totalCall',
                     width: 80,
-                    Footer: (info: any) => useCalcNumTotal(info,'totalCall'),
+                    Footer: (info: any) => useCalcNumTotal(info, 'totalCall'),
                 },
                 {
                     Header: '% принятых',
@@ -64,7 +69,7 @@ const QueueReport = () => {
                     Header: 'Уровень обслуживания <20',
                     accessor: 'serviceLevel',
                     width: 120,
-                    Footer: (info: any) => useCalcNumTotal(info,'serviceLevel')
+                    Footer: (info: any) => useCalcNumTotal(info, 'serviceLevel')
                 },
             ]
         },
@@ -76,49 +81,49 @@ const QueueReport = () => {
                     Header: 'Пропущено',
                     accessor: 'totalSkipped',
                     width: 100,
-                    Footer: (info: any) => useCalcNumTotal(info,'totalSkipped')
+                    Footer: (info: any) => useCalcNumTotal(info, 'totalSkipped')
                 },
                 {
                     Header: 'Пропущено <5с',
                     accessor: 'skippedLess5s',
                     width: 100,
-                    Footer: (info: any) => useCalcNumTotal(info,'skippedLess5s')
+                    Footer: (info: any) => useCalcNumTotal(info, 'skippedLess5s')
                 },
                 {
                     Header: 'Пропущено <10с',
                     accessor: 'skippedLess10s',
                     width: 100,
-                    Footer: (info: any) => useCalcNumTotal(info,'skippedLess10s')
+                    Footer: (info: any) => useCalcNumTotal(info, 'skippedLess10s')
                 },
                 {
                     Header: 'Пропущено <20с',
                     accessor: 'skippedLess20s',
                     width: 100,
-                    Footer: (info: any) => useCalcNumTotal(info,'skippedLess20s')
+                    Footer: (info: any) => useCalcNumTotal(info, 'skippedLess20s')
                 },
                 {
                     Header: 'Пропущено <30с',
                     accessor: 'skippedLess30s',
                     width: 100,
-                    Footer: (info: any) => useCalcNumTotal(info,'skippedLess30s')
+                    Footer: (info: any) => useCalcNumTotal(info, 'skippedLess30s')
                 },
                 {
                     Header: 'Пропущено <1м',
                     accessor: 'skippedLess1m',
                     width: 100,
-                    Footer: (info: any) => useCalcNumTotal(info,'skippedLess1m')
+                    Footer: (info: any) => useCalcNumTotal(info, 'skippedLess1m')
                 },
                 {
                     Header: 'Пропущено <2м',
                     accessor: 'skippedLess2m',
                     width: 100,
-                    Footer: (info: any) => useCalcNumTotal(info,'skippedLess2m')
+                    Footer: (info: any) => useCalcNumTotal(info, 'skippedLess2m')
                 },
                 {
                     Header: 'Пропущено >2м',
                     accessor: 'skippedMore2m',
                     width: 100,
-                    Footer: (info: any) => useCalcNumTotal(info,'skippedMore2m')
+                    Footer: (info: any) => useCalcNumTotal(info, 'skippedMore2m')
                 }
             ]
         },
@@ -130,53 +135,53 @@ const QueueReport = () => {
                     Header: 'Принято',
                     accessor: 'totalAccept',
                     width: 90,
-                    Footer: (info: any) => useCalcNumTotal(info,'totalAccept')
+                    Footer: (info: any) => useCalcNumTotal(info, 'totalAccept')
                 },
                 {
                     Header: 'Принято <5с',
                     accessor: 'acceptLess5s',
                     width: 90,
-                    Footer: (info: any) => useCalcNumTotal(info,'acceptLess5s')
+                    Footer: (info: any) => useCalcNumTotal(info, 'acceptLess5s')
                 },
                 {
                     Header: 'Принято <10с',
                     accessor: 'acceptLess10s',
                     width: 90,
-                    Footer: (info: any) => useCalcNumTotal(info,'acceptLess10s')
+                    Footer: (info: any) => useCalcNumTotal(info, 'acceptLess10s')
                 }
                 ,
                 {
                     Header: 'Принято <20с',
                     accessor: 'acceptLess20s',
                     width: 90,
-                    Footer: (info: any) => useCalcNumTotal(info,'acceptLess20s')
+                    Footer: (info: any) => useCalcNumTotal(info, 'acceptLess20s')
                 }
                 ,
                 {
                     Header: 'Принято <30с',
                     accessor: 'acceptLess30s',
                     width: 90,
-                    Footer: (info: any) => useCalcNumTotal(info,'acceptLess30s')
+                    Footer: (info: any) => useCalcNumTotal(info, 'acceptLess30s')
                 }
                 ,
                 {
                     Header: 'Принято <1m',
                     accessor: 'acceptLess1m',
                     width: 90,
-                    Footer: (info: any) => useCalcNumTotal(info,'acceptLess1m')
+                    Footer: (info: any) => useCalcNumTotal(info, 'acceptLess1m')
                 }
                 ,
                 {
                     Header: 'Принято <2m',
                     accessor: 'acceptLess2m',
                     width: 90,
-                    Footer: (info: any) => useCalcNumTotal(info,'acceptLess2m')
+                    Footer: (info: any) => useCalcNumTotal(info, 'acceptLess2m')
                 },
                 {
                     Header: 'Принято >2м',
                     accessor: 'acceptMore2m',
                     width: 100,
-                    Footer: (info: any) => useCalcNumTotal(info,'acceptMore2m')
+                    Footer: (info: any) => useCalcNumTotal(info, 'acceptMore2m')
                 }
             ]
         },
@@ -229,13 +234,26 @@ const QueueReport = () => {
             ]
         },
     ]
+    const queueReportTableData = useAppSelector(state => state.queueReportTableData.data)
+    const queueReportTableStatus = useAppSelector( state => state.queueReportTableData.status)
+    const queueReportTableError = useAppSelector( state => state.queueReportTableData.errorMessage)
+    const queueReportHistogramData = useAppSelector(state => state.queueReportTableData.data)
+    const queueReportHistogramStatus = useAppSelector( state => state.queueReportTableData.status)
+    const queueReportHistogramError = useAppSelector( state => state.queueReportTableData.errorMessage)
     const [isActive, setIsActive] = useState<boolean>(false)
+    const [dateStart, setDateStart] = useState(moment().format("YYYY-MM-DD"))
+    const [timeStart, setTimeStart] = useState("00:00")
+    const [dateEnd, setDateEnd] = useState(moment(moment()).add(1, 'day').format('YYYY-MM-DD'))
+    const [timeEnd, setTimeEnd] = useState("00:00")
     const navigate = useNavigate()
+    const dispatch = useDispatch<any>()
     const isAuth = useIsAuth()
-
     useEffect(() => {
         if (!isAuth) navigate('/')
-    },[])
+    }, [])
+    useEffect(() => {
+        dispatch(fetchQueueReportData(dateStart, timeStart, dateEnd, timeEnd))
+    }, [])
 
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)
@@ -245,6 +263,35 @@ const QueueReport = () => {
     }
     const onCloseSidebar = () => {
         setIsActive(false)
+    }
+    const onDateStartChangeHandler = (e: any) => {
+        setDateStart(e.currentTarget.value)
+    }
+    const onTimeStartChangeHandler = (e: any) => {
+        setTimeStart(e.currentTarget.value)
+    }
+    const onDateEndChangeHandler = (e: any) => {
+        setDateEnd(e.currentTarget.value)
+    }
+    const onTimeEndChangeHandler = (e: any) => {
+        setTimeEnd(e.currentTarget.value)
+    }
+    const onLoadDataHandler = () => {
+        dispatch(fetchQueueReportData(dateStart, timeStart, dateEnd, timeEnd))
+    }
+
+    const renderComponent = (component: ReactComponentElement<any>, status: StatusType, error: string) => {
+        if (status === "loaded") {
+            return component
+        } else if (status === "loading") {
+            return <div className={s.centringLoader}>
+                <Loader width={280} height={18}/>
+            </div>
+        } else if (status === "error") {
+            return <div className={s.centringLoader}>
+                <ErrorWindow errorMessage={error}/>
+            </div>
+        }
     }
 
     return (
@@ -262,21 +309,30 @@ const QueueReport = () => {
                                 <Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label>
                             </div>
                             <div>
-                                <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
-                                <Form.Control type="time" defaultValue={"00:00"} style={{width: "95%"}}/>
+                                <Form.Control type="date" defaultValue={dateStart} style={{width: "95%"}}
+                                              onChange={onDateStartChangeHandler}/>
+                                <Form.Control type="time" defaultValue={timeStart} style={{width: "95%"}}
+                                              onChange={onTimeStartChangeHandler}/>
                             </div>
                         </Form.Group>
                         <Form.Group
-                            style={{display: "flex", justifyContent: "flex-end", flexDirection: "column", marginBottom: "15px"}}>
+                            style={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                flexDirection: "column",
+                                marginBottom: "15px"
+                            }}>
                             <div>
                                 <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
                             </div>
                             <div>
-                                <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
-                                <Form.Control type="time" defaultValue={"23:59"} style={{width: "95%"}}/>
+                                <Form.Control type="date" defaultValue={dateEnd} style={{width: "95%"}}
+                                              onChange={onDateEndChangeHandler}/>
+                                <Form.Control type="time" defaultValue={timeEnd} style={{width: "95%"}}
+                                              onChange={onTimeEndChangeHandler}/>
                             </div>
                         </Form.Group>
-                        <TabButton style={{marginTop: "0px"}} name={'Обновить'} onClick={() => {}}/>
+                        <TabButton style={{marginTop: "0px"}} name={'Обновить'} onClick={onLoadDataHandler}/>
                     </div>
                 </div>
             </Sidebar>
@@ -294,11 +350,19 @@ const QueueReport = () => {
                     </div>
                     <div className={s.histogramContainer}>
                         <span>Все очереди</span>
-                        <QueueReportHistogram/>
+                        {renderComponent(
+                            <QueueReportHistogram data={queueReportHistogramData}/>,
+                            queueReportHistogramStatus,
+                            queueReportHistogramError
+                        )}
                     </div>
                 </div>
                 <div className={s.histogram}>
-                    <Table data={queueReportData} columns={columns} pagination={true} width={"99vw"} footer/>
+                    {renderComponent(
+                        <Table data={queueReportTableData} columns={columns} pagination={true} width={"99vw"} footer/>,
+                        queueReportTableStatus,
+                        queueReportTableError
+                    )}
                 </div>
             </div>
         </div>

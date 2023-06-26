@@ -11,12 +11,13 @@ import {
     XAxis,
     YAxis
 } from 'recharts';
+import {
+    QueueReportHistogramDataType
+} from "../../../s1-main/m2-bll/b5-queue-report-reducer/queueReportHistogram-reducer";
 
-const data = [
-    {name: 'Кол-во звонков', date: "04.03", serviceLevel: 88, skipped: 37, accept: 1491},
-];
 
-const QueueReportHistogram = () => {
+
+const QueueReportHistogram: React.FC<{data: QueueReportHistogramDataType[]}> = ({data}) => {
     return (
         <ResponsiveContainer>
             <ComposedChart data={data} margin={{}}>

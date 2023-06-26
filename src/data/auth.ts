@@ -5,10 +5,6 @@ export type AuthType = {
 export const auth: AuthType[] = [
     {
         log: "Supervisor",
-        pass: "Supervisor"
-    },
-    {
-        log: "MainSupervisor",
-        pass: "MainSupervisor"
+        pass: "26062023"
     }
 ]
