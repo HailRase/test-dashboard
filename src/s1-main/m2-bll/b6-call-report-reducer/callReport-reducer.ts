@@ -1,4 +1,4 @@
-import {StoreType} from "./store";
+import {StoreType} from "../store";
 import {ThunkAction} from "redux-thunk";
 
 const SET_CALL_REPORT_DATA = "SET_CALL_REPORT_DATA";

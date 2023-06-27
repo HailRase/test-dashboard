@@ -1,4 +1,4 @@
-import {CallReportDataType} from "../s1-main/m2-bll/call-report-reducer";
+import {CallReportDataType} from "../s1-main/m2-bll/b6-call-report-reducer/callReport-reducer";
 export const callReportData: CallReportDataType[] = [{
     id: 1,
     dateStart: "04.03.23 14:48:03",

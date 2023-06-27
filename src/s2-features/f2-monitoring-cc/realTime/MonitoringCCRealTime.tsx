@@ -11,18 +11,18 @@ import {useAppSelector} from "../../../s1-main/m2-bll/store";
 import {useDispatch} from "react-redux";
 import {
     fetchRealTimeHistogramData
-} from "../../../s1-main/m2-bll/b2-monitoring-real-time-reducer/realTimeHistogram-reducer";
+} from "../../../s1-main/m2-bll/b1-monitoring-real-time-reducer/realTimeHistogram-reducer";
 import {
     fetchRealTimeTodayPieData,
     StatusType
-} from "../../../s1-main/m2-bll/b2-monitoring-real-time-reducer/realTimeTodayPie-reducer";
+} from "../../../s1-main/m2-bll/b1-monitoring-real-time-reducer/realTimeTodayPie-reducer";
 import Loader from "../../../common/components/Loader/Loader";
 import {
     fetchRealMonthTodayPieData
-} from "../../../s1-main/m2-bll/b2-monitoring-real-time-reducer/realTimeMonthPie-reducer";
+} from "../../../s1-main/m2-bll/b1-monitoring-real-time-reducer/realTimeMonthPie-reducer";
 import ErrorWindow from "../../../common/components/ErrorWindow/ErrorWindow";
 import {findMaxAcceptAndNotAcceptSum} from "../../../common/utils/findMaxAcceptAndNotAcceptSum";
-import {fetchRealTimeTableData} from "../../../s1-main/m2-bll/b2-monitoring-real-time-reducer/realTimeTable-reducer";
+import {fetchRealTimeTableData} from "../../../s1-main/m2-bll/b1-monitoring-real-time-reducer/realTimeTable-reducer";
 import InfoWindow from "../../../common/components/InfoWindow/InfoWindow";
 
 

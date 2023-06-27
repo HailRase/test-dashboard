@@ -124,19 +124,15 @@ const setError = (errorMessage: string) => {
         errorMessage
     } as const
 }
-export const fetchPastTableData = (): DataThunkAction => async (dispatch) => {
+export const fetchPastTableData = (dateStart: string, timeStart: string, dateEnd: string, timeEnd: string): DataThunkAction => async (dispatch) => {
     try {
         dispatch(setPastTableStatus("loading"))
-        const data = await monitoringCCPastAPI.getPastTableData()
+        const data = await monitoringCCPastAPI.getPastTableData(dateStart, timeStart, dateEnd, timeEnd)
         const tableData: PastTableDataType[] = data.data.map((record: any) => {
             return {
-                id: record.id,
+                ...record,
                 ratingToday: 0,
-                operatorName: record.operatorName,
-                accept: record.accept,
-                skip: record.skip,
                 serviceLevel: `${calcServiceLevel(record.accept, record.skip)}%`,
-                avgServiseTime: record.avgServiseTime,
                 workload: `${record.workload}%`,
             }
         })

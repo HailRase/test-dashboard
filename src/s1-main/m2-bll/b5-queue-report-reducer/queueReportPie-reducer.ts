@@ -1,6 +1,7 @@
 import {ThunkAction} from "redux-thunk";
 import {StoreType} from "../store";
 import {monitoringCCPastAPI} from "../../m3-dal/d2-api/monitoringCCPastAPI";
+import {queueReportAPI} from "../../m3-dal/d2-api/queueReportAPI";
 
 const SET_QUEUE_REPORT_PIE_DATA = "SET_QUEUE_REPORT_PIE_DATA";
 const SET_QUEUE_REPORT_PIE_TOTAL_DATA = "SET_QUEUE_REPORT_PIE_TOTAL_DATA";
@@ -13,7 +14,10 @@ type DataThunkAction = ThunkAction<void,
     ActionDataType>;
 
 
-type ActionDataType = ReturnType<typeof setQueueReportPieTotalData> |ReturnType<typeof setQueueReportPieData> | ReturnType<typeof setQueueReportPieStatus>
+type ActionDataType =
+    ReturnType<typeof setQueueReportPieTotalData>
+    | ReturnType<typeof setQueueReportPieData>
+    | ReturnType<typeof setQueueReportPieStatus>
     | ReturnType<typeof setError>
 
 export type QueueReportPieDataType = {
@@ -33,7 +37,7 @@ type InitState = {
     status: StatusType,
     errorMessage: string,
 }
-const initialState:InitState = {
+const initialState: InitState = {
     data: [
         {name: '105 Beltelecom', value: 72, fill: '#d34758'},
         {name: '105 GSM', value: 76, fill: '#fdc6c8'},
@@ -55,10 +59,10 @@ const initialState:InitState = {
     status: 'init',
     errorMessage: ''
 }
-const dataColors = ['#d34758','#fdc6c8','#fd9a4c','#bbadff','#76c5e7','#a2bab1','#64e5d9','#e8ec6d','#489f48',
-    '#ff81db','#008dfe','#65d97e']
-const totalDataColor = ['#e70707','#4bb253']
-export const pastPieReducer = (state = initialState, action: ActionDataType) => {
+const dataColors = ['#d34758', '#fdc6c8', '#fd9a4c', '#bbadff', '#76c5e7', '#a2bab1', '#64e5d9', '#e8ec6d', '#489f48',
+    '#ff81db', '#008dfe', '#65d97e']
+const totalDataColor = ['#e70707', '#4bb253']
+export const queueReportPieReducer = (state = initialState, action: ActionDataType) => {
     switch (action.type) {
         case SET_QUEUE_REPORT_PIE_DATA: {
             return {
@@ -89,35 +93,35 @@ export const pastPieReducer = (state = initialState, action: ActionDataType) => 
         }
     }
 }
-const setQueueReportPieData = (data: QueueReportPieDataType[])  => {
+const setQueueReportPieData = (data: QueueReportPieDataType[]) => {
     return {
         type: SET_QUEUE_REPORT_PIE_DATA,
         data
     } as const
 };
-const setQueueReportPieTotalData = (totalData: QueueReportPieTotalDataType[])  => {
+const setQueueReportPieTotalData = (totalData: QueueReportPieTotalDataType[]) => {
     return {
         type: SET_QUEUE_REPORT_PIE_TOTAL_DATA,
         totalData
     } as const
 };
-const setQueueReportPieStatus = (status:StatusType) => {
+const setQueueReportPieStatus = (status: StatusType) => {
     return {
         type: SET_QUEUE_REPORT_PIE_STATUS,
         status
     } as const
 }
-const setError = (errorMessage:string) => {
+const setError = (errorMessage: string) => {
     return {
         type: SET_QUEUE_REPORT_PIE_ERROR,
         errorMessage
     } as const
 }
-export const fetchQueueReportPieData =  ():DataThunkAction => async(dispatch)  => {
+export const fetchQueueReportPieData = (dateStart: string, timeStart: string, dateEnd: string, timeEnd: string): DataThunkAction => async (dispatch) => {
     try {
         dispatch(setQueueReportPieStatus("loading"))
-        const innerData = await monitoringCCPastAPI.getPastInnerPieData()
-        const outerData = await monitoringCCPastAPI.getPastOuterPieData()
+        const innerData = await queueReportAPI.getQueueReportInnerPieData(dateStart, timeStart, dateEnd, timeEnd)
+        const outerData = await queueReportAPI.getQueueReportOuterPieData(dateStart, timeStart, dateEnd, timeEnd)
         const changedInnerData = [...innerData.data.map((obj: QueueReportPieTotalDataType, index: number) => {
             return {
                 ...obj,
@@ -133,9 +137,7 @@ export const fetchQueueReportPieData =  ():DataThunkAction => async(dispatch)  =
         dispatch(setQueueReportPieTotalData(changedInnerData))
         dispatch(setQueueReportPieData(changedOuterData))
         dispatch(setQueueReportPieStatus("loaded"))
-        debugger
     } catch (e: any) {
-        debugger
         dispatch(setQueueReportPieStatus("error"))
         dispatch(setError(e.message))
     }

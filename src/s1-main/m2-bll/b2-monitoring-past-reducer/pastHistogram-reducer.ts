@@ -296,10 +296,10 @@ const setError = (errorMessage: string) => {
         errorMessage
     } as const
 }
-export const fetchPastHistogramData = (): DataThunkAction => async (dispatch) => {
+export const fetchPastHistogramData = (dateStart: string, timeStart: string, dateEnd: string, timeEnd: string): DataThunkAction => async (dispatch) => {
     try {
         dispatch(setStatus("loading"))
-        const data = await monitoringCCPastAPI.getPastHistogramData()
+        const data = await monitoringCCPastAPI.getPastHistogramData(dateStart, timeStart, dateEnd, timeEnd)
         dispatch(setPastHistogramData(data.data))
         dispatch(setStatus("loaded"))
     } catch (e: any) {

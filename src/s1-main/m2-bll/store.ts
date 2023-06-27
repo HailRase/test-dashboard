@@ -4,17 +4,18 @@ import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {authReducer} from "./auth-reducer";
 import {operatorReportDetailedReducer} from "./operatorReportDetailed-reducer";
 import {operatorReportGeneralReducer} from "./b3-operator-report-general-reducer/operatorReportGeneral-reducer";
-import {callReportReducer} from "./call-report-reducer";
+import {callReportReducer} from "./b6-call-report-reducer/callReport-reducer";
 import {operatorReportReducer} from "./b7-operator-report-reducer/operatorReport-reducer";
-import {realTimeHistogramReducer} from "./b2-monitoring-real-time-reducer/realTimeHistogram-reducer";
-import {realTimeTodayPieReducer} from "./b2-monitoring-real-time-reducer/realTimeTodayPie-reducer";
-import {realTimeMonthPieReducer} from "./b2-monitoring-real-time-reducer/realTimeMonthPie-reducer";
-import {realTimeTableReducer} from "./b2-monitoring-real-time-reducer/realTimeTable-reducer";
-import {pastHistogramReducer} from "./b1-monitoring-past-reducer/pastHistogram-reducer";
-import {pastPieReducer} from "./b1-monitoring-past-reducer/pastPie-reducer";
-import {pastTableReducer} from "./b1-monitoring-past-reducer/pastTable-reducer";
+import {realTimeHistogramReducer} from "./b1-monitoring-real-time-reducer/realTimeHistogram-reducer";
+import {realTimeTodayPieReducer} from "./b1-monitoring-real-time-reducer/realTimeTodayPie-reducer";
+import {realTimeMonthPieReducer} from "./b1-monitoring-real-time-reducer/realTimeMonthPie-reducer";
+import {realTimeTableReducer} from "./b1-monitoring-real-time-reducer/realTimeTable-reducer";
+import {pastHistogramReducer} from "./b2-monitoring-past-reducer/pastHistogram-reducer";
+import {pastPieReducer} from "./b2-monitoring-past-reducer/pastPie-reducer";
+import {pastTableReducer} from "./b2-monitoring-past-reducer/pastTable-reducer";
 import {queueReportTableReducer} from "./b5-queue-report-reducer/queueReportTable-reducer";
 import {queueReportHistogramReducer} from "./b5-queue-report-reducer/queueReportHistogram-reducer";
+import {queueReportPieReducer} from "./b5-queue-report-reducer/queueReportPie-reducer";
 
 
 const rootReducer = combineReducers({
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
     operatorReportDetailedData: operatorReportDetailedReducer,
     queueReportTableData: queueReportTableReducer,
     queueReportHistogramData: queueReportHistogramReducer,
+    queueReportPieData: queueReportPieReducer,
     operatorReportData: operatorReportReducer,
     callReportData: callReportReducer,
     auth: authReducer

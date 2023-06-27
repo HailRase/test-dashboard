@@ -1,17 +1,17 @@
 import {instance} from "../d1-instance/instance";
 
 export const queueReportAPI = {
-    getQueueReportData(dateStart: string, timeStart: string, dateEnd: string, timeEnd: string) {
-        return instance.get(``/*`dashboard5_table?dtStart=${dateStart}T${timeStart}:59.000&dtStop=${dateEnd}T${timeEnd}:59.000`*/)
+    getQueueReportTableData(dateStart: string, timeStart: string, dateEnd: string, timeEnd: string) {
+        return instance.get(`dashboard5_table?dtStart=${dateStart}T${timeStart}:59.000&dtStop=${dateEnd}T${timeEnd}:59.000`)
     },
     getQueueReportHistogramData(dateStart: string, timeStart: string, dateEnd: string, timeEnd: string) {
-        return instance.get('dashboard5_schema')
+        return instance.get(`dashboard5_schema?dtStart=${dateStart}T${timeStart}:59.000&dtStop=${dateEnd}T${timeEnd}:59.000`)
     },
     getQueueReportOuterPieData(dateStart: string, timeStart: string, dateEnd: string, timeEnd: string){
-        return instance.get('dashboard5_day_code')
+        return instance.get(`dashboard5_round_outside?dtStart=${dateStart}T${timeStart}:59.000&dtStop=${dateEnd}T${timeEnd}:59.000`)
     },
     getQueueReportInnerPieData(dateStart: string, timeStart: string, dateEnd: string, timeEnd: string){
-        return instance.get('dashboard5_day_all')
+        return instance.get(`dashboard5_round_inside?dtStart=${dateStart}T${timeStart}:59.000&dtStop=${dateEnd}T${timeEnd}:59.000`)
     },
 }
 

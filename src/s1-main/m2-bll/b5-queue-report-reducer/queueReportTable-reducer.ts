@@ -18,8 +18,8 @@ type ActionDataType = ReturnType<typeof setQueueReportData> | ReturnType<typeof 
     | ReturnType<typeof setError>
 
 
-export type QueueReportDataType = {
-    id:number
+export type QueueReportTableDataType = {
+    id: number
     startPeriod: string
     endPeriod: string
     queue: string
@@ -53,7 +53,7 @@ export type QueueReportDataType = {
 }
 type StatusType = "init" | "loading" | "loaded" | "error"
 type InitialStateType = {
-    data: QueueReportDataType[]
+    data: QueueReportTableDataType[]
     department: { departmentName: string }[]
     status: StatusType
     errorMessage: string
@@ -61,7 +61,7 @@ type InitialStateType = {
 const initialState: InitialStateType = {
     data: [
         {
-            id:1,
+            id: 1,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "105 GSM",
@@ -94,7 +94,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:2,
+            id: 2,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "105 Beltelecom",
@@ -127,7 +127,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:3,
+            id: 3,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "39-25-47",
@@ -160,7 +160,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:4,
+            id: 4,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "105 GSM",
@@ -193,7 +193,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:5,
+            id: 5,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "Видеотерминалы",
@@ -226,7 +226,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:6,
+            id: 6,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "39-48-75",
@@ -259,7 +259,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:7,
+            id: 7,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "GSM",
@@ -292,7 +292,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:8,
+            id: 8,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "151 Beltelecom",
@@ -325,7 +325,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:9,
+            id: 9,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "151 Other",
@@ -358,7 +358,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:10,
+            id: 10,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "105 GSM",
@@ -391,7 +391,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:11,
+            id: 11,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "105 Other",
@@ -424,7 +424,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:12,
+            id: 12,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "105 Beltelecom",
@@ -457,7 +457,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:13,
+            id: 13,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "151 GSM",
@@ -490,7 +490,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:14,
+            id: 14,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "151 Other",
@@ -523,7 +523,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:15,
+            id: 15,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "105 GSM",
@@ -556,7 +556,7 @@ const initialState: InitialStateType = {
             maxTalkTime: "00:03:00",
         },
         {
-            id:16,
+            id: 16,
             startPeriod: "04.03.23 00:00",
             endPeriod: "05.03.23 00:00",
             queue: "105 GSM",
@@ -574,7 +574,7 @@ const initialState: InitialStateType = {
             totalAccept: 562,
             acceptLess5s: 560,
             acceptLess10s: 2,
-            acceptLess20s:0,
+            acceptLess20s: 0,
             acceptLess30s: 9,
             acceptLess1m: 0,
             acceptLess2m: 0,
@@ -638,14 +638,20 @@ const setError = (errorMessage: string) => {
         errorMessage
     } as const
 }
-export const fetchQueueReportData = (dateStart: string, timeStart: string, dateEnd: string, timeEnd: string): DataThunkAction => async (dispatch) => {
-    try {
-        dispatch(setStatus("loading"))
-        const data = await queueReportAPI.getQueueReportData(dateStart, timeStart, dateEnd, timeEnd)
-        dispatch(setQueueReportData(data.data))
-        dispatch(setStatus("loaded"))
-    } catch (e: any) {
-        dispatch(setStatus("error"))
-        dispatch(setError(e.message))
+export const fetchQueueReportTableData = (
+    dateStart: string,
+    timeStart: string,
+    dateEnd: string,
+    timeEnd: string
+): DataThunkAction =>
+    async (dispatch) => {
+        try {
+            dispatch(setStatus("loading"))
+            const data = await queueReportAPI.getQueueReportTableData(dateStart, timeStart, dateEnd, timeEnd)
+            dispatch(setQueueReportData(data.data))
+            dispatch(setStatus("loaded"))
+        } catch (e: any) {
+            dispatch(setStatus("error"))
+            dispatch(setError(e.message))
+        }
     }
-}

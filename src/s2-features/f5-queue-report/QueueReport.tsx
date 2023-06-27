@@ -16,11 +16,13 @@ import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
 import {useAppSelector} from "../../s1-main/m2-bll/store";
 import moment from "moment";
-import {fetchQueueReportData} from "../../s1-main/m2-bll/b5-queue-report-reducer/queueReportTable-reducer";
+import {fetchQueueReportTableData} from "../../s1-main/m2-bll/b5-queue-report-reducer/queueReportTable-reducer";
 import {useDispatch} from "react-redux";
 import Loader from "../../common/components/Loader/Loader";
 import ErrorWindow from "../../common/components/ErrorWindow/ErrorWindow";
-import {StatusType} from "../../s1-main/m2-bll/b2-monitoring-real-time-reducer/realTimeTodayPie-reducer";
+import {StatusType} from "../../s1-main/m2-bll/b1-monitoring-real-time-reducer/realTimeTodayPie-reducer";
+import {fetchQueueReportPieData} from "../../s1-main/m2-bll/b5-queue-report-reducer/queueReportPie-reducer";
+import {fetchQueueReportHistogramData} from "../../s1-main/m2-bll/b5-queue-report-reducer/queueReportHistogram-reducer";
 
 
 const QueueReport = () => {
@@ -69,7 +71,7 @@ const QueueReport = () => {
                     Header: 'Уровень обслуживания <20',
                     accessor: 'serviceLevel',
                     width: 120,
-                    Footer: (info: any) => useCalcNumTotal(info, 'serviceLevel')
+                    Footer: <></>
                 },
             ]
         },
@@ -237,14 +239,18 @@ const QueueReport = () => {
     const queueReportTableData = useAppSelector(state => state.queueReportTableData.data)
     const queueReportTableStatus = useAppSelector( state => state.queueReportTableData.status)
     const queueReportTableError = useAppSelector( state => state.queueReportTableData.errorMessage)
-    const queueReportHistogramData = useAppSelector(state => state.queueReportTableData.data)
-    const queueReportHistogramStatus = useAppSelector( state => state.queueReportTableData.status)
-    const queueReportHistogramError = useAppSelector( state => state.queueReportTableData.errorMessage)
+    const queueReportHistogramData = useAppSelector(state => state.queueReportHistogramData.data)
+    const queueReportHistogramStatus = useAppSelector( state => state.queueReportHistogramData.status)
+    const queueReportHistogramError = useAppSelector( state => state.queueReportHistogramData.errorMessage)
+    const queueReportPieData = useAppSelector(state => state.queueReportPieData.data)
+    const queueReportPieTotalData = useAppSelector(state => state.queueReportPieData.totalData)
+    const queueReportPieStatus = useAppSelector( state => state.queueReportPieData.status)
+    const queueReportPieError = useAppSelector( state => state.queueReportPieData.errorMessage)
     const [isActive, setIsActive] = useState<boolean>(false)
     const [dateStart, setDateStart] = useState(moment().format("YYYY-MM-DD"))
     const [timeStart, setTimeStart] = useState("00:00")
-    const [dateEnd, setDateEnd] = useState(moment(moment()).add(1, 'day').format('YYYY-MM-DD'))
-    const [timeEnd, setTimeEnd] = useState("00:00")
+    const [dateEnd, setDateEnd] = useState(moment().format("YYYY-MM-DD"))
+    const [timeEnd, setTimeEnd] = useState("23:59")
     const navigate = useNavigate()
     const dispatch = useDispatch<any>()
     const isAuth = useIsAuth()
@@ -252,7 +258,9 @@ const QueueReport = () => {
         if (!isAuth) navigate('/')
     }, [])
     useEffect(() => {
-        dispatch(fetchQueueReportData(dateStart, timeStart, dateEnd, timeEnd))
+        dispatch(fetchQueueReportTableData(dateStart, timeStart, dateEnd, timeEnd))
+        dispatch(fetchQueueReportPieData(dateStart, timeStart, dateEnd, timeEnd))
+        dispatch(fetchQueueReportHistogramData(dateStart, timeStart, dateEnd, timeEnd))
     }, [])
 
     const onHomeHandler = () => {
@@ -277,7 +285,9 @@ const QueueReport = () => {
         setTimeEnd(e.currentTarget.value)
     }
     const onLoadDataHandler = () => {
-        dispatch(fetchQueueReportData(dateStart, timeStart, dateEnd, timeEnd))
+        dispatch(fetchQueueReportTableData(dateStart, timeStart, dateEnd, timeEnd))
+        dispatch(fetchQueueReportPieData(dateStart, timeStart, dateEnd, timeEnd))
+        dispatch(fetchQueueReportHistogramData(dateStart, timeStart, dateEnd, timeEnd))
     }
 
     const renderComponent = (component: ReactComponentElement<any>, status: StatusType, error: string) => {
@@ -293,7 +303,6 @@ const QueueReport = () => {
             </div>
         }
     }
-
     return (
         <div className={s.queueReportWrapper}>
             <Sidebar isActive={isActive}>
@@ -346,7 +355,11 @@ const QueueReport = () => {
                 <div className={s.callAndOperatorRating}>
                     <div className={s.pieContainer}>
                         <span>Кол-во принятых звонков по очередям</span>
-                        <QueueReportPie/>
+                        {renderComponent(
+                            <QueueReportPie totalData={queueReportPieTotalData} data={queueReportPieData}/>,
+                            queueReportPieStatus,
+                            queueReportPieError
+                        )}
                     </div>
                     <div className={s.histogramContainer}>
                         <span>Все очереди</span>

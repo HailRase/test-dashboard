@@ -13,7 +13,10 @@ type DataThunkAction = ThunkAction<void,
     ActionDataType>;
 
 
-type ActionDataType = ReturnType<typeof setPastPieTotalData> |ReturnType<typeof setPastPieData> | ReturnType<typeof setPastPieStatus>
+type ActionDataType =
+    ReturnType<typeof setPastPieTotalData>
+    | ReturnType<typeof setPastPieData>
+    | ReturnType<typeof setPastPieStatus>
     | ReturnType<typeof setError>
 
 export type PastPieDataType = {
@@ -33,7 +36,7 @@ type InitState = {
     status: StatusType,
     errorMessage: string,
 }
-const initialState:InitState = {
+const initialState: InitState = {
     data: [
         {name: 'НОД-6', value: 14/*totalCallReducer('Видеотерминалы')*/, fill: ''},
         {name: 'НОД-5', value: 24/*totalCallReducer('Видеотерминалы')*/, fill: ''},
@@ -58,9 +61,9 @@ const initialState:InitState = {
     status: 'init',
     errorMessage: ''
 }
-const dataColors = ['#b3b3d9','#ef9288','#c94322','#6171c5','#d4830e','#50878d','#64b280','#7dbecf','#ec977d',
-    '#fcea87','#76c5e7','#7c84b8','#f1a492','#02bbd0','#489f48','#7eb9f6','#fd3101']
-const totalDataColor = ['#e70707','#4bb253']
+const dataColors = ['#b3b3d9', '#ef9288', '#c94322', '#6171c5', '#d4830e', '#50878d', '#64b280', '#7dbecf', '#ec977d',
+    '#fcea87', '#76c5e7', '#7c84b8', '#f1a492', '#02bbd0', '#489f48', '#7eb9f6', '#fd3101']
+const totalDataColor = ['#e70707', '#4bb253']
 export const pastPieReducer = (state = initialState, action: ActionDataType) => {
     switch (action.type) {
         case SET_PAST_PIE_DATA: {
@@ -92,35 +95,35 @@ export const pastPieReducer = (state = initialState, action: ActionDataType) => 
         }
     }
 }
-const setPastPieData = (data: PastPieDataType[])  => {
+const setPastPieData = (data: PastPieDataType[]) => {
     return {
         type: SET_PAST_PIE_DATA,
         data
     } as const
 };
-const setPastPieTotalData = (totalData: PastPieTotalDataType[])  => {
+const setPastPieTotalData = (totalData: PastPieTotalDataType[]) => {
     return {
         type: SET_PAST_PIE_TOTAL_DATA,
         totalData
     } as const
 };
-const setPastPieStatus = (status:StatusType) => {
+const setPastPieStatus = (status: StatusType) => {
     return {
         type: SET_PAST_PIE_STATUS,
         status
     } as const
 }
-const setError = (errorMessage:string) => {
+const setError = (errorMessage: string) => {
     return {
         type: SET_PAST_PIE_ERROR,
         errorMessage
     } as const
 }
-export const fetchPastPieData =  ():DataThunkAction => async(dispatch)  => {
+export const fetchPastPieData = (dateStart: string, timeStart: string, dateEnd: string, timeEnd: string): DataThunkAction => async (dispatch) => {
     try {
         dispatch(setPastPieStatus("loading"))
-        const innerData = await monitoringCCPastAPI.getPastInnerPieData()
-        const outerData = await monitoringCCPastAPI.getPastOuterPieData()
+        const innerData = await monitoringCCPastAPI.getPastInnerPieData(dateStart, timeStart, dateEnd, timeEnd)
+        const outerData = await monitoringCCPastAPI.getPastOuterPieData(dateStart, timeStart, dateEnd, timeEnd)
         const changedInnerData = [...innerData.data.map((obj: PastPieTotalDataType, index: number) => {
             return {
                 ...obj,
