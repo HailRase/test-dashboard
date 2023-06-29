@@ -1,7 +1,7 @@
 import {sortServiceLevelRatings} from "./sortServiceLevelRatings";
 import {sortServiceLevelMonthRatings} from "./sortServiceLevelMonthRatings";
 
-export function updateRatings (arr) {
+export function updateRatingsTodayMonth (arr) {
     return arr.sort(sortServiceLevelMonthRatings).map((item, index) => {
         return {
             ...item,

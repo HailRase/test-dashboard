@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, ReactComponentElement, useEffect, useState} from 'react';
 import s from './CallReport.module.scss'
 import Table from "../../common/components/Table/Table";
 import {useNavigate} from "react-router-dom";
@@ -13,7 +13,12 @@ import TabButton from "../../common/components/TabButton/TabButton";
 import useIsAuth from "../../common/hooks/useIsAuth";
 import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
 import {useAppSelector} from "../../s1-main/m2-bll/store";
-import {sortServiceLevelRatings} from "../../common/utils/sortServiceLevelRatings";
+import moment from "moment/moment";
+import {useDispatch} from "react-redux";
+import {StatusType} from "../../s1-main/m2-bll/b1-monitoring-real-time-reducer/realTimeTodayPie-reducer";
+import Loader from "../../common/components/Loader/Loader";
+import ErrorWindow from "../../common/components/ErrorWindow/ErrorWindow";
+import {fetchCallReportTableData} from "../../s1-main/m2-bll/b6-call-report-reducer/callReport-reducer";
 
 
 const columns = [
@@ -148,6 +153,8 @@ const columns = [
 const CallReport = () => {
 
     const callReportData = useAppSelector(state => state.callReportData.data)
+    const callReportStatus = useAppSelector(state => state.callReportData.status)
+    const callReportError = useAppSelector(state => state.callReportData.errorMessage)
     const [state, seState] = useState(callReportData)
 
     const [statusFilter, setStatusFilter] = useState('');
@@ -158,6 +165,11 @@ const CallReport = () => {
     const [operatorFilter, setOperatorFilter] = useState('');
     const [contactFilter, setContactFilter] = useState('');
 
+
+    const [dateStart, setDateStart] = useState(moment().format("YYYY-MM-DD"))
+    const [timeStart, setTimeStart] = useState("00:00")
+    const [dateEnd, setDateEnd] = useState(moment().format("YYYY-MM-DD"))
+    const [timeEnd, setTimeEnd] = useState("23:59")
     const [fromDate, setFromDate] = useState('')
     const [fromTime, setFromTime] = useState('')
     const [toDate, setToDate] = useState('')
@@ -166,10 +178,14 @@ const CallReport = () => {
     const [isActiveSideBar, setIsActiveSideBar] = useState<boolean>(false)
     const navigate = useNavigate()
     const isAuth = useIsAuth()
+    const dispatch = useDispatch<any>()
 
     useEffect(() => {
         if (!isAuth) navigate('/')
     },[])
+    useEffect(()=> {
+        dispatch(fetchCallReportTableData(dateStart, timeStart, dateEnd, timeEnd))
+    }, [])
     const onChangeSelectType = (value: ChangeEvent<HTMLSelectElement>) => {
         if (value) {
             setTypeFilter(value.target.value)
@@ -218,19 +234,18 @@ const CallReport = () => {
     const onChangeToTime = (time: ChangeEvent<HTMLInputElement>) => {
         setToTime(time.target.value)
     }
-
-        const filteredData = state.filter((item) =>
-            item.status.includes(statusFilter) &&
-            item.direction.includes(directionFilter) &&
-            item.type.includes(typeFilter) &&
-            item.queue.includes(queueFilter) &&
-            item.initiator.toString().includes(initiatorFilter) &&
-            item.operator.includes(operatorFilter) &&
-            (item.initiatorContact.includes(contactFilter) || item.recipientContact.includes(contactFilter))
-        );
-
-
-
+    const onDateStartChangeHandler = (e: any) => {
+        setDateStart(e.currentTarget.value)
+    }
+    const onTimeStartChangeHandler = (e: any) => {
+        setTimeStart(e.currentTarget.value)
+    }
+    const onDateEndChangeHandler = (e: any) => {
+        setDateEnd(e.currentTarget.value)
+    }
+    const onTimeEndChangeHandler = (e: any) => {
+        setTimeEnd(e.currentTarget.value)
+    }
 
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)
@@ -240,6 +255,23 @@ const CallReport = () => {
     }
     const onCloseSidebar = () => {
         setIsActiveSideBar(false)
+    }
+    const onLoadData = () => {
+        dispatch(fetchCallReportTableData(dateStart, timeStart, dateEnd, timeEnd))
+    }
+
+    const renderComponent = (component: ReactComponentElement<any>, status: StatusType, error: string) => {
+        if (status === "loaded") {
+            return component
+        } else if (status === "loading") {
+            return <div className={s.centringLoader}>
+                <Loader width={280} height={18}/>
+            </div>
+        } else if (status === "error") {
+            return <div className={s.centringLoader}>
+                <ErrorWindow errorMessage={error}/>
+            </div>
+        }
     }
 
     return (
@@ -251,6 +283,7 @@ const CallReport = () => {
                         <span>Параметры отбора</span>
                     </div>
                     <CustomTabs param={true}
+                                disabledPeriod
                                 fromDate={fromDate}
                                 fromTime={fromTime}
                                 toDate={toDate}
@@ -260,6 +293,37 @@ const CallReport = () => {
                                 onToDateChange={onChangeToDate}
                                 onToTimeChange={onChangeToTime}
                     >
+                        <div className={s.optionContent}>
+                            <Form.Group
+                                style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
+                                <div>
+                                    <Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label>
+                                </div>
+                                <div>
+                                    <Form.Control type="date" defaultValue={dateStart} style={{width: "95%"}}
+                                                  onChange={onDateStartChangeHandler}/>
+                                    <Form.Control type="time" defaultValue={timeStart} style={{width: "95%"}}
+                                                  onChange={onTimeStartChangeHandler}/>
+                                </div>
+                            </Form.Group>
+                            <Form.Group
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                    flexDirection: "column",
+                                    marginBottom: "15px"
+                                }}>
+                                <div>
+                                    <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
+                                </div>
+                                <div>
+                                    <Form.Control type="date" defaultValue={dateEnd} style={{width: "95%"}}
+                                                  onChange={onDateEndChangeHandler}/>
+                                    <Form.Control type="time" defaultValue={timeEnd} style={{width: "95%"}}
+                                                  onChange={onTimeEndChangeHandler}/>
+                                </div>
+                            </Form.Group>
+                        </div>
                         <Form.Group style={{marginBottom: "10px"}}>
                             <Form.Control
                                 onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputInitiator(value)}
@@ -341,8 +405,7 @@ const CallReport = () => {
                                 <option value="Не отвечен">Не отвечен</option>
                             </Form.Select>
                         </Form.Group>
-                        <TabButton name={"Обновить"} onClick={() => {
-                        }}/>
+                        <TabButton name={"Обновить"} onClick={onLoadData}/>
                     </CustomTabs>
 
                 </div>
@@ -353,7 +416,11 @@ const CallReport = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Статистика по звонкам</span>
                 </div>
-                <Table data={filteredData} columns={columns}  pagination={true} footer/>
+                {renderComponent(
+                    <Table data={callReportData} columns={columns} pagination={true} footer/>,
+                    callReportStatus,
+                    callReportError,
+                )}
             </div>
         </div>
     );

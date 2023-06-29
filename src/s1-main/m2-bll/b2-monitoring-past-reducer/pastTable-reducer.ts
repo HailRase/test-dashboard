@@ -2,6 +2,7 @@ import {ThunkAction} from "redux-thunk";
 import {StoreType} from "../store";
 import {calcServiceLevel} from "../../../common/utils/calcServiceLevel";
 import {monitoringCCPastAPI} from "../../m3-dal/d2-api/monitoringCCPastAPI";
+import {updateRatingPeriod} from "../../../common/utils/updateRatingPeriod";
 
 const SET_PAST_TABLE_DATA = "SET_PAST_TABLE_DATA";
 const SET_PAST_TABLE_STATUS = "SET_PAST_TABLE_STATUS"
@@ -136,7 +137,7 @@ export const fetchPastTableData = (dateStart: string, timeStart: string, dateEnd
                 workload: `${record.workload}%`,
             }
         })
-        dispatch(setPastTableData(tableData.sort((a:any, b:any) => a.serviceLevel !== b.serviceLevel
+        /*const newTableData = tableData.sort((a:any, b:any) => a.serviceLevel !== b.serviceLevel
             ? b.serviceLevel - a.serviceLevel
             : b.accept - a.accept)
             .map((item, index) => {
@@ -144,7 +145,8 @@ export const fetchPastTableData = (dateStart: string, timeStart: string, dateEnd
                     ...item,
                     ratingMonth: index + 1
                 }
-            })))
+            })*/
+        dispatch(setPastTableData(updateRatingPeriod(tableData)))
         dispatch(setPastTableStatus("loaded"))
     } catch (e: any) {
         dispatch(setPastTableStatus("error"))

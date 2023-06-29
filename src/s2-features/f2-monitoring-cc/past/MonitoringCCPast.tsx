@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ReactComponentElement, useEffect, useState} from 'react';
 import s from './MonitoringCCPast.module.scss'
 import Histogram from "../../../common/components/Histogram/Histogram";
 import {useNavigate} from "react-router-dom";
@@ -10,7 +10,6 @@ import HomeIcon from "../../../common/components/HomeIcon/HomeIcon";
 import {monitoringPastData} from "../../../data/histogram-data/monitoringPastData";
 import CallPastPie from "./p1-call-past-pie/CallPastPie";
 import Table from "../../../common/components/Table/Table";
-import {operatorsRatingData} from "../../../data/operatorsData";
 import useIsAuth from "../../../common/hooks/useIsAuth";
 import {useDispatch} from "react-redux";
 import {useScale} from "../../../common/hooks/useScale";
@@ -21,10 +20,24 @@ import TabButton from "../../../common/components/TabButton/TabButton";
 import {fetchPastTableData} from "../../../s1-main/m2-bll/b2-monitoring-past-reducer/pastTable-reducer";
 import {fetchPastHistogramData} from "../../../s1-main/m2-bll/b2-monitoring-past-reducer/pastHistogram-reducer";
 import {fetchPastPieData} from "../../../s1-main/m2-bll/b2-monitoring-past-reducer/pastPie-reducer";
+import {useAppSelector} from "../../../s1-main/m2-bll/store";
+import {StatusType} from "../../../s1-main/m2-bll/b1-monitoring-real-time-reducer/realTimeTodayPie-reducer";
+import Loader from "../../../common/components/Loader/Loader";
+import ErrorWindow from "../../../common/components/ErrorWindow/ErrorWindow";
 
 
 const MonitoringCCPast = () => {
 
+    const monitoringCCPastTableData = useAppSelector(state => state.pastTableData.data)
+    const monitoringCCPastTableStatus = useAppSelector( state => state.pastTableData.status)
+    const monitoringCCPastTableError = useAppSelector( state => state.pastTableData.errorMessage)
+    const monitoringCCPastHistogramData = useAppSelector(state => state.pastHistogramData.data)
+    const monitoringCCPastHistogramStatus = useAppSelector( state => state.pastHistogramData.status)
+    const monitoringCCPastHistogramError = useAppSelector( state => state.pastHistogramData.errorMessage)
+    const monitoringCCPastPieData = useAppSelector(state => state.pastPieData.data)
+    const monitoringCCPastPieTotalData = useAppSelector(state => state.pastPieData.totalData)
+    const monitoringCCPastPieStatus = useAppSelector( state => state.pastPieData.status)
+    const monitoringCCPastPieError = useAppSelector( state => state.pastPieData.errorMessage)
     const scale = useScale()
     const [isActive, setIsActive] = useState<boolean>(false)
     const navigate = useNavigate()
@@ -38,6 +51,11 @@ const MonitoringCCPast = () => {
 
     useEffect(() => {
         if (!isAuth) navigate('/')
+    }, [])
+    useEffect(() => {
+        dispatch(fetchPastTableData(dateStart, timeStart, dateEnd, timeEnd))
+        dispatch(fetchPastPieData(dateStart, timeStart, dateEnd, timeEnd))
+        dispatch(fetchPastHistogramData(dateStart, timeStart, dateEnd, timeEnd))
     }, [])
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)
@@ -71,7 +89,7 @@ const MonitoringCCPast = () => {
     const columns = [
         {
             Header: '№',
-            accessor: 'ratingRecordId',
+            accessor: 'ratingToday',
             width: 70 / scale
         },
         {
@@ -108,8 +126,19 @@ const MonitoringCCPast = () => {
 
     const domainYAxisCalls = findMaxAcceptAndNotAcceptSum(monitoringPastData)
 
-
-
+    const renderComponent = (component: ReactComponentElement<any>, status: StatusType, error: string) => {
+        if (status === "loaded") {
+            return component
+        } else if (status === "loading") {
+            return <div className={s.centringLoader}>
+                <Loader width={280} height={18}/>
+            </div>
+        } else if (status === "error") {
+            return <div className={s.centringLoader}>
+                <ErrorWindow errorMessage={error}/>
+            </div>
+        }
+    }
     return (
         <div className={s.monitoringCCWrapper}>
             <Sidebar isActive={isActive}>
@@ -161,16 +190,27 @@ const MonitoringCCPast = () => {
                 <div className={s.callAndOperatorRating}>
                     <div className={s.callPastPieContainer}>
                         <span>Звонков</span>
-                        <CallPastPie/>
+                        {renderComponent(
+                            <CallPastPie data={monitoringCCPastPieData} totalData={monitoringCCPastPieTotalData}/>,
+                            monitoringCCPastPieStatus,
+                            monitoringCCPastPieError
+                        )}
                     </div>
                     <div className={s.ratingContainer}>
                         <span>Рейтинг операторов</span>
-                        <div className={s.table}><Table data={operatorsRatingData} columns={columns} height={"40vh"}/>
-                        </div>
+                            {renderComponent(
+                                <Table data={monitoringCCPastTableData} columns={columns} height={"40vh"}/>,
+                                monitoringCCPastTableStatus,
+                                monitoringCCPastTableError,
+                            )}
                     </div>
                 </div>
                 <div className={s.histogram}>
-                    <Histogram data={monitoringPastData} callYAxisDomain={domainYAxisCalls}/>
+                    {renderComponent(
+                        <Histogram data={monitoringCCPastHistogramData} callYAxisDomain={domainYAxisCalls}/>,
+                        monitoringCCPastHistogramStatus,
+                        monitoringCCPastHistogramError
+                    )}
                 </div>
             </div>
         </div>

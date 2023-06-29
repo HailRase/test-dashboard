@@ -54,10 +54,12 @@ const initialState: InitState = {
         {name: 'MTC', value: 123/*totalCallReducer('105 Other')*/, fill: ''},
         {name: 'Life', value: 47 /*totalCallReducer('105 GSM')*/, fill: ''},
         {name: 'International', value: 153/*totalCallReducer('105 Beltelecom')*/, fill: ''},
-        {name: 'A1', value: 333/*totalCallReducer('105 Beltelecom')*/, fill: ''},
+        {name: 'A1', value: 333/*totalCallReducer('105 Beltelecom')*/, fill: ''}
     ],
-    totalData: [{name: 'Пропущено', value: 511, fill: ''},
-        {name: 'Принято', value: 3534, fill: ''},],
+    totalData: [
+        {name: 'Пропущено', value: 511, fill: ''},
+        {name: 'Принято', value: 3534, fill: ''}
+    ],
     status: 'init',
     errorMessage: ''
 }
@@ -139,9 +141,7 @@ export const fetchPastPieData = (dateStart: string, timeStart: string, dateEnd: 
         dispatch(setPastPieTotalData(changedInnerData))
         dispatch(setPastPieData(changedOuterData))
         dispatch(setPastPieStatus("loaded"))
-        debugger
     } catch (e: any) {
-        debugger
         dispatch(setPastPieStatus("error"))
         dispatch(setError(e.message))
     }

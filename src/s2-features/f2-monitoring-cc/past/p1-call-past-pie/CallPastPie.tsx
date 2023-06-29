@@ -2,33 +2,40 @@ import React, {useEffect} from 'react';
 import {Pie, PieChart, ResponsiveContainer, Tooltip} from 'recharts';
 import {useScale} from "../../../../common/hooks/useScale";
 import {QueueDataType, TotalAcceptAndSkippedCallType} from "../../realTime/r1-monitoring-cc-pie/MonitoringCCPie";
+import {
+    PastPieDataType,
+    PastPieTotalDataType
+} from "../../../../s1-main/m2-bll/b2-monitoring-past-reducer/pastPie-reducer";
 
-
-const CallPastPie = () => {
+type CallPastPiyDataType = {
+    data: PastPieDataType[]
+    totalData: PastPieTotalDataType[]
+}
+const CallPastPie: React.FC<CallPastPiyDataType> = ({data, totalData}) => {
     const scale = useScale()
-    const data01: TotalAcceptAndSkippedCallType[] = [
+    /*const data01: TotalAcceptAndSkippedCallType[] = [
         {name: 'Пропущено', value: 11, fill: '#e70707'},
         {name: 'Принято', value: 1534, fill: '#4bb253'},
     ];
     const data02: QueueDataType[] = [
-        {name: 'НОД-6', value: 64/*totalCallReducer('Видеотерминалы')*/, fill: '#b3b3d9'},
-        {name: 'НОД-5', value: 54/*totalCallReducer('Видеотерминалы')*/, fill: '#ef9288'},
-        {name: 'НОД-4', value: 42/*totalCallReducer('Видеотерминалы')*/, fill: '#c94322'},
-        {name: 'НОД-3', value: 97/*totalCallReducer('Видеотерминалы')*/, fill: '#6171c5'},
-        {name: 'НОД-2', value: 61/*totalCallReducer('Видеотерминалы')*/, fill: '#d4830e'},
-        {name: 'НОД-1', value: 87/*totalCallReducer('Видеотерминалы')*/, fill: '#50878d'},
-        {name: 'Белтел Могилёвская', value: 158 /*totalCallReducer('GSM')*/, fill: '#64b280'},
-        {name: 'Белтел Минская', value: 65 /*totalCallReducer('39-48-75')*/, fill: '#7dbecf'},
-        {name: 'Белтел Гродненская', value: 148 /*totalCallReducer('39-25-47')*/, fill: '#ec977d'},
-        {name: 'Белтел Гомельская', value: 70 /*totalCallReducer('151 Other')*/, fill: '#fcea87'},
-        {name: 'Белтел Витебская', value: 271/*totalCallReducer('151 GSM')*/, fill: '#76c5e7'},
-        {name: 'Белтел Брестская', value: 175/*totalCallReducer('151 Beltelecom')*/, fill: '#7c84b8'},
-        {name: 'Repeat call', value: 95/*totalCallReducer('151 Beltelecom')*/, fill: '#f1a492'},
-        {name: 'MTC', value: 123/*totalCallReducer('105 Other')*/, fill: '#02bbd0'},
-        {name: 'Life', value: 67 /*totalCallReducer('105 GSM')*/, fill: '#489f48'},
-        {name: 'International', value: 253/*totalCallReducer('105 Beltelecom')*/, fill: '#7eb9f6'},
-        {name: 'A1', value: 383/*totalCallReducer('105 Beltelecom')*/, fill: '#fd3101'},
-    ];
+        {name: 'НОД-6', value: 64/!*totalCallReducer('Видеотерминалы')*!/, fill: '#b3b3d9'},
+        {name: 'НОД-5', value: 54/!*totalCallReducer('Видеотерминалы')*!/, fill: '#ef9288'},
+        {name: 'НОД-4', value: 42/!*totalCallReducer('Видеотерминалы')*!/, fill: '#c94322'},
+        {name: 'НОД-3', value: 97/!*totalCallReducer('Видеотерминалы')*!/, fill: '#6171c5'},
+        {name: 'НОД-2', value: 61/!*totalCallReducer('Видеотерминалы')*!/, fill: '#d4830e'},
+        {name: 'НОД-1', value: 87/!*totalCallReducer('Видеотерминалы')*!/, fill: '#50878d'},
+        {name: 'Белтел Могилёвская', value: 158 /!*totalCallReducer('GSM')*!/, fill: '#64b280'},
+        {name: 'Белтел Минская', value: 65 /!*totalCallReducer('39-48-75')*!/, fill: '#7dbecf'},
+        {name: 'Белтел Гродненская', value: 148 /!*totalCallReducer('39-25-47')*!/, fill: '#ec977d'},
+        {name: 'Белтел Гомельская', value: 70 /!*totalCallReducer('151 Other')*!/, fill: '#fcea87'},
+        {name: 'Белтел Витебская', value: 271/!*totalCallReducer('151 GSM')*!/, fill: '#76c5e7'},
+        {name: 'Белтел Брестская', value: 175/!*totalCallReducer('151 Beltelecom')*!/, fill: '#7c84b8'},
+        {name: 'Repeat call', value: 95/!*totalCallReducer('151 Beltelecom')*!/, fill: '#f1a492'},
+        {name: 'MTC', value: 123/!*totalCallReducer('105 Other')*!/, fill: '#02bbd0'},
+        {name: 'Life', value: 67 /!*totalCallReducer('105 GSM')*!/, fill: '#489f48'},
+        {name: 'International', value: 253/!*totalCallReducer('105 Beltelecom')*!/, fill: '#7eb9f6'},
+        {name: 'A1', value: 383/!*totalCallReducer('105 Beltelecom')*!/, fill: '#fd3101'},
+    ];*/
 
 
     const renderProviderItem = (props: any) => {
@@ -145,7 +152,7 @@ const CallPastPie = () => {
                               bottom: 0,
                               right: 0
                           }}>
-                    <Pie data={data02}
+                    <Pie data={data}
                          startAngle={-270}
                          dataKey={"value"}
                          cx="50%"
@@ -157,7 +164,7 @@ const CallPastPie = () => {
                          label={renderProviderItem}
                          paddingAngle={1}
                     />
-                    <Pie data={data01}
+                    <Pie data={totalData}
                          startAngle={-270}
                          dataKey="value"
                          cx="50%"

@@ -2,7 +2,7 @@ import {ThunkAction} from "redux-thunk";
 import {StoreType} from "../store";
 import {monitoringCCRealTimeAPI} from "../../m3-dal/d2-api/monitoringCCRealTimeAPI";
 import {calcServiceLevel} from "../../../common/utils/calcServiceLevel";
-import {updateRatings} from "../../../common/utils/updateRatings";
+import {updateRatingsTodayMonth} from "../../../common/utils/updateRatingsTodayMonth";
 import {calcMonthRating} from "../../../common/utils/calcMonthRating";
 
 const SET_REAL_TIME_TABLE_DATA = "SET_REAL_TIME_TABLE_DATA";
@@ -184,7 +184,7 @@ export const fetchRealTimeTableData = (): DataThunkAction => async (dispatch) =>
                 workloadMonth: `${record.workloadMonth}%`
             }
         })
-        dispatch(setRealTimeTableData(updateRatings(tableData)))
+        dispatch(setRealTimeTableData(updateRatingsTodayMonth(tableData)))
         dispatch(setRealTimeTableStatus("loaded"))
     } catch (e: any) {
         dispatch(setRealTimeTableStatus("error"))
