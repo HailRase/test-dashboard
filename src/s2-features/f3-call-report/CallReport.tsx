@@ -293,16 +293,16 @@ const CallReport = () => {
                                 onToDateChange={onChangeToDate}
                                 onToTimeChange={onChangeToTime}
                     >
-                        <div className={s.optionContent}>
+
                             <Form.Group
                                 style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
                                 <div>
                                     <Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label>
                                 </div>
                                 <div>
-                                    <Form.Control type="date" defaultValue={dateStart} style={{width: "95%"}}
+                                    <Form.Control type="date" defaultValue={dateStart} style={{width: "100%"}}
                                                   onChange={onDateStartChangeHandler}/>
-                                    <Form.Control type="time" defaultValue={timeStart} style={{width: "95%"}}
+                                    <Form.Control type="time" defaultValue={timeStart} style={{width: "100%"}}
                                                   onChange={onTimeStartChangeHandler}/>
                                 </div>
                             </Form.Group>
@@ -317,13 +317,13 @@ const CallReport = () => {
                                     <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
                                 </div>
                                 <div>
-                                    <Form.Control type="date" defaultValue={dateEnd} style={{width: "95%"}}
+                                    <Form.Control type="date" defaultValue={dateEnd} style={{width: "100%"}}
                                                   onChange={onDateEndChangeHandler}/>
-                                    <Form.Control type="time" defaultValue={timeEnd} style={{width: "95%"}}
+                                    <Form.Control type="time" defaultValue={timeEnd} style={{width: "100%"}}
                                                   onChange={onTimeEndChangeHandler}/>
                                 </div>
                             </Form.Group>
-                        </div>
+
                         <Form.Group style={{marginBottom: "10px"}}>
                             <Form.Control
                                 onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputInitiator(value)}
