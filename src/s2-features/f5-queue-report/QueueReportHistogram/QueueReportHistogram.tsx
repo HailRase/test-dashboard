@@ -20,12 +20,12 @@ import {
 const QueueReportHistogram: React.FC<{data: QueueReportHistogramDataType[]}> = ({data}) => {
     return (
         <ResponsiveContainer>
-            <ComposedChart data={data} margin={{}}>
+            <ComposedChart data={data}>
                 <XAxis dataKey={"date"}
                        tickLine={false}
                        style={{fontSize: "12px", fontWeight: 600, textAnchor: "middle"}}/>
                 <YAxis yAxisId="1"
-                       domain={[0, 1750]}
+                       domain={[0, Math.floor((data[0].skipped + data[0].accept) * 1.1)]}
                        label={{value: 'Кол-во звонков', angle: -90, position: 'insideLeft', dy: 60}}
                        tickCount={8}
                        tickSize={8}
@@ -38,7 +38,7 @@ const QueueReportHistogram: React.FC<{data: QueueReportHistogramDataType[]}> = (
                     type="number"
                     tickCount={8}
                     tickSize={8}
-                    domain={[88, 100]}
+                    domain={[data[0].serviceLevel, 100]}
                     axisLine={false}
                     tickLine={false}
                     minTickGap={1}
@@ -64,7 +64,7 @@ const QueueReportHistogram: React.FC<{data: QueueReportHistogramDataType[]}> = (
                      fill="#d54758"
                      yAxisId={"1"}
                      style={{paddingBottom: "5px"}}
-                     label={{position: 'insideBottom', fill: "#737171", fontSize: "14px", dy: -10}}>
+                     label={{position: 'insideTop', fill: "#737171", fontSize: "14px", dy: -20}}>
                     <LabelList dataKey="skipped" position="center" fill="#ffffff" style={{fontSize: "12px"}}/>
                 </Bar>
                 <Line type="linearClosed"

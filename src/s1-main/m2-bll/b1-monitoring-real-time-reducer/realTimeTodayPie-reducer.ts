@@ -138,9 +138,7 @@ export const fetchRealTimeTodayPieData =  ():DataThunkAction => async(dispatch) 
         dispatch(setRealTimeTodayPieTotalData(changedInnerData))
         dispatch(setRealTimeTodayPieData(changedOuterData))
         dispatch(setRealTimeTodayPieStatus("loaded"))
-        debugger
     } catch (e: any) {
-        debugger
         dispatch(setRealTimeTodayPieStatus("error"))
         dispatch(setError(e.message))
     }

@@ -155,25 +155,21 @@ const CallReport = () => {
     const callReportData = useAppSelector(state => state.callReportData.data)
     const callReportStatus = useAppSelector(state => state.callReportData.status)
     const callReportError = useAppSelector(state => state.callReportData.errorMessage)
-    const [state, seState] = useState(callReportData)
-
-    const [statusFilter, setStatusFilter] = useState('');
-    const [directionFilter, setDirectionFilter] = useState('');
-    const [typeFilter, setTypeFilter] = useState('');
-    const [queueFilter, setQueueFilter] = useState('');
-    const [initiatorFilter, setInitiatorFilter] = useState('');
-    const [operatorFilter, setOperatorFilter] = useState('');
-    const [contactFilter, setContactFilter] = useState('');
-
 
     const [dateStart, setDateStart] = useState(moment().format("YYYY-MM-DD"))
     const [timeStart, setTimeStart] = useState("00:00")
     const [dateEnd, setDateEnd] = useState(moment().format("YYYY-MM-DD"))
     const [timeEnd, setTimeEnd] = useState("23:59")
-    const [fromDate, setFromDate] = useState('')
-    const [fromTime, setFromTime] = useState('')
-    const [toDate, setToDate] = useState('')
-    const [toTime, setToTime] = useState('')
+
+    const [initiatorFilter, setInitiatorFilter] = useState('all');
+    const [operatorFilter, setOperatorFilter] = useState('all');
+    const [contactFilter, setContactFilter] = useState('all');
+    const [queueFilter, setQueueFilter] = useState('all');
+    const [timeFilter, setTimeFilter] = useState(0);
+    const [typeFilter, setTypeFilter] = useState('all');
+    const [directionFilter, setDirectionFilter] = useState('all');
+    const [statusFilter, setStatusFilter] = useState('all');
+
 
     const [isActiveSideBar, setIsActiveSideBar] = useState<boolean>(false)
     const navigate = useNavigate()
@@ -182,10 +178,62 @@ const CallReport = () => {
 
     useEffect(() => {
         if (!isAuth) navigate('/')
-    },[])
-    useEffect(()=> {
-        dispatch(fetchCallReportTableData(dateStart, timeStart, dateEnd, timeEnd))
     }, [])
+    useEffect(() => {
+        dispatch(fetchCallReportTableData(
+            dateStart,
+            timeStart,
+            dateEnd,
+            timeEnd,
+            contactFilter,
+            operatorFilter,
+            contactFilter,
+            queueFilter,
+            timeFilter,
+            typeFilter,
+            directionFilter,
+            statusFilter
+        ))
+    }, [])
+
+    const onDateStartChangeHandler = (e: any) => {
+        setDateStart(e.currentTarget.value)
+    }
+    const onTimeStartChangeHandler = (e: any) => {
+        setTimeStart(e.currentTarget.value)
+    }
+    const onDateEndChangeHandler = (e: any) => {
+        setDateEnd(e.currentTarget.value)
+    }
+    const onTimeEndChangeHandler = (e: any) => {
+        setTimeEnd(e.currentTarget.value)
+    }
+
+    const onChangeInputInitiator = (value: ChangeEvent<HTMLInputElement>) => {
+        if (value) {
+            setInitiatorFilter(value.target.value)
+        }
+    }
+    const onChangeInputOperator = (value: ChangeEvent<HTMLInputElement>) => {
+        if (value) {
+            setOperatorFilter(value.target.value)
+        }
+    }
+    const onChangeInputContact = (value: ChangeEvent<HTMLInputElement>) => {
+        if (value) {
+            setContactFilter(value.target.value)
+        }
+    }
+    const onChangeSelectQueue = (value: ChangeEvent<HTMLSelectElement>) => {
+        if (value) {
+            setQueueFilter(value.target.value)
+        }
+    }
+    const onChangeInputTime = (value: any) => {
+        if (value) {
+            setTimeFilter(+value.target.value)
+        }
+    }
     const onChangeSelectType = (value: ChangeEvent<HTMLSelectElement>) => {
         if (value) {
             setTypeFilter(value.target.value)
@@ -201,51 +249,7 @@ const CallReport = () => {
             setStatusFilter(value.target.value)
         }
     }
-    const onChangeSelectQueue = (value: ChangeEvent<HTMLSelectElement>) => {
-        if (value) {
-            setQueueFilter(value.target.value)
-        }
-    }
-    const onChangeInputContact = (value: ChangeEvent<HTMLInputElement>) => {
-        if (value) {
-            setContactFilter(value.target.value)
-        }
-    }
-    const onChangeInputOperator = (value: ChangeEvent<HTMLInputElement>) => {
-        if (value) {
-            setOperatorFilter(value.target.value)
-        }
-    }
-    const onChangeInputInitiator = (value: ChangeEvent<HTMLInputElement>) => {
-        if (value) {
-            setInitiatorFilter(value.target.value)
-        }
-    }
 
-    const onChangeFromDate = (date: ChangeEvent<HTMLInputElement>) => {
-        setFromDate(date.target.value)
-    }
-    const onChangeFromTime = (time: ChangeEvent<HTMLInputElement>) => {
-        setFromTime(time.target.value)
-    }
-    const onChangeToDate = (date: ChangeEvent<HTMLInputElement>) => {
-        setToDate(date.target.value)
-    }
-    const onChangeToTime = (time: ChangeEvent<HTMLInputElement>) => {
-        setToTime(time.target.value)
-    }
-    const onDateStartChangeHandler = (e: any) => {
-        setDateStart(e.currentTarget.value)
-    }
-    const onTimeStartChangeHandler = (e: any) => {
-        setTimeStart(e.currentTarget.value)
-    }
-    const onDateEndChangeHandler = (e: any) => {
-        setDateEnd(e.currentTarget.value)
-    }
-    const onTimeEndChangeHandler = (e: any) => {
-        setTimeEnd(e.currentTarget.value)
-    }
 
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)
@@ -256,8 +260,21 @@ const CallReport = () => {
     const onCloseSidebar = () => {
         setIsActiveSideBar(false)
     }
+
     const onLoadData = () => {
-        dispatch(fetchCallReportTableData(dateStart, timeStart, dateEnd, timeEnd))
+        dispatch(fetchCallReportTableData(
+            dateStart,
+            timeStart,
+            dateEnd,
+            timeEnd,
+            contactFilter,
+            operatorFilter,
+            contactFilter,
+            queueFilter,
+            timeFilter,
+            typeFilter,
+            directionFilter,
+            statusFilter))
     }
 
     const renderComponent = (component: ReactComponentElement<any>, status: StatusType, error: string) => {
@@ -284,64 +301,56 @@ const CallReport = () => {
                     </div>
                     <CustomTabs param={true}
                                 disabledPeriod
-                                fromDate={fromDate}
-                                fromTime={fromTime}
-                                toDate={toDate}
-                                toTime={toTime}
-                                onFromDateChange={onChangeFromDate}
-                                onFromTimeChange={onChangeFromTime}
-                                onToDateChange={onChangeToDate}
-                                onToTimeChange={onChangeToTime}
                     >
 
-                            <Form.Group
-                                style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
-                                <div>
-                                    <Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label>
-                                </div>
-                                <div>
-                                    <Form.Control type="date" defaultValue={dateStart} style={{width: "100%"}}
-                                                  onChange={onDateStartChangeHandler}/>
-                                    <Form.Control type="time" defaultValue={timeStart} style={{width: "100%"}}
-                                                  onChange={onTimeStartChangeHandler}/>
-                                </div>
-                            </Form.Group>
-                            <Form.Group
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    flexDirection: "column",
-                                    marginBottom: "15px"
-                                }}>
-                                <div>
-                                    <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
-                                </div>
-                                <div>
-                                    <Form.Control type="date" defaultValue={dateEnd} style={{width: "100%"}}
-                                                  onChange={onDateEndChangeHandler}/>
-                                    <Form.Control type="time" defaultValue={timeEnd} style={{width: "100%"}}
-                                                  onChange={onTimeEndChangeHandler}/>
-                                </div>
-                            </Form.Group>
+                        <Form.Group
+                            style={{display: "flex", justifyContent: "flex-end", flexDirection: "column"}}>
+                            <div>
+                                <Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label>
+                            </div>
+                            <div>
+                                <Form.Control type="date" defaultValue={dateStart} style={{width: "100%"}}
+                                              onChange={onDateStartChangeHandler}/>
+                                <Form.Control type="time" defaultValue={timeStart} style={{width: "100%"}}
+                                              onChange={onTimeStartChangeHandler}/>
+                            </div>
+                        </Form.Group>
+                        <Form.Group
+                            style={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                flexDirection: "column",
+                                marginBottom: "15px"
+                            }}>
+                            <div>
+                                <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
+                            </div>
+                            <div>
+                                <Form.Control type="date" defaultValue={dateEnd} style={{width: "100%"}}
+                                              onChange={onDateEndChangeHandler}/>
+                                <Form.Control type="time" defaultValue={timeEnd} style={{width: "100%"}}
+                                              onChange={onTimeEndChangeHandler}/>
+                            </div>
+                        </Form.Group>
 
                         <Form.Group style={{marginBottom: "10px"}}>
                             <Form.Control
                                 onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputInitiator(value)}
-                                value={initiatorFilter}
+                                value={initiatorFilter  === "all" ? "" :initiatorFilter}
                                 type="text"
                                 placeholder="Введите номер"/>
                         </Form.Group>
                         <Form.Group style={{marginBottom: "10px"}}>
                             <Form.Control
                                 onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputOperator(value)}
-                                value={operatorFilter}
+                                value={operatorFilter  === "all" ? "" :operatorFilter}
                                 type="text"
                                 placeholder="Введите оператора"/>
                         </Form.Group>
                         <Form.Group style={{marginBottom: "10px"}}>
                             <Form.Control
                                 onChange={(value: ChangeEvent<HTMLInputElement>) => onChangeInputContact(value)}
-                                value={contactFilter}
+                                value={contactFilter  === "all" ? "" :contactFilter}
                                 type="text"
                                 placeholder="Введите контакт"/>
                         </Form.Group>
@@ -349,7 +358,7 @@ const CallReport = () => {
                             <Form.Label style={{color: "white"}} column={true}>Очередь: </Form.Label>
                             <Form.Select value={queueFilter} onChange={(value) => onChangeSelectQueue(value)}
                                          style={{width: "75%"}}>
-                                <option value=''>&lt;Все&gt;</option>
+                                <option value='all'>&lt;Все&gt;</option>
                                 <option value="105 GSM">105 GSM</option>
                                 <option value="105 Beltelecom">105 Beltelecom</option>
                                 <option value="151 Beltelecom">151 Beltelecom</option>
@@ -366,7 +375,8 @@ const CallReport = () => {
                         </Form.Group>
                         <Form.Group style={{display: "flex", justifyContent: "space-between"}}>
                             <Form.Label style={{width: "20px", color: "white"}}>Время:      &gt;</Form.Label>
-                            <Form.Control style={{width: "75%", height: "40px"}} type="text" placeholder="0"/>
+                            <Form.Control value={timeFilter} style={{width: "75%", height: "40px"}} type="text"
+                                          placeholder="0" onChange={(e: any) => setTimeFilter(e.target.value)}/>
                         </Form.Group>
                         <Form.Group style={{display: "flex", justifyContent: "space-between", marginBottom: "10px"}}>
                             <Form.Label style={{color: "white"}}>Тип: </Form.Label>
@@ -374,7 +384,7 @@ const CallReport = () => {
                                 style={{width: "80%"}}
                                 value={typeFilter}
                                 onChange={(value) => onChangeSelectType(value)}>
-                                <option value=''>&lt;Все&gt;</option>
+                                <option value='all'>&lt;Все&gt;</option>
                                 <option value="Обычный">Обычный</option>
                                 <option value="Липкость">Липкость</option>
                             </Form.Select>
@@ -385,7 +395,7 @@ const CallReport = () => {
                                 value={directionFilter}
                                 style={{width: "75%", height: "40px"}}
                                 onChange={(value) => onChangeSelectDirection(value)}>
-                                <option value=''>&lt;Все&gt;</option>
+                                <option value='all'>&lt;Все&gt;</option>
                                 <option value="Входящий">Входящий</option>
                                 <option value="Исходящий">Исходящий</option>
                                 <option value="Внутренний">Внутренний</option>
@@ -397,7 +407,7 @@ const CallReport = () => {
                                 value={statusFilter}
                                 style={{width: "75%"}}
                                 onChange={(value) => onChangeSelectStatus(value)}>
-                                <option value=''>&lt;Все&gt;</option>
+                                <option value='all'>&lt;Все&gt;</option>
                                 <option value="Отвечен">Отвечен</option>
                                 <option value="Занят">Занят</option>
                                 <option value="Отменен">Отменен</option>

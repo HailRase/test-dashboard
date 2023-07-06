@@ -778,12 +778,33 @@ export const fetchCallReportTableData = (
     dateStart: string,
     timeStart: string,
     dateEnd: string,
-    timeEnd: string
+    timeEnd: string,
+    number: string,
+    operator: string,
+    contact: string,
+    queue: string,
+    time: number,
+    type: string,
+    direction: string,
+    status: string,
 ): DataThunkAction =>
     async (dispatch) => {
         try {
             dispatch(setStatus("loading"))
-            const data = await callReportAPI.getCallReportData(dateStart, timeStart, dateEnd, timeEnd)
+            const data = await callReportAPI.getCallReportData(
+                dateStart,
+                timeStart,
+                dateEnd,
+                timeEnd,
+                number,
+                operator,
+                contact,
+                queue,
+                time,
+                type,
+                direction,
+                status
+            )
             dispatch(setCallReportData(data.data))
             dispatch(setStatus("loaded"))
         } catch (e: any) {

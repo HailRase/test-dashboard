@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ReactComponentElement, useEffect, useRef, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../common/routes/routes";
 import s from "./OperatorsReportDetailed.module.scss";
@@ -6,7 +6,6 @@ import {Sidebar} from "../../common/components/Sidebar/Sidebar";
 import ArrowLeftIcon from "../../common/components/ArrowLeftIcon/ArrowLeftIcon";
 import Form from "react-bootstrap/Form";
 import {dateNow} from "../../data/dateNow";
-import Accordion from "../../common/components/Accordion/Accordion";
 import TabButton from "../../common/components/TabButton/TabButton";
 import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
@@ -16,15 +15,29 @@ import {useCalcTimeTotal} from "../../common/hooks/useCalcTimeTotal";
 import {useCalcNumTotal} from "../../common/hooks/useCalcNumTotal";
 import {useScale} from "../../common/hooks/useScale";
 import {useAppSelector} from "../../s1-main/m2-bll/store";
+import {useDispatch} from "react-redux";
+import {
+    fetchOperatorReportDetailedData
+} from "../../s1-main/m2-bll/b4-operator-report-detailed-reducer/operatorReportDetailed-reducer";
+import {StatusType} from "../../s1-main/m2-bll/b1-monitoring-real-time-reducer/realTimeTodayPie-reducer";
+import Loader from "../../common/components/Loader/Loader";
+import ErrorWindow from "../../common/components/ErrorWindow/ErrorWindow";
+import moment from "moment/moment";
 
 
 const OperatorsReportDetailed = () => {
     const scale = useScale()
     const operatorReportDetailedData = useAppSelector(state => state.operatorReportDetailedData.data)
+    const operatorReportDetailedStatus = useAppSelector(state => state.operatorReportDetailedData.status)
+    const operatorReportDetailedError = useAppSelector(state => state.operatorReportDetailedData.errorMessage)
+    const [dateStart, setDateStart] = useState(moment().format("YYYY-MM-DD"))
+    const [timeStart, setTimeStart] = useState("00:00")
+    const [dateEnd, setDateEnd] = useState(moment().format("YYYY-MM-DD"))
+    const [timeEnd, setTimeEnd] = useState("23:59")
     const [isActive, setIsActive] = useState<boolean>(false)
-    const [selectedDepartment, setSelectedDepartment] = useState('');
     const navigate = useNavigate()
     const isAuth = useIsAuth()
+    const dispatch = useDispatch<any>()
     const columns = [
         {
             Header: 'Период',
@@ -311,8 +324,10 @@ const OperatorsReportDetailed = () => {
     ]
     useEffect(() => {
         if (!isAuth) navigate('/')
-    },[])
-
+    }, [])
+    useEffect(() => {
+        dispatch(fetchOperatorReportDetailedData(dateStart, timeStart, dateEnd, timeEnd))
+    }, [])
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)
     }
@@ -322,15 +337,37 @@ const OperatorsReportDetailed = () => {
     const onCloseSidebar = () => {
         setIsActive(false)
     }
-    /*const handleRefreshClick = () => {
-        const filteredData = operatorsReportDetailedData.filter(item => item.department === selectedDepartment);
-        if (selectedDepartment === '') {
-            setData(operatorsReportDetailedData);
-        }else {
-            setData(filteredData)
-        }
-    };*/
+    const onDateStartChangeHandler = (e: any) => {
+        setDateStart(e.currentTarget.value)
+    }
+    const onTimeStartChangeHandler = (e: any) => {
+        setTimeStart(e.currentTarget.value)
+    }
+    const onDateEndChangeHandler = (e: any) => {
+        setDateEnd(e.currentTarget.value)
+    }
+    const onTimeEndChangeHandler = (e: any) => {
+        setTimeEnd(e.currentTarget.value)
+    }
 
+
+    const renderComponent = (component: ReactComponentElement<any>, status: StatusType, error: string) => {
+        if (status === "loaded") {
+            return component
+        } else if (status === "loading") {
+            return <div className={s.centringLoader}>
+                <Loader width={280} height={18}/>
+            </div>
+        } else if (status === "error") {
+            return <div className={s.centringLoader}>
+                <ErrorWindow errorMessage={error}/>
+            </div>
+        }
+    }
+
+    const onLoadHandler = () => {
+        dispatch(fetchOperatorReportDetailedData(dateStart, timeStart, dateEnd, timeEnd))
+    }
 
     return (
         <div className={s.operatorsReportDetailedWrapper}>
@@ -347,22 +384,26 @@ const OperatorsReportDetailed = () => {
                                 <Form.Label style={{color: "white", marginRight: "10px"}}>С:</Form.Label>
                             </div>
                             <div>
-                                <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
-                                <Form.Control type="time" defaultValue={"00:00"} style={{width: "95%"}}/>
+                                <Form.Control type="date" defaultValue={dateStart} style={{width: "95%"}} onChange={onDateStartChangeHandler}/>
+                                <Form.Control type="time" defaultValue={timeStart} style={{width: "95%"}} onChange={onTimeStartChangeHandler}/>
                             </div>
                         </Form.Group>
                         <Form.Group
-                            style={{display: "flex", justifyContent: "flex-end", flexDirection: "column", marginBottom: "15px"}}>
+                            style={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                flexDirection: "column",
+                                marginBottom: "15px"
+                            }}>
                             <div>
                                 <Form.Label style={{color: "white", marginRight: "10px"}}>По:</Form.Label>
                             </div>
                             <div>
-                                <Form.Control type="date" defaultValue={dateNow} style={{width: "95%"}}/>
-                                <Form.Control type="time" defaultValue={"23:59"} style={{width: "95%"}}/>
+                                <Form.Control type="date" defaultValue={dateEnd} style={{width: "95%"}} onChange={onDateEndChangeHandler}/>
+                                <Form.Control type="time" defaultValue={timeEnd} style={{width: "95%"}} onChange={onTimeEndChangeHandler}/>
                             </div>
                         </Form.Group>
-                        <TabButton style={{marginTop: "0px"}} name={'Обновить'} onClick={() => {
-                        }}/>
+                        <TabButton style={{marginTop: "0px"}} name={'Обновить'} onClick={onLoadHandler}/>
                     </div>
                 </div>
             </Sidebar>
@@ -372,7 +413,13 @@ const OperatorsReportDetailed = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Отчёт по операторам (Детальный)</span>
                 </div>
-                <Table data={operatorReportDetailedData} columns={columns} pagination={true} width={"100vw"} footer/>
+                {renderComponent(
+                    <Table data={operatorReportDetailedData} columns={columns} pagination={true} width={"100vw"}
+                           footer/>,
+                    operatorReportDetailedStatus,
+                    operatorReportDetailedError
+                )}
+                {/*<Table data={operatorReportDetailedData} columns={columns} pagination={true} width={"100vw"} footer/>*/}
             </div>
         </div>
     );

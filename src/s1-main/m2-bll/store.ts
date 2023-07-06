@@ -2,7 +2,6 @@ import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import thunkMiddleware from 'redux-thunk'
 import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {authReducer} from "./auth-reducer";
-import {operatorReportDetailedReducer} from "./operatorReportDetailed-reducer";
 import {operatorReportGeneralReducer} from "./b3-operator-report-general-reducer/operatorReportGeneral-reducer";
 import {callReportReducer} from "./b6-call-report-reducer/callReport-reducer";
 import {operatorReportReducer} from "./b7-operator-report-reducer/operatorReport-reducer";
@@ -16,6 +15,7 @@ import {pastTableReducer} from "./b2-monitoring-past-reducer/pastTable-reducer";
 import {queueReportTableReducer} from "./b5-queue-report-reducer/queueReportTable-reducer";
 import {queueReportHistogramReducer} from "./b5-queue-report-reducer/queueReportHistogram-reducer";
 import {queueReportPieReducer} from "./b5-queue-report-reducer/queueReportPie-reducer";
+import {operatorReportDetailedReducer} from "./b4-operator-report-detailed-reducer/operatorReportDetailed-reducer";
 
 
 const rootReducer = combineReducers({

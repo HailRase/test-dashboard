@@ -2,6 +2,7 @@ import {ThunkAction} from "redux-thunk";
 import {StoreType} from "../store";
 import {monitoringCCPastAPI} from "../../m3-dal/d2-api/monitoringCCPastAPI";
 import {queueReportAPI} from "../../m3-dal/d2-api/queueReportAPI";
+import {calcServiceLevel} from "../../../common/utils/calcServiceLevel";
 
 const SET_QUEUE_REPORT_HISTOGRAM_DATA = "SET_QUEUE_REPORT_HISTOGRAM_DATA";
 const SET_QUEUE_REPORT_HISTOGRAM_STATUS = "SET_QUEUE_REPORT_HISTOGRAM_STATUS"
@@ -88,7 +89,12 @@ export const fetchQueueReportHistogramData = (
     try {
         dispatch(setStatus("loading"))
         const data = await queueReportAPI.getQueueReportHistogramData(dateStart, timeStart, dateEnd, timeEnd)
-        dispatch(setQueueReportHistogramData(data.data))
+        dispatch(setQueueReportHistogramData(data.data.map((item:QueueReportHistogramDataType) => {
+            return {
+                ...item,
+                serviceLevel: calcServiceLevel(item.accept, item.skipped)
+            }
+        })))
         dispatch(setStatus("loaded"))
     } catch (e: any) {
         dispatch(setStatus("error"))

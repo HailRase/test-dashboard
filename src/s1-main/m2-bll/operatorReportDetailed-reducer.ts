@@ -60,6 +60,7 @@ type StatusType = "init" | "loading" | "loaded"
 type InitialStateType = {
     data: OperatorReportDetailedType[]
     status: StatusType
+    errorMessage: string
 }
 const initialState:InitialStateType = {
     data: [
@@ -843,10 +844,11 @@ const initialState:InitialStateType = {
             internalCallsAvgCallingTime: "0:00:00"
         }
     ],
-    status: "init"
+    status: "init",
+    errorMessage: ''
 }
 
-export const operatorReportDetailedReducer = (state:InitialStateType = initialState, action:ActionDataType ):InitialStateType => {
+const operatorReportDetailedReducer = (state:InitialStateType = initialState, action:ActionDataType ):InitialStateType => {
     switch (action.type){
         case "SET_OPERATOR_REPORT_DETAILED_DATA":{
             return {

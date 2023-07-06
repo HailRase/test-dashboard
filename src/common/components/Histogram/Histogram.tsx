@@ -12,6 +12,7 @@ import {
     YAxis,
 } from 'recharts';
 import './Histogram.scss'
+import {findMaxAcceptAndNotAcceptSum} from "../../utils/findMaxAcceptAndNotAcceptSum";
 
 
 type HistogramPropsType = {
@@ -72,7 +73,7 @@ const Histogram: React.FC<HistogramPropsType> = ({data, callYAxisDomain}) => {
                 <CartesianGrid stroke="#a6a2a2" vertical={false}/>
                 <XAxis dataKey="name"/>
                 <YAxis yAxisId="1"
-                       domain={[0, 1000]}
+                       domain={[0, Math.floor(findMaxAcceptAndNotAcceptSum(data)* 1.3)]}
                        label={{value: 'Кол-во звонков', angle: -90, position: 'insideLeft'}}
                        tickCount={10}
                 />
