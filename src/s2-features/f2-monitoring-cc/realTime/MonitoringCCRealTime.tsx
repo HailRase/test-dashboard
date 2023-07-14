@@ -24,9 +24,11 @@ import ErrorWindow from "../../../common/components/ErrorWindow/ErrorWindow";
 import {findMaxAcceptAndNotAcceptSum} from "../../../common/utils/findMaxAcceptAndNotAcceptSum";
 import {fetchRealTimeTableData} from "../../../s1-main/m2-bll/b1-monitoring-real-time-reducer/realTimeTable-reducer";
 import InfoWindow from "../../../common/components/InfoWindow/InfoWindow";
+import {useScale} from "../../../common/hooks/useScale";
 
 
 const MonitoringCCRealTime = () => {
+    const scale = useScale()
     const realTimeHistogramData = useAppSelector(state => state.realTimeHistogramData.data)
     const realTimeTableData = useAppSelector(state => state.realTimeTableData.data)
     const realTimeTodayOuterPieData = useAppSelector(state => state.realTimeTodayPieData.data)
@@ -46,7 +48,7 @@ const MonitoringCCRealTime = () => {
     const isAuth = useIsAuth()
     const dispatch = useDispatch<any>()
 
-
+    console.log("Scale: " + scale)
     useEffect(() => {
         if (!isAuth) navigate('/')
     }, [])
@@ -158,7 +160,7 @@ const MonitoringCCRealTime = () => {
                         realTimeTodayInnerPieData.every(obj => obj.value === 0)
                             ? <div className={s.centringLoader}><InfoWindow message={'По вашему запросу ничего не найдено'}/></div>
                             : renderComponent(
-                                <MonitoringCCPie data1={realTimeTodayInnerPieData} data2={realTimeTodayOuterPieData}/>,
+                                <MonitoringCCPie pieLabelName={"day"} data1={realTimeTodayInnerPieData} data2={realTimeTodayOuterPieData}/>,
                                 todayPieStatus,
                                 todayPieError
                             )}
@@ -179,7 +181,7 @@ const MonitoringCCRealTime = () => {
                         realTimeMonthInnerPieData.every(obj => obj.value === 0)
                             ? <div className={s.centringLoader}><InfoWindow message={'По вашему запросу ничего не найдено'}/></div>
                             :renderComponent(
-                            <MonitoringCCPie data1={realTimeMonthInnerPieData} data2={realTimeMonthOuterPieData}/>,
+                            <MonitoringCCPie pieLabelName={"month"} data1={realTimeMonthInnerPieData} data2={realTimeMonthOuterPieData}/>,
                             monthPieStatus,
                             monthPieError
                         )}

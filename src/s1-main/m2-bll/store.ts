@@ -16,6 +16,7 @@ import {queueReportTableReducer} from "./b5-queue-report-reducer/queueReportTabl
 import {queueReportHistogramReducer} from "./b5-queue-report-reducer/queueReportHistogram-reducer";
 import {queueReportPieReducer} from "./b5-queue-report-reducer/queueReportPie-reducer";
 import {operatorReportDetailedReducer} from "./b4-operator-report-detailed-reducer/operatorReportDetailed-reducer";
+import {queueLabelReducer} from "./b1-monitoring-real-time-reducer/queueLabel-reducer/queueLabel-reducer";
 
 
 const rootReducer = combineReducers({
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
     realTimeHistogramData: realTimeHistogramReducer,
     realTimeTodayPieData: realTimeTodayPieReducer,
     realTimeMonthPieData: realTimeMonthPieReducer,
+    queueLabelData: queueLabelReducer,
     operatorReportGeneralData: operatorReportGeneralReducer,
     operatorReportDetailedData: operatorReportDetailedReducer,
     queueReportTableData: queueReportTableReducer,

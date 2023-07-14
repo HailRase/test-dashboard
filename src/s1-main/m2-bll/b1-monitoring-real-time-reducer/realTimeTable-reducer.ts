@@ -165,7 +165,6 @@ export const fetchRealTimeTableData = (): DataThunkAction => async (dispatch) =>
         dispatch(setRealTimeTableStatus("loading"))
         const data = await monitoringCCRealTimeAPI.getRealTimeTableData()
         const tableData: RealTimeTableDataType[] = data.data.map((record: any) => {
-            console.log(record.skippedMonth)
             return {
                 id: record.id,
                 ratingToday: 0,

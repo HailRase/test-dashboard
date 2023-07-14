@@ -13,6 +13,8 @@ import {
 } from 'recharts';
 import './Histogram.scss'
 import {findMaxAcceptAndNotAcceptSum} from "../../utils/findMaxAcceptAndNotAcceptSum";
+import {findMaxAvgCall} from "../../utils/findMaxAvgCall";
+import {findMaxOpActivity} from "../../utils/findMaxOpActivity";
 
 
 type HistogramPropsType = {
@@ -84,7 +86,7 @@ const Histogram: React.FC<HistogramPropsType> = ({data, callYAxisDomain}) => {
                     tickCount={10}
                     tickSize={10}
                     allowDataOverflow
-                    domain={[-2.5, 20]}
+                    domain={[0, Math.floor(findMaxAvgCall(data)* 1.3)]}
                     axisLine={false}
                     tickLine={false}
                     minTickGap={1}
@@ -100,7 +102,7 @@ const Histogram: React.FC<HistogramPropsType> = ({data, callYAxisDomain}) => {
                     orientation="right"
                     type="number"
                     allowDataOverflow
-                    domain={[-5, 40]}
+                    domain={[0,  Math.floor(findMaxOpActivity(data) * 1.5)]}
                     axisLine={false}
                     tickLine={false}
                     minTickGap={0}

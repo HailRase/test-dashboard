@@ -1,11 +1,10 @@
-import React, {ReactComponentElement, useEffect, useRef, useState} from 'react';
+import React, {ReactComponentElement, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../common/routes/routes";
 import s from "./OperatorsReportDetailed.module.scss";
 import {Sidebar} from "../../common/components/Sidebar/Sidebar";
 import ArrowLeftIcon from "../../common/components/ArrowLeftIcon/ArrowLeftIcon";
 import Form from "react-bootstrap/Form";
-import {dateNow} from "../../data/dateNow";
 import TabButton from "../../common/components/TabButton/TabButton";
 import HomeIcon from "../../common/components/HomeIcon/HomeIcon";
 import OptionIcon from "../../common/components/OptionIcon/OptionIcon";

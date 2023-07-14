@@ -31,7 +31,7 @@ const QueueReportPie: React.FC<QueueReportPieType> = ({data, totalData}) => {
         {name: '39-48-75', value: 39, fill: '#008dfe'},
         {name: '39-20-30', value: 21, fill: '#65d97e'},
     ];*/
-
+    console.log(scale)
     const renderQueueLabel = (props: any) => {
         const RADIAN = Math.PI / 180;
         const {cx, cy, midAngle, outerRadius, fill, percent, value, name, index} = props;

@@ -267,7 +267,7 @@ const CallReport = () => {
             timeStart,
             dateEnd,
             timeEnd,
-            contactFilter,
+            initiatorFilter,
             operatorFilter,
             contactFilter,
             queueFilter,
