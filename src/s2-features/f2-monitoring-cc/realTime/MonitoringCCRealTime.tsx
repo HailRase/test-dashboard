@@ -57,6 +57,7 @@ const MonitoringCCRealTime = () => {
         dispatch(fetchRealTimeTodayPieData())
         dispatch(fetchRealMonthTodayPieData())
         dispatch(fetchRealTimeTableData())
+        console.log("Fethcing")
         const intervalId = setInterval(() => {
             dispatch(fetchRealTimeHistogramData())
             dispatch(fetchRealTimeTodayPieData())

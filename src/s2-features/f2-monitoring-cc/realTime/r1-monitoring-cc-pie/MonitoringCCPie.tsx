@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
 import {useScale} from "../../../../common/hooks/useScale";
 
@@ -58,6 +58,9 @@ const MonitoringCCPie: React.FC<CallPieType> = ({data1, data2, pieLabelName}) =>
         const x2 = cx + (outerRadius + 10) * cos;
         const y2 = cy + (outerRadius + 10) * sin;
         const textAnchor = index >= 13 ? 'start' : 'end';
+
+
+        useEffect(() => {},[])
         const endPoint = [
             {x3: 250 / scale, y3: 70 / scale} /*1.НОД-6*/,
             {x3: 220 / scale, y3: 85 / scale} /*2.НОД-5*/,
@@ -129,7 +132,7 @@ const MonitoringCCPie: React.FC<CallPieType> = ({data1, data2, pieLabelName}) =>
         }*/
 
 
-
+        console.log("Ex["+ index +"] que label: " + y2)
 
         return (<g>
                 {value === 0 ? <></> : <>
@@ -219,6 +222,7 @@ const MonitoringCCPie: React.FC<CallPieType> = ({data1, data2, pieLabelName}) =>
                      paddingAngle={1}
                      style={{zIndex: 9999}}
                      minAngle={5}
+                     isAnimationActive={false}
                 />
                 {/*<QueueLabel pieLabelName={pieLabelName} queueLabelXY={queueLabelXY} changeQueueLabelXY={changeQueueLabelXY}/>*/}
                 <Pie data={data1}
@@ -231,6 +235,7 @@ const MonitoringCCPie: React.FC<CallPieType> = ({data1, data2, pieLabelName}) =>
                      labelLine={false}
                      label={RenderSkippedAcceptLabel}
                      paddingAngle={2}
+                     isAnimationActive={false}
                 />
                 <Tooltip/>
             </PieChart>
