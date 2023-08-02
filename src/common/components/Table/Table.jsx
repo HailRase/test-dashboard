@@ -50,7 +50,7 @@ const Table = ({...props}) => {
             columns: tableColumns,
             data: tableData,
             defaultColumn: defaultColumnTable,
-            initialState: {pageIndex: 0, pageSize: 30},
+            initialState: {pageIndex: 0, pageSize: props.pagination ? 30: 1000},
         }, useSortBy, usePagination, useBlockLayout, useResizeColumns)
     const fillCellCall = (value) => {
         switch (value) {
@@ -172,10 +172,10 @@ const Table = ({...props}) => {
     function getHeaderTitle(objKey, header) {
         switch (objKey) {
             case 'serviceLevel': {
-                return 'Принял/Пропустил'
+                return 'Отвечено / Всего звонков'
             }
             case 'monthRating': {
-                return 'Принял за месяц/Пропустил за месяц'
+                return 'Принято (Уровень обслуживания %)'
             }
             case 'workload': {
                 return 'Время в разговоре / (Время в разговоре + Время в статусе свободен)'
@@ -290,7 +290,7 @@ const Table = ({...props}) => {
                     <FormGroup style={{display: "flex", justifyContent: "center", alignItems: "center", marginRight: "10px"}}>
                         <Form.Label style={{marginRight: "10px", display: "block", fontSize: "18px", marginTop: "5px"}}>Кол-во
                             записей на странице: </Form.Label>
-                        <Form.Select onChange={(e) => setPageSize(e.currentTarget.value)} defaultValue={30} size="sm"
+                        <Form.Select onChange={(e) => setPageSize(e.currentTarget.value)} defaultValue={props.pagination ? 30 : 1000} size="sm"
                                      style={{width: "100px"}}>
                             <option value={props.data.length}>MAX</option>
                             <option value={1000}>1000</option>

@@ -24,20 +24,22 @@ import {useAppSelector} from "../../../s1-main/m2-bll/store";
 import {StatusType} from "../../../s1-main/m2-bll/b1-monitoring-real-time-reducer/realTimeTodayPie-reducer";
 import Loader from "../../../common/components/Loader/Loader";
 import ErrorWindow from "../../../common/components/ErrorWindow/ErrorWindow";
+import TestDoublePie from "../realTime/TestDoublePie";
+import HighchartsHistogram from "../../../common/components/HighchartsHistogram/HighchartsHistogram";
 
 
 const MonitoringCCPast = () => {
 
     const monitoringCCPastTableData = useAppSelector(state => state.pastTableData.data)
-    const monitoringCCPastTableStatus = useAppSelector( state => state.pastTableData.status)
-    const monitoringCCPastTableError = useAppSelector( state => state.pastTableData.errorMessage)
+    const monitoringCCPastTableStatus = useAppSelector(state => state.pastTableData.status)
+    const monitoringCCPastTableError = useAppSelector(state => state.pastTableData.errorMessage)
     const monitoringCCPastHistogramData = useAppSelector(state => state.pastHistogramData.data)
-    const monitoringCCPastHistogramStatus = useAppSelector( state => state.pastHistogramData.status)
-    const monitoringCCPastHistogramError = useAppSelector( state => state.pastHistogramData.errorMessage)
+    const monitoringCCPastHistogramStatus = useAppSelector(state => state.pastHistogramData.status)
+    const monitoringCCPastHistogramError = useAppSelector(state => state.pastHistogramData.errorMessage)
     const monitoringCCPastPieData = useAppSelector(state => state.pastPieData.data)
     const monitoringCCPastPieTotalData = useAppSelector(state => state.pastPieData.totalData)
-    const monitoringCCPastPieStatus = useAppSelector( state => state.pastPieData.status)
-    const monitoringCCPastPieError = useAppSelector( state => state.pastPieData.errorMessage)
+    const monitoringCCPastPieStatus = useAppSelector(state => state.pastPieData.status)
+    const monitoringCCPastPieError = useAppSelector(state => state.pastPieData.errorMessage)
     const scale = useScale()
     const [isActive, setIsActive] = useState<boolean>(false)
     const navigate = useNavigate()
@@ -90,37 +92,44 @@ const MonitoringCCPast = () => {
         {
             Header: '№',
             accessor: 'ratingToday',
-            width: 70 / scale
+            maxWidth: 70/scale,
+            width: 70/scale,
         },
         {
             Header: 'Оператор',
             accessor: 'operatorName',
-            width: 350 / scale
+            maxWidth: 350/scale,
+            width: 350/scale,
         },
         {
             Header: 'Принял',
             accessor: 'accept',
-            width: 80 / scale
+            maxWidth: 80/scale,
+            width: 80/scale,
         },
         {
             Header: 'Пропустил',
             accessor: 'skip',
-            width: 90 / scale
+            maxWidth: 90/scale,
+            width: 90/scale,
         },
         {
             Header: 'Уровень обслуживания',
             accessor: 'serviceLevel',
-            width: 120 / scale
+            maxWidth: 120/scale,
+            width: 120/scale,
         },
         {
             Header: 'Среднее время разговора',
             accessor: 'avgServiceTime',
-            width: 110 / scale
+            maxWidth: 110/scale,
+            width: 110/scale,
         },
         {
             Header: 'Загруженность',
             accessor: 'workload',
-            width: 120 / scale
+            maxWidth: 120/scale,
+            width: 120/scale,
         }
     ]
 
@@ -190,19 +199,25 @@ const MonitoringCCPast = () => {
                 <div className={s.callAndOperatorRating}>
                     <div className={s.callPastPieContainer}>
                         <span>Звонков</span>
-                        {renderComponent(
-                            <CallPastPie data={monitoringCCPastPieData} totalData={monitoringCCPastPieTotalData}/>,
+                        <TestDoublePie chartData={monitoringCCPastPieData} chartData1={monitoringCCPastPieTotalData}
+                                       height={"45%"}/>
+                        {/*{renderComponent(
+                            ,
                             monitoringCCPastPieStatus,
                             monitoringCCPastPieError
-                        )}
+                        )}*/}
                     </div>
                     <div className={s.ratingContainer}>
                         <span>Рейтинг операторов</span>
+                        <div className={s.table}>
+
                             {renderComponent(
-                                <Table data={monitoringCCPastTableData} columns={columns} height={"40vh"}/>,
+                            <Table data={monitoringCCPastTableData} columns={columns} height={"40vh"}/>,
                                 monitoringCCPastTableStatus,
                                 monitoringCCPastTableError,
                             )}
+
+                        </div>
                     </div>
                 </div>
                 <div className={s.histogram}>
@@ -211,6 +226,7 @@ const MonitoringCCPast = () => {
                         monitoringCCPastHistogramStatus,
                         monitoringCCPastHistogramError
                     )}
+                    {/*<HighchartsHistogram data={monitoringCCPastHistogramData} />*/}
                 </div>
             </div>
         </div>

@@ -23,6 +23,7 @@ import ErrorWindow from "../../common/components/ErrorWindow/ErrorWindow";
 import {StatusType} from "../../s1-main/m2-bll/b1-monitoring-real-time-reducer/realTimeTodayPie-reducer";
 import {fetchQueueReportPieData} from "../../s1-main/m2-bll/b5-queue-report-reducer/queueReportPie-reducer";
 import {fetchQueueReportHistogramData} from "../../s1-main/m2-bll/b5-queue-report-reducer/queueReportHistogram-reducer";
+import TestDoublePie from "../f2-monitoring-cc/realTime/TestDoublePie";
 
 
 const QueueReport = () => {
@@ -354,12 +355,15 @@ const QueueReport = () => {
                 </div>
                 <div className={s.callAndOperatorRating}>
                     <div className={s.pieContainer}>
+
                         <span>Кол-во принятых звонков по очередям</span>
-                        {renderComponent(
-                            <QueueReportPie totalData={queueReportPieTotalData} data={queueReportPieData}/>,
+                        <TestDoublePie chartData={queueReportPieData} chartData1={queueReportPieTotalData}
+                                       height={"45%"}/>,
+                        {/*{renderComponent(
+
                             queueReportPieStatus,
                             queueReportPieError
-                        )}
+                        )}*/}
                     </div>
                     <div className={s.histogramContainer}>
                         <span>Все очереди</span>

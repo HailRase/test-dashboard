@@ -112,7 +112,7 @@ const columns = [
         ]
     },
     {
-        Header: 'Контакты в CallWay',
+        Header: 'Контакты в Axatel',
         Footer: <></>,
         columns: [
             {

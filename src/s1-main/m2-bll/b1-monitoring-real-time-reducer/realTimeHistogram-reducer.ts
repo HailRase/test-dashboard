@@ -39,7 +39,7 @@ const initialState: InitState = {
             avgCalls: 1.3,
             maxSimultaneousCall: 12,
             oplnSys: 4,
-            opActivity: 1,
+            opActivity: 50,
         },
         {
             name: '01:00',

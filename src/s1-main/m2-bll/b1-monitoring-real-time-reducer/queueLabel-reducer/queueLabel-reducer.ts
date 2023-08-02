@@ -1,7 +1,8 @@
 import {ThunkAction} from "redux-thunk";
 import {StoreType} from "../../store";
 
-const SET_QUEUE_LABEL_DATA = "SET_QUEUE_LABEL_DATA";
+const SET_QUEUE_LABEL_DAY_DATA = "SET_QUEUE_LABEL_DAY_DATA";
+const SET_QUEUE_LABEL_MONTH_DATA = "SET_QUEUE_LABEL_MONTH_DATA";
 
 type DataThunkAction = ThunkAction<void,
     StoreType,
@@ -9,21 +10,29 @@ type DataThunkAction = ThunkAction<void,
     ActionDataType>;
 
 
-type ActionDataType = ReturnType<typeof setQueueLabelData>
+type ActionDataType = ReturnType<typeof setQueueLabelDayData> | ReturnType<typeof setQueueLabelMonthData>
 
 type InitState = {
-    data: { x: number, y: number, name: string }[]
+    dayLabel: []
+    monthLabel: []
 
 }
 const initialState: InitState = {
-    data: []
+    dayLabel: [],
+    monthLabel: []
 }
 export const queueLabelReducer = (state: InitState = initialState, action: ActionDataType) => {
     switch (action.type) {
-        case SET_QUEUE_LABEL_DATA: {
+        case SET_QUEUE_LABEL_DAY_DATA: {
             return {
                 ...state,
-                data: [...state.data, action.data]
+                dayLabel: [...state.dayLabel, action.dayLabel]
+            }
+        }
+        case SET_QUEUE_LABEL_MONTH_DATA: {
+            return {
+                ...state,
+                monthLabel: [...state.monthLabel, action.monthLabel]
             }
         }
         default: {
@@ -31,9 +40,15 @@ export const queueLabelReducer = (state: InitState = initialState, action: Actio
         }
     }
 }
-export const setQueueLabelData = (data: { x: number, y: number, name: string }) => {
+export const setQueueLabelDayData = (dayLabel: { x: number, y: number}) => {
     return {
-        type: SET_QUEUE_LABEL_DATA,
-        data
+        type: SET_QUEUE_LABEL_DAY_DATA,
+        dayLabel
+    } as const
+};
+export const setQueueLabelMonthData = (monthLabel: { x: number, y: number}) => {
+    return {
+        type: SET_QUEUE_LABEL_MONTH_DATA,
+        monthLabel
     } as const
 };

@@ -25,6 +25,8 @@ import {findMaxAcceptAndNotAcceptSum} from "../../../common/utils/findMaxAcceptA
 import {fetchRealTimeTableData} from "../../../s1-main/m2-bll/b1-monitoring-real-time-reducer/realTimeTable-reducer";
 import InfoWindow from "../../../common/components/InfoWindow/InfoWindow";
 import {useScale} from "../../../common/hooks/useScale";
+import TestDoublePie from "./TestDoublePie";
+import HighchartsHistogram from "../../../common/components/HighchartsHistogram/HighchartsHistogram";
 
 
 const MonitoringCCRealTime = () => {
@@ -79,58 +81,58 @@ const MonitoringCCRealTime = () => {
         {
             Header: '№ за сегодня',
             accessor: 'ratingToday',
-            width: 60
+            width: 60/scale
         },
         {
             Header: '№ за месяц',
             accessor: 'ratingMonth',
-            width: 60
+            width: 60/scale
         },
         {
             Header: 'Оператор',
             accessor: 'operatorName',
-            width: 200
+            width: 200/scale
         },
         {
             Header: 'Принял',
             accessor: 'accept',
-            width: 70,
+            width: 70/scale,
         },
         {
             Header: 'Пропустил',
             accessor: 'skip',
-            width: 90
+            width: 90/scale
         },
         {
             Header: 'Уровень обслуживания',
             accessor: 'serviceLevel',
             title: '',
-            width: 120
+            width: 120/scale
         },
         {
             Header: 'Среднее время разговора',
             accessor: 'avgServiseTime',
-            width: 85
+            width: 85/scale
         },
         {
             Header: 'Среднее время разговора за месяц',
             accessor: 'avgServiceTimeMonth',
-            width: 85
+            width: 85/scale
         },
         {
             Header: 'Рейтинг за месяц',
             accessor: 'monthRating',
-            width: 85
+            width: 85/scale
         },
         {
             Header: 'Загруженность',
             accessor: 'workload',
-            width: 120
+            width: 120/scale
         },
         {
             Header: 'Загруженность за месяц',
             accessor: 'workloadMonth',
-            width: 120
+            width: 120/scale
         }
     ]
     const renderComponent = (component: ReactComponentElement<any>, status: StatusType, error: string) => {
@@ -157,14 +159,23 @@ const MonitoringCCRealTime = () => {
                 <div className={s.callAndOperatorRating}>
                     <div className={s.callTodayPie}>
                         <span>Звонков сегодня</span>
-                        {realTimeTodayOuterPieData.every(obj => obj.value === 0) &&
-                        realTimeTodayInnerPieData.every(obj => obj.value === 0)
-                            ? <div className={s.centringLoader}><InfoWindow message={'По вашему запросу ничего не найдено'}/></div>
-                            : renderComponent(
-                                <MonitoringCCPie pieLabelName={"day"} data1={realTimeTodayInnerPieData} data2={realTimeTodayOuterPieData}/>,
-                                todayPieStatus,
-                                todayPieError
-                            )}
+                        <TestDoublePie
+                            chartData={realTimeTodayOuterPieData}
+                            chartData1={realTimeTodayInnerPieData}
+                            height={"60%"}
+                        />
+                        {/*{realTimeTodayOuterPieData.every(obj => obj.value === 0) &&
+                    realTimeTodayInnerPieData.every(obj => obj.value === 0)
+                        ? <div className={s.centringLoader}><InfoWindow
+                            message={'По вашему запросу ничего не найдено'}/></div>
+                        :
+                        renderComponent(
+
+                            ,
+                            todayPieStatus,
+                            todayPieError
+                        )}
+*/}
                     </div>
                     <div className={s.tableContainer}>
                         <span>Рейтинг операторов</span>
@@ -178,22 +189,32 @@ const MonitoringCCRealTime = () => {
                     </div>
                     <div className={s.callMonthPie}>
                         <span>Звонков за текущий месяц</span>
-                        {realTimeMonthOuterPieData.every(obj => obj.value === 0) &&
+                        <TestDoublePie chartData={realTimeMonthOuterPieData}
+                                       chartData1={realTimeMonthInnerPieData}
+                                       height={"60%"}
+                        />
+                        {/*{realTimeMonthOuterPieData.every(obj => obj.value === 0) &&
                         realTimeMonthInnerPieData.every(obj => obj.value === 0)
-                            ? <div className={s.centringLoader}><InfoWindow message={'По вашему запросу ничего не найдено'}/></div>
-                            :renderComponent(
-                            <MonitoringCCPie pieLabelName={"month"} data1={realTimeMonthInnerPieData} data2={realTimeMonthOuterPieData}/>,
-                            monthPieStatus,
-                            monthPieError
-                        )}
+                            ? <div className={s.centringLoader}><InfoWindow
+                                message={'По вашему запросу ничего не найдено'}/></div>
+                            :
+                            {renderComponent(
+
+                                ,
+                                monthPieStatus,
+                                monthPieError
+                            )}*/}
                     </div>
                 </div>
                 <div className={s.histogramContainer}>
+
                     {renderComponent(
                         <Histogram data={realTimeHistogramStateData} callYAxisDomain={domainYAxisCalls}/>,
+
                         histogramStatus,
                         histogramError
                     )}
+                    {/*<HighchartsHistogram data={realTimeHistogramData}/>*/}
                 </div>
             </div>
         </div>
