@@ -3,7 +3,6 @@ import {useNavigate} from "react-router-dom";
 import {PATH} from "../../../common/routes/routes";
 import s from "./MonitoringCCRealTime.module.scss";
 import HomeIcon from "../../../common/components/HomeIcon/HomeIcon";
-import MonitoringCCPie from "./r1-monitoring-cc-pie/MonitoringCCPie";
 import Table from '../../../common/components/Table/Table'
 import Histogram from "../../../common/components/Histogram/Histogram";
 import useIsAuth from "../../../common/hooks/useIsAuth";
@@ -23,10 +22,8 @@ import {
 import ErrorWindow from "../../../common/components/ErrorWindow/ErrorWindow";
 import {findMaxAcceptAndNotAcceptSum} from "../../../common/utils/findMaxAcceptAndNotAcceptSum";
 import {fetchRealTimeTableData} from "../../../s1-main/m2-bll/b1-monitoring-real-time-reducer/realTimeTable-reducer";
-import InfoWindow from "../../../common/components/InfoWindow/InfoWindow";
 import {useScale} from "../../../common/hooks/useScale";
 import TestDoublePie from "./TestDoublePie";
-import HighchartsHistogram from "../../../common/components/HighchartsHistogram/HighchartsHistogram";
 
 
 const MonitoringCCRealTime = () => {
@@ -210,7 +207,6 @@ const MonitoringCCRealTime = () => {
 
                     {renderComponent(
                         <Histogram data={realTimeHistogramStateData} callYAxisDomain={domainYAxisCalls}/>,
-
                         histogramStatus,
                         histogramError
                     )}

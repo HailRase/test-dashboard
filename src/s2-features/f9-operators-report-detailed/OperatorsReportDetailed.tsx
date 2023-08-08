@@ -99,13 +99,13 @@ const OperatorsReportDetailed = () => {
                 {
                     Header: 'Уровень обслуживания до 5 сек',
                     accessor: 'serviceLevelUpTo5Sec',
-                    Footer: (info: any) => useCalcNumTotal(info, 'serviceLevelUpTo5Sec'),
+                    Footer: <></>,
                     width: 125 / scale
                 },
                 {
                     Header: 'Уровень обслуживания до 10 сек',
                     accessor: 'serviceLevelUpTo10Sec',
-                    Footer: (info: any) => useCalcNumTotal(info, 'serviceLevelUpTo10Sec'),
+                    Footer: <></>,
                     width: 125 / scale
                 },
             ]

@@ -7,7 +7,6 @@ import OptionIcon from "../../common/components/OptionIcon/OptionIcon";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../common/routes/routes";
 import Table from "../../common/components/Table/Table";
-import QueueReportPie from "./QueueReportPie/QueueReportPie";
 import QueueReportHistogram from "./QueueReportHistogram/QueueReportHistogram";
 import Form from "react-bootstrap/Form";
 import TabButton from "../../common/components/TabButton/TabButton";

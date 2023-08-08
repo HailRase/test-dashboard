@@ -5,6 +5,9 @@ export function calcMonthRating (record) {
     } else if (record.acceptMonth === 0 && record.skippedMonth === 0) {
         serviceLevelMonth = 0
     }
+    else if (record.acceptMonth < record.skippedMonth) {
+        serviceLevelMonth = 0
+    }
     else if (record.acceptMonth > 0 && record.skippedMonth === 0) {
         serviceLevelMonth = 100
     } else if (record.acceptMonth > 0 && record.skippedMonth > 0){
