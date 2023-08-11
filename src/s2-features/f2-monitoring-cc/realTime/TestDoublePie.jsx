@@ -31,6 +31,8 @@ const TestDoublePie = ({chartData, chartData1, height}) => {
         elements.forEach(element => {
             element.remove();
         });
+        const filtredChartData = chartData.filter( obj => obj.value > 0)
+        const filtredChartData1 = chartData1.filter( obj => obj.value > 0)
         const series = [
             {
                 minSize: "50%",
@@ -39,7 +41,7 @@ const TestDoublePie = ({chartData, chartData1, height}) => {
                 name: "111",
                 borderRadius: 0,
                 clip: false,
-                data: chartData.map((obj, index) => {
+                data: filtredChartData.map((obj, index) => {
                     if (obj.value > 0)
                         return {
                             name: obj.name,
@@ -82,7 +84,7 @@ const TestDoublePie = ({chartData, chartData1, height}) => {
                 size: "35%",
                 name: "222",
                 borderRadius: 0,
-                data: chartData1.map(obj => {
+                data: filtredChartData1.map(obj => {
                     if (obj.value > 0)
                         return {
                             name: obj.name,

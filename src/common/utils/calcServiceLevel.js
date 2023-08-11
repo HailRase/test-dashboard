@@ -8,7 +8,8 @@ export function calcServiceLevel (accept, skip) {
         return 0
     }
     else if (accept > 0 && skip !== 0){
-        return (100 - ((skip / accept) * 100)).toFixed(1)
+        debugger
+        return ((accept / (accept + skip)) * 100).toFixed(1)
     } else if (accept === 0 && skip !==0){
         return 0
     }

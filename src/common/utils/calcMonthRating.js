@@ -11,7 +11,7 @@ export function calcMonthRating (record) {
     else if (record.acceptMonth > 0 && record.skippedMonth === 0) {
         serviceLevelMonth = 100
     } else if (record.acceptMonth > 0 && record.skippedMonth > 0){
-        serviceLevelMonth = (100 - ((record.skippedMonth / record.acceptMonth) * 100)).toFixed(1)
+        serviceLevelMonth = (100*record.acceptMonth/(record.acceptMonth + record.skippedMonth)).toFixed(1)
     }
 
     return `${record.acceptMonth} (${serviceLevelMonth})`

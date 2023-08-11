@@ -174,7 +174,7 @@ export const fetchRealTimeTableData = (): DataThunkAction => async (dispatch) =>
                 acceptMonth: record.acceptMonth,
                 skip: record.skip,
                 serviceLevel: `${calcServiceLevel(record.accept, record.skip)}%`,
-                serviceLevelMonth: calcServiceLevel(record.accept, record.skip),
+                serviceLevelMonth: calcServiceLevel(record.acceptMonth, record.skippedMonth),
                 skippedMonth: record.skippedMonth,
                 avgServiseTime: record.avgServiseTime,
                 avgServiceTimeMonth: record.avgServiceTimeMonth,
