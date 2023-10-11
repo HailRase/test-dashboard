@@ -1,11 +1,16 @@
 import {sortServiceLevelRatings} from "./sortServiceLevelRatings";
 
-export function updateRatingPeriod (arr) {
-    return arr
-        .sort(sortServiceLevelRatings).map((item, index) => {
+export function updateRatingPeriod (obj) {
+    return {
+        ...obj,
+        tableTotal: obj.tableTotal.sort((a,b) => {
+            return b.accept - a.accept
+        }).map((item, index) => {
             return {
                 ...item,
-                ratingToday: index+1
+                ratingToday: index + 1
             }
         })
+
+    }
 }

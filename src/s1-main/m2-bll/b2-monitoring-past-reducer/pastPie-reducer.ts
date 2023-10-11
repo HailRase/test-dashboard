@@ -124,7 +124,7 @@ const setError = (errorMessage: string) => {
 export const fetchPastPieData = (dateStart: string, timeStart: string, dateEnd: string, timeEnd: string): DataThunkAction => async (dispatch) => {
     try {
         dispatch(setPastPieStatus("loading"))
-        const innerData = await monitoringCCPastAPI.getPastInnerPieData(dateStart, timeStart, dateEnd, timeEnd)
+        /*const innerData = await monitoringCCPastAPI.getPastInnerPieData(dateStart, timeStart, dateEnd, timeEnd)
         const outerData = await monitoringCCPastAPI.getPastOuterPieData(dateStart, timeStart, dateEnd, timeEnd)
         const changedInnerData = [...innerData.data.map((obj: PastPieTotalDataType, index: number) => {
             return {
@@ -139,7 +139,7 @@ export const fetchPastPieData = (dateStart: string, timeStart: string, dateEnd: 
             }
         })]
         dispatch(setPastPieTotalData(changedInnerData))
-        dispatch(setPastPieData(changedOuterData))
+        dispatch(setPastPieData(changedOuterData))*/
         dispatch(setPastPieStatus("loaded"))
     } catch (e: any) {
         dispatch(setPastPieStatus("error"))

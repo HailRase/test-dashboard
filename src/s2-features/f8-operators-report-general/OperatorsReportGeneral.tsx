@@ -31,9 +31,9 @@ const OperatorsReportGeneral = () => {
     const [isActive, setIsActive] = useState<boolean>(false)
     const [dateStart, setDateStart] = useState(moment().format("YYYY-MM-DD"))
     const [timeStart, setTimeStart] = useState("00:00")
-    const [dateEnd, setDateEnd] = useState(moment(moment()).add(1, 'day').format('YYYY-MM-DD'))
+    const [dateEnd, setDateEnd] = useState(moment().add(1, "day").format("YYYY-MM-DD"))
     const [timeEnd, setTimeEnd] = useState("00:00")
-    const [selectedDepartment, setSelectedDepartment] = useState('all');
+    const [selectedDepartment, setSelectedDepartment] = useState('');
     const [data, setData] = useState<any[]>(operatorReportGeneralData)
     const navigate = useNavigate()
     const isAuth = useIsAuth()
@@ -199,14 +199,6 @@ const OperatorsReportGeneral = () => {
     const onTimeEndChangeHandler = (e:any) => {
         setTimeEnd(e.currentTarget.value)
     }
-    const handleRefreshClick = () => {
-        const filteredData = operatorReportGeneralData.filter((item: any) => item.department === selectedDepartment);
-        if (selectedDepartment === '') {
-            setData(operatorReportGeneralData);
-        } else {
-            setData(filteredData)
-        }
-    };
     const onLoadDataHandler = () => {
         dispatch(fetchOperatorReportGeneralData(dateStart, timeStart, dateEnd, timeEnd,selectedDepartment))
     }
@@ -261,9 +253,9 @@ const OperatorsReportGeneral = () => {
                                 <Form.Select value={selectedDepartment}
                                              onChange={e => setSelectedDepartment(e.target.value)}
                                              style={{width: "95%", borderRadius: "0px"}}>
-                                    <option value="all">Все отделы</option>
+                                    <option value="">Все отделы</option>
                                     {operatorReportGeneralDepartment && operatorReportGeneralDepartment
-                                        .map((dep:any) => <option value={dep.departmentName}>{dep.departmentName}</option>)}
+                                        .map((dep:any) => <option value={dep.id}>{dep.name}</option>)}
                                 </Form.Select>
                             </Form.Group>
                         </Accordion>

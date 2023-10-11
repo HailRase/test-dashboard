@@ -17,16 +17,19 @@ import {queueReportHistogramReducer} from "./b5-queue-report-reducer/queueReport
 import {queueReportPieReducer} from "./b5-queue-report-reducer/queueReportPie-reducer";
 import {operatorReportDetailedReducer} from "./b4-operator-report-detailed-reducer/operatorReportDetailed-reducer";
 import {queueLabelReducer} from "./b1-monitoring-real-time-reducer/queueLabel-reducer/queueLabel-reducer";
+import {realTimeReducer} from "./b1-monitoring-real-time-reducer/realTime-reducer";
+import {pastReducer} from "./b2-monitoring-past-reducer/past-reducer";
+import {queueReportReducer} from "./b5-queue-report-reducer/queueReport-reducer";
+import {operatorReportReferencesReducer} from "./b7-operator-report-reducer/operatorReportReferences-reducer";
 
 
 const rootReducer = combineReducers({
     pastTableData: pastTableReducer,
     pastHistogramData: pastHistogramReducer,
     pastPieData: pastPieReducer,
-    realTimeTableData: realTimeTableReducer,
-    realTimeHistogramData: realTimeHistogramReducer,
-    realTimeTodayPieData: realTimeTodayPieReducer,
-    realTimeMonthPieData: realTimeMonthPieReducer,
+    realTimeData: realTimeReducer,
+    queueReportData: queueReportReducer,
+    pastData: pastReducer,
     queueLabelData: queueLabelReducer,
     operatorReportGeneralData: operatorReportGeneralReducer,
     operatorReportDetailedData: operatorReportDetailedReducer,
@@ -34,6 +37,7 @@ const rootReducer = combineReducers({
     queueReportHistogramData: queueReportHistogramReducer,
     queueReportPieData: queueReportPieReducer,
     operatorReportData: operatorReportReducer,
+    operatorReportReferencesData:operatorReportReferencesReducer,
     callReportData: callReportReducer,
     auth: authReducer
 })

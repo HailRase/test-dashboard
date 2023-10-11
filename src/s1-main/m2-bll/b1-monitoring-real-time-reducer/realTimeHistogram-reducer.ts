@@ -1,6 +1,5 @@
 import {ThunkAction} from "redux-thunk";
 import {StoreType} from "../store";
-import {monitoringCCRealTimeAPI} from "../../m3-dal/d2-api/monitoringCCRealTimeAPI";
 
 const SET_REAL_TIME_HISTOGRAM_DATA = "SET_REAL_TIME_HISTOGRAM_DATA";
 const SET_REAL_TIME_HISTOGRAM_STATUS = "SET_REAL_TIME_HISTOGRAM_STATUS"
@@ -299,8 +298,6 @@ const setError = (errorMessage: string) => {
 export const fetchRealTimeHistogramData = (): DataThunkAction => async (dispatch) => {
     try {
         dispatch(setStatus("loading"))
-        const data = await monitoringCCRealTimeAPI.getRealTimeHistogramData()
-        dispatch(setRealTimeHistogramData(data.data))
         dispatch(setStatus("loaded"))
     } catch (e: any) {
         dispatch(setStatus("error"))

@@ -137,24 +137,6 @@ const setError = (errorMessage:string) => {
 export const fetchRealTimeTodayPieData =  ():DataThunkAction => async(dispatch)  => {
     try {
         dispatch(setRealTimeTodayPieStatus("loading"))
-        const innerData = await monitoringCCRealTimeAPI.getTodayRealTimeInnerPieData()
-        const outerData = await monitoringCCRealTimeAPI.getTodayRealTimeOuterPieData()
-        const changedInnerData = [...innerData.data.map((obj: RealTimeTodayPieTotalDataType, index: number) => {
-            return {
-                ...obj,
-                fill: totalDataColor[index]
-            }
-        })]
-        /*console.log("Внутренний кружок: " +JSON.stringify(changedInnerData))*/
-        const changedOuterData = [...outerData.data.map((obj: RealTimeTodayPieDataType, index: number) => {
-            return {
-                ...obj,
-                fill: dataColors[index]
-            }
-        })]
-        /*console.log("Внешний кружок: " +JSON.stringify(changedOuterData))*/
-        dispatch(setRealTimeTodayPieTotalData(changedInnerData))
-        dispatch(setRealTimeTodayPieData(changedOuterData))
         dispatch(setRealTimeTodayPieStatus("loaded"))
     } catch (e: any) {
         dispatch(setRealTimeTodayPieStatus("error"))

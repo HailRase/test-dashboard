@@ -3,6 +3,7 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import highchartsExporting from 'highcharts/modules/exporting';
 import highchartsOfflineExporting from 'highcharts/modules/offline-exporting';
+import './waterhighcharts.css'
 import {
     dataColors,
     totalDataColor
@@ -26,18 +27,21 @@ highchartsExporting(Highcharts);
 highchartsOfflineExporting(Highcharts);
 const TestDoublePie = ({chartData, chartData1, height}) => {
     const [option, setOptions] = useState()
+    window.addEventListener('DOMContentLoaded', function() {
+        var creditsElement = document.querySelector('.highcharts-credits');
+        if (creditsElement) {
+            creditsElement.style.display = 'none';
+        }
+    });
     useEffect(() => {
-        const elements = document.querySelectorAll('.highcharts-credits');
-        elements.forEach(element => {
-            element.remove();
-        });
+
         const filtredChartData = chartData.filter( obj => obj.value > 0)
         const filtredChartData1 = chartData1.filter( obj => obj.value > 0)
         const series = [
             {
                 minSize: "50%",
-                innerSize: "75%",
-                size: "65%",
+                innerSize: "78%",
+                size: "68%",
                 name: "111",
                 borderRadius: 0,
                 clip: false,
@@ -50,7 +54,7 @@ const TestDoublePie = ({chartData, chartData1, height}) => {
                         }
                 }).reverse(),
                 dataSorting: {
-                    enabled: false,
+                    enabled: true,
                 },
                 startAngle: 0,
                 colors: [
@@ -96,7 +100,7 @@ const TestDoublePie = ({chartData, chartData1, height}) => {
                     enabled: false,
                 },
                 startAngle: 0,
-                colors: ['#4bb253','#e70707'],
+                colors: ['#e70707','#4bb253'],
                 title: "222",
                 dataLabels: {
                     enabled: true,

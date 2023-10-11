@@ -1,6 +1,5 @@
 import {ThunkAction} from "redux-thunk";
 import {StoreType} from "../store";
-import {monitoringCCRealTimeAPI} from "../../m3-dal/d2-api/monitoringCCRealTimeAPI";
 
 const SET_REAL_TIME_MONTH_PIE_DATA = "SET_REAL_TIME_MONTH_PIE_DATA";
 const SET_REAL_TIME_MONTH_PIE_TOTAL_DATA = "SET_REAL_TIME_MONTH_PIE_TOTAL_DATA";
@@ -120,24 +119,6 @@ const setError = (errorMessage:string) => {
 export const fetchRealMonthTodayPieData =  ():DataThunkAction => async(dispatch)  => {
     try {
         dispatch(setRealTimeMonthPieStatus("loading"))
-        const innerData = await monitoringCCRealTimeAPI.getMontRealTimeInnerPieData()
-        const outerData = await monitoringCCRealTimeAPI.getMonthRealTimeOuterPieData()
-        const changedInnerData = [...innerData.data.map((obj: RealTimeMonthPieTotalDataType, index: number) => {
-            return {
-                ...obj,
-                fill: totalDataColor[index]
-            }
-        })]
-        /*console.log("Внутренний кружок: " +JSON.stringify(changedInnerData))*/
-        const changedOuterData = [...outerData.data.map((obj: RealTimeMonthPieDataType, index: number) => {
-            return {
-                ...obj,
-                fill: dataColors[index]
-            }
-        })]
-        /*console.log("Внешний кружок: " +JSON.stringify(changedOuterData))*/
-        dispatch(setRealTimeMonthPieTotalData(changedInnerData))
-        dispatch(setRealMonthTodayPieData(changedOuterData))
         dispatch(setRealTimeMonthPieStatus("loaded"))
     } catch (e: any) {
         dispatch(setRealTimeMonthPieStatus("error"))

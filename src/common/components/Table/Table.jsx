@@ -72,11 +72,33 @@ const Table = ({...props}) => {
                 return s.green
             case 'Готов':
                 return s.green
-            case 'Перерыв':
+            case 'Занят':
                 return s.red
+            case 'Перерыв':
+                return s.orange
+            case 'Блокировка компьютера':
+                return s.orange
+            case 'Вход в Call-центр':
+                return s.orange
+            case 'Обед':
+                return s.orange
+            case 'Прочие':
+                return s.orange
             case 'Входящий':
                 return s.green
+            case 'Без телефона':
+                return s.green
+            case 'Не авторизован':
+                return s.grayColor
+            case 'Ушел':
+                return s.grayColor
+            case 'Вышел':
+                return s.grayColor
+            case '00:00:00':
+                return s.grayColor
             case 'Исходящий':
+                return s.green
+            case 'Свободен':
                 return s.green
             default:
                 return s.black

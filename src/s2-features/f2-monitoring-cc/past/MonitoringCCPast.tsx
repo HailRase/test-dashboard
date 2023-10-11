@@ -26,28 +26,25 @@ import Loader from "../../../common/components/Loader/Loader";
 import ErrorWindow from "../../../common/components/ErrorWindow/ErrorWindow";
 import TestDoublePie from "../realTime/TestDoublePie";
 import HighchartsHistogram from "../../../common/components/HighchartsHistogram/HighchartsHistogram";
+import {fetchPastData} from "../../../s1-main/m2-bll/b2-monitoring-past-reducer/past-reducer";
 
 
 const MonitoringCCPast = () => {
 
-    const monitoringCCPastTableData = useAppSelector(state => state.pastTableData.data)
-    const monitoringCCPastTableStatus = useAppSelector(state => state.pastTableData.status)
-    const monitoringCCPastTableError = useAppSelector(state => state.pastTableData.errorMessage)
-    const monitoringCCPastHistogramData = useAppSelector(state => state.pastHistogramData.data)
-    const monitoringCCPastHistogramStatus = useAppSelector(state => state.pastHistogramData.status)
-    const monitoringCCPastHistogramError = useAppSelector(state => state.pastHistogramData.errorMessage)
-    const monitoringCCPastPieData = useAppSelector(state => state.pastPieData.data)
-    const monitoringCCPastPieTotalData = useAppSelector(state => state.pastPieData.totalData)
-    const monitoringCCPastPieStatus = useAppSelector(state => state.pastPieData.status)
-    const monitoringCCPastPieError = useAppSelector(state => state.pastPieData.errorMessage)
+    const monitoringCCPastTableData = useAppSelector(state => state.pastData.data.tableTotal)
+    const monitoringCCPastHistogramData = useAppSelector(state => state.pastData.data.schema)
+    const monitoringCCPastPieData = useAppSelector(state => state.pastData.data.providersTotal)
+    const monitoringCCPastPieTotalData = useAppSelector(state => state.pastData.data.total)
+    const dataStatus = useAppSelector(state => state.pastData.status)
+    const dataError = useAppSelector(state => state.pastData.errorMessage)
     const scale = useScale()
     const [isActive, setIsActive] = useState<boolean>(false)
     const navigate = useNavigate()
     const isAuth = useIsAuth()
     const [dateStart, setDateStart] = useState(moment().format("YYYY-MM-DD"))
     const [timeStart, setTimeStart] = useState("00:00")
-    const [dateEnd, setDateEnd] = useState(moment().format("YYYY-MM-DD"))
-    const [timeEnd, setTimeEnd] = useState("23:59")
+    const [dateEnd, setDateEnd] = useState(moment().add(1, "day").format("YYYY-MM-DD"))
+    const [timeEnd, setTimeEnd] = useState("00:00")
 
     const dispatch = useDispatch<any>()
 
@@ -55,9 +52,7 @@ const MonitoringCCPast = () => {
         if (!isAuth) navigate('/')
     }, [])
     useEffect(() => {
-        dispatch(fetchPastTableData(dateStart, timeStart, dateEnd, timeEnd))
-        dispatch(fetchPastPieData(dateStart, timeStart, dateEnd, timeEnd))
-        dispatch(fetchPastHistogramData(dateStart, timeStart, dateEnd, timeEnd))
+        dispatch(fetchPastData(dateStart, timeStart, dateEnd, timeEnd))
     }, [])
     const onHomeHandler = () => {
         navigate(`${PATH.HOME}`)
@@ -83,9 +78,7 @@ const MonitoringCCPast = () => {
     }
 
     const onLoadDataHandler = () => {
-        dispatch(fetchPastTableData(dateStart, timeStart, dateEnd, timeEnd))
-        dispatch(fetchPastPieData(dateStart, timeStart, dateEnd, timeEnd))
-        dispatch(fetchPastHistogramData(dateStart, timeStart, dateEnd, timeEnd))
+        dispatch(fetchPastData(dateStart, timeStart, dateEnd, timeEnd))
     }
 
     const columns = [
@@ -196,38 +189,29 @@ const MonitoringCCPast = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Мониторинг Контакт-центра (Past)</span>
                 </div>
-                <div className={s.callAndOperatorRating}>
-                    <div className={s.callPastPieContainer}>
-                        <span>Звонков</span>
-                        <TestDoublePie chartData={monitoringCCPastPieData} chartData1={monitoringCCPastPieTotalData}
-                                       height={"45%"}/>
-                        {/*{renderComponent(
-                            ,
-                            monitoringCCPastPieStatus,
-                            monitoringCCPastPieError
-                        )}*/}
-                    </div>
-                    <div className={s.ratingContainer}>
-                        <span>Рейтинг операторов</span>
-                        <div className={s.table}>
-
-                            {renderComponent(
-                            <Table data={monitoringCCPastTableData} columns={columns} height={"40vh"}/>,
-                                monitoringCCPastTableStatus,
-                                monitoringCCPastTableError,
-                            )}
-
+                {renderComponent(
+                    <div>
+                        <div className={s.callAndOperatorRating}>
+                            <div className={s.callPastPieContainer}>
+                                <span>Звонков</span>
+                                <TestDoublePie chartData={monitoringCCPastPieData} chartData1={monitoringCCPastPieTotalData}
+                                               height={"45%"}/>
+                            </div>
+                            <div className={s.ratingContainer}>
+                                <span>Рейтинг операторов</span>
+                                <div className={s.table}>
+                                    <Table data={monitoringCCPastTableData} columns={columns} height={"40vh"}/>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div className={s.histogram}>
-                    {renderComponent(
-                        <Histogram data={monitoringCCPastHistogramData} callYAxisDomain={domainYAxisCalls}/>,
-                        monitoringCCPastHistogramStatus,
-                        monitoringCCPastHistogramError
-                    )}
-                    {/*<HighchartsHistogram data={monitoringCCPastHistogramData} />*/}
-                </div>
+                        <div className={s.histogram}>
+                            <Histogram data={monitoringCCPastHistogramData} callYAxisDomain={domainYAxisCalls}/>
+                        </div>
+                    </div>,
+                    dataStatus,
+                    dataError
+                )}
+
             </div>
         </div>
     );

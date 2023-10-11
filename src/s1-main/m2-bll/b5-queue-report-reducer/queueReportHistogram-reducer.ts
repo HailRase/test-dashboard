@@ -88,13 +88,13 @@ export const fetchQueueReportHistogramData = (
 ): DataThunkAction => async (dispatch) => {
     try {
         dispatch(setStatus("loading"))
-        const data = await queueReportAPI.getQueueReportHistogramData(dateStart, timeStart, dateEnd, timeEnd)
+        /*const data = await queueReportAPI.getQueueReportHistogramData(dateStart, timeStart, dateEnd, timeEnd)
         dispatch(setQueueReportHistogramData(data.data.map((item:QueueReportHistogramDataType) => {
             return {
                 ...item,
                 serviceLevel: calcServiceLevel(item.accept, item.skipped)
             }
-        })))
+        })))*/
         dispatch(setStatus("loaded"))
     } catch (e: any) {
         dispatch(setStatus("error"))

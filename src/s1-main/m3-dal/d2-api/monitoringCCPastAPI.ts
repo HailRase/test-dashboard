@@ -1,16 +1,7 @@
 import {instance} from "../d1-instance/instance";
 
 export const monitoringCCPastAPI = {
-    getPastHistogramData(dateStart: string, timeStart: string, dateEnd: string, timeEnd: string) {
-        return instance.get(`dashboard2_schema?dtStart=${dateStart}T${timeStart}:59.000&dtStop=${dateEnd}T${timeEnd}:59.000`)
+    getPastData(dateStart: string, timeStart: string, dateEnd: string, timeEnd: string) {
+        return instance.get(`api/ccmonitoring/get-all/${dateStart}T${timeStart}:00.000/${dateEnd}T${timeEnd}:00.000`)
     },
-    getPastOuterPieData(dateStart: string, timeStart: string, dateEnd: string, timeEnd: string){
-        return instance.get(`dashboard2_period_code?dtStart=${dateStart}T${timeStart}:59.000&dtStop=${dateEnd}T${timeEnd}:59.000`)
-    },
-    getPastInnerPieData(dateStart: string, timeStart: string, dateEnd: string, timeEnd: string){
-        return instance.get(`dashboard2_period_all?dtStart=${dateStart}T${timeStart}:59.000&dtStop=${dateEnd}T${timeEnd}:59.000`)
-    },
-    getPastTableData(dateStart: string, timeStart: string, dateEnd: string, timeEnd: string){
-        return instance.get(`dashboard2_table?dtStart=${dateStart}T${timeStart}:59.000&dtStop=${dateEnd}T${timeEnd}:59.000`)
-    }
 }

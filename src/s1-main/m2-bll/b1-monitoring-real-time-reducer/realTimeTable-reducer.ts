@@ -1,9 +1,5 @@
 import {ThunkAction} from "redux-thunk";
 import {StoreType} from "../store";
-import {monitoringCCRealTimeAPI} from "../../m3-dal/d2-api/monitoringCCRealTimeAPI";
-import {calcServiceLevel} from "../../../common/utils/calcServiceLevel";
-import {updateRatingsTodayMonth} from "../../../common/utils/updateRatingsTodayMonth";
-import {calcMonthRating} from "../../../common/utils/calcMonthRating";
 
 const SET_REAL_TIME_TABLE_DATA = "SET_REAL_TIME_TABLE_DATA";
 const SET_REAL_TIME_TABLE_STATUS = "SET_REAL_TIME_TABLE_STATUS"
@@ -163,27 +159,6 @@ const setError = (errorMessage: string) => {
 export const fetchRealTimeTableData = (): DataThunkAction => async (dispatch) => {
     try {
         dispatch(setRealTimeTableStatus("loading"))
-        const data = await monitoringCCRealTimeAPI.getRealTimeTableData()
-        const tableData: RealTimeTableDataType[] = data.data.map((record: any) => {
-            return {
-                id: record.id,
-                ratingToday: 0,
-                ratingMonth: 0,
-                operatorName: record.operatorName,
-                accept: record.accept,
-                acceptMonth: record.acceptMonth,
-                skip: record.skip,
-                serviceLevel: `${calcServiceLevel(record.accept, record.skip)}%`,
-                serviceLevelMonth: calcServiceLevel(record.acceptMonth, record.skippedMonth),
-                skippedMonth: record.skippedMonth,
-                avgServiseTime: record.avgServiseTime,
-                avgServiceTimeMonth: record.avgServiceTimeMonth,
-                monthRating: calcMonthRating(record),
-                workload: `${record.workload}%`,
-                workloadMonth: `${record.workloadMonth}%`
-            }
-        })
-        dispatch(setRealTimeTableData(updateRatingsTodayMonth(tableData)))
         dispatch(setRealTimeTableStatus("loaded"))
     } catch (e: any) {
         dispatch(setRealTimeTableStatus("error"))

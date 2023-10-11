@@ -23,6 +23,7 @@ import {StatusType} from "../../s1-main/m2-bll/b1-monitoring-real-time-reducer/r
 import {fetchQueueReportPieData} from "../../s1-main/m2-bll/b5-queue-report-reducer/queueReportPie-reducer";
 import {fetchQueueReportHistogramData} from "../../s1-main/m2-bll/b5-queue-report-reducer/queueReportHistogram-reducer";
 import TestDoublePie from "../f2-monitoring-cc/realTime/TestDoublePie";
+import {fetchQueueReportData} from "../../s1-main/m2-bll/b5-queue-report-reducer/queueReport-reducer";
 
 
 const QueueReport = () => {
@@ -236,21 +237,17 @@ const QueueReport = () => {
             ]
         },
     ]
-    const queueReportTableData = useAppSelector(state => state.queueReportTableData.data)
-    const queueReportTableStatus = useAppSelector( state => state.queueReportTableData.status)
-    const queueReportTableError = useAppSelector( state => state.queueReportTableData.errorMessage)
-    const queueReportHistogramData = useAppSelector(state => state.queueReportHistogramData.data)
-    const queueReportHistogramStatus = useAppSelector( state => state.queueReportHistogramData.status)
-    const queueReportHistogramError = useAppSelector( state => state.queueReportHistogramData.errorMessage)
-    const queueReportPieData = useAppSelector(state => state.queueReportPieData.data)
-    const queueReportPieTotalData = useAppSelector(state => state.queueReportPieData.totalData)
-    const queueReportPieStatus = useAppSelector( state => state.queueReportPieData.status)
-    const queueReportPieError = useAppSelector( state => state.queueReportPieData.errorMessage)
+    const queueReportTableData = useAppSelector(state => state.queueReportData.data.table)
+    const queueReportHistogramData = useAppSelector(state => state.queueReportData.data.schema)
+    const queueReportPieData = useAppSelector(state => state.queueReportData.data.providers)
+    const queueReportPieTotalData = useAppSelector(state => state.queueReportData.data.total)
+    const queueReportStatus = useAppSelector( state => state.queueReportData.status)
+    const queueReportError = useAppSelector( state => state.queueReportData.errorMessage)
     const [isActive, setIsActive] = useState<boolean>(false)
     const [dateStart, setDateStart] = useState(moment().format("YYYY-MM-DD"))
     const [timeStart, setTimeStart] = useState("00:00")
-    const [dateEnd, setDateEnd] = useState(moment().format("YYYY-MM-DD"))
-    const [timeEnd, setTimeEnd] = useState("23:59")
+    const [dateEnd, setDateEnd] = useState(moment().add(1, "day").format("YYYY-MM-DD"))
+    const [timeEnd, setTimeEnd] = useState("00:00")
     const navigate = useNavigate()
     const dispatch = useDispatch<any>()
     const isAuth = useIsAuth()
@@ -258,9 +255,7 @@ const QueueReport = () => {
         if (!isAuth) navigate('/')
     }, [])
     useEffect(() => {
-        dispatch(fetchQueueReportTableData(dateStart, timeStart, dateEnd, timeEnd))
-        dispatch(fetchQueueReportPieData(dateStart, timeStart, dateEnd, timeEnd))
-        dispatch(fetchQueueReportHistogramData(dateStart, timeStart, dateEnd, timeEnd))
+        dispatch(fetchQueueReportData(dateStart, timeStart, dateEnd, timeEnd))
     }, [])
 
     const onHomeHandler = () => {
@@ -285,9 +280,7 @@ const QueueReport = () => {
         setTimeEnd(e.currentTarget.value)
     }
     const onLoadDataHandler = () => {
-        dispatch(fetchQueueReportTableData(dateStart, timeStart, dateEnd, timeEnd))
-        dispatch(fetchQueueReportPieData(dateStart, timeStart, dateEnd, timeEnd))
-        dispatch(fetchQueueReportHistogramData(dateStart, timeStart, dateEnd, timeEnd))
+        dispatch(fetchQueueReportData(dateStart, timeStart, dateEnd, timeEnd))
     }
 
     const renderComponent = (component: ReactComponentElement<any>, status: StatusType, error: string) => {
@@ -352,34 +345,28 @@ const QueueReport = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Отчёт по очередям</span>
                 </div>
-                <div className={s.callAndOperatorRating}>
-                    <div className={s.pieContainer}>
+                {renderComponent(
+                    <div>
+                        <div className={s.callAndOperatorRating}>
+                            <div className={s.pieContainer}>
 
-                        <span>Кол-во принятых звонков по очередям</span>
-                        <TestDoublePie chartData={queueReportPieData} chartData1={queueReportPieTotalData}
-                                       height={"45%"}/>,
-                        {/*{renderComponent(
-
-                            queueReportPieStatus,
-                            queueReportPieError
-                        )}*/}
-                    </div>
-                    <div className={s.histogramContainer}>
-                        <span>Все очереди</span>
-                        {renderComponent(
-                            <QueueReportHistogram data={queueReportHistogramData}/>,
-                            queueReportHistogramStatus,
-                            queueReportHistogramError
-                        )}
-                    </div>
-                </div>
-                <div className={s.histogram}>
-                    {renderComponent(
-                        <Table data={queueReportTableData} columns={columns} pagination={true} width={"99vw"} footer/>,
-                        queueReportTableStatus,
-                        queueReportTableError
-                    )}
-                </div>
+                                <span>Кол-во принятых звонков по очередям</span>
+                                <TestDoublePie chartData={queueReportPieData} chartData1={queueReportPieTotalData}
+                                               height={"45%"}/>,
+                            </div>
+                            <div className={s.histogramContainer}>
+                                <span>Все очереди</span>
+                                <QueueReportHistogram data={queueReportHistogramData}/>
+                            </div>
+                        </div>
+                        <div className={s.histogram}>
+                            <Table data={queueReportTableData} columns={columns} pagination={true} width={"99vw"}
+                                   footer/>
+                        </div>
+                    </div>,
+                    queueReportStatus,
+                    queueReportError
+                )}
             </div>
         </div>
     );

@@ -2,7 +2,6 @@ import {ThunkAction} from "redux-thunk";
 import {StoreType} from "./store";
 import {checkCredentials} from "../../common/utils/checkCredentials";
 import {auth} from "../../data/auth";
-import {authAPI} from "../m3-dal/d2-api/authAPI";
 
 const SET_AUTH = "SET_AUTH";
 
@@ -41,7 +40,6 @@ export const setAuth = (isAuth: boolean)  => {
 };
 
 export const loginTC = ():AuthThunkAction => (dispatch) => {
-    /*const authData = authAPI.me()*/
     const loginLocalStorage = localStorage.getItem("report-login")
     const passwordLocalStorage = localStorage.getItem("report-password")
     const loginSessionStorage = sessionStorage.getItem("report-login")
@@ -60,5 +58,4 @@ export const logout = ():AuthThunkAction => (dispatch) => {
     sessionStorage.removeItem("report-login")
     sessionStorage.removeItem("report-password")
     dispatch(setAuth(false))
-
 }

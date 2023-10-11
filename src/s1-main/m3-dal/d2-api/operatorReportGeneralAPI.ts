@@ -2,10 +2,10 @@ import {instance} from "../d1-instance/instance";
 
 export const operatorReportGeneralAPI = {
     getOperatorReportGeneralData(dateStart: string, timeStart: string, dateEnd: string, timeEnd: string, department: string) {
-        return instance.get(`dashboard3?dtStart=${dateStart}T${timeStart}:59.000&dtStop=${dateEnd}T${timeEnd}:59.000&departament=${department}`)
+        return instance.get(`/api/GeneralReportByOperators?dStart=${dateStart}T${timeStart}:00.000&dEnd=${dateEnd}T${timeEnd}:00.000&dpId=${department}`)
     },
     getOperatorReportGeneralDepartment() {
-        return instance.get(`filter_department`)
+        return instance.get(`/api/departments`)
     }
 }
 

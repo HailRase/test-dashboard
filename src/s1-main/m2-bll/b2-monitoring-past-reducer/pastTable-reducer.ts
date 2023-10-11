@@ -128,7 +128,7 @@ const setError = (errorMessage: string) => {
 export const fetchPastTableData = (dateStart: string, timeStart: string, dateEnd: string, timeEnd: string): DataThunkAction => async (dispatch) => {
     try {
         dispatch(setPastTableStatus("loading"))
-        const data = await monitoringCCPastAPI.getPastTableData(dateStart, timeStart, dateEnd, timeEnd)
+        /*const data = await monitoringCCPastAPI.getPastTableData(dateStart, timeStart, dateEnd, timeEnd)
         const tableData: PastTableDataType[] = data.data.map((record: any) => {
             return {
                 ...record,
@@ -137,7 +137,7 @@ export const fetchPastTableData = (dateStart: string, timeStart: string, dateEnd
                 workload: `${record.workload}%`,
             }
         })
-        /*const newTableData = tableData.sort((a:any, b:any) => a.serviceLevel !== b.serviceLevel
+        /!*const newTableData = tableData.sort((a:any, b:any) => a.serviceLevel !== b.serviceLevel
             ? b.serviceLevel - a.serviceLevel
             : b.accept - a.accept)
             .map((item, index) => {
@@ -145,8 +145,8 @@ export const fetchPastTableData = (dateStart: string, timeStart: string, dateEnd
                     ...item,
                     ratingMonth: index + 1
                 }
-            })*/
-        dispatch(setPastTableData(updateRatingPeriod(tableData)))
+            })*!/
+        dispatch(setPastTableData(updateRatingPeriod(tableData)))*/
         dispatch(setPastTableStatus("loaded"))
     } catch (e: any) {
         dispatch(setPastTableStatus("error"))

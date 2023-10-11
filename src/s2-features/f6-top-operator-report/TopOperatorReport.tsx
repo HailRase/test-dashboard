@@ -60,7 +60,6 @@ const columns = [
         Header: 'Количество принятых входящих звонков',
         accessor: 'receivedIncomingCallsCount',
         Footer: (info: any) => {
-            // Only calculate total visits if rows change
             const total = React.useMemo(
                 () =>
                     info.rows.reduce((sum: any, row: any) => row.values.receivedIncomingCallsCount + sum, 0),
@@ -74,7 +73,6 @@ const columns = [
         Header: 'Количество пропущенных звонков',
         accessor: 'missedCallsCount',
         Footer: (info: any) => {
-            // Only calculate total visits if rows change
             const total = React.useMemo(
                 () =>
                     info.rows.reduce((sum: any, row: any) => row.values.missedCallsCount + sum, 0),
@@ -88,7 +86,6 @@ const columns = [
         Header: 'Количество сделанных исходящих',
         accessor: 'outgoingCallsCount',
         Footer: (info: any) => {
-            // Only calculate total visits if rows change
             const total = React.useMemo(
                 () =>
                     info.rows.reduce((sum: any, row: any) => row.values.outgoingCallsCount + sum, 0),

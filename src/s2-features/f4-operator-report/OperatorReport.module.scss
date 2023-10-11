@@ -26,6 +26,28 @@
       .tab  {
         color: black;
       }
+      .operatorsSearchContainer {
+        position: absolute;
+        border-radius: 3px;
+        width: 93%;
+        margin-right: 20px;
+        background-color: #1b5896;
+        & > div {
+
+          font-size: 14px;
+          color: #faf7f7;
+          cursor: pointer;
+          list-style-type: none;
+          padding: 5px 5px;
+          border-bottom: 1px solid gray;
+          &:hover {
+            background-color: rgba(62, 132, 199, 0.76);
+          }
+          &:active {
+            background-color: #2164a8;
+          }
+        }
+      }
     }
   }
 

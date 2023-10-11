@@ -158,8 +158,8 @@ const CallReport = () => {
 
     const [dateStart, setDateStart] = useState(moment().format("YYYY-MM-DD"))
     const [timeStart, setTimeStart] = useState("00:00")
-    const [dateEnd, setDateEnd] = useState(moment().format("YYYY-MM-DD"))
-    const [timeEnd, setTimeEnd] = useState("23:59")
+    const [dateEnd, setDateEnd] = useState(moment().add(1, "day").format("YYYY-MM-DD"))
+    const [timeEnd, setTimeEnd] = useState("00:00")
 
     const [initiatorFilter, setInitiatorFilter] = useState('all');
     const [operatorFilter, setOperatorFilter] = useState('all');
@@ -426,11 +426,12 @@ const CallReport = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Статистика по звонкам</span>
                 </div>
-                {renderComponent(
-                    <Table data={callReportData} columns={columns} pagination={true} footer/>,
+                {/*{renderComponent(
+                    ,
                     callReportStatus,
                     callReportError,
-                )}
+                )}*/}
+                <Table data={callReportData} columns={columns} pagination={true} footer/>
             </div>
         </div>
     );

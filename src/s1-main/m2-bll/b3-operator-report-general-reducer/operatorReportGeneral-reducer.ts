@@ -20,9 +20,7 @@ type ActionDataType = ReturnType<typeof setOperatorReportGeneralData> | ReturnTy
 export type OperatorReportGeneralType = {
     id: number
     operator: string
-    department: "Начальник ЛКЦ" | "Зам. Начальника ЛКЦ" | "Инженеры по подготовке кадров" | "Инженеры по ТО"
-        | "Специалисты по контролю качества" | "Специалисты"
-        | "Дежурные по выдаче справок (старшие)" | "Дежурные по выдаче справок" | "Ведущий специалист"
+    department: string
     loginTime: string
     logoutTime: string
     totalLoginTime: string
@@ -38,10 +36,14 @@ export type OperatorReportGeneralType = {
     totalOutgoingCall: string
     totalLogoutTime: string
 }
+type DepartmentType = {
+    id: string
+    name: string
+}
 type StatusType = "init" | "loading" | "loaded" | "error"
 type InitialStateType = {
     data: OperatorReportGeneralType[]
-    department: {departmentName: string}[]
+    department: DepartmentType[]
     status: StatusType
     errorMessage: string
 }
@@ -552,7 +554,25 @@ export const operatorReportGeneralReducer = (state:any = initialState, action:Ac
         case SET_OPERATOR_REPORT_GENERAL_DATA:{
             return {
                 ...state,
-                data: action.data
+                data: action.data/*.map( (item: OperatorReportGeneralType) => item.totalLoginTime === "00:00:00" ? {
+                        id: item.id,
+                        operator: item.operator,
+                        department: item.department,
+                        loginTime: "-",
+                        logoutTime: "-",
+                        totalLoginTime: "-",
+                        incomingCallsCount: 0,
+                        outgoingCallsCount: 0,
+                        avgDurationIncoming: "-",
+                        avgDurationOutgoing: "-",
+                        totalTalkTime: "-",
+                        totalFreeTime: "-",
+                        totalNotReadyTime: "-",
+                        totalBusyTime: "-",
+                        totalIncomingCall: "-",
+                        totalOutgoingCall: "-",
+                        totalLogoutTime: "-"
+                } : item)*/
             }
         }
         case SET_OPERATOR_REPORT_GENERAL_DEPARTMENT:{
@@ -607,8 +627,8 @@ export const fetchOperatorReportGeneralData =  (dateStart: string,timeStart: str
     try {
         dispatch(setStatus("loading"))
         const departmentData = await operatorReportGeneralAPI.getOperatorReportGeneralDepartment()
-        const data = await operatorReportGeneralAPI.getOperatorReportGeneralData(dateStart, timeStart, dateEnd,timeEnd,department)
         dispatch(setOperatorReportGeneralDepartment(departmentData.data))
+        const data = await operatorReportGeneralAPI.getOperatorReportGeneralData(dateStart, timeStart, dateEnd,timeEnd,department)
         console.log(departmentData.data)
         dispatch(setOperatorReportGeneralData(data.data))
         dispatch(setStatus("loaded"))

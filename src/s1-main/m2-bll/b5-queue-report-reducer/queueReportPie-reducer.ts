@@ -120,7 +120,7 @@ const setError = (errorMessage: string) => {
 export const fetchQueueReportPieData = (dateStart: string, timeStart: string, dateEnd: string, timeEnd: string): DataThunkAction => async (dispatch) => {
     try {
         dispatch(setQueueReportPieStatus("loading"))
-        const innerData = await queueReportAPI.getQueueReportInnerPieData(dateStart, timeStart, dateEnd, timeEnd)
+        /*const innerData = await queueReportAPI.getQueueReportInnerPieData(dateStart, timeStart, dateEnd, timeEnd)
         const outerData = await queueReportAPI.getQueueReportOuterPieData(dateStart, timeStart, dateEnd, timeEnd)
         const changedInnerData = [...innerData.data.map((obj: QueueReportPieTotalDataType, index: number) => {
             return {
@@ -135,7 +135,7 @@ export const fetchQueueReportPieData = (dateStart: string, timeStart: string, da
             }
         })]
         dispatch(setQueueReportPieTotalData(changedInnerData))
-        dispatch(setQueueReportPieData(changedOuterData))
+        dispatch(setQueueReportPieData(changedOuterData))*/
         dispatch(setQueueReportPieStatus("loaded"))
     } catch (e: any) {
         dispatch(setQueueReportPieStatus("error"))

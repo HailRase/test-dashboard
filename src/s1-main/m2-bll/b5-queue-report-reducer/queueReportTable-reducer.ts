@@ -1,8 +1,5 @@
 import {StoreType} from "../store";
 import {ThunkAction} from "redux-thunk";
-import {operatorReportGeneralAPI} from "../../m3-dal/d2-api/operatorReportGeneralAPI";
-import {operatorReportDetailedAPI} from "../../m3-dal/d2-api/opertaorReportDetailedAPI";
-import {queueReportAPI} from "../../m3-dal/d2-api/queueReportAPI";
 
 const SET_QUEUE_REPORT_DATA = "SET_QUEUE_REPORT_DATA";
 const SET_STATUS = "SET_STATUS"
@@ -647,8 +644,8 @@ export const fetchQueueReportTableData = (
     async (dispatch) => {
         try {
             dispatch(setStatus("loading"))
-            const data = await queueReportAPI.getQueueReportTableData(dateStart, timeStart, dateEnd, timeEnd)
-            dispatch(setQueueReportData(data.data))
+            /*const data = await queueReportAPI.getQueueReportTableData(dateStart, timeStart, dateEnd, timeEnd)
+            dispatch(setQueueReportData(data.data))*/
             dispatch(setStatus("loaded"))
         } catch (e: any) {
             dispatch(setStatus("error"))
