@@ -269,7 +269,8 @@ const OperatorsReportGeneral = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Отчёт по операторам (Общий)</span>
                 </div>
-                {renderContent()}
+                <Table data={data} defaultColumn={defaultColumnsSize} columns={columns} pagination={true}
+                       width={"100vw"} footer/>
             </div>
         </div>
     );

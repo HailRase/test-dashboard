@@ -282,7 +282,7 @@ const QueueReport = () => {
     const onLoadDataHandler = () => {
         dispatch(fetchQueueReportData(dateStart, timeStart, dateEnd, timeEnd))
     }
-
+    debugger
     const renderComponent = (component: ReactComponentElement<any>, status: StatusType, error: string) => {
         if (status === "loaded") {
             return component
@@ -345,28 +345,29 @@ const QueueReport = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Отчёт по очередям</span>
                 </div>
-                {renderComponent(
-                    <div>
-                        <div className={s.callAndOperatorRating}>
-                            <div className={s.pieContainer}>
-
-                                <span>Кол-во принятых звонков по очередям</span>
-                                <TestDoublePie chartData={queueReportPieData} chartData1={queueReportPieTotalData}
-                                               height={"45%"}/>,
-                            </div>
-                            <div className={s.histogramContainer}>
-                                <span>Все очереди</span>
-                                <QueueReportHistogram data={queueReportHistogramData}/>
-                            </div>
-                        </div>
-                        <div className={s.histogram}>
-                            <Table data={queueReportTableData} columns={columns} pagination={true} width={"99vw"}
-                                   footer/>
-                        </div>
-                    </div>,
+                {/*{renderComponent(
+                    ,
                     queueReportStatus,
                     queueReportError
-                )}
+                )}*/}
+                <div>
+                    <div className={s.callAndOperatorRating}>
+                        <div className={s.pieContainer}>
+
+                            <span>Кол-во принятых звонков по очередям</span>
+                            <TestDoublePie chartData={queueReportPieData} chartData1={queueReportPieTotalData}
+                                           height={"45%"}/>,
+                        </div>
+                        <div className={s.histogramContainer}>
+                            <span>Все очереди</span>
+                            <QueueReportHistogram data={queueReportHistogramData}/>
+                        </div>
+                    </div>
+                    <div className={s.histogram}>
+                        <Table data={queueReportTableData} columns={columns} pagination={true} width={"99vw"}
+                               footer/>
+                    </div>
+                </div>
             </div>
         </div>
     );

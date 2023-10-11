@@ -33,7 +33,386 @@ type InitState = {
     errorMessage: string,
 }
 const initialState: InitState = {
-    data: [],
+    data: [
+        {
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },
+        {
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },{
+            id: 1,
+            date: "21.05.2023",
+            operator: "Ситько Эдуард Александрович",
+            status: 2,
+            duration: 125,
+            reason: 3,
+            comment: "Вышел"
+        },
+    ],
     department: [],
     status: 'init',
     errorMessage: ''

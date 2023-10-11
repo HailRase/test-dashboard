@@ -2088,54 +2088,43 @@ const MonitoringCCRealTime = () => {
     return (
         <div className={s.monitoringCCWrapper}>
 
-            {renderComponent(
-                <div className={s.monitoringCCContainer}>
-                    <div className={s.monitoringCCHeader}>
-                        <HomeIcon onClick={onHomeHandler}/>
-                        <span>Мониторинг Контакт-центра</span>
-                    </div>
-                    <div className={s.callAndOperatorRating}>
-                        <div className={s.callTodayPie}>
-                            <span>Звонков сегодня</span>
-                            <TestDoublePie
-                                chartData={realTimeTodayOuterPieData}
-                                chartData1={realTimeTodayInnerPieData}
-                                height={"60%"}
-                            />
-                            {/*{realTimeTodayOuterPieData.every(obj => obj.value === 0) &&
-                    realTimeTodayInnerPieData.every(obj => obj.value === 0)
-                        ? <div className={s.centringLoader}><InfoWindow
-                            message={'По вашему запросу ничего не найдено'}/></div>
-                        :
-                        renderComponent(
-
-                            ,
-                            todayPieStatus,
-                            todayPieError
-                        )}
-*/}
-                        </div>
-                        <div className={s.tableContainer}>
-                            <span>Рейтинг операторов</span>
-                            <div className={s.table}>
-                                <Table columns={columns} data={realTimeTableData} height={"36vh"}/>
-                            </div>
-                        </div>
-                        <div className={s.callMonthPie}>
-                            <span>Звонков за текущий месяц</span>
-                            <TestDoublePie chartData={realTimeMonthOuterPieData}
-                                           chartData1={realTimeMonthInnerPieData}
-                                           height={"60%"}
-                            />
-                        </div>
-                    </div>
-                    <div className={s.histogramContainer}>
-                        <Histogram data={realTimeHistogramData} callYAxisDomain={domainYAxisCalls}/>,
-                    </div>
-                </div>,
+            {/*{renderComponent(
+                ,
                 dataStatus,
                 dataError
-            )}
+            )}*/}
+            <div className={s.monitoringCCContainer}>
+                <div className={s.monitoringCCHeader}>
+                    <HomeIcon onClick={onHomeHandler}/>
+                    <span>Мониторинг Контакт-центра</span>
+                </div>
+                <div className={s.callAndOperatorRating}>
+                    <div className={s.callTodayPie}>
+                        <span>Звонков сегодня</span>
+                        <TestDoublePie
+                            chartData={realTimeTodayOuterPieData}
+                            chartData1={realTimeTodayInnerPieData}
+                            height={"60%"}
+                        />
+                    </div>
+                    <div className={s.tableContainer}>
+                        <span>Рейтинг операторов</span>
+                        <div className={s.table}>
+                            <Table columns={columns} data={realTimeTableData} height={"36vh"}/>
+                        </div>
+                    </div>
+                    <div className={s.callMonthPie}>
+                        <span>Звонков за текущий месяц</span>
+                        <TestDoublePie chartData={realTimeMonthOuterPieData}
+                                       chartData1={realTimeMonthInnerPieData}
+                                       height={"60%"}
+                        />
+                    </div>
+                </div>
+                <div className={s.histogramContainer}>
+                    <Histogram data={realTimeHistogramData} callYAxisDomain={domainYAxisCalls}/>,
+                </div>
+            </div>
         </div>
     );
 };

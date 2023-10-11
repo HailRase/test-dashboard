@@ -412,12 +412,13 @@ const OperatorsReportDetailed = () => {
                     <OptionIcon onClick={onOpenSidebar}/>
                     <span>Отчёт по операторам (Детальный)</span>
                 </div>
-                {renderComponent(
-                    <Table data={operatorReportDetailedData} columns={columns} pagination={true} width={"100vw"}
-                           footer/>,
+                {/*{renderComponent(
+                   ,
                     operatorReportDetailedStatus,
                     operatorReportDetailedError
-                )}
+                )}*/}
+                <Table data={operatorReportDetailedData} columns={columns} pagination={true} width={"100vw"}
+                       footer/>
                 {/*<Table data={operatorReportDetailedData} columns={columns} pagination={true} width={"100vw"} footer/>*/}
             </div>
         </div>
