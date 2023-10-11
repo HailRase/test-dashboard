@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "./static/css/main.41d91f22.css",
+    "main.js": "./static/js/main.14ddf608.js",
+    "static/js/651.f9aab76e.chunk.js": "./static/js/651.f9aab76e.chunk.js",
+    "static/media/loadergif.gif": "./static/media/loadergif.bbdaf3186142af65f1fa.gif",
+    "static/media/option-icon.svg": "./static/media/option-icon.d76917271174d046aa6695c349351893.svg",
+    "static/media/excel-icon.svg": "./static/media/excel-icon.0515bc8fcc674377861f2b47a68ca1d3.svg",
+    "static/media/arrow-left.svg": "./static/media/arrow-left.ea4f2017581f7638e04ab0f3be702882.svg",
+    "static/media/arrow-down.svg": "./static/media/arrow-down.1edfab86f389055c97b80ec14e52f85c.svg",
+    "index.html": "./index.html",
+    "static/media/like.svg": "./static/media/like.2de27d981c18206896341ffbc9ba6c0d.svg",
+    "static/media/info-icon.svg": "./static/media/info-icon.3cf2cce655754648cdf95283b3f935be.svg",
+    "static/media/home-icon.svg": "./static/media/home-icon.55477637ee68fd5e942a988836e6e26a.svg",
+    "main.41d91f22.css.map": "./static/css/main.41d91f22.css.map",
+    "main.14ddf608.js.map": "./static/js/main.14ddf608.js.map",
+    "651.f9aab76e.chunk.js.map": "./static/js/651.f9aab76e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.41d91f22.css",
+    "static/js/main.14ddf608.js"
+  ]
+}
